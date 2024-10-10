@@ -1,0 +1,213 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div class="content cOff" style="padding:10px;" >
+	<div class="card card-info">
+		<div class="card-header">
+      <h3 class="card-title">{{programName}}</h3>
+		</div>
+		<!-- /.card-header -->
+		<!-- form start -->
+			<form class="form-horizontal" [formGroup]="form" #fct9992>
+			<div class="card-body">
+				<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+					<tr>
+					  <td width="170" height="34" align="right">url :&nbsp;</td>
+					  <td >
+						<div style="float: left;">
+							<input type="text" formControlName="url" name="url" id="url"  class="form-control" style="width:200px;height:28px;">
+							<input type="hidden" formControlName="hid_program_id" name="hid_program_id" id="hid_program_id" style="float:left;">
+						</div>
+
+					  </td>
+					</tr>
+                    <tr>
+						<td  align="right">ชื่อหน้าจอ :&nbsp;</td>
+					  	<td ><input formControlName="program_name" name="program_name" type="text"   value=""  class="form-control" style="width:312px;height:28px;"></td>
+					</tr>
+                    <tr>
+                        <td width="170" height="34" align="right">เมนูหลัก :&nbsp;</td>
+                        <td >
+                          <div style="float: left;">
+                            <ng-select [(ngModel)]="selectedData"  style="width:160px;height:28px;" [ngModelOptions]="{standalone: true}" #myselect>
+								<ng-option *ngFor="let getData of selData" [value]="getData.id">{{getData.text}}</ng-option>
+							 </ng-select>
+                          </div>
+						  <div style="float: left;"><input type="hidden" formControlName="main_menu_flag" name="main_menu_flag" id="main_menu_flag" class="form-control" value="{{selectedData}}"></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="170" height="34" align="right">ใช้งาน :&nbsp;</td>
+                        <td >
+                          <div style="float: left;">
+                            <ng-select [(ngModel)]="selectedData2"  style="width:140px;height:28px;" [ngModelOptions]="{standalone: true}" #myselect2>
+								<ng-option *ngFor="let getData of selData2" [value]="getData.id">{{getData.text}}</ng-option>
+							 </ng-select>
+                          </div>
+						  <div style="float: left;"><input type="hidden" formControlName="valid_flag" name="valid_flag" id="valid_flag" class="form-control" value="{{selectedData2}}"></div>
+						  <div style="float: left;margin-left:5px;margin-top:4px;">ระดับการแก้ไข :&nbsp;</div>
+						  <div style="float: left;margin-left:1px;">
+                            <ng-select [(ngModel)]="selectedData3"  style="width:140px;height:28px;" [ngModelOptions]="{standalone: true}" #myselect3>
+								<ng-option *ngFor="let getData of selData3" [value]="getData.id">{{getData.text}}</ng-option>
+							 </ng-select>
+                          </div>
+						  <div style="float: left;"><input type="hidden" formControlName="security" name="security" id="security" class="form-control" value="{{selectedData3}}"></div>
+                        </td>
+                      </tr>
+
+					<tr>
+						<td  align="right">โมดูล :&nbsp;</td>
+						<td >
+							<div style="float: left;">
+								<input formControlName="module_id" name="module_id" type="text" id="module_id" value=""  maxlength="5" (change)="tabChange(2)"  class="form-control" style="width:90px;height:28px;"/>
+							</div>
+							<div style="float: left;margin-left:2px;">
+						  		<input formControlName="module_name" name="module_name" type="text" class="blackd" id="module_name" value=""  class="form-control" style="width:220px;height:28px;"/>
+							</div>
+							<div style="float: left;margin-left:2px;margin-top:4px;">
+								<i class='far fa-list-alt iPost' style="font-size: 20px;cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyChildComponent(2);"></i>
+							</div>
+						</td>
+					<tr>
+					<tr>
+						<td  align="right">&nbsp;</td>
+						<td >
+
+							<div style="float: left;">
+								<input formControlName="show_case_flag" name="show_case_flag" type="checkbox" id="show_case_flag" style="width:15px;height:15px;margin-top:5px;"/>
+							</div>
+							<div style="float: left;margin-left:5px;margin-top:4px;">ส่งเลขคดี(run_id)</div>
+						</td>
+					<tr>
+				</table>
+			</div>
+			<!-- /.card-body -->
+			<div class="card-footer">
+
+				  <button type="button" class="btn btn-success" style="margin-left:150px;" (click)="submitForm()">จัดเก็บข้อมูล</button>
+          <!-- <button type="button" class="btn btn-success" (click)="searchData()">ค้นหา</button> -->
+					<button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="confirmBox()" >ลบข้อมูลที่เลือก</button>
+          <button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+				<input type="hidden" value="" name="delValue" id="delValue">
+			</div>
+			<!-- /.card-footer -->
+			</form>
+	</div>
+</div>
+
+<div class="content" style="padding:10px;margin-top:-25px;">
+	<section class="content" style="width:2400px;">
+      <div class="card card-info">
+        <div class="card-header" style="display:none;">
+          <h3 class="card-title">ข้อมูล</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+			<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover myTable1">
+				<thead>
+					<tr>
+					<th width="3%" class="no-sort">
+						<input type="checkbox" name="all" [(ngModel)]="masterSelected" name="list_name" value="m1" (change)="checkUncheckAll()"/>
+					</th>
+					<th width="4%" class="no-sort">แก้ไข</th>
+					<th width="6%">url</th>
+					<th width="10%">ชื่อหน้าจอ</th>
+					<th width="6%">เมนูหลัก</th>
+					<th width="6%">ไม่ใช้งาน</th>
+					<th width="6%">ระดับการแก้ไข</th>
+					<th width="6%">โมดูล</th>
+					<th width="5%">ส่งเลขคดี</th>
+
+					<th width="8%" >หน่วยงานที่บันทึก</th>
+          <th width="8%" >ผู้บันทึก</th>
+          <th width="8%" >วัน/เวลาที่บันทึก</th>
+          <th width="8%" >หน่วยงานที่แก้ไข</th>
+          <th width="8%" >ผู้แก้ไข</th>
+          <th width="8%"  >วัน/เวลาที่แก้ไข</th>
+					<!--<th width="15%">&nbsp;</th>-->
+					</tr>
+				</thead>
+				<tbody *ngIf="posts?.length != 0">
+
+				 <tr *ngFor="let post of posts;let i = index;">
+						<td align="center">
+							<input type="checkbox" name="listName[i]"  value="{{post.program_id}}" [(ngModel)]="post.defaultValue" (change)="isAllSelected()" >
+						</td>
+						<td align="center"><i class='fas fa-pencil-alt' style='cursor:pointer;font-size:20px' (click)="editData(post.program_id)"></i></td>
+						<td align="center">{{post.url_name}}</td>
+						<td align="center">{{post.program_name}}</td>
+						<td align="center"><span *ngIf="post.main_menu_flag=='F'">Child menu</span><span *ngIf="post.main_menu_flag=='S'">Sub menu</span><span *ngIf="post.main_menu_flag=='Y'">Parent</span></td>
+						<td align="center"><i class='fas fa-check' style='font-size:20px;color:green' *ngIf="post.valid_flag=='N'"></i></td>
+						<td align="center"><span *ngIf="post.security=='1'">admin</span><span *ngIf="post.security=='2'">บริษัทผู้ดูแลระบบ</span></td>
+						<td align="center">{{post.module_name}}</td>
+						<td align="center"><i class='fas fa-check' style='font-size:20px;color:green' *ngIf="post.show_case_flag==1"></i></td>
+
+						<td align="center">{{post.create_dep_name}}</td>
+						<td align="center">{{post.create_user}}</td>
+						<td align="center">{{post.create_date}}</td>
+						<td align="center">{{post.update_dep_name}}</td>
+						<td align="center">{{post.update_user}}</td>
+						<td align="center">{{post.update_date}}</td>
+						<!---<td align="center">
+							<ng-template #popContent>
+								หน่วยงานที่จัดเก็บ = {{post.createDepName}}<br>
+								ผู้จัดเก็บ = {{post.createUser}}<br>
+								วันที่จัดเก็บ = {{post.createDate}}<br>
+								หน่วยงานที่แก้ไข = {{post.updateDepName}}<br>
+								ผู้แก้ไข = {{post.updateUser}}<br>
+								วันที่แก้ไข = {{post.updateDate}}<br>
+							</ng-template>
+							<i class="fa fa-eye" placement="left" popoverTitle="รายละเอียดการจัดเก็บข้อมูล" [ngbPopover]="popContent" style="cursor:pointer;font-size:22px"></i>
+						</td>-->
+					</tr>
+				</tbody>
+				<tbody *ngIf="posts?.length == 0">
+					<tr>
+						<td colspan="10" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+					</tr>
+				</tbody>
+			</table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </section>
+</div>
+
+<!-- Modal -->
+
+<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body" >
+
+				<input type="hidden" name="table_name" id="table_name">
+				<input type="hidden" name="field_id" id="field_id">
+				<input type="hidden" name="field_name" id="field_name">
+				<div style="min-height: 200px;max-height: 480px;overflow: auto;">
+				<app-datalist-return *ngIf="loadComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+				</div>
+
+		</div>
+		<div class="modal-footer">
+		  <button type="button"  class="btn btn-warning" data-bs-dismiss="modal">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+
+
+
+
+
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

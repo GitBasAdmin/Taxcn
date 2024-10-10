@@ -1,0 +1,169 @@
+<style>
+
+</style>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content">
+	<!-- <div class="content" style="padding:10px;" > -->
+		<!-- <div class="card card-info" style="box-shadow: none !important;">
+      		<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+        		<div style="float:left;margin-top:6px;"><i class="fa fa-folder-open-o" style="font-size:24px;margin-left:8px;"></i><span style="font-size: 16px;margin-left:5px;">{{programName}}</span></div>
+       		</div>
+		</div> -->
+    	<!-- form start -->
+		<div class="card-body">
+			<div class="card"  align="center" style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0"  cellspacing="2" cellpadding="2" class="form_table">
+        		<!-- <div align="center" style="width:60%; margin:0 auto"> -->
+					<tr>
+						<td  align="right" width="25%">ความ :&nbsp;</td>
+						<td  align="left">
+							<div style="float: left;">
+							<ng-select  [(ngModel)]="hResult.case_type" style="width:100px;" (change)="changeCaseTypeStat($event,0);changeTitle($event,0)"  #sCaseType>
+								<ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+							<input type="hidden" [(ngModel)]="hid_branch_type" name="hid_branch_type" id="hid_branch_type" >
+							<input type="hidden" [(ngModel)]="hid_case_type_stat" name="hid_case_type_stat" id="hid_case_type_stat" >
+							<input type="hidden" [(ngModel)]="hid_title" name="hid_title" id="hid_title" >
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">คดีหมายเลขดำที่ :&nbsp;</td>
+						<td  align="left" >
+							<div style="float: left;">
+								<ng-select  [(ngModel)]="hResult.title" style="width:100px;"  #sTitle>
+								<ng-option *ngFor="let getData of getTitle" [value]=getData.fieldNameValue >{{getData.fieldNameValue}}</ng-option>
+								</ng-select>
+							</div>
+							<div style="float:left;margin-left:3px;">
+								<input  name="id" type="text"  id="id"  [(ngModel)]="hResult.id" value=""  class="form-control" style="width:80px;height:28px;" #s_id>
+							</div>
+							<div style="float:left;margin-left:3px;"> / &nbsp;</div>
+							<div style="float:left;margin-left:3px;">
+								<input  name="yy" type="text"  id="yy"  [(ngModel)]="hResult.yy" value=""  class="form-control" style="width:80px;height:28px;" >
+							</div>
+							<div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" (click)="searchCaseNo(1)">ค้นหา</button></div>
+						</td>
+					</tr>
+					<tr>
+						<td height="25"   align="right" >โจทก์ :&nbsp;</td>
+						<td >
+							<div style="float:left;"><input  type="text"  [(ngModel)]="hResult.txtPros" class="form-control"  style="width:380px;" readonly></div>
+						</td>
+						<td height="25"   align="right" >&nbsp;จำเลย :&nbsp;</td>
+						<td >
+							<div style="float:left;"><input  type="text"  [(ngModel)]="hResult.txtAccu" class="form-control"  style="width:380px;" readonly></div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">แยกเก็บที่ :&nbsp;</td>
+						<td  align="left" >
+							<div style="float: left;">
+								<ng-select [(ngModel)]="result.case_title" style="width:100px;"  #sTitle [readonly]="true">
+								<ng-option *ngFor="let getData of getCaseTitle" [value]=getData.fieldNameValue >{{getData.fieldNameValue}}</ng-option>
+								</ng-select>
+							</div>
+							<div style="float:left;margin-left:3px;">
+								<input readonly name="id" type="text"  id="id"  [(ngModel)]="result.case_id" value=""  class="form-control" style="width:80px;height:28px;" >
+							</div>
+							<div style="float:left;margin-left:3px;"> / &nbsp;</div>
+							<div style="float:left;margin-left:3px;">
+								<input readonly name="yy" type="text"  id="yy"  [(ngModel)]="result.case_yy" value=""  class="form-control" style="width:80px;height:28px;" >
+							</div>
+							<!-- <div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" (click)="searchMaterial()">ค้นหา</button></div> -->
+						</td>
+					</tr>
+			</table>
+
+			<table width="100%"  border="0"  cellspacing="2" cellpadding="2" class="form_table">
+					<tr>
+						<td height="25"   align="right" width="25%">หมายเหตุ/รับจากใคร :&nbsp;</td>
+						<div style="float: left; margin-left:3px;">
+							<input  type="text"   [(ngModel)]="result.pdep_code" (change)="tabChangeInput('pdep_code',$event)"  class="form-control" style="width:60px;"/>
+						</div>
+						<div style="float: left; margin-left:2px;">
+							<input  type="text"  [(ngModel)]="result.premark" class="form-control" style="width:550px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(1)"></i>
+							<i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="onOpenMaterial()"></i>
+						</div>
+					</tr>
+			</table> 
+
+			<table width="100%"  border="0"  cellspacing="2" cellpadding="2" class="form_table">
+				<fieldset style="width:100%;border-radius:4px;border:1px solid #333333;padding:1px;padding:5px;">
+					<legend style="line-height: 10px;float:none;margin-left:18px; font-weight:bold;color:#2d2ff9;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;cursor:pointer;margin-bottom: 6px;" class="lClick">สำหรับพิมพ์ปกเพิ่มเติม  </legend>
+						<tr>
+							<td height="25"   align="right" width="25%">หมายเหตุเพิ่มเติม1 :&nbsp;</td>
+							<td height="25">
+								<div style="float:left;"><input  type="text"  [(ngModel)]="result.premark1" class="form-control"  style="width:480px;"></div>
+							</td>
+						</tr>
+						<tr>
+							<td height="25"   align="right" >หมายเหตุเพิ่มเติม2 :&nbsp;</td>
+							<td height="25">
+								<div style="float:left;;"><input  type="text"  [(ngModel)]="result.premark2" class="form-control"  style="width:480px;"></div>
+							</td>
+						</tr>
+						<tr>
+							<td height="25"   align="right" >เอกสารหมาย :&nbsp;</td>
+							<td height="25">
+								<div style="float:left;"><input  type="text"  [(ngModel)]="result.pdetail1" class="form-control"  style="width:480px;"></div>
+							</td>
+							<td height="25"   align="right" >จำนวน :&nbsp;</td>
+							<td height="25">
+								<div style="float:left;"><input  type="text"  [(ngModel)]="result.ppage" class="form-control"  style="width:120px;"></div>
+								<div style="float:left; ">&nbsp;แผ่น</div>
+							</td>
+							<td height="25"   align="right" ></td>
+						</tr>
+						<tr>
+							<td height="25"   align="right" >ผู้อ้างส่ง :&nbsp;</td>
+							<td height="25">
+								<div style="float:left;"><input  type="text"  [(ngModel)]="result.pdetail2" class="form-control"  style="width:480px;"></div>
+							</td>
+							<td  height="25" align="right">ณ วันที่ :&nbsp;</td>
+							<td  height="25">								
+								<div style="float:left;">
+									<input  type="text"  [(ngModel)]="result.papp_date" placeholder="่วว/ดด/ปปปป" class="form-control jcalendar papp_date" #papp_date (click)="directiveDate(papp_date.value,'papp_date')" style="width:120px;" />
+								</div>
+								<div style="float:left; margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.papp_date').focus();"></i></div>
+							</td>
+						</tr>
+				</fieldset>
+        			<!-- </div> -->
+					<div>&nbsp;</div>
+			</table> 
+			</div>
+			<!-- /.card-body -->
+			<div class="card-footer" align="center">
+				<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printReport(1)">พิมพ์รายงาน</button>
+				<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printReport(2)">พิมพ์ปกเพิ่มเติม</button>
+				<button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+			</div>
+			<!-- /.card-footer -->
+			<!-- <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+				<div class="modal-dialog">
+				<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+					<button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+					<button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+				</div>
+				<div class="modal-body" >
+					<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+					<app-datalist-return *ngIf="loadModalListComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull  (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+				</div>
+				</div>
+				</div>
+			</div> -->
+		</div>
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>

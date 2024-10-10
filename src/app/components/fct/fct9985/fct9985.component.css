@@ -1,0 +1,27 @@
+.btn-info{color:white !important;}
+.modal-content{width:600px !important;min-height:200px !important;max-height: 600px !important;height: auto !important;}
+.link-span{
+    display: inline-block;  
+    width: 50px;   
+    height: 50px;  
+    color: black;   
+    padding: 5px;   
+    text-align: center;
+    padding-top: 10px;
+    border-radius: 5px 5px 5px;
+ }
+
+.link span:hover {
+    background-color: #36a8a4ad;
+    a i {    
+        text-shadow: grey 0.1em 0.1em 0.2em;
+    }
+}
+
+#view_type_sorting{
+    font-family:"FontAwesome";
+    font-size:14px;
+  }
+  #view_type_sorting::before{
+    vertical-align:middle;
+  }

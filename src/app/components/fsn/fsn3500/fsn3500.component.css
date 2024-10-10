@@ -1,0 +1,5 @@
+.btn-info{color:white !important;}
+.modal-content{width:600px !important;min-height:200px !important;max-height: 600px !important;height: auto !important;}
+tbody tr:hover{
+  background-color: rgb(245, 157, 125) !important;
+}

@@ -1,0 +1,84 @@
+
+
+    <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">           
+        <tr>
+            <td height="25" width="188"  align="right" >upload ใจความฟ้อง :&nbsp;</td>
+            <td >
+                <!--<div class="custom-file" style="float:left;width:370px;">
+                    <input type="file" class="custom-file-input" id="importFiles"  (change)="onFileChange($event)" style="width:360px;height:24px;">
+                    <label class="custom-file-label" #labelImport for="importFile" style="width:360px;height:24px;"><i class="fas fa-search"></i> เลือกไฟล์..</label>
+                </div>-->
+                <div class="custom-file" style="float:left;width:370px;">
+                    <input type="file" class="custom-file-input" id="importFiles" (change)="onFileChange($event)" style="width:360px;height:24px;" #file1>
+                    <label class="custom-file-label" #labelImport for="importFile" style="width:360px;height:24px;"><span [innerHTML]="indict_file"></span></label>
+                </div>
+                <!-- <div style="float:left;margin-left:4px;margin-top:1px;"><button type="button" class="btn btn-success" >พิมพ์ย่อคำฟ้อง</button></div> -->
+                <div style="float:left;margin-left:8px;margin-top:1px;"><button type="button" class="btn btn-danger" *ngIf="dataHeadValue.indict_file" (click)="delIndictFile()">ลบ WORD ย่อคำฟ้อง</button></div>
+                <div style="float: left; margin-left:10px; margin-top: 1px;"><i id="imgWord" class="fa fa-file-word-o" style="font-size:24px;color:#446db8;cursor: pointer;" (click)="clickOpenFile()" *ngIf="dataHeadValue.indict_file"></i></div>
+            </td>
+        </tr>
+        <tr>
+            <td height="25" width="188"  align="right" >ใจความฟ้อง :&nbsp;</td>
+            <td >
+                <div style="float:left;width:160px;">
+                    <input [(ngModel)]="dataHeadValue.jbrand_id" (change)="changeInput($event)" type="text" class="form-control" style="width:95px;height:28px;text-align:center;float:left;">
+                    <i class='far fa-list-alt iPost' style="font-size: 20px;cursor:pointer;float:left;margin-left:2px;margin-top:4px;color:green;" (click)="loadMyChildComponent(1);"></i>
+                    <i class='far fa-list-alt iPost' style="font-size: 20px;cursor:pointer;float:left;margin-left:2px;margin-top:4px;color:blue;" (click)="loadMyChildComponent(2);"></i>
+                    <!-- <i class='far fa-list-alt iPost' style="font-size: 20px;cursor:pointer;float:left;margin-left:2px;margin-top:4px;color:green;" data-bs-toggle="modal" data-bs-target="#exampleModal-2" (click)="loadMyChildComponent(1);"></i>
+                    <i class='far fa-list-alt iPost' style="font-size: 20px;cursor:pointer;float:left;margin-left:2px;margin-top:4px;color:blue;" data-bs-toggle="modal" data-bs-target="#exampleModal-2" (click)="loadMyChildComponent(2);"></i> -->
+                </div>
+                <div style="float:left;width:80%;text-align:left;margin-top:5px;color:red;">( popup ซ้ายมือ สามารถใส่รหัสกด Tab ได้ ) / ( popup ขวามือต้องเลือกรายการจาก popup เท่านั้น )</div>
+
+            </td>
+        </tr>
+        <tr>
+            <td height="25" width="188"  align="right" >&nbsp;</td>
+            <td style="padding-top:2px;">
+                <div style="float:left;">
+                    <textarea [(ngModel)]="dataHeadValue.indict_desc" name="indict_desc" #indict_desc='ngModel' class="form-control" style="width: 1000px; height: 140px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+                </div>
+                <div style="float:left;margin-left:5px;cursor:pointer;color:#273b91;"><i class='fas fa-microphone' style='font-size:20px' (click)="openVoice()"></i></div>
+                <div style="float:left;margin-left:5px;cursor:pointer;color:red;"><=กดปุ่มเพื่อรับข้อความจากการพูด</div>
+            </td>
+        </tr>
+        <tr>
+            <td height="25" width="188"  align="right" >ขอให้ลงโทษตาม :&nbsp;</td>
+            <td style="padding-top:4px;">
+                <textarea [(ngModel)]="dataHeadValue.pinalty_desc" name="pinalty_desc" #pinalty_desc='ngModel' class="form-control" style="width: 1000px; height: 55px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td height="25" width="188"  align="right" >&nbsp;</td>
+            <td style="padding-top:4px;">
+                <button type="button" class="btn btn-success" style="margin-left:5px;"  (click)="onClickSaveData(dataHeadValue,counter)">จัดเก็บ</button>
+                <button type="button" class="btn btn-warning" style="margin-left:5px;"  >ยกเลิก</button>   
+            </td>
+        </tr>
+    </table>
+
+
+    <!-- <div class="modal fade" data-refresh="true" data-backdrop="false"  role="dialog" id="exampleModal-2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+              <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+              <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal-2" (click)="loadMyModalComponent();" #openbutton></button>
+            </div>
+            <div class="modal-body" >
+                    <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+                    <app-modal-indict-band *ngIf="loadModalComponent" [items]=list [value1]=modalType [value2]=caseTypeValue (onClickList)="receiveFuncListData($event)" class="modal_app"></app-modal-indict-band>
+                </div>
+    
+            </div>
+            <div class="modal-footer">
+                  <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+
+
+    
+

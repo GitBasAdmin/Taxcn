@@ -1,0 +1,265 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName" [runId]="runId"></app-case-header>
+			</div>
+		</div>
+		<div class="card card-info" style="box-shadow: none !important;margin-top:-4px;">
+			<app-case-head *ngIf="defaultCaseType" [runId]="runId" (sendCaseData)="fnDataHead($event)" ></app-case-head>
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+					<tr>
+					<td width="40%" align="left">
+						<table table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-striped table-bordered table-sm row-border hover">
+							<thead>
+								<tr>
+									<th width="4%" class="no-sort" >ยกเลิก</th>
+									<th width="8%" >เหตุการณ์</th>
+									<th width="8%" >ประเภทสำนวน</th>
+									<th width="8%" >วันที่เกิดเหตุการณ์</th>
+									<th width="8%" >เวลาที่เกิดเหตุการณ์</th>
+									<th width="8%" >หน่วยงานต้นทาง</th>
+									<th width="8%" >ผู้ทำรายการ</th>
+									<th width="8%" >หน่วยงานปลายทาง</th>
+                                    <th width="8%" >ผู้พิพากษา</th>
+                                    <th width="8%" >เหตุผล</th>
+                                    <th width="8%" >เลขที่รับ/ส่งสำนวน</th>
+									</tr>
+							</thead>
+
+							<tbody *ngIf="getHistoricalData?.length != 0">
+								<tr *ngFor="let post of getHistoricalData;let i = index;" [ngClass]="{'red': post.cancel_flag == 1}">
+									<td align="center">{{post.cancel}}</td>
+									<td align="center">{{post.event_type_name}}</td>
+									<td align="center">{{post.send_flag_name}}</td>
+									<td align="center">{{post.event_date}}</td>
+									<td align="center">{{post.event_time}}</td>
+									<td align="center">{{post.event_dep_name}}</td>
+									<td align="center">{{post.create_user}}</td>
+									<td align="center">{{post.to_dep_name}}</td>
+									<td align="center">{{post.judge_name}}</td>
+									<td align="center">{{post.reason}}</td>
+									<td align="center">{{post.send_running}}</td>
+								</tr>
+							</tbody>
+							<tbody *ngIf="getHistoricalData?.length == 0">
+								<tr >
+									<td colspan="11" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+				 					<td style="display:none;"></td>
+                                    <td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+
+	<fieldset style="width:100%;border-radius:4px;border:1px solid #333333;padding:1px;padding:5px;">
+			<legend style="line-height: 10px;float:none;margin-left:18px; font-weight:bold;color:#2d2ff9;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;cursor:pointer;margin-bottom: 6px;" class="lClick">ขั้นตอนดำเนินการสำนวนภายในแผนก  </legend>
+    <div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+					<tr>
+					<td width="40%" align="left">
+						<table table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-striped table-bordered table-sm row-border hover">
+							<thead>
+								<tr>
+									<th width="8%"  >วันที่</th>
+									<th width="10%" >ขั้นตอน</th>
+									<th width="10%" >หมายเหตุ</th>
+									<th width="8%" >หน่วยงานผุ้บันทึก</th>
+									<th width="8%" >ผู้บันทึก</th>
+									<th width="8%" >เวลาบันทึก</th>
+									<th width="8%" >หน่วยงานผู้แก้ไข</th>
+									<th width="8%" >ผู้แก้ไข</th>
+                                    <th width="8%" >เวลาแก้ไข</th>
+                     </tr>
+							</thead>
+
+							<tbody *ngIf="getAdditionalData?.length != 0">
+								<tr *ngFor="let post of getAdditionalData;let i = index;" [ngClass]="{'red': post.cancel_flag == 1}">
+									<td align="center">{{post.add_date}}</td>
+									<td align="center">{{post.add_type_name}}</td>
+									<td align="center">{{post.remark}}</td>
+									<td align="center">{{post.create_dep_name}}</td>
+									<td align="center">{{post.create_user}}</td>
+									<td align="center">{{post.create_date}}</td>
+									<td align="center">{{post.update_dep_name}}</td>
+									<td align="center">{{post.update_user}}</td>
+									<td align="center">{{post.update_date}}</td>
+								</tr>
+							</tbody>
+							<tbody *ngIf="getAdditionalData?.length == 0">
+								<tr>
+									<td colspan="9" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+                                    <td style="display:none;"></td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</fieldset>
+	<!---
+	<div>&nbsp;</div>
+	<fieldset style="width:100%;border-radius:4px;border:1px solid #333333;padding:1px;padding:5px;">
+		<legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#2d2ff9;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;cursor:pointer;margin-bottom: 6px;" class="lClick">ขั้นตอนการส่งเอกสารต่างๆ  </legend>
+    <div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+					<tr>
+					<td width="40%" align="left">
+						<table table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-striped table-bordered table-sm row-border hover">
+							<thead>
+								<tr>
+									<th width="4%" class="no-sort" >ลำดับ</th>
+									<th width="8%" >ส่ง/รับ</th>
+									<th width="8%" >ประเภทเอกสาร</th>
+									<th width="8%" >ปลายทาง</th>
+									<th width="8%" >วัน-เวลาที่ส่ง</th>
+									<th width="8%" >ส่งให้เจ้าหน้าที่</th>
+									<th width="8%" >ส่งให้ผู้พิพากษา</th>
+									<th width="8%" >หมายเหตุ</th>
+                                    <th width="8%" >ไฟล์แนบ</th>
+                                    <th width="8%" >หน่วยงานผู้บันทึก</th>
+                                    <th width="8%" >ผู้บันทึก</th>
+                                    <th width="8%" >เวลาผู้บันทึก</th>
+                                    <th width="8%" >หน่วยงานผู้แก้ไข</th>
+									</tr>
+							</thead>
+
+							<tbody *ngIf="getMaterialHistoricalData?.length != 0">
+								<tr *ngFor="let post of getMaterialHistoricalData;let i = index;" [ngClass]="{'red': post.cancel_flag == 1}">
+									<td align="center">{{post.xxxxxxxxxx}}</td>
+									<td align="center">{{post.event_type_name}}</td>
+									<td align="center">{{post.case_no}}</td>
+									<td align="center">{{post.to_dep_name}}</td>
+									<td align="center">{{post.event_date}} {{post.event_time}}</td>
+									<td align="center">{{post.off_name}}</td>
+									<td align="center">{{post.judge_name}}</td>
+									<td align="center">{{post.openfor_desc}}</td>
+									<td align="center">{{post.xxxxxxxxxx}}</td>
+									<td align="center">{{post.create_dep_name}}</td>
+									<td align="center">{{post.create_user}}</td>
+									<td align="center">{{post.create_date}}</td>
+									<td align="center">{{post.update_dep_name}}</td>
+
+								</tr>
+							</tbody>
+							<tbody *ngIf="getMaterialHistoricalData?.length == 0">
+								<tr>
+									<td colspan="13" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+                					<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+                                    <td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+</fieldset>-->
+
+<div>&nbsp;</div>
+
+<fieldset style="width:100%;border-radius:4px;border:1px solid #333333;padding:1px;padding:5px;">
+	<legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#2d2ff9;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;cursor:pointer;margin-bottom: 6px;" class="lClick">ความเคลื่อนไหวในรายงานผลหมาย  </legend>
+      <div class="card " style="box-shadow: none !important;padding:5px;">
+        <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+            <tr>
+            <td width="40%" align="left">
+              <table table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-striped table-bordered table-sm row-border hover">
+                <thead>
+                  <tr>
+                    <th width="4%" class="no-sort" >ส่ง/รับ</th>
+                    <th width="8%" >รหัสหมาย</th>
+                    <th width="8%" >ประเภทหมาย</th>
+                    <th width="8%" >หมายถึง-ชื่อ</th>
+                    <th width="8%" >ปลายทาง</th>
+                    <th width="8%" >วัน-เวลาที่ส่ง</th>
+                    <th width="8%" >หมายเหตุ</th>
+                    <th width="8%" >หน่วยงานผู้บันทึก</th>
+                    <th width="8%" >ผู้บันทึก</th>
+                    <th width="8%" >เวลาบันทึก</th>
+                    <th width="8%" >หน่วยงานผู้แก้ไข</th>
+                    </tr>
+                </thead>
+
+				<tbody *ngIf="getNoticeHistoricalData?.length != 0">
+					<tr *ngFor="let post of getNoticeHistoricalData;let i = index;" [ngClass]="{'red': post.cancel_flag == 1}">
+						<td align="center">{{post.event_type_name}}</td>
+						<td align="center">{{post.notice_no}}</td>
+						<td align="center">{{post.notice_type_name}}</td>
+						<td align="center">{{post.noticeto_name}}</td>
+						<td align="center">{{post.to_dep_name}}</td>
+						<td align="center">{{post.event_date}} {{post.event_time}}</td>
+						<td align="center">{{post.reason}}</td>
+						<td align="center">{{post.create_dep_name}}</td>
+						<td align="center">{{post.create_user}}</td>
+						<td align="center">{{post.create_date}}</td>
+						<td align="center">{{post.update_dep_name}}</td>
+					</tr>
+				</tbody>
+                <tbody *ngIf="getNoticeHistoricalData?.length == 0">
+                  <tr>
+                    <td colspan="11" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+                    <td style="display:none;"></td>
+                    <td style="display:none;"></td>
+                    <td style="display:none;"></td>
+                    <td style="display:none;"></td>
+                    <td style="display:none;"></td>
+                    <td style="display:none;"></td>
+                    <td style="display:none;"></td>
+                    <td style="display:none;"></td>
+                    <td style="display:none;"></td>
+                    <td style="display:none;"></td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </fieldset>
+
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

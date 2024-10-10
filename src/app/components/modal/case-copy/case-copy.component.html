@@ -1,0 +1,394 @@
+<div *ngIf="!this.types">
+    <div style="margin:0 auto;margin:0 auto;display:table;padding:10px;width: 98%;" class="card" >
+        <fieldset style="width:100%;border-radius:4px;border:1px solid #333333;padding:1px;margin:0 auto;display: table;">
+            <legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;" class="lClick">สำเนาข้อมูล</legend>
+            <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+                <tr *ngIf="!headObj.run_id">
+                    <td align="right" width="25%" >สร้างเลขคดีจำนวน :&nbsp;</td>
+                    <td width="75%">
+                        <div style="float:left;" >
+                            <input  type="text" [(ngModel)]="result.num_case" class="form-control" (change)="countNumCase($event)" style="width:60px;height:26px;text-align: center;">
+                        </div>
+                        <div style="float:left;margin-top:4px;margin-left:6px;" >คดี</div>
+                        <div style="float:left;margin-top:4px;margin-left:6px;" >
+                            <input type="checkbox" [(ngModel)]="result.group_flag" [value]="1" style="width:14px;height:14px;">
+                        </div>
+                        <div style="float:left;margin-top:4px;margin-left:6px;" >มาจากคดีดำหลัก (เพื่อสร้างเป็นคดีที่เกี่ยวเนื่องกัน)</div>
+                    </td>
+                </tr>
+                <tr *ngIf="!headObj.run_id">
+                    <td align="right">ความ :&nbsp;</td>
+                    <td>
+                    <div style="float:left;">
+                        <ng-select [(ngModel)]="result.c_type" style="width:100px;" (change)="changeCaseType($event,2);" [clearable]="false"  [ngModelOptions]="{standalone: true}" #sCaseType>
+                            <ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                        </ng-select>
+                    </div>
+                    <div style="float:left;margin-left:3px;">
+                        <ng-select [(ngModel)]="result.ptitle" style="width:100px;"  [ngModelOptions]="{standalone: true}" [clearable]="false" (change)="checkDiffTitle()" #sCaseTitle>
+                            <ng-option *ngFor="let getData of getCaseTitle" [value]=getData.fieldIdValue >{{getData.fieldIdValue}}</ng-option>
+                        </ng-select>
+                    </div>
+                    <div style="float:left;margin-left:3px;" >
+                        <input  type="text" [(ngModel)]="result.pid1" class="form-control" style="width:52px;height:26px;text-align: center;"(change)="caseIdValue()" >
+                    </div>
+                    <div style="float:left;margin-top:4px;margin-left:2px;font-size: 18px;" >-</div>
+                    <div style="float:left;margin-left:3px;" >
+                        <input  type="text"  [(ngModel)]="result.pid2" class="form-control" style="width:52px;height:26px;text-align: center;" (change)="caseIdValue()">
+                    </div>
+                    <div style="float:left;margin-top:4px;margin-left:2px;font-size: 18px;" >/</div>
+                    <div style="float:left;margin-left:3px;" >
+                        <input  type="text" [(ngModel)]="result.pyy" class="form-control" style="width:60px;height:26px;text-align: center;" >
+                    </div>
+                    </td>
+                </tr>
+                <tr *ngIf="!headObj.run_id">
+                    <td align="right">วันที่ยื่นฟ้องของเลขคดีที่สร้าง :&nbsp;</td>
+                    <td>
+                        <div style="float:left;"><input   type="text" [(ngModel)]="result.case_date"  value="{{selCurDate}}"  class="form-control" style="width:120px;"></div>
+                        <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;"></i></div>
+                    </td>
+                </tr>
+                <tr *ngIf="!headObj.run_id">
+                    <td align="center" valign="middle" colspan="2">
+                        <div style="border-top: 1px solid #525252;height: 1px;width:95%;margin:0 auto;"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">สำเนาจาก :&nbsp;</td>
+                    <td>
+                        <div style="float:left;">
+                            <ng-select [(ngModel)]="result.from_type" style="width:220px;" [clearable]="false"  [ngModelOptions]="{standalone: true}" #sCopy>
+                                <ng-option *ngFor="let getData of getCopy" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">คดีของศาล :&nbsp;</td>
+                    <td>
+                        <div style="float:left;">
+							<input  type="text" [(ngModel)]="court_id" (change)="tabChangeSelect('court_id',getCourt,$event,1)"  class="form-control" style="width:80px;text-align:center;float:left;" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+						</div>
+						<div style="float:left;margin-left:2px;">
+							<ng-select [(ngModel)]="result.court_id" style="width:300px;" (change)="tabChangeSelect('court_id',getCourt,$event,2)"  #sCourt >
+								<ng-option *ngFor="let getData of getCourt" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">ความ :&nbsp;</td>
+                    <td>
+                    <div style="float:left;">
+                        <ng-select [(ngModel)]="result.case_type" style="width:100px;" [clearable]="false" (change)="fCaseTitle($event,2);"  #sCaseType2>
+                            <ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                        </ng-select>
+                    </div>
+                    <div style="float:left;margin-top:6px;margin-left:6px;" >
+                        <input type="checkbox" [(ngModel)]="result.spcCase" style="width:14px;height:14px;">
+                    </div>
+                    <div style="float:left;margin-top:4px;margin-left:6px;" >คำร้องคดีพิเศษ</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">หมายเลขคดีดำ :&nbsp;</td>
+                    <td>
+                        <div style="float:left;">
+                            <ng-select [(ngModel)]="result.title" style="width:100px;" [clearable]="false" (change)="checkDiffTitle()"  #sCaseTitle2>
+                                <ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue >{{getData.fieldIdValue}}</ng-option>
+                            </ng-select>
+                        </div>
+                        <div style="float:left;margin-left:3px;" >
+                            <input  type="text" [(ngModel)]="result.id" class="form-control" style="width:52px;height:26px;text-align: center;">
+                        </div>
+                        <div style="float:left;margin-top:4px;margin-left:2px;font-size: 18px;" >/</div>
+                        <div style="float:left;margin-left:3px;" >
+                            <input  type="text" [(ngModel)]="result.yy" class="form-control" style="width:60px;height:26px;text-align: center;">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right"><span style="color: red;">หมายเลขคดีแดง :</span>&nbsp;</td>
+                    <td>
+                        <div style="float:left;">
+                            <ng-select [(ngModel)]="result.red_title" style="width:100px;" [clearable]="false" [ngModelOptions]="{standalone: true}" #sCaseTitle3>
+                                <ng-option *ngFor="let getData of getRedTitle" [value]=getData.fieldIdValue >{{getData.fieldIdValue}}</ng-option>
+                            </ng-select>
+                        </div>
+                        <div style="float:left;margin-left:3px;" >
+                            <input  type="text" [(ngModel)]="result.red_id" class="form-control" style="width:52px;height:26px;text-align: center;">
+                        </div>
+                        <div style="float:left;margin-top:4px;margin-left:2px;font-size: 18px;" >/</div>
+                        <div style="float:left;margin-left:3px;" >
+                            <input  type="text" [(ngModel)]="result.red_yy" class="form-control" style="width:60px;height:26px;text-align: center;">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" valign="middle" colspan="2">
+                        <div style="margin:0 auto;display:table;">
+                            <div style="float:left;margin-top:6px;" >
+                                <input type="checkbox" [(ngModel)]="result.pros_flag" style="width:14px;height:14px;" >
+                            </div>
+                            <div style="float:left;margin-top:3px;margin-left:6px;" >ข้อมูลโจทก์</div>
+                            <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                <input type="checkbox" [(ngModel)]="result.accu_flag" style="width:14px;height:14px;" >
+                            </div>
+                            <div style="float:left;margin-top:3px;margin-left:6px;" >ข้อมูลจำเลย</div>
+                            <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                <input type="checkbox" [(ngModel)]="result.lit_flag" style="width:14px;height:14px;">
+                            </div>
+                            <div style="float:left;margin-top:3px;margin-left:6px;" >ข้อมูลคู่ความอื่น</div>
+                            <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                <input type="checkbox" [(ngModel)]="result.ath_flag" style="width:14px;height:14px;">
+                            </div>
+                            <div style="float:left;margin-top:3px;margin-left:6px;" >ข้อมูลทนาย</div>
+                            <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                <input type="checkbox" [(ngModel)]="result.alle_flag" style="width:14px;height:14px;" >
+                            </div>
+                            <div style="float:left;margin-top:3px;margin-left:6px;" >ฐานความผิด</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" valign="middle" colspan="2">
+                        <div style="margin:0 auto;display:table;">
+                            <div style="float:left;margin-top:6px;" >
+                                <input type="checkbox" [(ngModel)]="result.deposit_flag" style="width:14px;height:14px;">
+                            </div>
+                            <div style="float:left;margin-top:3px;margin-left:6px;" >ทุนทรัพย์</div>
+                            <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                <input type="checkbox" [(ngModel)]="result.app_flag" style="width:14px;height:14px;" >
+                            </div>
+                            <div style="float:left;margin-top:3px;margin-left:6px;" >วันนัด</div>
+                            <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                <input type="checkbox" [(ngModel)]="result.notice_flag" style="width:14px;height:14px;" >
+                            </div>
+                            <div style="float:left;margin-top:3px;margin-left:6px;" >ข้อมูลหมาย</div>
+                            <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                <input type="checkbox" [(ngModel)]="result.judge_flag" style="width:14px;height:14px;">
+                            </div>
+                            <div style="float:left;margin-top:3px;margin-left:6px;" >ข้อมูลเจ้าของสำนวน</div>
+                            <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                <input type="checkbox" [(ngModel)]="result.order_judge_flag" style="width:14px;height:14px;" >
+                            </div>
+                            <div style="float:left;margin-top:3px;margin-left:6px;" >ผู้พิพากษาที่สั่ง</div>
+                            <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                <input type="checkbox" [(ngModel)]="result.order_date_flag" style="width:14px;height:14px;" >
+                            </div>
+                            <div style="float:left;margin-top:3px;margin-left:6px;" >วันที่สั่ง</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="card-footer" style="margin-top: 5px;text-align:center;">
+                <button type="button" class="btn btn-success" (click)="copyCaseData()">สำเนาข้อมูล</button>
+                <button type="button" class="btn btn-warning" style="margin-left:5px;" (click)="reloadPage()">ล้างหน้าจอ</button>
+                <!--<button type="button" class="btn btn-danger" style="margin-left:5px;" >ปิดหน้าจอ</button>-->          
+            </div>
+        </fieldset>            
+    </div>
+</div>
+<!--  -->
+<div *ngIf="this.types">
+    <div class="modal-header">
+    <a>case-copy</a>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.close()"></button>
+    </div>
+    <div class="modal-body" >
+        <div style="margin:0 auto;margin:0 auto;display:table;padding:10px;width: 98%;" class="card" >
+            <fieldset style="width:100%;border-radius:4px;border:1px solid #333333;padding:1px;margin:0 auto;display: table;">
+                <legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;" class="lClick">สำเนาข้อมูล</legend>
+                <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+                    <tr *ngIf="!headObj.run_id">
+                        <td align="right" width="25%" >สร้างเลขคดีจำนวน :&nbsp;</td>
+                        <td width="75%">
+                            <div style="float:left;" >
+                                <input  type="text" [(ngModel)]="result.num_case" class="form-control" (change)="countNumCase($event)" style="width:60px;height:26px;text-align: center;">
+                            </div>
+                            <div style="float:left;margin-top:4px;margin-left:6px;" >คดี</div>
+                            <div style="float:left;margin-top:4px;margin-left:6px;" >
+                                <input type="checkbox" [(ngModel)]="result.group_flag" [value]="1" style="width:14px;height:14px;">
+                            </div>
+                            <div style="float:left;margin-top:4px;margin-left:6px;" >มาจากคดีดำหลัก (เพื่อสร้างเป็นคดีที่เกี่ยวเนื่องกัน)</div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="!headObj.run_id">
+                        <td align="right">ความ :&nbsp;</td>
+                        <td>
+                        <div style="float:left;">
+                            <ng-select [(ngModel)]="result.c_type" style="width:100px;" (change)="changeCaseType($event,2);" [clearable]="false"  [ngModelOptions]="{standalone: true}" #sCaseType>
+                                <ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                            </ng-select>
+                        </div>
+                        <div style="float:left;margin-left:3px;">
+                            <ng-select [(ngModel)]="result.ptitle" style="width:100px;"  [ngModelOptions]="{standalone: true}" [clearable]="false" (change)="checkDiffTitle()" #sCaseTitle>
+                                <ng-option *ngFor="let getData of getCaseTitle" [value]=getData.fieldIdValue >{{getData.fieldIdValue}}</ng-option>
+                            </ng-select>
+                        </div>
+                        <div style="float:left;margin-left:3px;" >
+                            <input  type="text" [(ngModel)]="result.pid1" class="form-control" style="width:52px;height:26px;text-align: center;"(change)="caseIdValue()" >
+                        </div>
+                        <div style="float:left;margin-top:4px;margin-left:2px;font-size: 18px;" >-</div>
+                        <div style="float:left;margin-left:3px;" >
+                            <input  type="text"  [(ngModel)]="result.pid2" class="form-control" style="width:52px;height:26px;text-align: center;" (change)="caseIdValue()">
+                        </div>
+                        <div style="float:left;margin-top:4px;margin-left:2px;font-size: 18px;" >/</div>
+                        <div style="float:left;margin-left:3px;" >
+                            <input  type="text" [(ngModel)]="result.pyy" class="form-control" style="width:60px;height:26px;text-align: center;" >
+                        </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="!headObj.run_id">
+                        <td align="right">วันที่ยื่นฟ้องของเลขคดีที่สร้าง :&nbsp;</td>
+                        <td>
+                            <div style="float:left;"><input   type="text" [(ngModel)]="result.case_date"  value="{{selCurDate}}"  class="form-control" style="width:120px;"></div>
+                            <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;"></i></div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="!headObj.run_id">
+                        <td align="center" valign="middle" colspan="2">
+                            <div style="border-top: 1px solid #525252;height: 1px;width:95%;margin:0 auto;"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">สำเนาจาก :&nbsp;</td>
+                        <td>
+                            <div style="float:left;">
+                                <ng-select [(ngModel)]="result.from_type" style="width:220px;" [clearable]="false"  [ngModelOptions]="{standalone: true}" #sCopy>
+                                    <ng-option *ngFor="let getData of getCopy" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                                </ng-select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">คดีของศาล :&nbsp;</td>
+                        <td>
+                            <div style="float:left;">
+                                <input  type="text" [(ngModel)]="court_id" (change)="tabChangeSelect('court_id',getCourt,$event,1)"  class="form-control" style="width:80px;text-align:center;float:left;" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                            </div>
+                            <div style="float:left;margin-left:2px;">
+                                <ng-select [(ngModel)]="result.court_id" style="width:300px;" (change)="tabChangeSelect('court_id',getCourt,$event,2)"  #sCourt >
+                                    <ng-option *ngFor="let getData of getCourt" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+                                </ng-select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">ความ :&nbsp;</td>
+                        <td>
+                        <div style="float:left;">
+                            <ng-select [(ngModel)]="result.case_type" style="width:100px;" [clearable]="false" (change)="fCaseTitle($event,2);"  #sCaseType2>
+                                <ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                            </ng-select>
+                        </div>
+                        <div style="float:left;margin-top:6px;margin-left:6px;" >
+                            <input type="checkbox" [(ngModel)]="result.spcCase" style="width:14px;height:14px;">
+                        </div>
+                        <div style="float:left;margin-top:4px;margin-left:6px;" >คำร้องคดีพิเศษ</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">หมายเลขคดีดำ :&nbsp;</td>
+                        <td>
+                            <div style="float:left;">
+                                <ng-select [(ngModel)]="result.title" style="width:100px;" [clearable]="false" (change)="checkDiffTitle()"  #sCaseTitle2>
+                                    <ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue >{{getData.fieldIdValue}}</ng-option>
+                                </ng-select>
+                            </div>
+                            <div style="float:left;margin-left:3px;" >
+                                <input  type="text" [(ngModel)]="result.id" class="form-control" style="width:52px;height:26px;text-align: center;">
+                            </div>
+                            <div style="float:left;margin-top:4px;margin-left:2px;font-size: 18px;" >/</div>
+                            <div style="float:left;margin-left:3px;" >
+                                <input  type="text" [(ngModel)]="result.yy" class="form-control" style="width:60px;height:26px;text-align: center;">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><span style="color: red;">หมายเลขคดีแดง :</span>&nbsp;</td>
+                        <td>
+                            <div style="float:left;">
+                                <ng-select [(ngModel)]="result.red_title" style="width:100px;" [clearable]="false" [ngModelOptions]="{standalone: true}" #sCaseTitle3>
+                                    <ng-option *ngFor="let getData of getRedTitle" [value]=getData.fieldIdValue >{{getData.fieldIdValue}}</ng-option>
+                                </ng-select>
+                            </div>
+                            <div style="float:left;margin-left:3px;" >
+                                <input  type="text" [(ngModel)]="result.red_id" class="form-control" style="width:52px;height:26px;text-align: center;">
+                            </div>
+                            <div style="float:left;margin-top:4px;margin-left:2px;font-size: 18px;" >/</div>
+                            <div style="float:left;margin-left:3px;" >
+                                <input  type="text" [(ngModel)]="result.red_yy" class="form-control" style="width:60px;height:26px;text-align: center;">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="middle" colspan="2">
+                            <div style="margin:0 auto;display:table;">
+                                <div style="float:left;margin-top:6px;" >
+                                    <input type="checkbox" [(ngModel)]="result.pros_flag" style="width:14px;height:14px;" >
+                                </div>
+                                <div style="float:left;margin-top:3px;margin-left:6px;" >ข้อมูลโจทก์</div>
+                                <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                    <input type="checkbox" [(ngModel)]="result.accu_flag" style="width:14px;height:14px;" >
+                                </div>
+                                <div style="float:left;margin-top:3px;margin-left:6px;" >ข้อมูลจำเลย</div>
+                                <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                    <input type="checkbox" [(ngModel)]="result.lit_flag" style="width:14px;height:14px;">
+                                </div>
+                                <div style="float:left;margin-top:3px;margin-left:6px;" >ข้อมูลคู่ความอื่น</div>
+                                <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                    <input type="checkbox" [(ngModel)]="result.ath_flag" style="width:14px;height:14px;">
+                                </div>
+                                <div style="float:left;margin-top:3px;margin-left:6px;" >ข้อมูลทนาย</div>
+                                <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                    <input type="checkbox" [(ngModel)]="result.alle_flag" style="width:14px;height:14px;" >
+                                </div>
+                                <div style="float:left;margin-top:3px;margin-left:6px;" >ฐานความผิด</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="middle" colspan="2">
+                            <div style="margin:0 auto;display:table;">
+                                <div style="float:left;margin-top:6px;" >
+                                    <input type="checkbox" [(ngModel)]="result.deposit_flag" style="width:14px;height:14px;">
+                                </div>
+                                <div style="float:left;margin-top:3px;margin-left:6px;" >ทุนทรัพย์</div>
+                                <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                    <input type="checkbox" [(ngModel)]="result.app_flag" style="width:14px;height:14px;" >
+                                </div>
+                                <div style="float:left;margin-top:3px;margin-left:6px;" >วันนัด</div>
+                                <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                    <input type="checkbox" [(ngModel)]="result.notice_flag" style="width:14px;height:14px;" >
+                                </div>
+                                <div style="float:left;margin-top:3px;margin-left:6px;" >ข้อมูลหมาย</div>
+                                <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                    <input type="checkbox" [(ngModel)]="result.judge_flag" style="width:14px;height:14px;">
+                                </div>
+                                <div style="float:left;margin-top:3px;margin-left:6px;" >ข้อมูลเจ้าของสำนวน</div>
+                                <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                    <input type="checkbox" [(ngModel)]="result.order_judge_flag" style="width:14px;height:14px;" >
+                                </div>
+                                <div style="float:left;margin-top:3px;margin-left:6px;" >ผู้พิพากษาที่สั่ง</div>
+                                <div style="float:left;margin-top:6px;margin-left:6px;" >
+                                    <input type="checkbox" [(ngModel)]="result.order_date_flag" style="width:14px;height:14px;" >
+                                </div>
+                                <div style="float:left;margin-top:3px;margin-left:6px;" >วันที่สั่ง</div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="card-footer" style="margin-top: 5px;text-align:center;">
+                    <button type="button" class="btn btn-success" (click)="copyCaseData()">สำเนาข้อมูล</button>
+                    <button type="button" class="btn btn-warning" style="margin-left:5px;" (click)="reloadPage()">ล้างหน้าจอ</button>
+                    <!-- <button type="button" class="btn btn-danger" style="margin-left:5px;" >ปิดหน้าจอ</button>           -->
+                </div>
+            </fieldset>            
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning" (click)="activeModal.close()">ปิดหน้าจอ</button>
+      </div>
+</div>

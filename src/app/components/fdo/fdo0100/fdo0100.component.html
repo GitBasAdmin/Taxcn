@@ -1,0 +1,318 @@
+<!-- <div class="card card-info" style="box-shadow: none !important;margin-top:-4px;border:0px;">
+  <div class="card-header">
+    <h3 class="card-title">ข้อมูลเลขคดี</h3>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form">
+      <div class="card-body" >
+        <table width="100%"  border="0" cellspacing="2" cellpadding="" class="form_table">
+          <tr>
+            <td height="25" width="120" height="34" align="right" width="8%">คดีของศาล :&nbsp;</td>
+            <td width="40%">
+              <div style="float:left;">
+                <ng-select style="width:300px;height:28px;" class="disabled" #sCourt formControlName="court_id">
+                  <ng-option *ngFor="let item of dataCourt" [value]="item?.fieldIdValue">{{item?.fieldNameValue}}</ng-option>
+                </ng-select>
+              </div>
+            </td>
+            <td height="25" width="120" height="34" align="right" width="9%">Barcode :&nbsp;</td>
+            <td width="42%">
+              <div style="float:left;"><input type="text" formControlName="barcode" class="form-control" style="width:120px;height:28px;"></div>
+              <div style="float:left;margin-left:8px;margin-top:5px;">คดีพิเศษ :&nbsp;</div>
+              <div style="float:left;">
+                <ng-select style="width:200px;" formControlName="special_id" class="disabled" #sCaseSpecial>
+                  <ng-option *ngFor="let item of dataCaseSpecial" [value]="item?.fieldIdValue">{{item?.fieldNameValue}}</ng-option>
+                </ng-select>
+              </div>
+                <div style="float:left;margin-left:8px;margin-top:5px;" *ngIf="userData.courtTypeId==1">คดีในอำนาจ :&nbsp;</div>
+              <div style="float:left;" *ngIf="userData.courtTypeId==1">
+                <ng-select style="width:200px;height:28px;" class="disabled" #sCaseCourtType>
+                  <ng-option *ngFor="let item of dataCaseCourtType" [value]="item?.fieldIdValue">{{item.fieldNameValue}}</ng-option>
+                </ng-select>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td height="25" width="120" height="34" align="right" >ความ :&nbsp;</td>
+            <td >
+              <div style="float:left;">
+                <ng-select style="width:100px;height:28px;" formControlName="case_type" #sCaseType>
+                  <ng-option *ngFor="let item of dataCaseType" [value]="item?.fieldIdValue">{{item?.fieldNameValue}}</ng-option>
+                </ng-select>
+              </div>
+              <div style="float:left;margin-left:8px;margin-top:5px;">วันที่ยื่นฟ้อง :&nbsp;</div>
+              <div style="float:left;"><input type="text" class="form-control jcalendar case_date" style="width:120px;" readonly  #case_date formControlName="case_date"></div>
+              <div style="float:left;margin-left:3px;margin-top:5px;display:none;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.case_date').focus();"></i></div>
+            </td>
+            <td height="25" width="120" height="34" align="right" >ประเภทคดี :&nbsp;</td>
+            <td >
+              <div style="float:left;">
+                <ng-select style="width:240px;height:28px;" formControlName="case_cate_id">
+                  <ng-option *ngFor="let item of dataCaseCate" [value]="item?.fieldIdValue">{{item?.fieldNameValue}}</ng-option>
+                </ng-select>
+              </div>
+              <div style="float:left;margin-left:8px;margin-top:5px;">ชั้นพิจารณา :&nbsp;</div>
+              <div style="float:left;">
+                <ng-select style="width:200px;height:28px;" class="disabled" formControlName="case_status">
+                  <ng-option *ngFor="let item of dataCaseStatus" [value]="item?.fieldIdValue">{{item?.fieldNameValue}}</ng-option>
+                </ng-select>
+              </div>
+            </td>
+          </tr>
+            <tr>
+              <td height="25" width="120" height="34" align="right" >หมายเลขคดีดำ :&nbsp;</td>
+              <td >
+                  <div style="float:left;">
+                    <ng-select style="width:100px;height:28px;" formControlName="title">
+                      <ng-option *ngFor="let item of dataTitle" [value]="item?.fieldIdValue">{{item?.fieldNameValue}}</ng-option>
+                    </ng-select>
+                  </div>
+                  <div style="float:left;margin-left:3px;"><input type="text" formControlName="title_id" class="form-control" style="width:60px;height:28px;"></div>
+                  <div style="float:left;margin-left:3px;"><input type="text" formControlName="title_yy" class="form-control" style="width:100px;height:28px;"></div>
+                  <div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" (click)="searchCaseNo(searchType.TITLE)">ค้นหา</button></div>
+              </td>
+              <td height="25" width="120" height="34" align="right" style="color:red;">หมายเลขคดีแดง :&nbsp;</td>
+              <td >
+                <div style="float:left;">
+                  <ng-select style="width:100px;height:28px;" formControlName="red_title">
+                    <ng-option *ngFor="let item of dataRedTitle" [value]="item?.fieldIdValue">{{item?.fieldNameValue}}</ng-option>
+                    </ng-select>
+                </div>
+                <div style="float:left;margin-left:3px;"><input  type="text" formControlName="red_id" class="form-control" style="width:60px;height:28px;" #red_id></div>
+                <div style="float:left;margin-left:3px;"><input  type="text" formControlName="red_yy" class="form-control" style="width:100px;height:28px;" #red_yy></div>
+                <div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" (click)="searchCaseNo(searchType.RED)">ค้นหา</button></div>
+                <div style="float:left;margin-left:8px;margin-top:5px;color:red;">วันที่ออกแดง :&nbsp;</div>
+                <div style="float:left;"><input type="text" formControlName="judging_date" class="form-control jcalendar judging_date" readonly style="width:120px;"></div>
+                <div style="float:left;margin-left:4px;margin-top:5px;display:none;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.judging_date').focus();"></i></div>
+              </td>
+            </tr>
+
+            <tr>
+              <td height="25" width="120" height="34" align="right" >คดีเกี่ยวเนื่อง :&nbsp;</td>
+              <div style="float:left;">
+                <input type="text" formControlName="case_group_desc" placement="bottom" [ngbPopover]="pop_case_group_desc" type="text" class="form-control case_group_desc" style="width:380px;cursor: pointer;" readonly>
+              </div>
+              <td height="25" width="120" height="34" align="right" >เอกสารแยกเก็บ :&nbsp;</td>
+              <td >
+                <div style="float:left;"><input type="text" formControlName="material_desc" class="form-control" style="width:380px;height:28px;" readonly></div>
+              </td>
+            </tr>
+            <tr>
+              <td height="25" width="120" height="34" align="right" >โจทก์ :&nbsp;</td>
+              <td >
+                <div style="float:left;;"><input  placement="bottom" formControlName="pros_desc" type="text" [ngbPopover]="pop_pros_desc"  class="form-control" style="width:380px;cursor: pointer;" readonly></div>
+              </td>
+              <td height="25" width="120" height="34" align="right" >จำเลย :&nbsp;</td>
+              <td >
+                <div style="float:left;"><input  placement="bottom" formControlName="accu_desc" type="text" [ngbPopover]="pop_accu_desc" class="form-control" style="width:380px;cursor: pointer;" readonly></div>
+              </td>
+            </tr>
+            <tr>
+              <td height="25" width="120" height="34" align="right" >ผู้ร้อง :&nbsp;</td>
+              <td >
+                <div style="float:left;"><input  placement="bottom" formControlName="litigant_desc1" type="text" [ngbPopover]="pop_req_desc" class="form-control" style="width:380px;cursor: pointer;" readonly></div>
+              </td>
+              <td height="25" width="120" height="34" align="right" >ผู้คัดค้าน :&nbsp;</td>
+              <td >
+                <div style="float:left;"><input placement="bottom" formControlName="litigant_desc2" type="text" [ngbPopover]="pop_opp_desc" class="form-control" style="width:380px;cursor: pointer;" readonly></div>
+              </td>
+            </tr>
+            <tr>
+              <td height="25" width="120" height="34" align="right" >สำนวนอยู่ที่งาน :&nbsp;</td>
+              <td >
+                <div style="float:left;"><input  type="text" formControlName="case_location" class="form-control" style="width:380px;height:28px;" readonly></div>
+              </td>
+              <td height="25" width="120" height="34" align="right" >เมื่อวันที่ :&nbsp;</td>
+              <td >
+                <div style="float:left;"><input type="text" formControlName="location_date" class="form-control case_date" style="width:120px;" readonly  #case_date></div>
+                <div style="float:left;margin-left:8px;margin-top:5px;">ส่งมาเพื่อ :&nbsp;</div>
+                <div style="float:left;"><input type="text" formControlName="case_send_for" class="form-control" style="width:370px;height:28px;" readonly></div>
+              </td>
+            </tr>
+        </table>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #pop_case_post_desc popover-class="increase-popover-width">
+  <table>
+      <tr><td style="padding-left:5px;color: red;">* คลิกเพื่อแสดงข้อมูลคดี</td></tr>
+  </table>
+  <table class="myTable1" cellspacing="2" cellpadding="0" class="bordered">
+    <thead>
+      <tr >
+        <th width="160"  align="center"  >ลำดับที่</th>
+        <th width="300"  align="center"  >หมายเลขคดีฝากขัง</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="dataHead?.ppostMapObj?.length > 0">
+      <tr *ngFor="let item of dataHead?.ppostMapObj;let i = index;">
+        <td align="center">{{i+1}}</td>
+        <td align="center">{{item?.case_no}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="dataHead?.ppostMapObj?.length == 0 || dataHead?.ppostMapObj == null">
+      <tr>
+        <td colspan="4" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #pop_case_group_desc popover-class="increase-popover-width">
+  <table>
+      <tr><td style="padding-left:5px;color: red;">* คลิกเพื่อแสดงข้อมูลคดี</td></tr>
+  </table>
+  <table cellspacing="2" cellpadding="0" class="bordered">
+    <thead>
+      <tr >
+        <th width="160"  align="center">ประเภท</th>
+        <th width="200"  align="center">คดีของศาล</th>
+        <th width="150"  align="center">หมายเลขคดีดำ</th>
+        <th width="150"  align="center">หมายเลขคดีแดง</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="dataHead?.groupObj?.length > 0">
+      <tr *ngFor="let datas of dataHead.groupObj ;let i = index;">
+        <td align="center">{{datas?.group_name}}</td>
+        <td align="center">{{datas?.court_name}}</td>
+        <td align="center">{{datas?.case_no}}</td>
+        <td align="center">{{datas?.red_no}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="dataHead?.groupObj?.length == 0 || dataHead?.groupObj == null">
+      <tr>
+        <td colspan="4" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #pop_pros_desc popover-class="increase-popover-width">
+  <table>
+      <tr><td style="padding-left:5px;color: red;">* คลิกเพื่อแสดงข้อมูล</td></tr>
+  </table>
+  <table class="myTable1" cellspacing="2" cellpadding="0" class="bordered">
+    <thead>
+      <tr >
+        <th width="180"  align="center"  >ประเภทคู่ความ</th>
+        <th width="120"  align="center"  >ลำดับที่</th>
+        <th width="250"  align="center"  >ชื่อ/ชื่อสกุล</th>
+        <th width="120"  align="center"  >สถานะ</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="dataHead?.prosObj?.length > 0">
+      <tr *ngFor="let item of dataHead.prosObj;let i = index;">
+        <td align="center">{{item?.lit_type_desc}}
+        <td align="center">{{item?.seq}}</td>
+        <td align="center">{{item?.title}}{{item?.name}}</td>
+        <td align="center">{{item?.status_desc}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="dataHead?.prosObj?.length == 0 || dataHead?.prosObj == null">
+      <tr>
+        <td colspan="4" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #pop_accu_desc popover-class="increase-popover-width">
+  <table>
+    <tr><td style="padding-left:5px;color: red;">* คลิกเพื่อแสดงข้อมูล</td></tr>
+  </table>
+  <table class="myTable1" cellspacing="2" cellpadding="0" class="bordered">
+    <thead>
+      <tr >
+        <th width="180"  align="center"  >ประเภทคู่ความ</th>
+        <th width="120"  align="center"  >ลำดับที่</th>
+        <th width="250"  align="center"  >ชื่อ/ชื่อสกุล</th>
+        <th width="120"  align="center"  >สถานะ</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="dataHead?.accuObj?.length > 0">
+      <tr *ngFor="let item of dataHead.accuObj;let i = index;">
+        <td align="center">{{item?.lit_type_desc}}
+        <td align="center">{{item?.seq}}</td>
+        <td align="center">{{item?.title}}{{item?.name}}</td>
+        <td align="center">{{item?.status_desc}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="dataHead?.accuObj?.length == 0 || dataHead?.accuObj == null">
+      <tr>
+        <td colspan="4" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #pop_req_desc popover-class="increase-popover-width">
+  <table>
+    <tr><td style="padding-left:5px;color: red;">* คลิกเพื่อแสดงข้อมูล</td></tr>
+  </table>
+  <table class="myTable1" cellspacing="2" cellpadding="0" class="bordered">
+    <thead>
+      <tr >
+        <th width="180"  align="center"  >ประเภทคู่ความ</th>
+        <th width="120"  align="center"  >ลำดับที่</th>
+        <th width="250"  align="center"  >ชื่อ/ชื่อสกุล</th>
+        <th width="120"  align="center"  >สถานะ</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="dataHead?.reqObj?.length > 0">
+      <tr *ngFor="let item of dataHead.reqObj;let i = index;">
+        <td align="center">{{item?.lit_type_desc}}
+        <td align="center">{{item?.seq}}</td>
+        <td align="center">{{item?.title}}{{item?.name}}</td>
+        <td align="center">{{item?.status_desc}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="dataHead?.reqObj?.length == 0 || dataHead?.reqObj == null">
+      <tr>
+        <td colspan="4" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #pop_opp_desc popover-class="increase-popover-width">
+  <table>
+      <tr><td style="padding-left:5px;color: red;">* คลิกเพื่อแสดงข้อมูล</td></tr>
+  </table>
+  <table class="myTable1" cellspacing="2" cellpadding="0" class="bordered">
+    <thead>
+      <tr >
+        <th width="180" align="center" >ประเภทคู่ความ</th>
+        <th width="120" align="center" >ลำดับที่</th>
+        <th width="250" align="center" >ชื่อ/ชื่อสกุล</th>
+        <th width="120" align="center" >สถานะ</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="dataHead?.oppObj?.length > 0">
+      <tr *ngFor="let item of dataHead.oppObj;let i = index;">
+        <td align="center">{{item?.lit_type_desc}}
+        <td align="center">{{item?.seq}}</td>
+        <td align="center">{{item?.title}}{{item?.name}}</td>
+        <td align="center">{{item?.status_desc}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="dataHead?.oppObj?.length == 0 || dataHead?.oppObj == null">
+      <tr>
+        <td colspan="4" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
+ -->
+<form [formGroup]="formInfomation">
+  <div class="card card-info" style="box-shadow: none !important;margin-top:-4px;border:0px;">
+    <app-case-head *ngIf="defaultCaseType" (sendCaseData)="onSearch($event)" [runId]="run_id"></app-case-head >
+  </div>
+  <div [style.width]="widthSet">
+    <mat-tab-group animationDuration="0ms" [selectedIndex]="0" (selectedIndexChange)="1" (selectedTabChange)="assignWidth($event)">
+      <mat-tab label="รายละเอียดเอกสาร" style="padding:5px !important;" ><app-fdo0100-tab1 [formData]="infoDetail"></app-fdo0100-tab1></mat-tab>
+      <mat-tab label="รายการเบิก(ส่งไป)/รับ" style="padding:5px !important;" ><app-fdo0100-tab2></app-fdo0100-tab2></mat-tab>
+    </mat-tab-group>
+  </div>
+</form>

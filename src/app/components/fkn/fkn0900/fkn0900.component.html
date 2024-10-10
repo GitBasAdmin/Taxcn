@@ -1,0 +1,102 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;">
+		<div class="card card-info">
+			<div class="card-header">
+				<h3 class="card-title">{{programName}}</h3>
+			</div>
+			<div class="card-body">
+				<table width="100%"  border="0" cellspacing="2" cellpadding="0">
+					<tr>
+						<td width="25%" height="25" align="right">ความ :&nbsp;</td>
+						<td width="20%">
+							<div style="float:left;">
+								<ng-select [(ngModel)]="result.case_type" style="width:100px;height:28px;" [clearable]="false" (change)="changeCaseType($event,1)" [ngModelOptions]="{standalone: true}">
+									<ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+								 </ng-select>
+							</div>
+						</td>
+						<td width="15%"  height="25" align="right"></td>
+						<td width="40%"></td>
+					</tr>
+					<tr>
+						<td height="25" width="120"  align="right">หมายเลขคดีดำ :&nbsp;</td>
+						<td >
+							<div style="float:left;">
+								<ng-select [(ngModel)]="result.title" style="width:100px;height:28px;" [clearable]="false" [ngModelOptions]="{standalone: true}">
+									<ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue>{{getData.fieldIdValue}}</ng-option>
+								 </ng-select>
+							</div>
+							<div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="result.id" id="id" class="form-control" style="width:60px;height:28px;" #id></div>
+							<div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="result.yy" id="yy" class="form-control" style="width:100px;height:28px;" #yy></div>
+							
+						</td>
+						<td height="25" width="120"  align="right" style="color:red;">หมายเลขคดีแดง :&nbsp;</td>
+						<td >
+							<div style="float:left;">
+								<ng-select [(ngModel)]="result.red_title" style="width:100px;height:28px;" [clearable]="false" [ngModelOptions]="{standalone: true}">
+									<ng-option *ngFor="let getData of getRedTitle" [value]=getData.fieldIdValue>{{getData.fieldIdValue}}</ng-option>
+								 </ng-select>
+							</div>
+							<div style="float:left;margin-left:3px;"><input  type="text" [(ngModel)]="result.red_id" id="red_id" class="form-control" style="width:60px;height:28px;" #red_id></div>
+							<div style="float:left;margin-left:3px;"><input  type="text" [(ngModel)]="result.red_yy" id="red_yy" class="form-control" style="width:100px;height:28px;" #red_yy></div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">รายละเอียดข้อมูล :&nbsp;</td>
+						<td colspan="3">
+							<div style="float:left;">
+								<ng-select [(ngModel)]="result.table" style="width:220px;height:28px;" [clearable]="false"  [ngModelOptions]="{standalone: true}">
+									<ng-option *ngFor="let getData of getTable" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+								 </ng-select>
+							</div>
+							<div style="float:left;margin-left:3px;" *ngIf="result.table=='pcase_litigant'">
+								<div style="float:left;margin-left:3px;padding-top: 2px;">ประเภท</div>
+								<div style="float:left;margin-left:3px;">
+									<ng-select  [(ngModel)]="result.lit_type" [clearable]="false" style="width:250px;" >
+										<ng-option *ngFor="let getData of getLitType"  [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+								</div>
+								<div style="float:left;margin-left:3px;padding-top: 2px">ที่</div>
+								<div style="float:left;margin-left:3px;">
+									<input  type="text" [(ngModel)]="result.seq" id="red_id" class="form-control" style="width:60px;height:28px;">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">ฟังก์ชั่น :&nbsp;</td>
+						<td colspan="3">
+							<div style="float:left;">
+								<ng-select [(ngModel)]="result.action" style="width:120px;height:28px;" [clearable]="false"  [ngModelOptions]="{standalone: true}">
+									<ng-option *ngFor="let getData of getAction" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+								 </ng-select>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="card-footer" align="center">
+				<button type="button" class="btn btn-success" style="margin-left:150px;" (click)="searchData()">ค้นหา</button>
+				<button type="reset" class="btn btn-warning" style="margin-left:5px;" (click)="ClearAll()">ล้างหน้าจอ</button>
+				<button type="button" class="btn btn-danger" style="margin-left:5px;"(click)="closeWindow()">ปิดหน้าจอ</button>
+				<input type="hidden" name="delValue" id="delValue">
+			</div>
+		</div>
+	</div>
+	<app-fkn0900-pcase *ngIf="tableData=='pcase'" [sendData]="sendData"></app-fkn0900-pcase>
+	<app-fkn0900-pjudgement *ngIf="tableData=='pjudgement'" [sendData]="sendData"></app-fkn0900-pjudgement>
+	<app-fkn0900-pcase-alle-stat *ngIf="tableData=='pcase_alle_stat'" [sendData]="sendData"></app-fkn0900-pcase-alle-stat>
+	<app-fkn0900-pcase-litigant *ngIf="tableData=='pcase_litigant'" [sendData]="sendData"></app-fkn0900-pcase-litigant>
+	<app-fkn0900-prequest *ngIf="tableData=='prequest'" [sendData]="sendData"></app-fkn0900-prequest>
+	<app-fkn0900-pnotice *ngIf="tableData=='pnotice'" [sendData]="sendData"></app-fkn0900-pnotice>
+	<app-fkn0900-pappointment *ngIf="tableData=='pappointment'" [sendData]="sendData"></app-fkn0900-pappointment>
+	<app-fkn0900-pappeal *ngIf="tableData=='pappeal'" [sendData]="sendData"></app-fkn0900-pappeal>
+	<app-fkn0900-preceipt *ngIf="tableData=='preceipt'" [sendData]="sendData"></app-fkn0900-preceipt>
+	
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>

@@ -1,0 +1,23 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;">
+		<div class="card card-info">
+			<div class="card-header">
+				<h3 class="card-title">{{programName}}</h3>
+			</div>
+		</div>
+	</div>
+	<div class="content" style="padding:10px;margin-top:-25px;">
+		<section class="content" style="width: 100%;">
+			<div class="card card-info" align="center" style="padding-top: 5px;">
+				<div [innerHTML]="displayTable" width="100%"></div>
+			</div>
+		</section>
+	</div>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>

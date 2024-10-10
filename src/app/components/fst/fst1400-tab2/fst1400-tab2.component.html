@@ -1,0 +1,171 @@
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+    <tr>
+        <td style="height:35px !important;vertical-align: bottom;" ><span >&nbsp;7.การดำเนินการไกล่เกลี่ย ยอมความ</span></td>
+    </tr>
+    <tr>
+        <td>
+            <table datatable id="table_tab2_1" [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger" *ngIf="getCaseTypeStat" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:80%;margin:0 auto;float:left;">        
+                <thead>
+                    <tr>
+                        <th  width="73%" style="height:50px !important;"  class="no-sort">ประเภท</th>
+                        <th width="27%"  class="no-sort">จำนวน</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr >
+                        <td  align="left">จำนวนคดีที่ค้างมาจากเดือนก่อน</td>
+                        <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                    </tr>
+                    <tr >
+                        <td  align="left">จำนวนคดีที่เข้าสู่การไกล่เกลี่ยในเดือนนี้</td>
+                        <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                    </tr>
+                    <tr >
+                        <td  align="left">จำนวนคดีที่ยกเลิกการไกล่เกลี่ยในเดือนนี้</td>
+                        <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                    </tr>
+                    <tr >
+                        <td  align="left">จำนวนคดีที่ไกล่เกลี่ยสำเร็จในเดือนนี้</td>
+                        <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                    </tr>
+                    <tr >
+                        <td  align="left">จำนวนคดีที่ไกล่เกลี่ยไม่สำเร็จในเดือนนี้</td>
+                        <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                    </tr>
+                    <tr >
+                        <td  align="left">จำนวนคดีที่อยู่ระหว่างไกล่เกลี่ย</td>
+                        <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    
+    <tr>
+        <td style="height:35px !important;vertical-align: bottom;" ><span >&nbsp;8.การไต่สวนมูลฟ้อง ผัดฟ้องและฝากขัง</span></td>
+    </tr>
+    <tr>
+        <td>
+            <table datatable id="table_tab2_2" [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger" *ngIf="getCaseTypeStat" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:70%;margin:0 auto;float:left;">        
+                <thead>
+                    <tr>
+                        <th width="60%" class="no-sort">รายการ</th>
+                        <th class="no-sort" >มาศาล</th>
+                        <th class="no-sort" >ประชุมทางไกลผ่านจอภาพ</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr >
+                        <td  align="left">ไต่สวนมูลฟ้อง</td>
+                        <td align="center" ><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;"></td>
+                        <td align="center"  ><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;"></td>
+                    </tr>
+                    <tr >
+                        <td  align="left">ผัดฟ้อง</td>
+                        <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;"></td>
+                        <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;"></td>
+                    </tr>
+                    <tr >
+                        <td  align="left">ฝากขัง</td>
+                        <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;"></td>
+                        <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="height:35px !important;vertical-align: bottom;" ><span >&nbsp;9.ระยะเวลาค้างในการพิจารณาคดี</span></td>
+    </tr>
+    <tr>
+        <td>
+            <table datatable id="table_tab2_3" [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger" *ngIf="getCaseTypeStat" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:99%;margin:0 auto;float:left;">        
+                <thead>
+                    <tr>
+                        <th width="18%" height="20" rowspan="2" class="no-sort">ประเภทคดี</th>
+                        <th width="11%" class="no-sort">ไม่เกิน</th>
+                        <th width="10%" class="no-sort">เกิน1เดือน</th>
+                        <th width="10%" class="no-sort">เกิน3เดือน</th>
+                        <th width="10%" class="no-sort">เกิน6เดือน</th>
+                        <th width="9%" class="no-sort">เกิน1ปี</th>
+                        <th width="9%" class="no-sort">เกิน2ปี</th>
+                        <th width="9%" class="no-sort">เกิน3ปี</th>
+                        <th width="9%" class="no-sort">เกิน4ปี</th>
+                        <th width="8%" class="no-sort">เกิน5ปี</th>
+                        <th width="7%" rowspan="2" class="no-sort">รวม</th>
+                    </tr>
+                    <tr>
+                        <th class="no-sort" style="border-radius: 0px !important;">1 เดือน</th>
+                        <th class="no-sort">ไม่เกิน3เดือน</th>
+                        <th class="no-sort">ไม่เกิน6เดือน</th>
+                        <th class="no-sort">ไม่เกิน1ปี</th>
+                        <th class="no-sort">ไม่เกิน2ปี</th>
+                        <th class="no-sort">ไม่เกิน3ปี</th>
+                        <th class="no-sort">ไม่เกิน4ปี</th>
+                        <th class="no-sort">ไม่เกิน5ปี</th>
+                        <th class="no-sort" style="border-radius: 0px !important;">ขึ้นไป</th>
+                    </tr>
+                </thead>
+                
+                <tbody >
+                    <tr *ngFor="let getdata4 of getCaseTypeStat">
+                        <td  align="left">{{getdata4.fieldNameValue}}</td>
+                        <td align="center" ><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;"></td>
+                        <td align="center" ><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;"></td>
+                        <td align="center" ><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;"></td>
+                        <td align="center" ><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;"></td>
+                        <td align="center" ><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;"></td>
+                        <td align="center" ><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;"></td>
+                        <td align="center" ><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;"></td>
+                        <td align="center" ><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;"></td>
+                        <td align="center" ><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;"></td>
+                        <td align="center" ><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;" readonly></td>
+                    </tr>
+                    <tr >
+                        <td  align="center">รวม</td>
+                        <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                        <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                        <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                        <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                        <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                        <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                        <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                        <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                        <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                        <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                    </tr>
+                </tbody>
+                
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="height:35px !important;vertical-align: bottom;" ><span >&nbsp;10.ขั้นตอนคดีที่ค้าง</span></td>
+    </tr>
+    
+    <tr>
+        <td>
+            <table datatable id="table_tab2_4" [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger" *ngIf="getCaseTypeStat" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:70%;margin:0 auto;float:left;">        
+                <thead>
+                    <tr>
+                        <th width="44%" [attr.rowspan]="getCaseTypeStat.length" class="no-sort">ขั้นตอนคดีที่ค้าง</th>
+                        <th height="25" [attr.colspan]="getCaseTypeStat.length" class="no-sort">จำนวนคดี</th>
+                      </tr>
+                      <tr>
+                        <th width="14%" height="25" *ngFor="let getdata of getCaseTypeStat" class="no-sort">{{getdata.fieldNameValue}}</th>
+                      </tr>
+                </thead>
+                
+                <tbody >
+                    <tr *ngFor="let getdata2 of getHoldStat">
+                        <td  align="left">{{getdata2.fieldIdValue}}&nbsp;{{getdata2.fieldNameValue}}</td>
+                        <td align="center" *ngFor="let getdata3 of getCaseTypeStat"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;display:inline-block;"></td>
+                    </tr>
+                    
+                </tbody>
+                
+            </table>
+        </td>
+    </tr>
+    
+</table>

@@ -1,0 +1,42 @@
+<form class="form-horizontal" [formGroup]="formList">
+<table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+  <tr>
+    <td height="30" align="center" class="blackb">
+      <div style="float: left;margin-top:2px;">ค้นหา :&nbsp;</div>
+      <div style="float: left;margin-left:2px;"><input formControlName="word_id" name="word_id" type="text" class="form-control" style="width:70px;height:28px;" value={{value4}}></div>
+      <div style="float: left;margin-left:2px;"><input formControlName="word_desc" name="word_desc" type="text" class="form-control" style="width:250px;height:28px;" value={{value4}}>    </div>
+      <div style="float: left;margin-left:4px;"><input name="Submit" type="submit" class="btn btn-success" value="ค้นหา" (click)="searchDataList()"></div>
+      <div style="float: left;margin-left:4px;"><input name="showAll" type="submit" class="btn btn-success" id="showAll" value="แสดงทั้งหมด" (click)="showDataList()"></div>
+      <div style="float: left;margin-left:4px;"><input name="list_table_name" type="hidden" id="list_table_name" value={{value1}}></div>
+    </td>
+  </tr>
+</table>
+
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+  <thead>
+    <tr align="center">
+      <th width="150" height="25" ><strong>รหัส</strong></th>
+      <th width="300" height="25" ><strong>รายละเอียด</strong></th>
+      <th ><strong>รายละเอียดเพิ่มเติม</strong></th>
+    </tr>
+    
+  </thead>
+  <tbody *ngIf="items?.length != 0" >
+    <tr *ngFor="let datas of items;let i = index;" >
+      <td align="center" (click)="onClickListData(i)">{{datas.form_running}}</td>
+      <td align="center" (click)="onClickListData(i)">
+        {{datas.form_name}}
+      </td>
+      <td align="center" (click)="onClickListData(i)">{{datas.form_add}}</td>
+    </tr>
+   </tbody>
+   <tbody *ngIf="items?.length == 0">
+    <tr><td colspan="3" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+  </tbody>
+
+</table>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner> 
+</form>

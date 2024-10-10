@@ -1,0 +1,316 @@
+
+    <table width="100%" border="0" cellspacing="1" cellpadding="0">
+        <tr>
+          <td style="height:35px !important;vertical-align: bottom;" ><span >&nbsp; 1.คดีอาญาในรอบปี</span></td>
+        </tr>
+        <tr>
+            <td>
+                <table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:99%;margin:0 auto;">        
+                    <thead>
+                        <tr>
+                            <th width="21%" style="height:50px !important;" class="no-sort">ประเภทคดี</th>
+                            <th width="19%"  class="no-sort">คดีค้างมาจากปีที่แล้ว</th>
+                            <th width="22%"  class="no-sort">คดีรับใหม่ในปีนี้</th>
+                            <th width="19%" class="no-sort">คดีเสร็จไปในปีนี้</th>
+                            <th width="19%"  class="no-sort">คดีคงค้าง</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let getdata of getCaseTypeStat">
+                            <td  align="center">{{getdata.fieldNameValue}}</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                        </tr>
+                        <tr>
+                            <td align="center" >รวม</td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center" ><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                          </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="height:35px !important;vertical-align: bottom;" ><span >&nbsp; 2.คดีอาญาในเดือนนี้</span></td>
+        </tr>
+        <tr>
+            <td>
+                <table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:99%;margin:0 auto;">        
+                    <thead>
+                        <tr>
+                            <th width="21%" style="height:50px !important;" class="no-sort">ประเภทคดี</th>
+                            <th width="19%"  class="no-sort">คดีค้างมาจากเดือนที่แล้ว</th>
+                            <th width="22%"  class="no-sort">คดีรับใหม่ในเดือนนี้</th>
+                            <th width="19%" class="no-sort">คดีเสร็จไปในเดือนนี้</th>
+                            <th width="19%"  class="no-sort">คดีค้างไปเดือนหน้า</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let getdata of getCaseTypeStat">
+                            <td  align="center">{{getdata.fieldNameValue}}</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                        </tr>
+                        <tr>
+                            <td align="center" >รวม</td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center" ><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                          </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="height:35px !important;vertical-align: bottom;" ><span >&nbsp; 3.ระยะเวลาในการพิจารณาคดี (นับตั้งแต่วันฟ้องจนคดีเสร็จสิ้น)</span><span style="color: red;">&nbsp; **รายการคดีที่แสดงเป็นคดีหมายเลขแดง</span></td>
+        </tr>
+        <tr>
+            <td>
+                <table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:99%;margin:0 auto;">        
+                    <thead>
+                        <tr >
+                            <th width="19%" height="20" rowspan="2" class="no-sort">ประเภทคดี</th>
+                            <th width="8%" class="no-sort">ไม่เกิน</th>
+                            <th width="10%" class="no-sort">เกิน1เดือน</th>
+                            <th width="10%" class="no-sort">เกิน3เดือน</th>
+                            <th width="8%" class="no-sort">เกิน6เดือน</th>
+                            <th width="9%" class="no-sort">เกิน1ปี</th>
+                            <th width="9%" class="no-sort">เกิน2ปี</th>
+                            <th width="9%" class="no-sort">เกิน3ปี</th>
+                            <th width="9%" class="no-sort">เกิน4ปี</th>
+                            <th width="9%" class="no-sort">เกิน5ปี</th>
+                        </tr>
+                        <tr >
+                            <th style="border-radius: 0px !important;" class="no-sort">1 เดือน </th>
+                            <th class="no-sort">ไม่เกิน3เดือน</th>
+                            <th class="no-sort">ไม่เกิน6เดือน</th>
+                            <th class="no-sort">ไม่เกิน1ปี</th>
+                            <th class="no-sort">ไม่เกิน2ปี</th>
+                            <th class="no-sort">ไม่เกิน3ปี</th>
+                            <th class="no-sort">ไม่เกิน4ปี</th>
+                            <th class="no-sort">ไม่เกิน5ปี</th>
+                            <th style="border-radius: 0px !important;" class="no-sort">ขึ้นไป</th>
+                          </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let getdata of getCaseTypeStat">
+                            <td  align="center">{{getdata.fieldNameValue}}</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                        </tr>
+                        <tr>
+                            <td align="center" >รวม</td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center" ><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center" ><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center" ><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                          </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="height:35px !important;vertical-align: bottom;" ><span >&nbsp; 4.การอุทธรณ์ต่อศาลอุทธรณ์หรือศาลฎีกา</span></td>
+        </tr>
+        <tr>
+            <td>
+                <table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:99%;margin:0 auto;">        
+                    <thead>
+                        <tr >
+                            <th width="197" rowspan="2" class="no-sort">ประเภทคดี</th>
+                            <th colspan="5" class="no-sort">อุทธรณ์ต่อศาลอุทธรณ์</th>
+                        </tr>
+                        <tr >
+                            <th width="162" style="border-radius: 0px !important;" class="no-sort">ค้างส่งจากเดือนก่อน</th>
+                            <th width="141" class="no-sort">คดีที่ยื่นอุทธรณ์</th>
+                            <th width="207" class="no-sort">คดีที่ไม่อนุญาตให้ยื่นอุทธรณ์</th>
+                            <th width="164" class="no-sort">คดีที่ส่งไปยังศาลอุทธรณ์</th>
+                            <th width="160" style="border-radius: 0px !important;" class="no-sort">คงค้างส่งไปในเดือนนี้</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let getdata of getCaseTypeStat">
+                            <td  align="center">{{getdata.fieldNameValue}}</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                        </tr>
+                        <tr>
+                            <td align="center" >รวม</td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center" ><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center" ><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                          </tr>
+                    </tbody>
+                </table>
+
+                <table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:99%;margin:0 auto;">        
+                    <thead>
+                        <tr >
+                            <th width="197" rowspan="2" class="no-sort">ประเภทคดี</th>
+                            <th colspan="5" class="no-sort">อุทธรณ์ต่อศาลฎีกา</th>
+                        </tr>
+                        <tr >
+                            <th width="162" style="border-radius: 0px !important;" class="no-sort">ค้างส่งจากเดือนก่อน</th>
+                            <th width="141" class="no-sort">คดีที่ยื่นฎีกา</th>
+                            <th width="207" class="no-sort">คดีที่ไม่อนุญาตให้ยื่นฎีกา</th>
+                            <th width="164" class="no-sort">คดีที่ส่งไปยังศาลฎีกา</th>
+                            <th width="160" style="border-radius: 0px !important;" class="no-sort">คงค้างส่งไปในเดือนนี้</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let getdata of getCaseTypeStat">
+                            <td  align="center">{{getdata.fieldNameValue}}</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                        </tr>
+                        <tr>
+                            <td align="center" >รวม</td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center"><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center" ><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center" ><input  name="" type="text"   value="0"  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                          </tr>
+                    </tbody>
+                </table>
+
+            </td>
+        </tr>
+        <tr>
+            <td style="height:35px !important;vertical-align: bottom;" ><span >&nbsp; 5.การไต่สวนชัยสูตรพลิกศพ</span></td>
+        </tr>
+        <tr>
+            <td>
+                <table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:70%;margin-left:9px;float:left;">        
+                    <thead>
+                        <tr>
+                            <th width="75%" style="height:50px !important;" class="no-sort">รายการ</th>
+                            <th width="25%"  class="no-sort">คดี</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr >
+                            <td  align="left">คดีไต่สวนชันสูตรพลิกศพรับใหม่</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                        </tr>
+                        <tr>
+                            <td align="left" >คดีไต่สวนชันสูตรพลิกศพที่เสร็จไป</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;" ></td>
+                          </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="height:35px !important;vertical-align: bottom;" ><span >&nbsp;6.คดีละเมิดอำนาจศาล</span></td>
+        </tr>
+        <tr>
+            <td>
+                <table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:99%;margin:0 auto;">        
+                    <thead>
+                        <tr>
+                            <th  style="height:50px !important;" class="no-sort">รายการ</th>
+                            <th width="24%"  class="no-sort">จำนวนคดีที่เข้าสู่การพิจารณา</th>
+                            <th width="24%"  class="no-sort">จำนวนคดีที่พิพากษาเสร็จไป</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr >
+                            <td  align="left">1.ฝ่าฝืนข้อกำหนดของศาล</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                        </tr>
+                        <tr >
+                            <td  align="left">2.ดูหมิ่นศาล</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                        </tr>
+                        <tr >
+                            <td  align="left">3.ประพฤติตนไม่เรียบร้อยในบริเวณศาล</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                        </tr>
+                        <tr >
+                            <td  align="left">4.นำสารเสพติดไปส่งมอบให้แก่ผู้ต้องหาในศาล</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                        </tr>
+                        <tr >
+                            <td  align="left">5.เขียนคำคู่ความที่มีข้อความเสียดสีหรือก้าวร้าวศาล</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                        </tr>
+                        <tr >
+                            <td  align="left">6.แสดงหลักฐานอันเป็นเท็จเพื่อขอยกเว้นค่าธรรมเนียมศาล</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                        </tr>
+                        <tr >
+                            <td  align="left">7.ลงข้ความหรือบทความในหนังสือพิมพ์เช้งเปรียบเปรยให้เข้าใจว่าผู้พิพากษาพิจารณาคดีโดยไม่เป็นธรรม</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                        </tr>
+                        <tr >
+                            <td  align="left">8.ฝ่าฝืนคำสั่งศาลที่ห้าโฆษณาข้อความหรือความเห็นในกระบวนการพิจารณาคดีโดยไม่เป็นธรรม</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                        </tr>
+                        <tr >
+                            <td  align="left">9.นายประกันเปลี่ยนตัวผู้ต้องหาหรือจำเลยเพื่อขอประกัน</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                        </tr>
+                        <tr >
+                            <td  align="left">10.อื่นๆ</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;"></td>
+                        </tr>
+                        <tr >
+                            <td  align="center">รวม</td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                            <td align="center"><input  name="" type="text"   value=""  class="form-control" style="width:75px;height:28px;text-align: center;" readonly></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+    
+ 
+    
+    
+ 
+
+    
+
+
+
+    
+

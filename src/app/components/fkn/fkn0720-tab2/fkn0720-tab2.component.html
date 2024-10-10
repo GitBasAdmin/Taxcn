@@ -1,0 +1,96 @@
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info">
+			<div class="card-footer" style="text-align: center; cursor:pointer;">
+				<span  (click)="newMait()" style="color: #0062cc;" >
+					<i class="fas fa-file-alt"  style='cursor:pointer;font-size:18px;margin-right: 4px;'></i>
+					<b>สร้างข้อความใหม่</b>
+			</span>
+			</div>
+		</div>
+	</div>
+	<div class="content" style="padding:10px;margin-top:-25px;">
+		<section class="content" style="width: 100%;">
+		<div class="card card-info">
+			<div align="left" style="margin-top: 6px; margin-left: 80px;"> 
+				<span  (click)="confirmBox()" style="color: red;cursor:pointer;" >
+					<i class="fas fa-times"  style='cursor:pointer;font-size:18px;margin-right: 4px;'></i>
+					<b>ลบข้อมูลที่เลือก</b>
+				</span>
+				<!-- <button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="confirmBox()" >ลบข้อมูลที่เลือก</button> -->
+				<input type="hidden" name="delValue" id="delValue">
+			</div>
+			<div class="card-header" style="display:none;">
+			<h3 class="card-title">ข้อมูล</h3>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover myTable1">
+					<thead>
+						<tr>
+							<th width="3%" class="no-sort"><input type="checkbox" name="all" [(ngModel)]="masterSelected" value="m1" (change)="checkUncheckAll()"/></th>
+							<th width="25%">ถึง</th>
+							<th width="57%">เรื่อง</th>
+							<th width="15%">วัน/เวลา</th>
+						</tr>
+					</thead>
+					<tbody *ngIf="posts?.length != 0">
+					<tr *ngFor="let post of posts;let i = index;">
+							<td align="center"><input type="checkbox"  [(ngModel)]="posts[i].edit0722" (change)="isAllSelected()" ></td>
+							<td align="left">{{post.to_desc}}</td>
+							<td align="left">
+								<span  [ngStyle]="post.mail_opened==='Y' ?  {'color': '#551a8b'} : {'color': 'blue'}" style="cursor:pointer; color:blue;" (click)="goToPage(i, 2)">
+									<i *ngIf="post.attach_flag != null" class="fa fa-paperclip" style="margin-right: 4px;padding-top: 3px; font-size:18px;"></i>
+									{{post.subject}}
+								</span>
+							</td>
+							<td align="center">{{post.send_date}} {{post.send_time}}</td>
+						</tr>
+					</tbody>
+					<tbody *ngIf="posts?.length == 0">
+						<tr>
+							<td colspan="4" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+		</section>
+	</div>
+
+ <!-- Modal -->
+
+ <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal-2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+		  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal-2" (click)="loadMyModalComponent();" #openbutton></button>
+		</div>
+		<div class="modal-body" >
+			<input type="hidden" name="table_name" id="table_name">
+			<input type="hidden" name="field_id" id="field_id">
+			<input type="hidden" name="field_name" id="field_name">
+			<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+				<app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+       		</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+		  	<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>

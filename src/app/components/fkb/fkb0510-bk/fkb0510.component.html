@@ -1,0 +1,151 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName"></app-case-header>
+			</div>
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+
+       <tr>
+					<td width="128" align="right">คดีของศาล :&nbsp;</td>
+					<td width="368" align="left">
+						<div style="float: left;">
+							<input  name="user_id" type="text" id="user_id"  maxlength="5"   class="form-control" style="width:60px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;">
+							<input  name="off_name" type="text" class="blackd" id="off_name" value=""  class="form-control" style="width:220px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:4px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:4px;"></i>
+						</div>
+					</td>
+					<td >&nbsp;</td>
+          <td >&nbsp;</td>
+          <td >&nbsp;</td>
+          <td >&nbsp;</td>
+				</tr>
+				<tr>
+					<td  align="right">ความ :&nbsp;</td>
+					<td  align="left">
+						<ng-select  [(ngModel)]="selCaseType" class="CaseType" style="width:120px;" (change)="changeCaseType($event)"  #sCaseType>
+							<ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+						</ng-select> 
+					</td>
+					<td >&nbsp;</td>
+          <td >&nbsp;</td>
+          <td >&nbsp;</td>
+          <td >&nbsp;</td>
+				</tr>
+				<tr>
+					<td  align="right">คดีหมายเลขดำที่ :&nbsp;</td>
+					<td  align="left" >
+						<div style="float:left;">
+							<ng-select  [(ngModel)]="selTitle" class="Title" style="width:100px;"   #sTitle>
+								<ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select> 
+						</div>
+						<div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:60px;height:28px;"></div>
+						<div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:100px;height:28px;"></div>
+            <button type="button" class="btn btn-primary" style="margin-left:5px;"  >ค้นหา</button>
+          </td>
+          <td  align="right" style="color: red;" width="150px" >คดีหมายเลขแดงที่ :&nbsp;</td>
+					<td  align="left">
+						<div style="float:left;">
+							<ng-select  [(ngModel)]="selRedTitle" class="RedTitle" style="width:100px;"   #sRedTitle>
+								<ng-option *ngFor="let getData of getRedTitle" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select> 
+						</div>
+						<div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:60px;height:28px;"></div>
+						<div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:100px;height:28px;"></div>
+            <button type="button" class="btn btn-primary" style="margin-left:5px;"  >ค้นหา</button>
+          </td>
+					<td >&nbsp;</td>
+          <td >&nbsp;</td>
+
+
+				</tr>
+				<tr>
+					<td  align="right">เลขที่อ้างอิง :&nbsp;</td>
+					<td  align="left">
+						<div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:60px;height:28px;"></div>
+						<div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:100px;height:28px;"></div>
+            <button type="button" class="btn btn-primary" style="margin-left:5px;"  >ค้นหา</button>
+          </td>
+					<td align="right">วันที่ส่ง :&nbsp;</td>
+          <td align="left" colspan="3" width="1000" >
+            <div style="float: left;margin-left:2px;">
+							<input  name="off_name" type="text" class="blackd" id="off_name" value=""  class="form-control" style="width:100px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:2px; padding-top: 4px;">
+             &nbsp; เวลาที่ส่ง : &nbsp;
+            </div>
+            <div style="float: left;margin-left:2px;">
+
+							<input  name="off_name" type="text" class="blackd" id="off_name" value=""  class="form-control" style="width:100px;height:28px;"/>
+						</div>
+
+          </td>
+				</tr>
+				<tr><td></td><td align="left" style="color: red;">**เมื่อกดปุ่มค้นหาระบบจะทำการบันทึกข้อมูลให้อัตโนมัติ</td></tr>
+			</table>
+      <div class="card-footer" style="text-align: center; margin-top: 5px;">
+				<button type="button" class="btn btn-success" style="margin-left:5px;" >จัดเก็บ</button>
+				<button type="button" class="btn btn-primary" style="margin-left:5px;"  >ล้างหน้าจอ</button>
+				<button type="button" class="btn btn-danger" style="margin-left:5px;"  >ยกเลิกการส่งคำร้อง/คำขอ/คำแถลง</button>
+				<button type="reset" class="btn btn-success" style="margin-left:5px;color:white;" >พิมพ์</button>
+			</div>
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+					<tr>
+					<td width="40%" align="left">
+						<table datatable  class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+							<thead>
+								<tr>
+									<th width="6%" class="no-sort" >ยกเลิก</th>
+									<th width="8%" >เลขที่</th>
+									<th width="10%" >หมายเลขคดีดำ</th>
+									<th width="8%" >ประเภทคำร้อง</th>
+									<th width="8%" >เลขที่อ้างอิง</th>
+									<th width="15%" >คำร้อง/คำขอ/คำแถลง</th>
+									<th width="8%" >วันที่รับคำร้อง/คำขอ/คำแถลง</th>
+									<th width="8%" >เวลาที่รับคำร้อง/คำขอ/คำแถลง</th>
+									</tr>
+							</thead>
+
+							<tbody >
+								<tr>
+									<td colspan="8" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+
+
+
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

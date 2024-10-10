@@ -1,0 +1,32 @@
+<div class="modal-header">
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.close()"></button>
+</div>
+<div class="modal-body" >
+  <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+      <thead>
+        <tr align="center" >
+          <th width="150" height="25" ><strong>ลำดับที่</strong></th>
+          <th ><strong >รายละเอียด</strong></th>
+        </tr>            
+      </thead>
+      <tbody *ngIf="items?.length != 0" >
+        <tr *ngFor="let datas of items;let i = index;" >
+          <td align="center" (click)="onClickListData(i)">{{i+1}}</td>
+          <td align="left" style="padding-left:8px;" (click)="onClickListData(i)" >{{datas.table_name}}</td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="items?.length == 0">
+        <tr ><td colspan="2" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-warning" (click)="activeModal.close()">ปิดหน้าจอ</button>
+</div>
+
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner> 

@@ -1,0 +1,250 @@
+
+    <fieldset style="width:99%;border-radius:4px;border:1px solid #333333;padding:5px;margin-left:9px;">
+      <legend  style="line-height: 10px;float:none;margin-left:14px;font-weight:bold;color:black;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;font-weight: normal;cursor:pointer;color:rgb(25, 107, 214)" >ผู้ถูกประกัน </legend>
+    <table width="100%"  border="0" >
+        <!-- <tr>
+          <td colspan="3">&nbsp;</td>
+          <td><div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" (click)="checkCenter();">ตรวจสอบข้อมูลส่วนกลาง</button></div></td>
+        </tr> -->
+
+        <tr>
+            <td align="right">ประเภทผู้ถูกประกัน :&nbsp;</td>
+            <td width="20%">
+                <div style="float: left;">
+                    <div style="float: left;">
+                        <ng-select [(ngModel)]="result.def_type" appendTo='body' [clearable]="false" style="width:110%;min-width:170px;" >
+                            <ng-option *ngFor="let getData of getDefType"  [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                        </ng-select>
+                    </div>
+                    <div style="float:left;margin-left:25px;margin-top:4px;">ลำดับที่ :&nbsp;</div>
+                    <div style="float: left;">
+                      <input type="text" [(ngModel)]="result.def_no" class="form-control" style="width:60px;text-align:center;"/>
+                  </div>
+                </div>
+            </td>
+            <td align="right">ชื่อ/ชื่อสกุล	:&nbsp;</td>
+            <td>
+            <!-- <div style="float: left;">
+                <input  type="text" [(ngModel)]="result.fee_id" (change)="tabChangeInput('fee_id',$event)" class="form-control" style="width:60px;"/>
+            </div> -->
+            <div style="float: left;margin-left:0px;">
+                <input  [(ngModel)]="result.def_name" type="text" class="form-control" style="width:220px;"/>
+            </div>
+            <div style="float: left;margin-left:2px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:1px;" (click)="clickOpenMyModalComponent(2)"></i>
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:5px;margin-top:1px;" (click)="clickOpenMyModalComponent(1)"></i>
+            </div>
+            <button type="button" class="btn btn-success btn-lg !important" style="margin-left:20px;" (click)="saveTab1()">จัดเก็บ</button>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">ประเภทประกัน :&nbsp;</td>
+          <td >
+              <div style="float: left;">
+                  <div style="float: left;">
+                      <ng-select [(ngModel)]="result.release_type" [clearable]="false" style="width:110%;min-width:170px;" >
+                          <ng-option *ngFor="let getData of getReleaseType"  [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                      </ng-select>
+                  </div>
+              </div>
+          </td>
+          <td  align="right">วันที่ยื่น :&nbsp;</td>
+            <td >
+                <div style="float:left;"><input  type="text" [(ngModel)]="result.send_date" style="width:110px;text-align:center;" class="form-control jcalendar send_date" #send_date (click)="directiveDate(send_date.value,'send_date')"></div>
+                <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.send_date').focus();"></i></div>
+                <button type="button" class="btn btn-warning btn-lg !important" style="margin-left:155px;" (click)="ClearTab1()">ล้างหน้าจอ</button>
+              </td>
+      </tr>
+        <tr>
+            <td  align="right"><span style="color: red;">*</span>ตีราคาประกัน :&nbsp;</td>
+            <td >
+                <div style="float: left;">
+                    <input  type="text" [(ngModel)]="result.guar_cost"  class="form-control" style="width:170px;"/>
+                </div>
+                <div style="float:left;margin-left:8px;margin-top:4px;">บาท &nbsp;</div>
+            </td>
+            <td align="right"><span style="color: red;">*</span>คำสั่งศาล :&nbsp;</td>
+            <td > <div style="float: left;">
+              <ng-select [(ngModel)]="result.guar_permit" [clearable]="false" style="width:110%;min-width:150px;" (change)="ChangeStatus($event);">
+                  <ng-option *ngFor="let getData of getGuarOrder"  [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+              </ng-select>
+          </div></td>
+        </tr>
+        <tr>
+          <td align="right">สถานะ :&nbsp;</td>
+          <td >
+              <div style="float: left;">
+                  <div style="float: left;">
+                      <ng-select [(ngModel)]="result.status" appendTo='body' [clearable]="false" style="width:110%;min-width:170px;" >
+                          <ng-option *ngFor="let getData of getAccuStatus"  [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                      </ng-select>
+                  </div>
+              </div>
+          </td></tr>
+        <tr>
+          <td  align="right" >รายละเอียดคำสั่งศาล :&nbsp;</td>
+          <td  align="left" colspan="3">
+            <div style="float: left;margin-left:0px;">
+              <textarea [(ngModel)]="result.permit_reason" class="form-control" rows="2" cols="100"></textarea>
+          </div>
+          <div style="float: left;margin-left:2px;margin-top:2px;" >
+            <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;"  (click)="clickOpenMyModalComponent(3)"></i>
+        </div>
+          </td>
+      </tr>
+      <tr>
+        <td  align="right" >ผู้พิพากษาที่สั่ง :&nbsp;</td>
+        <td  align="left" colspan="3">
+            <div style="float: left;">
+                <input  type="text"   [(ngModel)]="result.judge_id" (change)="tabChangeInput('judge_id',$event)"  class="form-control" style="width:60px;text-align:center;"/>
+            </div>
+            <div style="float: left;margin-left:2px;">
+                <input  type="text"  [(ngModel)]="result.judge_name"  readonly class="form-control" style="width:255px;"/>
+            </div>
+            <!-- <div style="float: left;margin-left:2px;margin-top:2px;" >
+                <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;"  (click)="clickOpenMyModalComponent(7)"></i>
+            </div> -->
+            <div style="float: left;margin-left:2px;margin-top:2px;" >
+                <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;"  (click)="clickOpenMyModalComponent(4)"></i>
+            </div></td></tr>
+            <tr>
+              <td  align="right" >หมายเหตุ :&nbsp;</td>
+              <td  align="left" colspan="3">
+                <div style="float: left;margin-left:0px;">
+                  <textarea [(ngModel)]="result.remark_lit" class="form-control" rows="2" cols="100"></textarea>
+              </div>
+              </td>
+          </tr>
+          <tr>
+            <td colspan="4">
+                <!-- <fieldset style="width:99%;border-radius:4px;border:1px solid #333333;padding:5px;margin-left:9px;">
+                    <legend style="line-height: 10px;float:none;margin-left:14px;font-weight:bold;color:black;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;font-weight: normal;" >ข้อมูลผู้ยื่นอุทธรณ์/ฎีกา</legend> -->
+                    <!-- <div style="float:left;"><button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openSendPage(0)">ป้อนข้อมูลผู้ยื่นอุทธรณ์/ฎีกา</button></div>
+                    <div style="float:left;"><button type="button" class="btn btn-success" style="margin-left:5px;" (click)="reloadTab()">reload ข้อมูลใหม่</button></div> -->
+                    <table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;margin-top:28px;">
+                        <thead>
+                            <tr>
+                                <th width="3%" class="no-sort">ลบ</th>
+                                <th width="3%" class="no-sort">แก้ไข</th>
+                                <th width="6%" align="center">ประเภท</th>
+                                <th width="5%" class="no-sort">ที่</th>
+                                <th width="5%">วันที่ยื่น</th>
+                                <th width="5%">ยื่น<br>ครั้งที่</th>
+                                <th width="10%">ชื่อ/ชื่อสกุล</th>
+                                <!-- <th width="60" align="center">ภาพถ่าย</th> -->
+                                <th width="8%">ประเภทประกัน</th>
+                                <th width="8%">สถานะ</th>
+                                <th width="8%">คำสั่งศาล</th>
+                                <th width="8%">ตีราคาประกัน</th>
+                                <th width="10%">รายละเอียดคำสั่งศาล</th>
+                                <th width="8%">ผู้พิพากษาที่สั่ง</th>
+                                <th width="6%">แบบแจ้ง<br>ไม่ปล่อยตัว</th>
+                                <th width="6%" >หน่วยงานที่บันทึก</th>
+                                <th width="6%" >ผู้บันทึก</th>
+                                <th width="6%" >วัน/เวลาที่บันทึก</th>
+                                <th width="6%" >หน่วยงานที่แก้ไข</th>
+                                <th width="6%" >ผู้แก้ไข</th>
+                                <th width="6%"  >วัน/เวลาที่แก้ไข</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="GuarDefDataObj?.length != 0">
+							<tr *ngFor="let post of GuarDefDataObj;let i = index;" [ngClass]="{'red': post.cancel_flag}">
+								<td align="center"><i class='fas fa-times' style='font-size:18px;color:rgba(255, 0, 0, 0.7);cursor: pointer;' (click)="delData(1,i)"></i></td>
+								<td align="center"><i class="fa fa-pencil" style="font-size:18px;cursor: pointer;" (click)="AssignDataTab1(GuarDefDataObj[i])"></i></td>
+                                <td align="center">{{post.lit_type_desc}}</td>
+                                <td align="center">{{post.def_no}}</td>
+                                <td align="center">{{post.send_date}}</td>
+                                <td align="center">{{post.seq}}</td>
+                                <td align="center">{{post.def_title}}{{post.def_name}}</td>
+                                <!-- <td align="center"><i class="fa fa-camera-retro" style="font-size:18px;cursor: pointer;" (click)="openSendPage(GuarDefDataObj[i])"></i></td> -->
+                                <td align="center">{{post.release_type_name}}</td>
+                                <td align="center">{{post.status_desc}}</td>
+                                <td align="center">{{post.permit}}</td>
+                                <td align="center">{{post.guar_cost_format}}</td>
+                                <td align="center">{{post.permit_reason}}</td>
+                                <td align="center">{{post.judge_name}}</td>
+                                <td align="center"><span *ngIf="post.guar_permit"><a href="javascript:void(0)" (click)="printReport(1,post.guar_running,post.def_no)"><img src="assets/images/printer.png" width="15px" height="15px"></a></span></td>
+                                <td align="center">{{post.create_dep_name}}</td>
+                                <td align="center">{{post.create_user}}</td>
+                                <td align="center">{{post.create_date}}</td>
+                                <td align="center">{{post.update_dep_name}}</td>
+                                <td align="center">{{post.update_user}}</td>
+                                <td align="center">{{post.update_date}}</td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="GuarDefDataObj?.length == 0">
+                            <tr>
+                                <td colspan="20" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+
+                                <!-- <td style="display:none;"></td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                <!-- </fieldset> -->
+            </td>
+        </tr>
+    </table>
+    </fieldset>
+
+
+
+    <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModaltab1" tabindex="-1" aria-labelledby="exampleModalLabeltab1" aria-hidden="true" style="width:100%;height:100%;">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title text-danger" id="exampleModalLabeltab1"></h5>
+			  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+			  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModaltab1" (click)="loadMyModalComponent();" #openbutton></button>
+			</div>
+			<div class="modal-body" >
+					<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+					<app-datalist-return *ngIf="loadModalComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull  (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+          <app-modal-case-litigant *ngIf="loadModalLitigantComponent" [type]=2 [run_id]=this.run_id [lit_type]=0 (onClickList)="receiveFuncListData($event)" class="modal_app"></app-modal-case-litigant>
+					<app-modal-confirm *ngIf="loadModalConfComponent" class="modal_app"></app-modal-confirm>
+          <app-modal-judge *ngIf="loadModalJudgeComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType (onClickList)="receiveJudgeListData($event)" class="modal_app"></app-modal-judge>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalConfComponent">ตกลง</button>
+				<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+			</div>
+		  </div>
+		</div>
+	</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+
+
+
+
+
+
+
+
+

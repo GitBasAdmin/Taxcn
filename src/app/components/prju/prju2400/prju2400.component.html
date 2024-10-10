@@ -1,0 +1,112 @@
+<style>
+
+</style>
+<!-- <app-menu></app-menu> -->
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<!-- <div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<div style="float:left;margin-top:6px;"><i class="fa fa-folder-open-o" style="font-size:24px;margin-left:8px;"></i><span style="font-size: 16px;margin-left:5px;">{{programName}}</span></div>
+			</div>
+		</div> -->
+    	<!-- form start -->
+		<!-- <form class="form-horizontal" id="myForm"  #prju2400> -->
+		<div class="card-body">
+			<div class="card"  align="center" style="box-shadow: none !important;padding:5px;">
+				<table width="100%"  border="0"  cellspacing="2" cellpadding="2" class="form_table">
+					
+					<tr>
+						<td align="right" width="25%" >ความ :&nbsp;</td>
+						<td align="left" >
+							<div style="float: left;">
+								<ng-select [(ngModel)]="result.case_type" style="width:100px;" [ngModelOptions]="{standalone: true}" (change)="changeCaseType($event)" #sCaseType>
+									<ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+								</ng-select>
+								<input type="hidden" [(ngModel)]="hid_branch_type" name="hid_branch_type" id="hid_branch_type" >
+								<input type="hidden" [(ngModel)]="hid_case_type_stat" name="hid_case_type_stat" id="hid_case_type_stat" >
+								<input type="hidden" [(ngModel)]="hid_title" name="hid_title" id="hid_title" >
+							</div>
+							<div style="float:left;margin-left:8px;margin-top:3px;">&nbsp;ประเภทคดี :&nbsp;</div>
+							<div style="float: left;">
+								<ng-select [(ngModel)]="result.pcase_cate_id" style="width:225px;" [ngModelOptions]="{standalone: true}" #sCaseStat>
+									<ng-option *ngFor="let getData of getCaseCate" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+								</ng-select>
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td align="right">กลุ่มการRunเลขคดีแดง :&nbsp;</td>
+						<td align="left" >
+							<div style="float: left;">
+								<ng-select [(ngModel)]="result.ptitle_group" style="width:100px;" #sTitle>
+									<ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue ><span style="color:red">{{getData.fieldNameValue}}</span></ng-option>
+								</ng-select>
+							</div>
+							<div style="float: left;margin-left:5px;">
+								<input  name="pcon_flag" [(ngModel)]="result.pcon_flag" type="checkbox" id="pcon_flag" [value]="1" style="width:15px;margin-top:5px;"/>
+							</div>
+							<div style="float: left;margin-left:5px;margin-top:4px;">รวมคดีไกล่เกลี่ย</div>
+						</td>
+					</tr>
+
+					<tr >
+						<td  align="right" width="25%" >ผู้พิพากษา :&nbsp;</td>
+						<div style="float: left; margin-left:3px;">
+							<input  type="text"   [(ngModel)]="result.pjudge_id" (change)="tabChangeInput('pjudge_id',$event)"  class="form-control" style="width:60px;"/>
+						</div>
+						<div style="float: left; margin-left:2px;">
+							<input  type="text"  [(ngModel)]="result.pjudge_name"  readonly class="form-control" style="width:255px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(1)"></i>
+						</div>
+					</tr>
+
+					<tr>
+						<td  align="right" width="44%">จากวันที่ :&nbsp;</td>
+						<div style="float: left; margin-left:3px;">
+							<input  type="text" [(ngModel)]="result.txtStartDate" placeholder="่วว/ดด/ปปปป" class="form-control jcalendar txtStartDate" #txtStartDate (click)="directiveDate(txtStartDate.value,'txtStartDate')" style="width:120px;" />
+						</div>
+						<div style="float:left; margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.txtStartDate').focus();"></i></div>
+						<div style="float:left; margin-left:8px;margin-top:5px;">&nbsp;ถึง&nbsp;&nbsp;</div>
+						<div style="float:left;">
+							<input  type="text" [(ngModel)]="result.txtEndDate" placeholder="่วว/ดด/ปปปป" class="form-control jcalendar txtEndDate" #txtEndDate (click)="directiveDate(txtEndDate.value,'txtEndDate')" style="width:120px;" />
+						</div>
+						<div style="float:left; margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.txtEndDate').focus();"></i></div>
+					</tr>
+
+					<div>&nbsp;</div>
+				</table>
+			</div>
+      		<!-- /.card-body -->
+			<div class="card-footer" align="center">
+				<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printReport()">พิมพ์รายงาน</button>
+				<button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+			</div>
+			<!-- /.card-footer -->
+		</div>
+        <!-- </form> -->
+
+		<!-- <div class="modal fade" data-refresh="true" role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+		<div class="modal-dialog">
+		<div class="modal-content">
+		<div class="modal-header">
+		<h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		<button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+		<button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+		</div>
+		<div class="modal-body" >
+		<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+		<app-datalist-return *ngIf="loadModalJudgeComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+		</div>
+		</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+		</div>
+		</div>
+		</div> -->
+
+	</div>
+</div>

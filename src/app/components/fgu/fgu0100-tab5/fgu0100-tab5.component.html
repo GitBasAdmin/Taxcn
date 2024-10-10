@@ -1,0 +1,115 @@
+<div style="height: 350px;">
+  <div style="float: left;margin-left:3px;margin-top:3px;"><b>> รายงาน</b></div>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+    <thead>
+      <tr>
+        <th width="50%" style="background-color: #94b4b9 !important;">หลักทรัพย์</th>
+        <th width="50%" style="background-color: #94b4b9 !important;"> บัญชีทรัพย์</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td width="50%">
+          <div style="float:left;margin-left: 150px;">
+            <ng-select [(ngModel)]="result.form_running1" [clearable]="false" style="width:280px;">
+              <ng-option *ngFor="let getData of getFormRunning1" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+              </ng-option>
+            </ng-select>
+        </div>   
+          <div style="float:left;margin-left: 10px;"> 
+            <button type="button" class="btn btn-primary" (click)="openWindow(1)" >พิมพ์คำร้อง</button>
+          </div>
+          <div style="float:left;margin-left: 10px;">
+            <i class="fa fa-file-word-o" style="font-size:20px;color:#446db8;cursor: pointer;" *ngIf="req_file_name" (click)="clickOpenFile(req_file_name)"></i>
+          </div>   
+          <div style="float:left;margin-left: 10px;">
+            <i class='fas fa-times' style='font-size:20px;color:#d50000d1;cursor: pointer;' *ngIf="req_file_name" (click)="delData(req_file_name, 1)"></i>
+          </div>    
+        </td>
+        <td width="50%">
+          <!-- <div style="float:left;margin-left:200px;">รูปแบบรายงาน</div>
+          <div style="float:left;margin-left:5px;">
+            <ng-select [(ngModel)]="result.end_by" [clearable]="false" style="width:120px;" disabled>
+              <ng-option *ngFor="let getData of getPrint" [value]=getData.id>{{getData.text}}</ng-option>
+            </ng-select>
+          </div> -->
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div style="float:left;margin-left: 150px;">
+            <ng-select [(ngModel)]="result.form_running2" [clearable]="false" style="width:280px;">
+              <ng-option *ngFor="let getData of getFormRunning2" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+              </ng-option>
+            </ng-select>
+          </div>
+          <div style="float:left;margin-left: 10px;">
+            <button type="button" class="btn btn-success" (click)="openWindow(2)" >พิมพ์สัญญา</button>
+          </div>
+          <div style="float:left;margin-left: 10px;">
+            <i class="fa fa-file-word-o" style="font-size:20px;color:#446db8;cursor: pointer;" *ngIf="con_file_name" (click)="clickOpenFile(con_file_name)"></i>
+          </div>
+          <div style="float:left;margin-left: 10px;">
+            <i class='fas fa-times' style='font-size:20px;color:#d50000d1;cursor: pointer;' *ngIf="con_file_name" (click)="delData(con_file_name, 2)"></i>
+          </div>
+        </td>
+        <td>
+          <div style="float:left;margin-left: 200px;">
+            <button type="button" class="btn btn-primary" (click)="printReport(0)" >บัญชีทรัพย์</button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div style="float:left;margin-left: 150px;">
+            <ng-select [(ngModel)]="result.form_running3" [clearable]="false" style="width:280px;">
+              <ng-option *ngFor="let getData of getFormRunning3" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+              </ng-option>
+            </ng-select>
+          </div>
+          <div style="float:left;margin-left: 10px;">
+            <button type="button" class="btn btn-success" (click)="openWindow(3)" >พิมพ์หนังสือแนบท้ายสัญญา</button>
+          </div>
+          <div style="float:left;margin-left: 10px;"> 
+            <i class="fa fa-file-word-o" style="font-size:20px;color:#446db8;cursor: pointer;" *ngIf="doc_file_name" (click)="clickOpenFile(doc_file_name)"></i>
+          </div>
+          <div style="float:left;margin-left: 10px;">
+            <i class='fas fa-times' style='font-size:20px;color:#d50000d1;cursor: pointer;' *ngIf="doc_file_name" (click)="delData(doc_file_name, 3)"></i>
+          </div>
+        </td>
+        <td>
+          <div style="float:left;margin-left: 200px;">
+            <button type="button" class="btn btn-primary" (click)="printReport(1)" >บัญชีทรัพย์ผู้พิพากษาเซ็น</button>
+          </div>
+        </td>
+      </tr>
+      <!-- <tr>
+        <td width="50%">
+          <div style="margin-left: 200px;"> <button type="button" class="btn btn-primary" (click)="openWindow(1)" >คำร้อง</button></div>
+        </td>
+        <td width="50%">
+          <div style="float:left;margin-left:200px;">รูปแบบรายงาน</div>
+          <div style="float:left;margin-left:5px;">
+            <ng-select [(ngModel)]="result.end_by" [clearable]="false" style="width:120px;" disabled>
+              <ng-option *ngFor="let getData of getPrint" [value]=getData.id>{{getData.text}}</ng-option>
+            </ng-select>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div style="margin-left: 200px;">
+            <button type="button" class="btn btn-success" (click)="openWindow(2)" >สัญญา</button>
+            <button type="button" class="btn btn-success" style="margin-left:5px;" (click)="openWindow(3)"  >หนังสือแนบท้ายสัญญา</button>
+          </div>
+        </td>
+        <td>
+          <div style="margin-left: 200px;">
+            <button type="button" class="btn btn-primary" (click)="printReport(0)" >บัญชีทรัพย์</button>
+            <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="printReport(1)" >บัญชีทรัพย์ผู้พิพากษาเซ็น</button>
+          </div>
+        </td>
+      </tr> -->
+    </tbody>
+  </table>
+</div>

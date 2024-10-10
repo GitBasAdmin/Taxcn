@@ -1,0 +1,10 @@
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:5px;" >
+		<button class="btn btn-primary" (click)="downloadAsPDF();">พิมพ์ PDF</button>
+    	<div class="showDisPlay" [innerHTML]="displayTable" id="pdfTable" #pdfTable></div>
+	</div>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner>

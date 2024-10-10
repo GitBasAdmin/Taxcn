@@ -1,0 +1,273 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info">
+			<div class="card-header">
+			<h3 class="card-title">{{programName}}</h3>
+			</div>
+			<!-- /.card-header -->
+			<!-- form start -->
+
+				<div class="card-body">
+					<!--	-->
+					<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+						<tr>
+						<td  width="20%"  align="right">รหัสหน่วยงาน :&nbsp;</td>
+						<td ><div style="float: left; margin-left:0px;">
+							<input type="text" [(ngModel)]="result.dep_code"  name="dep_code" id="dep_code"  class="form-control" style="width:80px;text-align:center;" #sDepcode> </div>
+							<input type="hidden"  [(ngModel)]="hid_dep_code" name="hid_dep_code" id="hid_dep_code" >
+              <div style="float: left; margin-left:12px;"><input [(ngModel)]="result.disable_flag" name="disable_flag" type="checkbox" id="disable_flag"  style="width:15px;height:15px;margin-top:5px;"/></div>
+              <div style="float: left; margin-top:3px;">&nbsp;ไม่ใช้งาน</div>
+            </td>
+						</tr>
+           	<tr>
+							<td    align="right" >ชื่อหน่วยงาน :&nbsp;</td>
+							<td ><div style="float: left; margin-left:0px;">
+              <input type="text" [(ngModel)]="result.dep_name" name="dep_name" id="dep_name" class="form-control" style="width:450px;" #sDepname></div>
+              <div style="float: left; margin-left:12px;"><input [(ngModel)]="result.ext_flag" name="ext_flag" type="checkbox" id="ext_flag"  style="width:15px;height:15px;margin-top:5px;"/></div>
+              <div style="float: left; margin-top:3px;">&nbsp;หน่วยงานภายนอกศาล</div>
+            </td>
+            </tr>
+            <tr>
+							<td    align="right" >ชื่อหน่วยงาน(สำหรับโปรแกรมใช้งาน) :&nbsp;</td>
+							<td ><div style="float: left; margin-left:0px;">
+              <input type="text" [(ngModel)]="result.view_admin" name="view_admin" id="view_admin" class="form-control" style="width:450px;" #sViewdepname></div>
+              <div style="float: left; margin-left:12px;"><input [(ngModel)]="result.notice_flag" name="notice_flag" type="checkbox" id="notice_flag"  style="width:15px;height:15px;margin-top:5px;"/></div>
+              <div style="float: left; margin-top:3px;">&nbsp;แก้ไข/ลบหมายของหน่วยงานอื่นได้</div>
+            </td>
+            </tr>
+            <tr>
+							<td    align="right" >ชื่อหน่วยงานใช้สำหรับพิมพ์หนังสือ :&nbsp;</td>
+							<td ><input type="text" [(ngModel)]="result.print_dep_name" name="print_dep_name" id="print_dep_name" class="form-control" style="width:450px;" #sPrintdepname></td>
+						</tr>
+            <tr>
+              <td  align="right">Layout :&nbsp;</td>
+              <td  align="left" >
+                <div style="float:left;"><input [(ngModel)]="result.lay_out" name="lay_out" type="text"   class="form-control" style="width:350px;height:28px;"></div>
+              </td>
+            </tr>
+            <tr>
+              <td  align="right">ธนาคารสาขา :&nbsp;</td>
+              <td  align="left" >
+                <div style="float:left;"><input [(ngModel)]="result.bankbranch" name="bankbranch" type="text"   class="form-control" style="width:350px;height:28px;"></div>
+              </td>
+            </tr>
+            <tr>
+              <td  align="right">หมายเลขโทรศัพท์ :&nbsp;</td>
+              <td  align="left" >
+                <div style="float:left;"><input [(ngModel)]="result.dep_tel_no" name="dep_tel_no" type="text"   class="form-control" style="width:350px;height:28px;"></div>
+              </td>
+            </tr>
+            <tr>
+              <td  align="right">หมายเลขโทรสาร :&nbsp;</td>
+              <td  align="left" >
+                <div style="float:left;"><input [(ngModel)]="result.dep_tel_fax" name="dep_tel_fax" type="text"   class="form-control" style="width:350px;height:28px;"></div>
+              </td>
+            </tr>
+            <tr>
+              <td  align="right">หมายเหตุส่งสำนวน :&nbsp;</td>
+              <td  align="left" >
+                <div style="float:left;"><input [(ngModel)]="result.remark" name="remark" type="text"   class="form-control" style="width:350px;height:28px;"></div>
+              </td>
+            </tr>
+            <tr>
+              <td  align="right">ชื่อไปรษณีย์ของหน่วยงาน :&nbsp;</td>
+              <td  align="left" >
+                <div style="float:left;"><input [(ngModel)]="result.post_name_notice" name="post_name_notice" type="text"   class="form-control" style="width:350px;height:28px;"></div>
+              </td>
+            </tr>
+            <tr>
+              <td align="right" >ใช้งานรางนัดความ :&nbsp;</td>
+              <td  align="left" >
+                <div style="float: left;margin-left:0px;">
+                  <ng-select  [(ngModel)]="result.table_id" style="width:110%;min-width:300px;"   #sTableId>
+                  <ng-option *ngFor="let getData of getTableId" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                  </ng-select>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td align="right" >การ Run เลขที่ส่งสำนวน :&nbsp;</td>
+              <td  align="left" >
+                <div style="float: left;margin-left:0px;">
+                  <ng-select  [(ngModel)]="result.send_running" style="width:110%;min-width:150px;"   #sSendRunning>
+                  <ng-option *ngFor="let getData of getSendRunning" [value]=getData.id >{{getData.text}}</ng-option>
+                  </ng-select>
+                </div>
+                <div style="float: left; margin-left:25px;"><input [(ngModel)]="result.no_edit_flag" name="no_edit_flag" type="checkbox" id="no_edit_flag"  style="width:15px;height:15px;margin-top:5px;"/></div>
+                <div style="float: left; margin-top:3px;">&nbsp;ห้ามแก้ไข</div>
+                <div style="float: left; margin-left:20px;"><input [(ngModel)]="result.efiling_flag" name="efiling_flag" type="checkbox" id="efiling_flag"  style="width:15px;height:15px;margin-top:5px;"/></div>
+                <div style="float: left; margin-top:3px;">&nbsp;หน่วยงานที่รับฟ้องทาง E-filing</div>
+				<div style="float: left; margin-left:20px;"><input [(ngModel)]="result.notice_alert_flag" name="notice_alert_flag" type="checkbox" id="notice_alert_flag"  style="width:15px;height:15px;margin-top:5px;"/></div>
+                <div style="float: left; margin-top:3px;">&nbsp;รับข้อความแจ้งเตือนจากระบบคำร้องขอออกหมาย</div>
+              </td>
+            </tr>
+          </table>
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer">
+					<button type="button" class="btn btn-success" style="margin-left:20%;" (click)="submitForm()">จัดเก็บข้อมูล</button>
+					<button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="confirmBox()" >ลบข้อมูลที่เลือก</button>
+          <button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+          <!-- <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="searchData()">ค้นหา</button> -->
+					<!--<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="goToLink('http://bizascorp.thddns.net:8848/taxcRpt56/rct0226.jsp')">พิมพ์</button>-->
+					<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printReport()">พิมพ์</button>
+					<input type="hidden" name="delValue" id="delValue">
+          <!-- <input type="hidden" name="delValue2" id="delValue2"> -->
+				</div>
+				<!-- /.card-footer -->
+
+		</div>
+	</div>
+
+	<div class="content" style="padding:10px;margin-top:-25px;">
+		<section class="content" style="width: 3000px;">
+		<div class="card card-info">
+			<div class="card-header" style="display:none;">
+			<h3 class="card-title">ข้อมูล</h3>
+			</div>
+			<!-- /.card-header -->
+			<!-- /.card-header -->
+			<div class="card-body">
+				<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover myTable1">
+					<thead>
+						<tr>
+						<th width="2%" class="no-sort">
+							<input type="checkbox" name="all" [(ngModel)]="masterSelected" value="m1" (change)="checkUncheckAll()"/>
+						</th>
+						<th width="2%" class="no-sort">แก้ไข</th>
+						<th width="2%">รหัส</th>
+					 <th width="5%">ชื่อแผนก</th>
+           <th width="5%">ชื่อหน่วยงาน<br>(สำหรับโปรแกรมใช้งาน)</th>
+           <th width="5%">ชื่อหน่วยงานใช้พิมพ์หนังสือ</th>
+           <th width="3%">layout</th>
+           <th width="5%">หมายเลขโทรศัพท์
+           <th width="5%">การ run เลขที่ส่งสำนวน</th>
+           <th width="3%">E-filing</th>
+           <th width="3%">แก้ไข/ลบ หมาย<br>ของหน่วยงานอื่นได้</th>
+           <th width="3%">ไม่ใช้งาน</th>
+           <th width="5%">หมายเหตุส่งสำนวน</th>
+           <th width="3%">ห้ามแก้ไข</th>
+           <th width="5%">รางนัดความ</th>
+           <th width="3%">หน่วยงานภายนอกศาล</th>
+           <th width="5%">ธนาคารสาขา</th>
+           <th width="4%">รับข้อความแจ้งเตือนจากระบบคำร้องขอออกหมาย</th>
+            <th width="4%" >หน่วยงานที่บันทึก</th>
+						<th width="4%" >ผู้บันทึก</th>
+						<th width="4%" >วัน/เวลาที่บันทึก</th>
+						<th width="5%" >หน่วยงานที่แก้ไข</th>
+						<th width="5%" >ผู้แก้ไข</th>
+						<th width="4%"  >วัน/เวลาที่แก้ไข</th>
+						<!--<th width="15%">&nbsp;</th>-->
+						</tr>
+					</thead>
+					<tbody *ngIf="posts?.length != 0">
+
+					<tr *ngFor="let post of posts;let i = index;">
+							<td align="center">
+                <input type="checkbox"  [(ngModel)]="posts[i].edit9906" (change)="isAllSelected()" >
+								<!-- <input type="checkbox" name="listName[]" value="{{post.dep_code}}" [(ngModel)]="post.editJailId" (change)="isAllSelected()" > -->
+							</td>
+							<td align="center"><i class='fas fa-pencil-alt' style='cursor:pointer;font-size:20px' (click)="editData(i)"></i></td>
+						  <td align="center">{{post.dep_code}}</td>
+              <td align="center">{{post.dep_name}}</td>
+              <td align="center">{{post.view_admin}}</td>
+              <td align="center">{{post.print_dep_name}}</td>
+              <td align="center">{{post.lay_out}}</td>
+              <td align="center">{{post.dep_tel_no}}</td>
+              <td align="center">{{post.send_desc}}</td>
+              <td align="center"><span *ngIf="post.efiling_flag"><a href=""><i class='fas fa-check' style='font-size:16px;color: #0099cc;'></i></a></span></td>
+              <td align="center"><span *ngIf="post.notice_flag"><a href=""><i class='fas fa-check' style='font-size:16px;color: #0099cc;'></i></a></span></td>
+              <td align="center"><span *ngIf="post.disable_flag"><a href=""><i class='fas fa-check' style='font-size:16px;color: #0099cc;'></i></a></span></td>
+              <td align="center">{{post.remark}}</td>
+              <td align="center"><span *ngIf="post.no_edit_flag"><a href=""><i class='fas fa-check' style='font-size:16px;color: #0099cc;'></i></a></span></td>
+              <td align="center">{{post.table_name}}</td>
+              <td align="center"><span *ngIf="post.ext_flag"><a href=""><i class='fas fa-check' style='font-size:16px;color: #0099cc;'></i></a></span></td>
+              <td align="center">{{post.bankbranch}}</td>
+			  <td align="center"><span *ngIf="post.notice_alert_flag"><a href=""><i class='fas fa-check' style='font-size:16px;color: #0099cc;'></i></a></span></td>
+							<td align="center">{{post.create_dep_name}}</td>
+							<td align="center">{{post.create_user}}</td>
+							<td align="center">{{post.create_date}}</td>
+							<td align="center">{{post.update_dep_name}}</td>
+							<td align="center">{{post.update_user}}</td>
+							<td align="center">{{post.update_date}}</td>
+						</tr>
+					</tbody>
+					<tbody *ngIf="posts?.length == 0">
+						<tr>
+							<td colspan="19" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+
+              				<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+
+              				<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+		</section>
+	</div>
+
+ <!-- Modal -->
+
+ <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+		  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+		</div>
+		<div class="modal-body" >
+
+      <input type="hidden" name="table_name" id="table_name">
+      <input type="hidden" name="field_id" id="field_id">
+      <input type="hidden" name="field_name" id="field_name">
+      <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+      <app-datalist-return *ngIf="loadComponent"  [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+      <app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+       </div>
+
+		</div>
+		<div class="modal-footer">
+			<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+		  	<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

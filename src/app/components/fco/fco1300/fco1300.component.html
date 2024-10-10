@@ -1,0 +1,233 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<!-- <div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName"></app-case-header>
+			</div> -->
+      <div class="programName" style="float:left;margin-top:6px;"><i class="fa fa-folder-open-o" style="font-size:24px;margin-left:8px;"></i><span style="font-size: 16px;margin-left:5px;">{{programName}}</span></div>
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="2" class="form_table">
+				<!-- <tr>
+					<td colspan="2" align="left" style="height:40px;">
+						<div style="float:left;margin-left:8px;margin-top:5px;">ต้องการค้นหาข้อมูลตาม ....&nbsp;</div>
+					</td>
+				</tr> -->
+        <tr>
+          <td align="right" width="25%">Barcode :&nbsp;</td>
+        <td><div style="float: left;">
+        <input  name="barcode" type="text"  id="barcode" autofocus [(ngModel)]="result.barcode" (keyup.enter)="BarcodeSubmit($event)" class="form-control" style="width:200px;height:28px;" #BarCode >
+        </div>
+        <!-- <div style="float:left;margin-left:8px;"><label style="color: red;">*เมื่ออ่าน barcode หรือค้นตามเลขหนังสือ หรือวันที่ส่งหนังสือ แล้วระบบจะทำการจัดเก็บให้อัตโนมัติ</label></div> -->
+        <div style="float:left;margin-left:8px;"><label style="color: red;">*เมื่ออ่าน barcode แล้วระบบจะทำการจัดเก็บให้อัตโนมัติ</label></div>
+        <input type="hidden" ngModel="result.edit_run_seq" id="edit_run_seq" name="edit_run_req" >
+        <input type="hidden" ngModel="result.edit_item" id="edit_item" name="edit_item" >
+      </td> </tr>
+        <tr>
+					<td  align="right">เลขที่อ้างอิง :&nbsp;</td>
+					<td  align="left">
+						<div style="float:left;margin-left:0px;"><input   type="text" [(ngModel)]="result.ref_no"  class="form-control" style="width:60px;height:28px;text-align: center;"></div>
+            <div style="float:left;margin-left:8px;margin-top:3px;">/</div>
+            <div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="result.ref_yy" class="form-control" style="width:80px;height:28px;text-align:center"></div>
+            <button type="button" class="btn btn-primary" style="margin-left:8px;" (click)="searchData(2)">ค้นจากเลขอ้างอิง</button>
+            <button type="button" class="btn btn-success" style="margin-left:5px;" (click)="newRef()">สร้างเลขอ้างอิง</button>
+          </td>	</tr>
+          <tr>
+            <td colspan="2">
+              <div class="card-body" >
+                <table width="100%" border="0" cellspacing="2" cellpadding="0"  >
+                  <fieldset style="width:35%;border-radius:4px;border:1px solid #333333;padding:5px;margin-left:18.5%" >
+                    <legend style="line-height: 10px;display:none;margin-left:8px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;" class="lClick">ข้อมูลคดี </legend>
+                    <table width="100%"  border="0" cellspacing="2" cellpadding="0" calspan="2" class="form_table">
+                    <tr>
+              <td  align="right">เลขหนังสือ :&nbsp;</td>
+              <td  align="left">
+                <div style="float:left;margin-right:10px;">
+                  <ng-select [(ngModel)]="result.real_doc_title" name="real_doc_title" style="width:110%;min-width: 80px;"
+                  [ngModelOptions]="{standalone: true}"  #sRunDocTitle>
+                   <ng-option *ngFor="let getData of getRealDocTitle" [value]=getData.fieldNameValue>{{getData.fieldNameValue}}
+                  </ng-option>
+                </ng-select>
+                </div>
+                <div style="float:left;margin-left:3px;"><input name="id"  type="text" [(ngModel)]="result.real_doc_id"  class="form-control" style="width:60px;height:28px;"></div>
+                <div style="float:left;margin-left:8px;margin-top:3px;">/</div>
+                <div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="result.real_doc_yy" class="form-control" style="width:80px;height:28px;"></div>
+              </td>	</tr>
+              <tr>
+                <td  align="right">วันที่ส่งหนังสือ :&nbsp;</td>
+                <td  align="left">
+                  <div style="float:left;"><input   type="text" [(ngModel)]="result.real_send_date1" class="form-control jcalendar real_send_date1" #real_send_date1 (click)="directiveDate(real_send_date1.value,'real_send_date1')" style="width:120px;height:28px;"></div>
+                  <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.real_send_date1').focus();"></i></div>
+                  <div style="float:left;margin-left:8px;margin-top:5px;">&nbsp;ถึง&nbsp;</div>
+                  <div style="float:left;"><input   type="text" [(ngModel)]="result.real_send_date2" class="form-control jcalendar real_send_date2"  #real_send_date2 (click)="directiveDate(real_send_date2.value,'real_send_date2')" style="width:120px;height:28px;"></div>
+                   <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.real_send_date2').focus();"></i></div>
+                   <div style="float:left;margin-left:8px;margin-top:5px;"><button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="Autosubmit(1)">ค้นหา</button></div>
+                  </td>
+              </tr>
+            </table>
+          </fieldset>
+          </table>
+        </div>
+            </td>
+          </tr>
+      <tr>
+        <td  align="right">รายงานเรียงตาม :&nbsp;</td>
+        <td> <div style="float: left;">
+                    <ng-select  [(ngModel)]="result.porder" style="width:150px;"   #sPorder>
+                      <ng-option *ngFor="let getData of getOrder" [value]=getData.id >{{getData.text}}</ng-option>
+                    </ng-select>
+                  </div></td>
+      </tr>
+    <div>&nbsp;</div>
+			</table>
+      <div class="card-footer" style="margin-top:5px;">
+        <button type="button" class="btn btn-success" style="margin-left:25%;" (click)="submitForm()">จัดเก็บข้อมูล</button>
+        <button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" onclick="location.reload()">ล้างหน้าจอ</button>
+        <button type="button" class="btn btn-info" style="margin-left:5px;" (click)="printReport(1)"  >พิมพ์ใบนำส่ง</button>
+        <button type="button" class="btn btn-info" style="margin-left:5px;" (click)="printReport(2)"  >พิมพ์ใบนำส่ง (แบบ ปณ.)</button>
+        <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="searchData(3)">ค้นหาหนังสือที่ยังไม่ได้ส่ง</button>
+			</div>
+		</div>
+
+    <div class="card-body">
+      <table width="100%" border="0" cellspacing="2" cellpadding="0" >
+        <fieldset style="width:25%;border-radius:4px;border:1px solid #333333;padding:1px;margin-left:25%" >
+          <legend style="line-height: 10px;display:none;margin-left:8px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;" class="lClick">ข้อมูลคดี </legend>
+          <table width="100%"  border="0" cellspacing="2" cellpadding="0" calspan="2" class="form_table">
+            <tr>
+              <td  width="100" align="right">วันที่นำส่ง :&nbsp;</td>
+              <td  align="left">
+                <div style="width:80%;float:left;padding:5px 0 5px 0px;">
+                  <div style="float:left;"><input   type="text" [(ngModel)]="result.ssend_date" class="form-control jcalendar ssend_date" #ssend_date (click)="directiveDate(ssend_date.value,'ssend_date')" style="width:120px;height:28px;text-align: center;"></div>
+              <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.ssend_date').focus();"></i></div>
+                  <div style="float:left;margin-left:4px;"><button type="button" class="btn btn-primary" style="margin-left:5px;"  (click)="searchData(1)">ค้นหา</button></div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+        </table>
+      </div>
+
+		<div  class="card " style="box-shadow: none !important;padding:5px;width: 100%;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+        <!-- <tr *ngIf="this.result.edit!=0">
+          <td colspan="24">
+            <div class="d-flex flex-nowrap bd-highlight">
+              <div style="margin-left: 0px;" class="order-1">&nbsp;รายการจ่ายสำนวนวันนี้</div><div class="order-2" style="margin-left: 8px;font-weight: bold;text-decoration: underline;">{{this.dataSearch.length}}</div> <div style="margin-left: 3px;" class="order-3">&nbsp; รายการ</div>
+           </div>
+          </td>
+        </tr> -->
+				<tr>
+					<td width="40%" align="left">
+            <table datatable  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" width="99.5%">
+							<thead>
+								<tr>
+                  <th width="3%" class="no-sort"> เลือกเพื่อบันทึก
+                    <input type="checkbox" name="all" [(ngModel)]="masterSelected" value="m1" (change)="checkUncheckAll()">
+                   </th>
+                  <th width="3%" >ลำดับที่</th>
+                  <th width="4%" >เลขอ้างอิง</th>
+                  <th width="4%" >เลขที่ส่งหนังสือ</th>
+                  <th width="7%" >เรื่อง</th>
+                  <th width="7%" >เรียน</th>
+                  <th width="3%" >รหัสไปรษณีย์</th>
+                  <th width="5%" >ประเภทการส่ง</th>
+									<th width="5%" >รหัส EMS</th>
+								  <th width="5%" >วันที่นำส่ง</th>
+                 </tr>
+							</thead>
+
+              <tbody *ngIf="dataSearch?.length != 0">
+                <tr *ngFor="let post of dataSearch;let i = index;">
+                  <td align="center">
+                    <span><input type="checkbox"  [(ngModel)]="dataSearch[i].edit1300" (change)="isAllSelected()" ></span>
+                    <!-- <span *ngIf="this.result.edit==1"><i class='fas fa-times' style='font-size:18px;color:rgba(255, 0, 0, 0.7);cursor: pointer;' (click)="delData(post.run_id)"></i></span> -->
+                  </td>
+                  <td align="center">{{post.order_num}}</td>
+                  <td align="center">{{post.ref_no}}</td>
+                  <td align="center">{{post.real_doc_no}}</td>
+                  <!-- <td align="center"><a href="javascript:void(0)" (click)="goToPage(post.run_id)" >{{post.case_no}} <input [(ngModel)]="result.red_running" [value]="post.red_running" type="hidden"></a></td> -->
+                  <td align="center">{{post.subject_name}}</td>
+                  <td align="center">{{post.docto_desc}}</td>
+                  <td align="center"> <div style="float: left;margin-left:2px;">
+                    <input  name="post_no" type="text"  id="post_no"  [(ngModel)]="dataSearch[i].post_no" value=""  class="form-control" (change)="listSave(i)" style="width:100;height:28px;text-align:center;" >
+                 </div></td>
+                  <td align="center"><div style="float: left;">
+                    <ng-select  [(ngModel)]="dataSearch[i].post_type" style="width:150px;" (change)="listSave(i)" [clearable]="false">
+                      <ng-option *ngFor="let getData of getPostType" [value]=getData.id >{{getData.text}}</ng-option>
+                    </ng-select></div></td>
+                  <td align="center"> <div style="float: left;margin-left:2px;">
+                    <input  name="ems_barcode" type="text"  id="ems_barcode"  [(ngModel)]="dataSearch[i].ems_barcode" value=""  class="form-control" style="width:180;height:28px;" >
+                 </div></td>
+                  <td align="center" >
+                    <div style="float:left;"><input id="send_date" name="send_date"  type="text" [(ngModel)]="dataSearch[i].send_date" class="form-control jcalendar send_date[i]"  #send_date (click)="directiveDateArry($event,'send_date',i)" (change)="listSave(i)" style="width:100px;height:28px;"></div>
+                    <div style="float:left;margin-left:5px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;"  onClick="$(this).closest('td').find('input[type=\'text\']').focus();"></i></div> </td>
+                  </tr>
+              </tbody>
+
+							<tbody *ngIf="dataSearch?.length == 0">
+								<tr>
+									<td colspan="10" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+                  <td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+
+
+<!-- Modal -->
+
+<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+		  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+		</div>
+		<div class="modal-body" >
+
+				<input type="hidden" name="table_name" id="table_name">
+				<input type="hidden" name="field_id" id="field_id">
+				<input type="hidden" name="field_name" id="field_name">
+				<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+				<!-- <app-datalist-return *ngIf="loadComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName  (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return> -->
+				<app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+
+			</div>
+
+		</div>
+		<div class="modal-footer">
+      <!-- <button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button> -->
+     	<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

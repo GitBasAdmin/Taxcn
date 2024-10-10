@@ -1,0 +1,747 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info">
+			<div class="card-header">
+			<h3 class="card-title">{{programName}}</h3>
+			</div>
+				<div class="card-body">
+					<!--	-->
+					<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+						<tr>
+							<td width="30%" align="right">รหัสศาล  :&nbsp;</td>
+							<td width="70%;" align="left">
+								<div style="float: left;">
+									<input   type="text" [(ngModel)]="result.court_id" name="court_id" class="form-control" style="width:80px;"  />
+								</div>
+								<div style="float:left;padding-top: 4px;">
+									<div style="float:left;">&nbsp; ประเภทศาล&nbsp;</div>
+								</div>
+								<div style="float:left;">
+									<ng-select [(ngModel)]="result.court_type_id" [ngModelOptions]="{standalone: true}" style="width:250px;">
+									  <ng-option *ngFor="let getData of getCourtType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+									  </ng-option>
+									</ng-select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">รหัสมาตรฐาน :&nbsp;</td>
+							<td  align="left">
+								<div style="float: left;">
+									<input   type="text" [(ngModel)]="result.std_id" name="std_id" class="form-control" style="width:80px;" (change)="tabChangeSelect('std_id',$event)" />
+								</div>
+								<div style="float: left;">
+									<input   type="text"  [(ngModel)]="result.std_name" name="std_name" class="form-control" style="width:270px;" readonly/>
+								</div>
+								<div style="float: left;margin-top:2px;" >
+									<i  class="far fa-list-alt" title="แสดงรายการข้อมูล" style="font-size: 20px; margin-left:4px;" (click)="clickOpenMyModalComponent(0)"></i>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ชื่อศาล :&nbsp;</td>
+							<td  align="left">
+								<div style="float: left;">
+									<input   type="text"  [(ngModel)]="result.court_name" name="court_name" class="form-control" style="width:350px;" #courtName/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ชื่อศาลอังกฤษ :&nbsp;</td>
+							<td  align="left">
+								<div style="float: left;">
+									<input   type="text"  [(ngModel)]="result.court_eng" name="court_eng" class="form-control" style="width:350px;"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ชื่อย่อ :&nbsp;</td>
+							<td  align="left">
+								<div style="float: left;">
+									<input   type="text"  [(ngModel)]="result.short_court_name" name="short_court_name" class="form-control" style="width:246px;"/>
+								</div>
+								<div style="float:left; margin-left:4px;">ภาค</div>
+								<div style="float:left; margin-left:4px;">
+									<ng-select [(ngModel)]="result.court_part" [ngModelOptions]="{standalone: true}" style="width:72px;">
+										<ng-option *ngFor="let getData of getCourtPart" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">เลขประจำตัวผู้เสียภาษี :&nbsp;</td>
+							<td  align="left">
+								<div style="float: left;">
+									<input   type="text"  [(ngModel)]="result.tax_id" name="tax_id" class="form-control" style="width:350px;"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ตำแหน่งผู้บริหาร :&nbsp;</td>
+							<td  align="left">
+								<div style="float: left;">
+									<input   type="text"  [(ngModel)]="result.director" name="director" class="form-control" style="width:350px;"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ตำแหน่งผู้อำนวยการ :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input   type="text"  [(ngModel)]="result.director_post" name="director_post" class="form-control" style="width:350px;"/>
+
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">รายละเอียดที่อยู่ศาล :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input   type="text"  [(ngModel)]="result.court_address" name="court_address" class="form-control" style="width:350px;"/>
+
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">อยู่บ้านเลขที่ :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;"><input [(ngModel)]="result.addr_no" name="addr_no" type="text"  class="form-control" style="width:130px;"></div>
+								<div style="float:left;">&nbsp; หมู่ที่ &nbsp;</div>
+								<div style="float:left;"><input [(ngModel)]="result.moo" name="moo" type="text"  class="form-control" style="width:100px;"></div>
+								<div style="float:left;">&nbsp; ตรอก/ซอย &nbsp;</div>
+								<div style="float:left;"><input [(ngModel)]="result.soi" name="soi" type="text"  class="form-control" style="width:130px;"></div>	
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ถนน :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.road" name="road" type="text"  class="form-control" style="width:220px;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">จังหวัด :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<ng-select [(ngModel)]="result.court_province" [ngModelOptions]="{standalone: true}" style="width:350px;" (change)="changeProv($event,1)" #sProv >
+										<ng-option *ngFor="let getData of getProv" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">อำเภอ :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<ng-select [(ngModel)]="result.court_ampheur" [ngModelOptions]="{standalone: true}" style="width:350px;" (change)="changeAmphur($event,1)" #sAmphur>
+										<ng-option *ngFor="let getData of getAmphur" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ตำบล :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<ng-select [(ngModel)]="result.court_tambon" [ngModelOptions]="{standalone: true}" style="width:350px;" (change)=" changeTambon($event,1)" #sTambon>
+										<ng-option *ngFor="let getData of getTambon" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">รหัสไปรษณีย์ :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.post_no" name="post_no" type="text"  class="form-control" style="width:160px;">
+								</div>
+								<div style="float:left;">&nbsp; ค่านำหมายส่งไปรษณีย์ &nbsp;</div>
+								<div style="float:left;"><input [(ngModel)]="result.post_amt" name="post_amt" type="text"  class="form-control" style="width:110px;"></div>
+								<div style="float:left;">&nbsp; บาท &nbsp;</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right"></td>
+							<td  align="left">
+								<div style="float:left;">
+									<input  [(ngModel)]="result.c_lan" name="c_lan" type="checkbox"  [value]="1" style="width:15px;height:15px;margin-top:2px;"/>
+								</div>
+								<div style="float:left;">&nbsp; ศาลที่ใช้โปรแกรม วันที่เริ่มใช้โปรแกรม &nbsp;</div>
+								<div style="float:left;">
+									<input type="text" [(ngModel)]="result.system_start_date"  name="startDate" class="form-control jcalendar system_start_date" #systemStartDate (click)="directiveDate(systemStartDate.value,'system_start_date')" style="width:120px;">
+								</div>
+            					<div style="float:left;margin-left:8px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.system_start_date').focus();"></i></div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">เบอร์โทรศัพท์ :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.tel_no" name="tel_no" type="text"  class="form-control" style="width:200px;">
+								</div>
+								<div style="float:left;">&nbsp; เบอร์โทรสาร &nbsp;</div>
+								<div style="float:left;">
+									<input [(ngModel)]="result.fax_no" name="fax_no" type="text"  class="form-control" style="width:200px;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">email :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.e_mail" name="e_mail" type="text"  class="form-control" style="width:350px;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">เลขหนังสือ :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.doc_id" name="doc_id" type="text"  class="form-control" style="width:350px;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ที่อยู่ในหนังสือแถว 1 :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.court_addr1" name="court_addr1" type="text"  class="form-control" style="width:350px;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ที่อยู่ในหนังสือแถว 2 :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.court_addr2" name="court_addr2" type="text"  class="form-control" style="width:350px;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ที่อยู่ในหนังสือแถว 3 :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.court_addr3" name="court_addr3" type="text"  class="form-control" style="width:350px;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ที่อยู่ในหนังสือแถว 4 :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.court_addr4" name="court_addr4" type="text"  class="form-control" style="width:350px;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ที่อยู่ในหนังสือแถว 5 :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.court_addr5" name="court_addr5" type="text"  class="form-control" style="width:350px;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ที่อยู่ในหนังสือแถว 6 :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.court_addr6" name="court_addr6" type="text"  class="form-control" style="width:350px;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ชื่อไปรษณีย์ :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.post_name" name="post_name" type="text"  class="form-control" style="width:200px;">
+								</div>
+								<div style="float:left;">&nbsp; เลขที่ใบอนุญาต &nbsp;</div>
+								<div style="float:left;">
+									<input [(ngModel)]="result.post_licence" name="post_licence" type="text"  class="form-control" style="width:100px;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">นัดเช้าเวลา :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.app_morning_time" name="app_morning_time" type="text"  class="form-control" style="width:80px;">
+								</div>
+								<div style="float:left;">&nbsp; นัดบ่ายเวลา &nbsp;</div>
+								<div style="float:left;">
+									<input [(ngModel)]="result.app_afternoon_time" name="app_afternoon_time" type="text"  class="form-control" style="width:100px;">
+								</div>
+								<div style="float:left;">&nbsp; นัดค่ำเวลา &nbsp;</div>
+								<div style="float:left;">
+									<input [(ngModel)]="result.app_night_time" name="app_night_time" type="text"  class="form-control" style="width:100px;">
+								</div>
+								<span style="color: red;"><b>&nbsp;*เวลานัดให้ระบุเวลาโดยมีเลข 0 นำหน้าเช่น 09.00 เป็นต้น</b></span>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ช่วงหมายเลขคดีดำที่ป้อนได้ไม่เกิน :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.over_run_id" name="over_run_id" type="text"  class="form-control" style="width:100px;">
+								</div>
+								<div style="float:left;">&nbsp; รหัสหมายขังระหว่างสอบสวน &nbsp;</div>
+								<div style="float:left;">
+									<ng-select [(ngModel)]="result.gen_notice_no" [ngModelOptions]="{standalone: true}" style="width:150px;">
+										<ng-option *ngFor="let getData of getGenNotice" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+								</div>
+								<div style="float:left;">&nbsp; จำนวนเงินขังแทนค่าปรับ &nbsp;</div>
+								<div style="float:left;">
+									<input [(ngModel)]="result.fine_per_day" name="fine_per_day" type="text"  class="form-control" style="width:100px;">
+								</div>
+								<div style="float:left;">&nbsp; บาท ต่อ 1 วัน &nbsp;</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">จำนวนพยานที่สืบต่อคดีต่อวัน :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.num_witness" name="num_witness" type="text"  class="form-control" style="width:100px;">
+								</div>
+								<div style="float:left;">&nbsp;  คน จ่ายหมาย &nbsp;</div>
+								<div style="float:left;">
+									<ng-select [(ngModel)]="result.send_notice_flag" [ngModelOptions]="{standalone: true}" style="width:100px;">
+										<ng-option *ngFor="let getData of getNumWitness" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+								</div>
+								<div style="float:left;">&nbsp; ประเภทการแจ้งเตือนพยาน &nbsp;</div>
+								<div style="float:left;">
+									<ng-select [(ngModel)]="result.alert_type" [ngModelOptions]="{standalone: true}" style="width:200px;" >
+										<ng-option *ngFor="let getData of getAlertType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">สำเนาข้อมูลได้ไม่เกิน :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.num_gen_case" name="num_gen_case" type="text"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control" style="width:100px;" #numGenCase>
+								</div>
+								<div style="float:left;">&nbsp;&nbsp;คดี
+									<span style="color: red;"><b>&nbsp;*ต้องไม่เกิน 100 คดี</b></span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">QRCode Link :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.qrcode_link" name="qrcode_link" type="text"  class="form-control" style="width:350px;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">QRCode ตอบรับการมาศาลของพยาน :&nbsp;</td>
+							<td  align="left">
+								<div class="custom-file" style="float:center;width:350px;">
+									<input type="file" class="custom-file-input" id="result.uploadFile" (change)="onFileChange($event,'uploadFile')" style="width:350px;height:24px;">
+									<label class="custom-file-label" #labelImport for="importFile" style="height:24px;text-align: left;"></label>
+								</div>
+								<span style="padding-left:4px;">	
+									<i *ngIf="result.qrcode_accept" class="fa fa-qrcode" style="margin-left: 4px; cursor:pointer; font-size:22px;color:#446db8;" (click)="clickOpenFile()"></i>
+									<i *ngIf="result.qrcode_accept" class="fa fa-close" style="margin-left: 4px; cursor:pointer; font-size:24px;color:#d50000d1;" (click)="clickDeleteFile()" ></i>						
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">Website :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.website_url" name="website_url" type="text"  class="form-control" style="width:350px;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">URL ระบบยื่นคำฟ้อง :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.data_exchange_url" name="data_exchange_url" type="text"  class="form-control" style="width:350px;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">หมายเหตุค่านำหมาย :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.notice_amt_remark" name="notice_amt_remark" type="text"  class="form-control" style="width:350px;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ผู้ตรวจหมาย :&nbsp;</td>
+							<td  align="left">
+								<div style="float: left;">
+									<input   type="text" [(ngModel)]="result.check_off_id" name="check_off_id" class="form-control" style="width:60px;" (change)="tabChangeSelect('check_off_name',$event)"/>
+								</div>
+								<div style="float: left;">
+									<input   type="text"  [(ngModel)]="result.check_off_name" name="check_off_name" class="form-control" style="width:288px;" readonly/>
+								</div>
+								<div style="float: left;margin-top:2px;" >
+									<i  class="far fa-list-alt" style="font-size: 20px; margin-left:4px;" (click)="clickOpenMyModalComponent(1)"></i>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ผู้จ่ายเงิน :&nbsp;</td>
+							<td  align="left">
+								<div style="float: left;">
+									<input   type="text" [(ngModel)]="result.paid_off_id" name="paid_off_id" class="form-control" style="width:60px;" (change)="tabChangeSelect('paid_off_name',$event)"/>
+								</div>
+								<div style="float: left;">
+									<input   type="text"  [(ngModel)]="result.paid_off_name"  name="paid_off_name" class="form-control" style="width:288px;" readonly/>
+								</div>
+								<div style="float: left;margin-top:2px;" >
+									<i  class="far fa-list-alt" style="font-size: 20px; margin-left:4px;" (click)="clickOpenMyModalComponent(2)"></i>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ผู้อนุมัติผลหมาย คนที่1 :&nbsp;</td>
+							<td  align="left">
+								<div style="float: left;">
+									<input   type="text" [(ngModel)]="result.approved_off_id1"  name="approved_off_id1" class="form-control" style="width:60px;" (change)="tabChangeSelect('approved_off_name1',$event)"/>
+								</div>
+								<div style="float: left;">
+									<input   type="text"  [(ngModel)]="result.approved_off_name1" name="approved_off_name1" class="form-control" style="width:288px;" readonly/>
+								</div>
+								<div style="float: left;margin-top:2px;" >
+									<i  class="far fa-list-alt" style="font-size: 20px; margin-left:4px;" (click)="clickOpenMyModalComponent(4)"></i>
+								</div>
+								<div style="float: left;margin-top:2px;" >
+									<i  class="far fa-list-alt" style="font-size: 20px; margin-left:4px;" (click)="clickOpenMyModalComponent(3)"></i>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ผู้อนุมัติผลหมาย คนที่2 :&nbsp;</td>
+							<td  align="left">
+								<div style="float: left;">
+									<input   type="text" [(ngModel)]="result.approved_off_id2"  name="approved_off_id2" class="form-control" style="width:60px;" (change)="tabChangeSelect('approved_off_name2',$event)"/>
+								</div>
+								<div style="float: left;">
+									<input   type="text"  [(ngModel)]="result.approved_off_name2" name="approved_off_name2" class="form-control" style="width:288px;" readonly/>
+								</div>
+								<div style="float: left;margin-top:2px;" >
+									<i  class="far fa-list-alt" style="font-size: 20px; margin-left:4px;" (click)="clickOpenMyModalComponent(6)"></i>
+								</div>
+								<div style="float: left;margin-top:2px;" >
+									<i  class="far fa-list-alt" style="font-size: 20px; margin-left:4px;" (click)="clickOpenMyModalComponent(5)"></i>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">คำบังคับ ปฏิบัติตามคำพิพากษาภายใน กี่วัน :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<input [(ngModel)]="result.action_in" name="action_in" type="text"  class="form-control" style="width:100px;">
+								</div>
+								<div style="float:left;">&nbsp; พิมพ์ใบเสร็จ &nbsp;</div>
+								<div style="float:left;">
+									<ng-select [(ngModel)]="result.print_receipt_flag" [ngModelOptions]="{standalone: true}" style="width:150px;">
+										<ng-option *ngFor="let getData of getPrintReceipt" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+								</div>
+								<div style="float:left;">&nbsp; พิมพ์ปก &nbsp;</div>
+								<div style="float:left;">
+									<ng-select [(ngModel)]="result.print_cover_flag" [ngModelOptions]="{standalone: true}" style="width:150px;">
+										<ng-option *ngFor="let getData of getPrintCover" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">แบบ Tab Touch Screen :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<ng-select [(ngModel)]="result.touch_flag" [ngModelOptions]="{standalone: true}" style="width:150px;">
+										<ng-option *ngFor="let getData of getTouchFlag" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+								</div>
+								<div style="float:left;">&nbsp; login แทนหน่วยงาน &nbsp;</div>
+								<div style="float:left;">
+									<ng-select [(ngModel)]="result.dep_login_flag" [ngModelOptions]="{standalone: true}" style="width:150px;">
+										<ng-option *ngFor="let getData of getDepLoginFlag" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+								</div>
+								<div style="float:left;">&nbsp; คำบังคับ &nbsp;</div>
+								<div style="float:left;">
+									<ng-select [(ngModel)]="result.notice_type_date" [ngModelOptions]="{standalone: true}" style="width:170px;">
+										<ng-option *ngFor="let getData of getNoticeTypeDate" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right">ใบปล่อยตัวผู้ต้องหา/จำเลย :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<ng-select [(ngModel)]="result.print_guardef" [ngModelOptions]="{standalone: true}" style="width:220px;">
+										<ng-option *ngFor="let getData of getPrintGuardef" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right"  valign="top" >หมายเหตุเพิ่มเติม :&nbsp;</td>
+							<td  align="left">
+								<div style="float:left;">
+									<textarea [(ngModel)]="result.court_remark" name="court_remark" class="form-control"  style="width:500px;height: 60px;"> </textarea>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<table width="100%" border="0" cellspacing="2" cellpadding="0">
+									<tr>
+										<td width="35%" align="left" >
+											<div style="float: left;margin-left:5px;">
+												<input type="checkbox" [(ngModel)]="result.ad_judge_flag" name="ad_judge_flag"  style="width:15px;height:15px;margin-top:5px;"/>
+											</div>
+											<div style="float: left;margin-left:5px;margin-top:4px;">มีผู้พิพากษาสมทบ </div>
+										</td>
+										<td width="25%" align="left" >
+											<div style="float: left;margin-left:5px;">
+												<input type="checkbox" [(ngModel)]="result.skip_appoint_date" name="skip_appoint_date"  style="width:15px;height:15px;margin-top:5px;"/>
+											</div>
+											<div style="float: left;margin-left:5px;margin-top:4px;">นัดต่อเนื่องให้นัดกระโดดได้ </div>
+										</td>
+										<td  width="40%" align="left" >
+											<div style="float: left;margin-left:5px;">
+												<input type="checkbox" [(ngModel)]="result.approve_print_flag" name="approve_print_flag"  style="width:15px;height:15px;margin-top:5px;"/>
+											</div>
+											<div style="float: left;margin-left:5px;margin-top:4px;">หมายสีพิมพ์คำว่าผู้ตรวจ </div>
+										</td>
+									</tr>
+									<tr>
+										<td align="left" >
+											<div style="float: left;margin-left:5px;">
+												<input type="checkbox" [(ngModel)]="result.sc_flag" name="sc_flag"  style="width:15px;height:15px;margin-top:5px;"/>
+											</div>
+											<div style="float: left;margin-left:5px;margin-top:4px;">สร้างเลขที่หมายค้น/หมายจับ กรณีศาลสั่งยกเลิก/เพิกถอน </div>
+										</td>
+										<td  align="left" colspan="2">
+											<div style="float: left;margin-left:5px;">
+												<input type="checkbox" [(ngModel)]="result.receipt_stamp_flag" name="receipt_stamp_flag"  style="width:15px;height:15px;margin-top:5px;"/>
+											</div>
+											<div style="float: left;margin-left:5px;margin-top:4px;">พิมพ์ตรายางลงใบเสร็จ </div>
+										</td>
+									</tr>
+									<tr>
+										<td align="left" >
+											<div style="float: left;margin-left:5px;">
+												<input type="checkbox" [(ngModel)]="result.run_case_flag" name="run_case_flag"  style="width:15px;height:15px;margin-top:5px;"/>
+											</div>
+											<div style="float: left;margin-left:5px;margin-top:4px;">run เลขคดีดำอัตโนมัติ </div>
+										</td>
+										<td  align="left" >
+											<div style="float: left;margin-left:5px;">
+												<input type="checkbox" [(ngModel)]="result.run_red_flag" name="run_red_flag"  style="width:15px;height:15px;margin-top:5px;"/>
+											</div>
+											<div style="float: left;margin-left:5px;margin-top:4px;">run เลขคดีแดงอัตโนมัต </div>
+										</td>
+										<td align="left" >
+											<div style="float: left;margin-left:5px;">
+												<input type="checkbox" [(ngModel)]="result.run_post_flag" name="run_post_flag"  style="width:15px;height:15px;margin-top:5px;"/>
+											</div>
+											<div style="float: left;margin-left:5px;margin-top:4px;">Run เลขคดีผัดฟ้อง/ฝากขัง อัตโนมัติ </div>
+										</td>
+									</tr>
+									<tr>
+										<td align="left" >
+											<div style="float: left;margin-left:5px;">
+												<input type="checkbox" [(ngModel)]="result.open_rcv_notice" name="open_rcv_notice"  style="width:15px;height:15px;margin-top:5px;"/>
+											</div>
+											<div style="float: left;margin-left:5px;margin-top:4px;">เปิดรับหมายจากศาลอื่น </div>
+										</td>
+										<td  align="left" >
+											<div style="float: left;margin-left:5px;">
+												<input type="checkbox" [(ngModel)]="result.judge_print_flag" name="judge_print_flag"  style="width:15px;height:15px;margin-top:5px;"/>
+											</div>
+											<div style="float: left;margin-left:5px;margin-top:4px;">พิมพ์ผู้พิพากษารับฟ้องที่ปกสำนวน </div>
+										</td>
+										<td align="left" >
+											<div style="float: left;margin-left:5px;">
+												<input type="checkbox" [(ngModel)]="result.print_id_card" name="print_id_card"  style="width:15px;height:15px;margin-top:5px;"/>
+											</div>
+											<div style="float: left;margin-left:5px;margin-top:4px;">พิมพ์เลขบัตรประชาชนในหมายสี </div>
+										</td>
+									</tr>
+									<tr>
+										<td align="left" >
+											<div style="float: left;margin-left:5px;">
+												<input type="checkbox" [(ngModel)]="result.print_year_flag" name="print_year_flag"  style="width:15px;height:15px;margin-top:5px;"/>
+											</div>
+											<div style="float: left;margin-left:5px;margin-top:4px;">พิมพ์พ.ศ.เลขหนังสือที่หน้าซองจดหมาย </div>
+										</td>
+										<td  align="left" colspan="2">
+											<div style="float: left;margin-left:5px;">
+												<input type="checkbox" [(ngModel)]="result.print_privilege_flag" name="print_privilege_flag"  style="width:15px;height:15px;margin-top:5px;"/>
+											</div>
+											<div style="float: left;margin-left:5px;margin-top:4px;">เช็คสิทธิ์การพิมพ์คำพิพากษา </div>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer">
+					<button type="button" class="btn btn-success" style="margin-left:480px;" (click)="submitForm()">จัดเก็บข้อมูล</button>
+					<button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="confirmBox()">ลบข้อมูลที่เลือก</button>
+                    <button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+					<button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="searchData()">ค้นหา</button>
+					<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printReport()">พิมพ์</button>
+					<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printQrCode()">พิมพ์ QR Code ศาล</button>
+					<button type="button"  class="btn btn-warning" style="margin-left:5px;" (click)="closeModal()">ปิดหน้าจอ</button>
+					<input type="hidden" name="delValue" id="delValue">
+				</div>
+		</div>
+	</div>
+
+	<div class="content" style="padding:10px;margin-top:-25px;">
+		<section class="content" style="width: 240%;">
+		<div class="card card-info">
+			<div class="card-header" style="display:none;">
+			<h3 class="card-title">ข้อมูล</h3>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover myTable1">
+					<thead>
+						<tr>
+							<th width="1%" class="no-sort"><input  type="checkbox" name="all" [(ngModel)]="masterSelected" value="m1" (change)="checkUncheckAll()"/></th>
+							<th width="1%" class="no-sort">แก้ไข</th>
+							<th width="2%">id</th>
+							<th width="2%">รหัส</th>
+							<th width="6%">ประเภท</th>
+							<th width="3%">รหัส<br>มาตรฐาน</th>
+							<th width="6%">ชื่อศาล<br>มาตรฐาน</th>
+							<th width="6%">ชื่อศาล</th>
+							<th width="6%">ชื่อศาล(ย่อ)</th>
+							<th width="3%">ภาค</th>
+							<th width="9%">รายละเอียดที่อยู่ศาล</th>
+							<th width="4%">บ้านเลขที่</th>
+							<th width="3%">หมู่</th>
+							<th width="6%">ตรอก/ซอย</th>
+							<th width="5%">ถนน</th>
+							<th width="5%">email</th>
+							<th width="5%">หน่วยงานที่บันทึก</th>
+							<th width="5%">ผู้บันทึก</th>
+							<th width="5%">วัน/เวลาที่บันทึก</th>
+							<th width="5%">หน่วยงานที่แก้ไข</th>
+							<th width="5%">ผู้แก้ไข</th>
+							<th width="5%" >วัน/เวลาที่แก้ไข</th>
+						</tr>
+					</thead>
+					<tbody *ngIf="posts?.length != 0">
+
+					<tr *ngFor="let post of posts;let i = index;">
+							<td align="center"><input type="checkbox"  [(ngModel)]="posts[i].edit0212" (change)="isAllSelected()" ></td>
+							<td align="center"><i class='fas fa-pencil-alt' style='cursor:pointer;font-size:20px' (click)="editData(i)"></i></td>
+							<td align="center">{{post.court_running}}</td>
+							<td align="center">{{post.court_id}}</td>
+							<td align="left">{{post.court_type_name}}</td>
+							<td align="center">{{post.std_id}}</td>
+							<td align="left" style="background-color: #f2d494;"  >{{post.std_name}}</td><!--เปลี่ยนสี-->
+							<td align="left">{{post.court_name}}</td>
+							<td align="left">{{post.short_court_name}}</td>
+							<td align="center">{{post.court_part}}</td>
+							<td align="left">{{post.court_address}} {{post.tambon_name}} {{post.amphur_name}} {{post.prov_name}} {{post.post_no}}</td>
+							<td align="center">{{post.addr_no}}</td>
+							<td align="center">{{post.moo}}</td>
+							<td align="center">{{post.soi}}</td>
+							<td align="center">{{post.road}}</td>
+							<td align="center">{{post.e_mail}}</td>
+							<td align="center">{{post.create_dep_name}}</td>
+							<td align="center">{{post.create_user}}</td>
+							<td align="center">{{post.create_date}}</td>
+							<td align="center">{{post.update_dep_name}}</td>
+							<td align="center">{{post.update_user}}</td>
+							<td align="center">{{post.update_date}}</td>
+						</tr>
+					</tbody>
+					<tbody *ngIf="posts?.length == 0">
+						<tr>
+							<td colspan="22" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+		</section>
+	</div>
+
+ <!-- Modal -->
+
+ <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+		  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+		</div>
+		<div class="modal-body" >
+			<input type="hidden" name="table_name" id="table_name">
+			<input type="hidden" name="field_id" id="field_id">
+			<input type="hidden" name="field_name" id="field_name">
+			<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+				<app-datalist-return  *ngIf="loadComponent"  [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldName2 (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+				<app-modal-confirm *ngIf="loadModalComponent" class="modal_app" ></app-modal-confirm>
+				<app-modal-judge *ngIf="loadModalJudgeComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType (onClickList)="receiveJudgeListData($event)" class="modal_app"></app-modal-judge>
+       		</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+		  	<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>

@@ -1,0 +1,263 @@
+<style>
+	
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;border:0px !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:0px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName" [runId]="runId"></app-case-header>
+			</div>				
+		</div>
+		<div class="card card-info" style="box-shadow: none !important;margin-top:-4px;border:0px;">
+			<app-case-head *ngIf="defaultCaseType" (sendCaseData)="fnDataHead($event)" [runId]="runId"></app-case-head >
+		</div>
+		<div class="card" style="box-shadow: none !important; padding: 5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="" class="form_table">           
+				<tr>
+					<td align="right" width="21%">ประเภทการเกี่ยวเนื่อง :&nbsp;</td>
+					<td width="79%">
+						<div style="float:left;">
+							<ng-select [(ngModel)]="result1.group_type1" style="width:180px;" [clearable]="false" #sCaseGroup>
+								<ng-option *ngFor="let getData of getCaseGroup" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">คดีของศาล :&nbsp;</td>
+					<td>
+						<div style="float:left;">
+							<input  type="text" [(ngModel)]="court_id1" (change)="tabChangeSelect('court_id1',getCourt,$event,1,1)"  class="form-control" style="width:80px;text-align:center;float:left;" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+						</div>
+						<div style="float:left;margin-left:2px;">
+							<ng-select [(ngModel)]="result1.court_id1" style="width:300px;" (change)="tabChangeSelect('court_id1',getCourt,$event,2,1)"  #sCourt >
+								<ng-option *ngFor="let getData of getCourt" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">ความ :&nbsp;</td>
+					<td>
+					<div style="float:left;">
+						<ng-select [(ngModel)]="result1.title_case_type1" style="width:100px;" [clearable]="false" (change)="changeCaseType($event,1)"  [ngModelOptions]="{standalone: true}" #sCaseType>
+							<ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+						</ng-select>
+					</div>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<div style="float:right;">
+							<ng-select [(ngModel)]="result1.case_rb1" style="width:160px;" [clearable]="false" #sBlackRedNo>
+								<ng-option *ngFor="let getData of getBlackRedNo" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+					<td colspan="2">
+						<div style="float: left;margin-left:1px;margin-top:2px;">ที่ :&nbsp;</div>
+						<div style="float:left;">
+							<ng-select [(ngModel)]="result1.title_group1" style="width:100px;" [clearable]="false" #sCaseTitle>
+								<ng-option *ngFor="let getData of getCaseTitle1" [value]=getData.fieldIdValue>{{getData.fieldIdValue}}</ng-option>
+							</ng-select>
+						</div>
+						<div style="float: left;margin-left:4px;">
+							<input   type="text" [(ngModel)]="result1.s_id_group1" class="form-control" style="width:70px;"/>
+						</div>
+						<div style="float: left;margin-left:4px;margin-top:2px;">ถึง</div>
+						<div style="float: left;margin-left:4px;">
+							<input   type="text" [(ngModel)]="result1.e_id_group1" class="form-control" style="width:50px;"/>
+						</div>
+						<div style="float: left;margin-left:4px;margin-top:2px;font-size: 18px;">/</div>
+						<div style="float: left;margin-left:4px;">
+							<input   type="text" [(ngModel)]="result1.yy_group1"  class="form-control" style="width:50px;"/>
+						</div>
+						<div style="float: left;margin-left:4px;margin-top:2px;">วันที่พ่วงสำนวน :&nbsp;</div>
+						<div style="float:left;"><input   type="text" [(ngModel)]="result1.group_date1 " #group_date1 (click)="directiveDate(group_date1.value,'group_date1',1)" class="form-control jcalendar" style="width:120px;"></div>
+						<div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$(this).closest('td').find('input').focus();"></i></div>
+						<div style="float:left;margin-left:4px;"><button type="button" class="btn btn-success" style="margin-left:0px;"  (click)="saveResult1()">จัดเก็บ</button></div>
+						<div style="float:left;margin-left:4px;"><button type="button" class="btn btn-warning" style="margin-left:0px;"  (click)="setDefaultPage1()">ล้างหน้าจอ</button></div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="padding:8px 0px;">
+						<fieldset style="width:85%;border-radius:4px;border:1px solid #333333;padding:1px 1px 8px 1px;margin:0 auto;display: table;">
+							<legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;">เพิ่มเติมสำนวนพ่วง</legend>
+							<table width="100%"  border="0" cellspacing="2" cellpadding="" class="form_table">           
+								<tr>
+									<td align="right" width="16%">ประเภทการเกี่ยวเนื่อง :&nbsp;</td>
+									<td width="84%">
+										<div style="float:left;">
+											<ng-select [(ngModel)]="result2.group_type2" style="width:180px;" [clearable]="false" #sCaseGroup>
+												<ng-option *ngFor="let getData of getCaseGroup" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+											</ng-select>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">คดีของศาล :&nbsp;</td>
+									<td>
+										<div style="float:left;">
+											<input  type="text" [(ngModel)]="court_id2" (change)="tabChangeSelect('court_id2',getCourt,$event,1,2)"  class="form-control" style="width:80px;text-align:center;float:left;" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+										</div>
+										<div style="float:left;margin-left:2px;">
+											<ng-select [(ngModel)]="result2.court_id2" style="width:300px;" (change)="tabChangeSelect('court_id2',getCourt,$event,2,2)"  #sCourt >
+												<ng-option *ngFor="let getData of getCourt" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+											</ng-select>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">ความ :&nbsp;</td>
+									<td>
+									<div style="float:left;">
+										<ng-select [(ngModel)]="result2.title_case_type2" style="width:100px;" (change)="changeCaseType($event,2)" [clearable]="false"  [ngModelOptions]="{standalone: true}" #sCaseType>
+											<ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+										</ng-select>
+									</div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<div style="float:right;">
+											<ng-select [(ngModel)]="result2.case_rb2" style="width:160px;" [clearable]="false" #sBlackRedNo>
+												<ng-option *ngFor="let getData of getBlackRedNo" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+											</ng-select>
+										</div>
+									</td>
+									<td colspan="2">
+										<div style="float: left;margin-left:1px;margin-top:2px;">ที่ :&nbsp;</div>
+										<div style="float:left;">
+											<ng-select [(ngModel)]="result2.title_group2" style="width:100px;" [clearable]="false" #sCaseTitle>
+												<ng-option *ngFor="let getData of getCaseTitle2" [value]=getData.fieldIdValue>{{getData.fieldIdValue}}</ng-option>
+											</ng-select>
+										</div>
+										<div style="float: left;margin-left:4px;">
+											<input   type="text" [(ngModel)]="result2.id_group2" class="form-control" style="width:70px;"/>
+										</div>
+										<div style="float: left;margin-left:4px;margin-top:2px;font-size: 18px;">/</div>
+										<div style="float: left;margin-left:4px;">
+											<input   type="text" [(ngModel)]="result2.yy_group2"  class="form-control" style="width:50px;"/>
+										</div>
+										<div style="float: left;margin-left:4px;margin-top:2px;">วันที่พ่วงสำนวน :&nbsp;</div>
+										<div style="float:left;"><input   type="text" [(ngModel)]="result2.group_date2" #group_date2 (click)="directiveDate(group_date2.value,'group_date2',2)" class="form-control jcalendar" style="width:120px;"></div>
+										<div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$(this).closest('td').find('input').focus();"></i></div>
+										<div style="float:left;margin-left:4px;"><button type="button" class="btn btn-success" style="margin-left:0px;"  (click)="saveResult2()">จัดเก็บ</button></div>
+										<div style="float:left;margin-left:4px;"><button type="button" class="btn btn-warning" style="margin-left:0px;"  (click)="setDefaultPage2()">ล้างหน้าจอ</button></div>
+									</td>
+								</tr>
+							</table>
+						</fieldset>
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="2" style="padding:8px 0px;">
+						<table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+							<thead>
+								<tr  height="22">
+									<th width="1%" height="20" align="center" class="no-sort"><input type="checkbox"  [(ngModel)]="masterSelect" style="height:15px;width:15px;margin-top:2px;cursor:pointer;"  (change)="checkUncheckAll(this.dataSearch,'masterSelect','appRunning')"></th>
+									<th width="8%" class="no-sort">ประเภทการเกี่ยวเนื่อง</th>
+									<th width="8%" class="no-sort">คดีของศาล</th>
+									<th width="7%" class="no-sort">คดีหมายเลขดำที่</th>
+									<th width="7%" class="no-sort"><span style="color:red;">คดีหมายเลขแดงที่</span></th>
+									<th width="5%" class="no-sort">วันที่พ่วง</th>
+									<th width="7%" class="no-sort">กลุ่มการพ่วง</th>
+									<th width="10%" class="no-sort">หน่วยงานที่บันทึก</th>
+									<th width="9%" class="no-sort">ผู้บันทึก</th>
+									<th width="11%" class="no-sort">วัน/เวลาที่บันทึก</th>
+									<th width="10%" align="center"  class="no-sort">หน่วยงานที่แก้ไข</th>
+									<th width="9%" align="center"  class="no-sort">ผู้แก้ไข</th>
+									<th width="8%" align="center"  class="no-sort">วันที่แก้ไข</th>
+								  </tr>
+							</thead>
+							
+							<tbody *ngIf="dataSearch?.length != 0">
+								<tr *ngFor="let post of dataSearch;let i = index;" >
+									
+									<td align="center"><input type="checkbox" [(ngModel)]="this.dataSearch[i].appRunning" style="height:15px;width:15px;margin-top:2px;cursor:pointer;" (change)="isAllSelected(this.dataSearch,'masterSelect','appRunning')"></td>
+									<td align="center">
+										<select [(ngModel)]="this.dataSearch[i].group_type"  style="height:24px !important;border-radius: 4px !important;border: 1px solid #ced4da;" (change)="changeTypeGroup(i)">
+											<option *ngFor="let getData of getCaseGroupAll" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</option>
+										</select> 
+									</td>
+									<td align="center">{{post.court_name}}</td>
+									<td align="center">{{post.case_no}}</td>
+									<td align="center"><span style="color:red;">{{post.red_no}}</span></td>
+									<td align="center">{{post.group_date}}</td>
+									<td align="center"><span *ngIf="post.case_group_yy">{{post.case_group_id}}/{{post.case_group_yy}}</span></td>
+									<td align="center">{{post.create_dep_name}}</td>
+									<td align="center">{{post.create_user}}</td>
+									<td align="center">{{post.create_date}}</td>
+									<td align="center">{{post.update_dep_name}}</td>
+									<td align="center">{{post.update_user}}</td>
+									<td align="center">{{post.update_date}}</td>
+
+								</tr>
+							</tbody>
+							<tbody *ngIf="dataSearch?.length == 0">
+								<tr >
+									<td colspan="13" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+								</tr>
+							</tbody>
+							<tfoot *ngIf="buttonDel">
+								<tr>
+									<td colspan="13">
+										<button type="button" class="btn btn-danger" style="margin-left:5px;margin-top:5px;" (click)="clickOpenMyModalComponent(1)" >ลบข้อมูลที่เลือก</button>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</td>
+				</tr>
+			</table>	
+		</div>
+    </div>
+</div>
+
+<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+		  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+		</div>
+		<div class="modal-body" >
+				<input type="hidden" name="table_name" id="table_name">
+				<input type="hidden" name="field_id" id="field_id">
+				<input type="hidden" name="field_name" id="field_name">
+				<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+				<app-modal-confirm *ngIf="loadModalConfComponent" class="modal_app"></app-modal-confirm>
+			</div>
+
+		</div>
+		<div class="modal-footer">
+			<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalConfComponent">ตกลง</button>
+			  <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner>
+

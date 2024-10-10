@@ -1,0 +1,90 @@
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+  <thead>
+    <tr align="center">
+      <th width="10%" height="25" >ความ</th>
+      <th width="23%" height="25" >หมายเลขคดีดำ</th>
+      <th width="23%" height="25" ><span style="color: red;">หมายเลขคดีแดง</span></th>
+      <th width="22%" height="25" >โจทก์</th>
+      <th width="22%" height="25" >จำเลย</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="arrData?.length != 0">
+    <tr  *ngFor="let item of arrData;let i = index;">
+      <td align="center">
+        <div style="float:center;">
+          <ng-select [(ngModel)]="arrData[i].case_type" style="width:80px;" [clearable]="false" [ngModelOptions]="{standalone: true}" (change)="changeCaseType(i,$event)">
+            <ng-option *ngFor="let getData of arrData[i].getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+          </ng-select>
+        </div>
+      </td>
+      <td align="center">
+        <div style="float:left;">
+          <ng-select  [(ngModel)]="arrData[i].title" style="width:70px;" [clearable]="false" >
+            <ng-option *ngFor="let getData of arrData[i].getTitle" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+          </ng-select>
+        </div>
+        <div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="arrData[i].id"  class="form-control" style="width:60px;height:28px;"></div>
+        <div style="float:left;margin-left:3px;">/</div>
+        <div style="float:left;margin-left:3px;"><input (change)="displayData(1,i)" type="text" [(ngModel)]="arrData[i].yy" class="form-control" style="width:60px;height:28px;"></div>
+      </td>
+      <td align="center">
+        <div style="float:left;">
+          <ng-select  [(ngModel)]="arrData[i].red_title" style="width:70px;"  [clearable]="false">
+            <ng-option *ngFor="let getData of arrData[i].getRedTitle" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+          </ng-select>
+        </div>
+        <div style="float:left;margin-left:3px;"><input   type="text" [(ngModel)]="arrData[i].red_id" maxlength="5" class="form-control" style="width:60px;height:28px;"></div>
+        <div style="float:left;margin-left:3px;">/</div>
+        <div style="float:left;margin-left:3px;"><input (change)="displayData(2,i)" type="text" [(ngModel)]="arrData[i].red_yy"maxlength="4" class="form-control" style="width:60px;height:28px;"></div>
+      </td>
+      <td align="center">
+        <input  [(ngModel)]="arrData[i].pros_desc" type="text"   value=""  class="form-control" style="width:180px;cursor: pointer;" readonly>
+      </td>
+      <td align="center">
+        <input  [(ngModel)]="arrData[i].accu_desc" type="text"   value=""  class="form-control" style="width:180px;cursor: pointer;" readonly>
+      </td>
+    </tr>
+   </tbody>
+   <tbody>
+      <tr>
+      <td align="center">
+        <div style="float:center;margin-left:4px;">
+          <ng-select [(ngModel)]="result.case_type" style="width:80px;" [ngModelOptions]="{standalone: true}" [clearable]="false" (change)="changeCaseType('',$event)">
+            <ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+          </ng-select>
+        </div>
+      </td>
+      <td align="center">
+        <div style="float:left;">
+          <ng-select  [(ngModel)]="result.title" style="width:70px;" [clearable]="false">
+            <ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+          </ng-select>
+        </div>
+        <div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="result.id"  class="form-control" style="width:60px;height:28px;"></div>
+        <div style="float:left;margin-left:3px;">/</div>
+        <div style="float:left;margin-left:3px;"><input (change)="displayData(1,null)" type="text" [(ngModel)]="result.yy" class="form-control" style="width:60px;height:28px;"></div>
+      </td>
+      <td align="center">
+        <div style="float:left;">
+          <ng-select  [(ngModel)]="result.red_title" style="width:70px;" [clearable]="false">
+            <ng-option *ngFor="let getData of getRedTitle" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+          </ng-select>
+        </div>
+        <div style="float:left;margin-left:3px;"><input   type="text" [(ngModel)]="result.red_id" maxlength="5" class="form-control" style="width:60px;height:28px;"></div>
+        <div style="float:left;margin-left:3px;">/</div>
+        <div style="float:left;margin-left:3px;"><input (change)="displayData(2,null)" type="text" [(ngModel)]="result.red_yy" maxlength="4" class="form-control" style="width:60px;height:28px;"></div>
+      </td>
+      <td align="center"> 
+        <input  [(ngModel)]="result.pros_desc" type="text"   value=""  class="form-control" style="width:180px;cursor: pointer;" readonly>
+      </td>
+      <td align="center">
+        <input  [(ngModel)]="result.accu_desc" type="text"   value=""  class="form-control" style="width:180px;cursor: pointer;" readonly>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="card-footer" style="text-align:center;">
+  <button type="button" class="btn btn-success" (click)="onClickSaveData()">บันทึก</button>
+  <button type="button" class="btn btn-warning" style="margin-left:5px;" (click)="ClearAll()" >ยกเลิก</button>
+</div>
+

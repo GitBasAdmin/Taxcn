@@ -1,0 +1,120 @@
+<div style="margin:0 auto;margin:0 auto;display:table;padding:10px;width: 98%;" class="card" >
+  <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+    <tr>
+      <td align="right" width="16%">เลขที่รับหนังสือ :&nbsp;</td>
+      <td colspan="3"  width="84%">
+        <div style="float:left;">
+          <input  type="text" [(ngModel)]="result.run_doc_title" maxlength="5" class="form-control" style="width:80px;height:18px;" readonly/>
+        </div>
+        <div style="float: left; margin-left:4px;">
+          <input  type="text" [(ngModel)]="result.run_doc_id" maxlength="5" class="form-control" style="width:80px;height:18px;" readonly/>
+        </div>
+        <div style="float: left;">&nbsp;/&nbsp;</div>
+        <div style="float: left; margin-left:4px;">
+          <input  type="text" [(ngModel)]="result.run_doc_yy"  maxlength="4" class="form-control" style="width:80px;height:18px;" readonly/>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td align="right"></td>
+      <td colspan="3">
+        <div style="float:left;margin-top: 4px;"><input type="checkbox" [(ngModel)]="result.case_history"  style="width:15px;height: 15px;" /></div>
+        <div style="float: left; margin-left:4px;">&nbsp;ส่ง&nbsp;</div>
+        <div style="float: left; margin-left:4px;">
+          <ng-select [(ngModel)]="result.send_flag" style="width:120px;" [ngModelOptions]="{standalone: true}" [clearable]="false" >
+            <ng-option *ngFor="let getData of getSendFlag" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+          </ng-select>
+        </div>
+        <div style="float: left; margin-left:4px;">&nbsp;พร้อมหนังสือ&nbsp;</div>
+        <div style="float:left; margin-left:4px;margin-top: 4px;"><input type="checkbox" [(ngModel)]="result.case_group"  value="1" style="width:15px;height: 15px;" /></div>
+        <div style="float: left; margin-left:4px;">&nbsp;ส่งสำนวนพ่วงพร้อมหนังสือ&nbsp;</div>
+        <div style="float:left; margin-left:4px;margin-top: 4px;"><input type="checkbox" [(ngModel)]="result.send_doc_flag" (click)="clicksendDoc($event)" style="width:15px;height: 15px;" /></div>
+        <div style="float: left; margin-left:4px;">&nbsp;ส่งหนังสือไปยังหน่วยงานที่สำนวนอยู่&nbsp;</div>
+      </td>
+    </tr>
+    <tr>
+      <td align="right" width="16%">ปลายทาง	 :&nbsp;</td>
+      <td>
+        <div style="float: left;">
+          <ng-select [(ngModel)]="result.dep_id" style="width:300px;" (change)="changeDep($event)" [ngModelOptions]="{standalone: true}" >
+            <ng-option *ngFor="let getData of getDepId" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+          </ng-select>
+        </div>
+      </td>
+      <td align="right" width="16%">ผู้รับหนังสือ :&nbsp;</td>
+      <td>
+        <div style="float: left;">
+          <ng-select [(ngModel)]="result.rcv_user_id" style="width:300px;" [ngModelOptions]="{standalone: true}">
+            <ng-option *ngFor="let getData of getRcvUserId" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td align="right" width="16%">วันที่ส่งหนังสือ	 :&nbsp;</td>
+      <td>
+        <div style="float: left;">
+          <input style="width:100px;height:28px;" [(ngModel)]="result.event_date" #eventDate type="text" class="form-control jcalendar event_date" (click)="directiveDate(eventDate.value,'event_date')">
+        </div>
+        <div style="float:left;margin-left:4px;margin-top: 4px;">
+          <i class="fa fa-calendar" style="font-size: 16px;"  onClick="$('.event_date').focus();"></i>
+        </div>
+        <div style="float: left; margin-left:4px;">&nbsp;เวลาที่ส่ง&nbsp;</div>
+        <input style="width:100px;height:28px;" [(ngModel)]="result.event_time" type="text" class="form-control" >
+      </td>
+      <td align="right" width="16%">ส่งเพื่อ :&nbsp;</td>
+      <td>
+        <div style="float: left;">
+          <input  type="text" [(ngModel)]="result.rea_id"  maxlength="5" (change)="tabChangeSelect('rea_id','reason',$event)"   class="form-control" style="width:50px;height:28px;" #reaId/>
+        </div>
+        <div style="float: left;margin-left:4px;">
+          <mat-form-field >
+            <input #stateInput (keyup)="0" matInput placeholder="&nbsp;&nbsp;พิมพ์เพื่อค้นหา" [matAutocomplete]="auto" class="form-control" style="width:240px;" [formControl]="stateCtrl">
+            <mat-autocomplete #auto="matAutocomplete" style="z-index: 1;">
+              <mat-option (onSelectionChange)="stateInput.value !=undefined && onEnter(state)" *ngFor="let state of filteredStates | async" [value]="state.fieldNameValue" style="z-index: 1;">
+              <span>{{ state.fieldNameValue }}</span>
+              </mat-option>
+            </mat-autocomplete>
+            </mat-form-field>
+
+          <!-- <input   type="text"  [(ngModel)]="result.reason" value=""  class="form-control" style="width:220px;height:28px;"/> -->
+        </div>
+        <!-- <div style="float: left;margin-left:4px;margin-top:4px;">
+          <i class='far fa-list-alt iDep' title="แสดงรายการข้อมูล"  style="font-size: 20px;cursor:pointer;" (click)="clickOpenMyModalComponent();"></i>
+        </div> -->
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">
+        <span style="color: red;">** กรณีต้องการลบหรือแก้ไขสามารถทำการลบหรือแก้ไขที่หน้าจอหนังสือรับ ส่งให้งานอื่น (fco0900)</span>
+      </td>
+    </tr>
+  </table>
+
+  <div class="card-footer" style="margin-top: 5px;text-align:center;">
+    <button type="button" class="btn btn-success" (click)="onClickSaveData()">บันทึก</button>
+    <button type="button" class="btn btn-warning" style="margin-left:5px;" (click)="ClearAll()" >ยกเลิก</button>
+  </div>
+  <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+		<div class="modal-dialog">
+	  	<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+				<button type="button" #closebutton1 class="btn-close" edata-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+				<button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal1" (click)="loadMyModalComponent();" #openbutton1></button>
+			</div>
+			<div class="modal-body" >
+				<input type="hidden" name="table_name" id="table_name">
+				<input type="hidden" name="field_id" id="field_id">
+				<input type="hidden" name="field_name" id="field_name">
+				<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+          <app-datalist-return  *ngIf="loadComponent1"  [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull  [value5]=listFieldName2 [value7]=listFieldCond (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button"  class="btn btn-warning" edata-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+</div>
+

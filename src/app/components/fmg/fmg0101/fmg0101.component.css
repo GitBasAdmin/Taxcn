@@ -1,0 +1,37 @@
+table.appTable tr td{border:1px solid #000000;}
+.numAppHead {height: 30px !important;background-color:#94B4B9;font-weight:bold;}
+.judgeHead {height: 30px !important;background-color:#629196;}
+.dataRow {height: 30px !important;background-color:#D4F1D4;}
+.judgeData {background-color:#72a7ad;}
+.sunDay {background-color:#FF0000;}
+.disbDay {background-color:#FF6600;}
+.judgeAssign {background-color:#0099cc;}
+.judgeAbsent {background-color:#fdaaa6;}
+.appData {background-color:#97D7B3;}
+hr{margin:3px !important;}
+
+.my-class.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+  }
+  
+  .my-class .modal-dialog {
+    position: fixed;
+    margin: 0;
+    width: 100%;
+    height:300px;
+    max-width: 60% !important;
+    max-height: 300px !important;
+    padding: 0;
+  }
+  .my-class .modal-content {
+    /*max-height: 100% !important;
+    height: 100% !important; */
+    min-height: 100px !important;
+    max-height: 480px !important;
+    margin: 0px !important;
+  }

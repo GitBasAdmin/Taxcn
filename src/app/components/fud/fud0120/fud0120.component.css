@@ -1,0 +1,13 @@
+table.bordered tr:nth-child(odd) {
+    background-color: #fcfcfc !important;
+    height: 30px !important;
+}
+table.bordered tr:nth-child(even) {
+    background-color: #f9f9f9 !important;
+    height: 30px !important;
+}
+
+
+
+
+

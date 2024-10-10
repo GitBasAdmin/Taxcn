@@ -1,0 +1,215 @@
+<style>
+	
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName"></app-case-header>
+			</div>				
+		</div>
+		<div class="card card-info" style="box-shadow: none !important;padding:8px 0px 8px 0px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">           
+				<tr>
+					<td height="25" width="26%" align="right" >ความ :&nbsp;</td>
+					<td width="74%">
+						<div style="float:left;margin-left:0px;">
+							<ng-select  [(ngModel)]="result.c_type" style="width:120px;" [clearable]="false" (change)="changeCaseType($event)"  #sCaseType>
+								<ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+						
+						<div style="float:left;margin-left:8px;margin-top:5px;">ประเภทคดี :&nbsp;</div>
+						<div style="float:left;margin-left:3px;">
+							<ng-select  [(ngModel)]="result.case_cate_id" style="width:220px;"  #sCaseCate>
+								<ng-option *ngFor="let getData of getCaseCate" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+
+					</td>
+				</tr>
+				<tr>
+					<td height="25"  align="right" >คำนำหน้าคดี :&nbsp;</td>
+					<td >
+						<div style="float:left;margin-left:0px;">
+							<ng-select  [(ngModel)]="result.title" style="width:120px;"  #sTitle>
+								<ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td height="25"  align="right" >นัดตั้งแต่ วันที่ :&nbsp;</td>
+					<td >
+						<div style="float:left;"><input   type="text" [(ngModel)]="result.start_date" class="form-control jcalendar start_date" #start_date (click)="directiveDate(start_date.value,'start_date')" style="width:120px;height:28px;"></div>
+                    	<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.start_date').focus();"></i></div>
+						<div style="float:left;margin-left:8px;margin-top:5px;color:blue;">&nbsp;ถึง&nbsp;</div>
+						<div style="float:left;"><input   type="text" [(ngModel)]="result.end_date" class="form-control jcalendar end_date"  #end_date (click)="directiveDate(end_date.value,'end_date')" style="width:120px;height:28px;"></div>
+                    	<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.end_date').focus();"></i></div>
+					
+					</td>
+				</tr>
+				<tr>
+					<td height="25"  align="right" >ประเภทนัด :&nbsp;</td>
+					<td >
+						<div style="float: left;">
+							<input  type="text" [(ngModel)]="result.table_id" (change)="tabChangeInput('table_id',$event)" class="form-control" style="width:80px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;">
+							<input type="text" readonly [(ngModel)]="result.table_name" class="form-control" style="width:420px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:4px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;cursor: pointer;" (click)="clickOpenMyModalComponent(1)"></i>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td height="25"  align="right" >นัดโดย :&nbsp;</td>
+					<td >
+						<ng-select  [(ngModel)]="result.app_by" style="width:180px;">
+							<ng-option *ngFor="let getData of getAppBy" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+						</ng-select>
+					</td>
+				</tr>
+				<!--
+				<tr>
+					<td height="25"  align="right" >นัดเพื่อ :&nbsp;</td>
+					<td >
+						<div style="float: left;">
+							<input  name="user_id" type="text"   class="form-control" style="width:60px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;">
+							<input  name="off_name" type="text" class="blackd" id="off_name" value=""  class="form-control" style="width:220px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:4px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;"></i>
+						</div>
+					</td>
+				</tr>
+				-->
+				<tr>
+					<td height="25"  align="right" >&nbsp;</td>
+					<td >
+						<div style="float: left;">
+							<input type="checkbox" [(ngModel)]="result.cond1" [value]="1" style="width:15px;height:15px;margin-top:5px;"/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:4px;">ไม่รวมคดีไกล่เกลี่ย</div>
+						<div style="float: left;margin-left:8px;">
+							<input type="checkbox" [(ngModel)]="result.cond2" [value]="1" style="width:15px;height:15px;margin-top:5px;"/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:4px;"> ไม่รวมคดีสมานฉันท์</div>
+						
+					</td>
+				</tr>
+				
+				
+				
+				
+				<tr>
+					<td height="25"  align="right" >&nbsp;</td>
+					<td >
+						<button type="button" class="btn btn-primary" style="margin-left:0px;"  (click)="searchData()">ค้นหา</button>
+						<!--<button type="button" class="btn btn-info" style="margin-left:5px;"  >พิมพ์รายงาน</button>-->
+						<button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="exportAsXLSX()" >ส่งออกเป็น Excel</button>
+						<button type="button" class="btn btn-warning" style="margin-left:5px;"  onclick="location.reload()">ยกเลิก</button>
+						
+						
+					</td>
+				</tr>
+				
+				
+			</table>
+		</div>	
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">   
+				       
+				<tr>
+					<td width="40%" align="left">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+							<thead>
+								<tr>
+
+									<th  width="9%">คดีหมายเลขดำที่</th>
+									<th  width="10%" ><span style="color: red;">คดีหมายเลขแดง</span></th>
+									<th  width="19%"  >ประเภทนัด</th>
+									<th  width="6%">นัดที่</th>
+									<th  width="8%">วันนัด</th>
+									<th width="6%">เวลา</th>
+									<th width="11%">ห้องพิจารณาคดี</th>
+									<th width="11%" >นัดเพื่อ</th>
+									<th width="10%">สาเหตุที่เลื่อนนัด</th>
+									<th width="10%">วันนัดถัดไป</th>
+			
+								</tr>
+							</thead>
+							<tbody *ngIf="dataSearch?.length != 0">
+								<tr *ngFor="let post of dataSearch;let i = index;">
+									<td align="center"><a href="javascript:void(0)" (click)="retToPage(post.run_id)">{{post.case_no}}</a></td>
+									<td align="center">{{post.red_no}}</td>
+									<td align="center">{{post.table_name}}</td>
+									<td align="center">{{post.app_seq}}</td>
+									<td align="center">{{post.date_appoint}}</td>
+									<td align="center">{{post.time_appoint}}</td>
+									<td align="center">{{post.room_id}}</td>
+									<td align="center">{{post.app_name}}</td>
+									<td align="center">{{post.delay_name}}</td>
+									<td align="center">{{post.date_appoint_next}}</td>
+								</tr>
+							</tbody>
+							<tbody *ngIf="dataSearch?.length == 0">
+								<tr>
+									<td colspan="10" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>	
+			
+		</div>	
+	</div>
+
+	<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+			  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+			  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+			</div>
+			<div class="modal-body" >
+					<input type="hidden" name="table_name" id="table_name">
+					<input type="hidden" name="field_id" id="field_id">
+					<input type="hidden" name="field_name" id="field_name">
+					<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+					<app-datalist-return-multiple *ngIf="loadModalComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value6]=listFieldName2  (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return-multiple>
+				</div>
+	
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadConfirmComponent">ตกลง</button>
+				  <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+			</div>
+		  </div>
+		</div>
+	</div>
+
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner>
+

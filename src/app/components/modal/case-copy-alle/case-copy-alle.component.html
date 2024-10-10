@@ -1,0 +1,46 @@
+
+    <div style="margin:0 auto;margin:0 auto;display:table;padding:10px;width: 98%;" class="card" >
+        <fieldset style="width:100%;border-radius:4px;border:1px solid #333333;padding:1px;margin:0 auto;display: table;">
+            <legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;" class="lClick">สำเนาข้อมูล</legend>
+            <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+
+                <tr >
+                    <td align="right" width="8%">จาก ความ :&nbsp;</td>
+                    <td width="92%">
+                        <div style="float:left;">
+                            <ng-select [(ngModel)]="result.case_type1" style="width:100px;" [clearable]="false"  [ngModelOptions]="{standalone: true}" >
+                                <ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                            </ng-select>
+                        </div>
+                        <div style="float:left;margin-left: 10px;margin-top:4px;">ประเภทคดีหลัก :&nbsp;</div>
+                        <div style="float:left;margin-left:2px;">
+                            <ng-select [(ngModel)]="result.case_cate_group1" style="width:200px;" [clearable]="false"  [ngModelOptions]="{standalone: true}" >
+                                <ng-option *ngFor="let getData of getCaseCateGroup" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </td>
+                </tr>
+                <tr >
+                    <td align="right">ให้กับ ความ :&nbsp;</td>
+                    <td>
+                        <div style="float:left;">
+                            <ng-select [(ngModel)]="result.case_type2" style="width:100px;" [clearable]="false"  [ngModelOptions]="{standalone: true}" >
+                                <ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                            </ng-select>
+                        </div>
+                        <div style="float:left;margin-left: 10px;margin-top:4px;">ประเภทคดีหลัก :&nbsp;</div>
+                        <div style="float:left;margin-left:2px;">
+                            <ng-select [(ngModel)]="result.case_cate_group2" style="width:200px;" [clearable]="false"  [ngModelOptions]="{standalone: true}" >
+                                <ng-option *ngFor="let getData of getCaseCateGroup" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="card-footer" style="margin-top: 5px;text-align:center;">
+                <button type="button" class="btn btn-success" >สำเนาข้อมูล</button>
+                <!--<button type="button" class="btn btn-warning" style="margin-left:5px;">ปิดหน้าจอ</button>-->   
+                <!--<button type="button" class="btn btn-danger" style="margin-left:5px;" >ปิดหน้าจอ</button>-->          
+            </div>
+        </fieldset>            
+    </div>

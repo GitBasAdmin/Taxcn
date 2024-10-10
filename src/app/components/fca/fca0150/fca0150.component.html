@@ -1,0 +1,138 @@
+
+    <div style="margin:0 auto;margin:0 auto;display:table;padding:10px;width: 99.5%;top:5px;" class="card" >
+        
+            <table width="100%" border="0" align="center" cellpadding="1" cellspacing="0">
+                <tr>
+                    <td align="right" width="25%">หมายเลขคดี :&nbsp;</td>
+                    <td width="75%">
+                        <div  style="float:left;">
+                            <input type="text" [(ngModel)]="result.case_no" class="form-control" style="width:350px;" readonly/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" >แถวที่ 1 :&nbsp;</td>
+                    <td>
+                        <div style="float:left;">
+                            <input  type="text"  [(ngModel)]="result.rpt_pros_desc"  class="form-control"   style="width:550px;"/>
+                        </div>
+                        <div style="float: left;margin-left:2px;margin-top:2px;" >
+                            <i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(1,'rpt_pros_desc','rpt_pros_type')"></i>
+                        </div>
+                        <div style="float:left;margin-left:5px;">
+                            <input  type="text"  [(ngModel)]="result.rpt_pros_type"  class="form-control"   style="width:350px;"/>
+                        </div>
+                        <div style="float: left;margin-left:2px;margin-top:2px;" >
+                            <i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(2,'rpt_pros_type','')"></i>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" >แถวที่ 2 :&nbsp;</td>
+                    <td>
+                        <div style="float:left;">
+                            <input  type="text"  [(ngModel)]="result.rpt_litigant_desc2"  class="form-control"   style="width:550px;"/>
+                        </div>
+                        <div style="float: left;margin-left:2px;margin-top:2px;" >
+                            <i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(1,'rpt_litigant_desc2','rpt_litigant_type2')"></i>
+                        </div>
+                        <div style="float:left;margin-left:5px;">
+                            <input  type="text"  [(ngModel)]="result.rpt_litigant_type2"  class="form-control"   style="width:350px;"/>
+                        </div>
+                        <div style="float: left;margin-left:2px;margin-top:2px;" >
+                            <i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(2,'rpt_litigant_type2','')"></i>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" >แถวที่ 3 :&nbsp;</td>
+                    <td>
+                        <div style="float:left;">
+                            <input  type="text"  [(ngModel)]="result.rpt_litigant_desc1"  class="form-control"   style="width:550px;"/>
+                        </div>
+                        <div style="float: left;margin-left:2px;margin-top:2px;" >
+                            <i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(1,'rpt_litigant_desc1','rpt_litigant_type1')"></i>
+                        </div>
+                        <div style="float:left;margin-left:5px;">
+                            <input  type="text"  [(ngModel)]="result.rpt_litigant_type1"  class="form-control"   style="width:350px;"/>
+                        </div>
+                        <div style="float: left;margin-left:2px;margin-top:2px;" >
+                            <i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(2,'rpt_litigant_type1','')"></i>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" >แถวที่ 4 :&nbsp;</td>
+                    <td>
+                        <div style="float:left;">
+                            <input  type="text"  [(ngModel)]="result.rpt_litigant_desc3"  class="form-control"   style="width:550px;"/>
+                        </div>
+                        <div style="float: left;margin-left:2px;margin-top:2px;" >
+                            <i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(1,'rpt_litigant_desc3','rpt_litigant_type3')"></i>
+                        </div>
+                        <div style="float:left;margin-left:5px;">
+                            <input  type="text"  [(ngModel)]="result.rpt_litigant_type3"  class="form-control"   style="width:350px;"/>
+                        </div>
+                        <div style="float: left;margin-left:2px;margin-top:2px;" >
+                            <i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(2,'rpt_litigant_type3','')"></i>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" >แถวที่ 5 :&nbsp;</td>
+                    <td>
+                        <div style="float:left;">
+                            <input  type="text"  [(ngModel)]="result.rpt_accu_desc"  class="form-control"   style="width:550px;"/>
+                        </div>
+                        <div style="float: left;margin-left:2px;margin-top:2px;" >
+                            <i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(1,'rpt_accu_desc','rpt_accu_type')"></i>
+                        </div>
+                        <div style="float:left;margin-left:5px;">
+                            <input  type="text"  [(ngModel)]="result.rpt_accu_type"  class="form-control"   style="width:350px;"/>
+                        </div>
+                        <div style="float: left;margin-left:2px;margin-top:2px;" >
+                            <i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(2,'rpt_accu_type','')"></i>
+                        </div>
+                    </td>
+                </tr>
+                
+            </table>
+            <div class="card-footer" style="margin-top: 5px;text-align:center;">
+                <button type="button" class="btn btn-success" (click)="updateCaseData()">จัดเก็บข้อมูล</button>
+                <button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="closeWin()">ปิดหน้าจอ</button>   
+                <input type="hidden"  [(ngModel)]="result.history_running">
+            </div>
+                  
+    </div>
+
+
+    <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+			  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+			  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal"  (click)="loadMyModalComponent();" #openbutton></button>
+			</div>
+			<div class="modal-body" >
+	
+					<input type="hidden" name="table_name" id="table_name">
+					<input type="hidden" name="field_id" id="field_id">
+					<input type="hidden" name="field_name" id="field_name">
+					<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+					<app-datalist-return *ngIf="loadModalComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value7]=listFieldCond (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+                    <app-modal-case-litigant *ngIf="loadModalLitComponent" [type]=listTable [run_id]=run_id [lit_type]=result.lit_type  (onClickList)="receiveFuncListData($event)"  class="modal_app"></app-modal-case-litigant>
+                </div>
+	
+			</div>
+			<div class="modal-footer">
+				<!--<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalConfComponent">ตกลง</button>-->
+				<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+			</div>
+		  </div>
+		</div>
+	</div>
+
+    <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+        <p style="color: gray">Please Wait. </p>  
+    </ngx-spinner>

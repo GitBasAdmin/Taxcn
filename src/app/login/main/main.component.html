@@ -1,0 +1,233 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #17a2b8;" *ngIf="userData.userLevel=='A'">
+    <div class="container-fluid">
+      <i  class="fas fa-home" style="cursor: pointer; font-size: 28px;color:#FFFFFF !important;margin-left:25px;"></i>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" *ngIf="sessData" style="color:green;font-size: 28px;color:#FFFFFF;padding-left:20px;">เมนูหลัก ระบบสารสนเทศสำนวนคดี</a>
+          </li>
+        </ul>
+      </div>
+      <div style="float: right;" style="font-size: 20px;color:#FFFFFF;float:right;cursor: pointer;" (click)="logout()" *ngIf="sessData">
+        <i class="fa fa-sign-out" style="font-size:23px;float:left;"></i>
+        <div style="margin-top:0px;float:left;margin-left:4px;">ออกจากระบบ</div>
+      </div>
+    </div>
+  </nav>
+  <section class="list-header" *ngIf="userData.userLevel=='A'" >
+    <div>
+        <h1>&nbsp;</h1>
+        <br>
+        <h3>&nbsp;</h3>
+    </div>
+</section>
+
+<nav id="main-list" *ngIf="userData.userLevel=='A'">
+    <ul>
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>PO</i>
+                </div>
+                <a (click)="redirectUrl(1)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานฝากขัง</span></a>
+            </div>
+        </li>
+        <li class="var_nav">
+            <div class="link_bg"></div>
+              <div class="link_title">
+                  <div class="icon"> 
+                      <i>JU</i>
+                  </div>
+                  <a (click)="redirectUrl(6)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานสารบบและพิมพ์คำพิพากษา</span></a>
+              </div>
+        </li>
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>GU</i>
+                </div>
+                <a (click)="redirectUrl(11)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานประกันตัว</span></a>
+            </div>
+        </li>
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>MG</i>
+                </div>
+                <a (click)="redirectUrl(16)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> ข้อมูลสำหรับผู้บริหาร</span></a>
+            </div>
+        </li>
+
+
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>CA</i>
+                </div>
+                <a (click)="redirectUrl(2)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานรับฟ้อง</span></a>
+            </div>
+        </li>
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>NO</i>
+                </div>
+                <a (click)="redirectUrl(7)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานหมาย</span></a>
+            </div>
+        </li> 
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>DO</i>
+                </div>
+                <a (click)="redirectUrl(12)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานเก็บเอกสารและของกลาง</span></a>
+            </div>
+        </li>
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>ST</i>
+                </div>
+                <a (click)="redirectUrl(17)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานสถิติ</span></a>
+            </div>
+        </li>
+        
+        
+
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>KB</i>
+                </div>
+                <a (click)="redirectUrl(3)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานเก็บดำ</span></a>
+            </div>
+        </li>
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>KR</i>
+                </div>
+                <a (click)="redirectUrl(8)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานเก็บแดง</span></a>
+            </div>
+        </li>
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>CO</i>
+                </div>
+                <a (click)="redirectUrl(13)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานสารบรรณ</span></a>
+            </div>
+        </li>
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>KN</i>
+                </div>
+                <a (click)="redirectUrl(18)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานประชาสัมพันธ์</span></a>
+            </div>
+        </li>
+        
+        
+
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>AP</i>
+                </div>
+                <a (click)="redirectUrl(4)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานหน้าบัลลังก์</span></a>
+            </div>
+        </li>
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>FN</i>
+                </div>
+                <a (click)="redirectUrl(9)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานการเงิน</span></a>
+            </div>
+        </li>
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>SC</i>
+                </div>
+                <a (click)="redirectUrl(14)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานหมายค้นหมายจับ</span></a>
+            </div>
+        </li>
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>SN</i>
+                </div>
+                <a (click)="redirectUrl(20)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานส่งคำคู่ความ</span></a>
+            </div>
+        </li>
+
+
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>UD</i>
+                </div>
+                <a (click)="redirectUrl(5)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานอุทธรณ์-ฎีกา</span></a>
+            </div>
+        </li>
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>CI</i>
+                </div>
+                <a (click)="redirectUrl(15)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานไกล่เกลี่ย</span></a>
+            </div>
+        </li>
+        <li class="var_nav">
+            <div class="link_bg"></div>
+            <div class="link_title">
+                <div class="icon"> 
+                    <i>CT</i>
+                </div>
+                <a (click)="redirectUrl(19)" style="cursor: pointer;"><span><i class="fa  fa-link"></i> งานควบคุมระบบ</span></a>
+            </div>
+        </li>
+        
+    </ul>
+</nav>
+
+<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+          <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+          <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+        </div>
+        <div class="modal-body" >
+            <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+                <app-alert-search *ngIf="loadModalAlertComponent" [alert]=items [mail]=mail></app-alert-search>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+        </div>
+      </div>
+    </div>
+</div>

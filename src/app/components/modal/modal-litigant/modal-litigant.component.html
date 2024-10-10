@@ -1,0 +1,67 @@
+<form class="form-horizontal" [formGroup]="formList" #modalForm>
+    <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+        <tr >
+          <td colspan="2" align="center">รายละเอียด{{litObj.lit_type_desc}}</td>
+        </tr>
+        <tr >
+          <td colspan="2" align="center"><hr></td>
+        </tr>
+        <tr >
+            <td align="right" width="110" >{{litObj.lit_type_desc}} ::&nbsp;</td>
+            <td >
+                <div style="float:left;" >
+                  {{litObj.full_name}}
+                </div>
+           </td>
+          </tr>
+          <tr >
+            <td align="right"  >ที่อยู่ ::&nbsp;</td>
+            <td >
+                <div style="float:left;" >
+                   {{litAddress}}
+                </div>
+           </td>
+          </tr>
+          <tr >
+            <td align="right"  >สถานะ ::&nbsp;</td>
+            <td >
+                <div style="float:left;" >
+                   {{litObj.status_desc}}
+                </div>
+           </td>
+          </tr>
+          <tr >
+            <td align="right"  >บัตรประชาชน ::&nbsp;</td>
+            <td >
+                <div style="float:left;" >
+                   {{litObj.id_card}}
+                </div>
+           </td>
+          </tr>
+          <tr >
+            <td align="right"  >เชื้อชาติ ::&nbsp;</td>
+            <td >
+                <div style="float:left;" >
+                   {{litObj.nation_name}}
+                </div>
+           </td>
+          </tr>
+          <tr >
+            <td align="right" >อาชีพ ::&nbsp;</td>
+            <td >
+                <div style="float:left;" >
+                   {{litObj.occ_desc}}
+                </div>
+           </td>
+          </tr>
+          <tr >
+            <td align="right"  >เบอร์โทร ::&nbsp;</td>
+            <td >
+                <div style="float:left;" >
+                   {{litObj.tel_no}}
+                </div>
+           </td>
+          </tr>
+
+    </table>
+</form>

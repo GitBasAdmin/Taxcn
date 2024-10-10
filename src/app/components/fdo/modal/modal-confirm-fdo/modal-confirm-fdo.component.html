@@ -1,0 +1,41 @@
+<form class="form-horizontal" [formGroup]="formList" #modalForm>
+    <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+        <tr >
+            <td align="right" width="180" valign="top" style="padding:8px 0 0 0px;">ชื่อเข้าใช้งาน :&nbsp;</td>
+            <td style="padding:4px 0 0 0px;">
+                <div style="float:left;" >
+                    <input name="user_name" type="text" id="user_name" class="form-control" style="width:180px;float:left;height:28px;">
+                </div>
+            </td>
+        </tr>
+        <tr >
+            <td align="right" width="180" valign="top" style="padding:8px 0 0 0px;">รหัสผ่าน :&nbsp;</td>
+            <td style="padding:4px 0 0 0px;">
+                <div style="float:left;" >
+                    <input [type]="typePwd ? 'text' : 'password'" name="password" type="password" id="password" class="form-control" style="width:180px;float:left;height:28px;">
+                </div>
+                <div style="float:left;margin-top:6px;margin-left:4px;" >
+                    <i [class]="typePwd ? 'fa fa-eye' : 'fa fa-eye-slash'" class='' style='cursor:pointer;font-size:18px;margin-left: 2px;' (click)="showInput('typePwd')"></i>
+                </div>
+                
+            </td>
+        </tr>
+        <tr >
+        <td align="right" valign="top" style="padding:8px 0 0 0px;">หมายเหตุ :&nbsp;</td>
+        <td style="padding:4px 0 0 0px;">
+            <div style="float:left;" >
+                <textarea name="log_remark" id="log_remark" class="form-control" style="margin: 0px; width: 460px; line-height: 18px; overflow: hidden; overflow-wrap: break-word; height: 50px;"></textarea>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span style="margin-left: 4px;color: red;"> *** ระบบจะลงวันที่/เวลาให้อัตโนมัติ  ***</span>
+            </td>
+        </tr>
+    </table>
+</form>
+<div class="modal-footer">
+    <button type="button" class="btn btn btn-primary" (click)="onSubmit()" [disabled]="!formList.valid">จัดเก็บ</button>
+    <button type="button" class="btn btn-warning" (click)="activeModal.close()">ปิดหน้าจอ</button>
+  </div>

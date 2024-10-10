@@ -1,0 +1,160 @@
+
+<!--
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#fju0100-1" role="tab" aria-controls="fju0100-1" aria-selected="true">สารบบคำพิพากษา</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#fju0100-2" role="tab" aria-controls="fju0100-2" aria-selected="false">คำพิพากษา</a>
+    </li>
+
+
+  </ul>
+  
+  
+  <div class="tab-content">
+    <div class="tab-pane active" id="fju0100-1" role="tabpanel" aria-labelledby="fju0100-1-tab" style="padding:5px;background-color: #f0f0f0;">
+      <app-fju0100-tab1></app-fju0100-tab1>
+    </div>
+    <div class="tab-pane" id="fju0100-2" role="tabpanel" aria-labelledby="fju0100-2-tab" style="padding:20px;background-color: #f0f0f0;">
+      <app-fju0100-tab2></app-fju0100-tab2>
+    </div>
+  </div>
+  -->
+  <div [style.width]="widthSet">
+  <mat-tab-group animationDuration="0ms" [selectedIndex]='0' (selectedIndexChange)="1" (selectedTabChange)="assignWidth($event)" #tabGroup>
+    <mat-tab label="รายการอุทธรณ์/ฏีกา" style="padding:5px !important;" ><app-fud0100-tab1 [getDataHead]="this.sendHead" [sendEdit]="this.sendEdit" (onClickList)="receiveTab1Data($event)"></app-fud0100-tab1></mat-tab>
+    <mat-tab label="รายการคำคู่ความ" style="padding:5px !important;" ><app-fud0100-tab2 [getDataHead]="this.sendHead" [sendEdit]="this.sendEdit"></app-fud0100-tab2></mat-tab>
+    <mat-tab label="รายการหมาย" style="padding:5px !important; "><app-fud0100-tab3 [getDataHead]="this.sendHead" [sendEdit]="this.sendEdit"></app-fud0100-tab3></mat-tab>
+    <mat-tab label="สารบรรณ" style="padding:5px !important; "><app-fud0100-tab4 [getDataHead]="this.sendHead" [sendEdit]="this.sendEdit"></app-fud0100-tab4></mat-tab>
+    <mat-tab label="คำสั่ง/คำพิพากษา" style="padding:5px !important; "><app-fud0100-tab5 [getDataHead]="this.sendHead" [sendEdit]="this.sendEdit" [getTab]="this.tab"></app-fud0100-tab5></mat-tab>
+  </mat-tab-group>
+</div>
+  <div class="card " style="box-shadow: none !important;padding:5px;width:3400px;background-color: #f0f0f0;margin-top:10px;">
+    <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">  
+        <tr>
+            <td align="left" style="padding:4px;">รายการอุทธรณ์/ฎีกา</td>
+        </tr>         
+        <tr>
+            <td align="left">
+                <table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+                    <thead>
+                        <tr>
+                          <th width="1%" class="no-sort">ลบ</th>
+                          <th width="1%" class="no-sort">แก้ไข</th>
+                          <th width="4%">รายการ</th>
+                          <th width="4%">ประเภท</th>
+                          <th width="2%">รายการที่</th>
+                          <th width="8%">ผู้ยื่น</th>
+                          <th width="3%">วันที่เริ่มต้น</th>
+                          <th width="3%" >ไปยังศาล</th>
+                          <th width="3%" >วันที่ศาลสั่ง<br />ให้ส่งสำนวน</th>
+                          <th width="3%">วันที่ส่งไป</th>
+                          <th width="3%">วันที่รับคืน</th>
+                          <!-- <th width="4%">เลขที่ซอง</th> --><!--พี่จูให้ซ่อน  -->
+                          <th width="4%"> วันที่อ่านคำสั่ง<br />/คำพิพากษา </th>
+                          <th width="3%">วันที่แจ้งการอ่าน</th>
+                          <th width="18%">คำสั่ง/คำพิพากษา</th>
+                          <th width="3%">คดียุติโดย</th>
+                          <th width="4%">หน่วยงานที่บันทึก</th>
+                          <th width="4%">ผู้บันทึก</th>
+                          <th width="4%">วัน/เวลาที่บันทึก</th>
+                          <th width="4%">หน่วยงานที่แก้ไข</th>
+                          <th width="4%">ผู้แก้ไข</th>
+                          <th width="4%">วัน/เวลาที่แก้ไข</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody *ngIf="dataSearch?.length != 0">
+                      <tr *ngFor="let post of dataSearch;let i = index;" [ngClass]="{'red': post.cancel_flag}">
+                        <td align="center"><i class='fas fa-times' style='font-size:18px;color:rgba(255, 0, 0, 0.7);cursor: pointer;' (click)="delData(i)"></i></td>
+                        <td align="center"><i class="fa fa-pencil" style="font-size:18px;cursor: pointer;" (click)="sendEditData(i,1)"></i></td>
+                        <td align="center">{{post.appeal_type_name}}</td>
+                        <td align="center">{{post.app_type_name}}</td>
+                        <td align="center">{{post.appeal_item}}</td>
+                        <td align="center">{{post.send_person}}</td>
+                        <td align="center">{{post.start_date}}</td>
+                        <td align="center">{{post.send_to_name}}</td>
+                        <td align="center">{{post.case_send_date}}</td>
+                        <td align="center">{{post.hsend_date}}</td>
+                        <td align="center">{{post.hrec_date}}</td>
+                        <!-- <td align="center">{{post.case_no}}</td> --><!--พี่จูให้ซ่อน  -->
+                        <td align="center">{{post.judge_date}}</td>
+                        <td align="center">{{post.read_date}}</td>
+                        <td style="padding-left:15px;">{{post.judge_result_name}} {{post.judge_desc}}</td>
+                        <td align="center">{{post.close_name}}</td>
+                        <td align="center">{{post.create_dep_name}}</td>
+                        <td align="center">{{post.create_user}}</td>
+                        <td align="center">{{post.create_date}}</td>
+                        <td align="center">{{post.update_dep_name}}</td>
+                        <td align="center">{{post.update_user}}</td>
+                        <td align="center">{{post.update_date}}</td>
+                        </tr>
+                    </tbody>
+
+                    <tbody *ngIf="dataSearch?.length == 0">
+                      <tr >
+                            <td colspan="22" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </td>
+        </tr>
+    </table>	
+    
+</div>
+
+<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal_main" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+      <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+      <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal_main" (click)="loadMyModalComponent();" #openbutton></button>
+    </div>
+    <div class="modal-body" >
+        <input type="hidden" name="table_name" id="table_name">
+        <input type="hidden" name="field_id" id="field_id">
+        <input type="hidden" name="field_name" id="field_name">
+        <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+          <app-modal-confirm *ngIf="loadModalConfComponent_main" class="modal_app"></app-modal-confirm>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalConfComponent_main">ตกลง</button>
+      <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+    </div>
+    </div>
+  </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner>

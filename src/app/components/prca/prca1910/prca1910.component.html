@@ -1,0 +1,107 @@
+<style>
+
+</style>
+<!-- <app-menu></app-menu> -->
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;">
+		<!-- <div class="card card-info" style="box-shadow: none !important;">
+      		<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+        	<div style="float:left;margin-top:6px;"><i class="fa fa-folder-open-o" style="font-size:24px;margin-left:8px;"></i><span style="font-size: 16px;margin-left:5px;">{{programName}}</span></div>
+		</div> -->
+
+		<!-- form start -->
+		<div class="card-body">
+			<div class="card" align="center" style="box-shadow: none !important;padding:5px;">
+				<table width="100%" border="0" cellspacing="2" cellpadding="2" class="form_table">
+					<tr>
+						<td align="right" width="44%">ประเภท :&nbsp;</td>
+						<div style="float: left;margin-left:3px;">
+							<ng-select [(ngModel)]="result.pcontent_type" style="width:150px;" [ngModelOptions]="{standalone: true}" (change)="changeContentType($event)"  #sType>
+								<ng-option *ngFor="let getData of getContentType" [value]=getData.id>{{getData.text}}</ng-option>
+							</ng-select>
+						</div>
+						<div style="float: left;margin-left:5px;">
+							<input name="pcheck" [(ngModel)]="result.pcheck" type="checkbox" id="pcheck" [value]="1" style="width:15px;margin-top:5px;" />
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:4px;">เฉพาะคดีที่ยังไม่ออกเลขแดง</div>
+					</tr>
+					<tr>
+						<td align="right" width="20%">ความ :&nbsp;</td>
+						<td align="left">
+							<div style="float: left;">
+								<ng-select [(ngModel)]="result.case_type" style="width:100px;" [ngModelOptions]="{standalone: true}" (change)="changeCaseType($event)" #sCaseType>
+									<ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+								</ng-select>
+							</div>
+						</td>
+					</tr>
+
+					<tr *ngIf="this.result.pcontent_type==2">
+						<td align="right" width="20%">หมายเลขคดี :&nbsp;</td>
+						<td align="left">
+							<div style="float:left;">
+								<ng-select [(ngModel)]="result.title" style="width:110%;" #sTitle>
+									<ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+								</ng-select>
+							</div>
+							<div style="float:left;margin-left:8px;">
+								<input name="s_id" type="text" id="s_id" [(ngModel)]="result.s_id" value="" class="form-control" style="width:80px;height:28px;">
+							</div>
+							<div style="float:left;margin-left:5px;"> - &nbsp;</div>
+							<div style="float:left;margin-left:3px;">
+								<input name="e_id" type="text" id="e_id" [(ngModel)]="result.e_id" value="" class="form-control" style="width:80px;height:28px;">
+							</div>
+							<div style="float:left;margin-left:5px;"> / &nbsp;</div>
+							<div style="float:left;margin-left:3px;">
+								<input name="yy" type="text" id="yy" [(ngModel)]="result.yy" value="" class="form-control" style="width:80px;height:28px;">
+							</div>
+						</td>
+					</tr>
+
+					<tr *ngIf="this.result.pcontent_type==1">
+						<td align="right">ตั้งแต่วันที่ :&nbsp;</td>
+						<td>
+							<div style="float:left;margin-left:3px;">
+								<input name="txt_date_start" id="txt_date_start" type="text" placeholder="่วว/ดด/ปปปป" value="" class="form-control jcalendar date_start" style="width:120px;">
+							</div>
+							<div style="float:left;margin-left:3px;">
+								<i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.date_start').focus();"></i>
+							</div>
+							<div style="float:left;margin-left:15px;">&nbsp;ถึง&nbsp;&nbsp;</div>
+							<div style="float:left;">
+								<input name="txt_date_end" id="txt_date_end" type="text" placeholder="วว/ดด/ปปปป" value="" class="form-control jcalendar date_end" style="width:120px;">
+							</div>
+							<div style="float:left;margin-left:3px;">
+								<i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.date_end').focus();"></i>
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td align="right" width="20%">สำนวนอยู่ที่งาน :&nbsp;</td>
+						<td align="left">
+							<div style="float:left;">
+								<input type="text" [(ngModel)]="dep_id" (change)="tabChangeSelect('dep_id',getDep,$event,1)" class="form-control" style="width:80px;text-align:center;float:left;" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46">
+							</div>
+							<div style="float:left;margin-left:2px;">
+								<ng-select [(ngModel)]="result.dep_id" style="width:250px;" (change)="tabChangeSelect('dep_id',getDep,$event,2)" #sDep>
+									<ng-option [value]=""></ng-option>
+									<ng-option *ngFor="let getData of getDep" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+								</ng-select>
+							</div>
+						</td>
+					</tr>
+
+					<div>&nbsp;</div>
+				</table>
+			</div>
+			<!-- /.card-body -->
+			<div class="card-footer" align="center">
+				<button type="button" class="btn btn-info" style="margin-left:5px;" (click)="printReport(1)">พิมพ์รายงาน</button>
+				<button type="button" class="btn btn-info" style="margin-left:5px;" (click)="printReport(2)">พิมพ์รายงาน(เครื่องพิมพ์บาร์โค๊ด)</button>
+				<button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+			</div>
+			<!-- /.card-footer -->
+		</div>
+	</div>
+</div>

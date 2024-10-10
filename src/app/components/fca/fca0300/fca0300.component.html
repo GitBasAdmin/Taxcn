@@ -1,0 +1,516 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName"></app-case-header>
+			</div>
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+				<tr>
+					<td colspan="5" align="left" style="height:40px;">
+						<div style="float:left;margin-left:8px;margin-top:5px;">ต้องการค้นหาข้อมูลตาม ....&nbsp;</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="228" style="color:red;" align="right">คดีของศาล :&nbsp;</td>
+					<td width="460" align="left">
+						<div style="float:left;">
+							<input  type="text" [(ngModel)]="court_id" (change)="tabChangeSelect('court_id',getCourt,$event,1);changeCourt($event,1)"  class="form-control" style="width:80px;text-align:center;float:left;" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46">
+						</div>
+						<div style="float:left;margin-left:2px;">
+							<ng-select [(ngModel)]="result.court_id" style="width:300px;" (change)="tabChangeSelect('court_id',getCourt,$event,2);changeCourt($event,1)"  #sCourt >
+								<ng-option *ngFor="let getData of getCourt" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+					<td width="12">&nbsp;</td>
+					<td width="300" align="right" >คดีพิเศษ :&nbsp;</td>
+					<td align="left">
+						<ng-select [(ngModel)]="result.case_special" class="case_type" style="width:280px;"  [ngModelOptions]="{standalone: true}" #sCaseSpecial>
+							<ng-option *ngFor="let getData of getCaseSpecial" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+						</ng-select>
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">ความ :&nbsp;</td>
+					<td  align="left">
+						<div style="float:left;">
+							<ng-select [(ngModel)]="result.case_type" style="width:100px;"  [ngModelOptions]="{standalone: true}" (change)="changeCaseType($event)" #sCaseType>
+								<ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+					<td >&nbsp;</td>
+					<td align="right" >ประเภทคดีออกสถิติ :&nbsp;</td>
+					<td align="left">
+						<div style="float:left;">
+							<input  type="text" [(ngModel)]="case_type_stat" (change)="tabChangeSelect('case_type_stat',getCaseTypeStat,$event,1)"  class="form-control" style="width:70px;text-align:center;float:left;" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+						</div>
+						<div style="float:left;margin-left:3px;">
+							<ng-select [(ngModel)]="result.case_type_stat" (change)="tabChangeSelect('case_type_stat',getCaseTypeStat,$event,2)" style="width:205px;"   #sCaseCateStat>
+								<ng-option *ngFor="let getData of getCaseTypeStat" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">ประเภทคดี :&nbsp;</td>
+					<td  align="left">
+						<div style="float:left;">
+							<ng-select [(ngModel)]="result.case_cate_id" style="width:300px;" [ngModelOptions]="{standalone: true}"  #sCaseCate>
+								<ng-option *ngFor="let getData of getCaseCate" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+					<td >&nbsp;</td>
+					<td align="right" >ชั้นพิจารณา :&nbsp;</td>
+					<td align="left">
+						<ng-select  [(ngModel)]="result.cate_status" style="width:280px;"   #sCaseStatus>
+							<ng-option *ngFor="let getData of getCaseStatus" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+						</ng-select>
+
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">คดีหมายเลขดำที่ :&nbsp;</td>
+					<td  align="left">
+						<div style="float:left;">
+							<ng-select  [(ngModel)]="result.title" style="width:100px;"   #sTitle>
+								<ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+						<div style="float:left;margin-left:3px;"><input   type="text" [(ngModel)]="result.id"  class="form-control" style="width:60px;height:28px;"></div>
+						<div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="result.yy" class="form-control" style="width:100px;height:28px;"></div>
+					</td>
+					<td >&nbsp;</td>
+					<td align="right" style="color:red;">คดีหมายเลขแดงที่ :&nbsp;</td>
+					<td align="left">
+						<div style="float:left;">
+							<ng-select  [(ngModel)]="result.red_title" style="width:100px;"   #sRedTitle>
+								<ng-option *ngFor="let getData of getRedTitle" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+						<div style="float:left;margin-left:3px;"><input   type="text" [(ngModel)]="result.red_id"  class="form-control" style="width:60px;height:28px;"></div>
+						<div style="float:left;margin-left:3px;"><input   type="text" [(ngModel)]="result.red_yy" class="form-control" style="width:100px;height:28px;"></div>
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">เลขดคีศาลเดิม :&nbsp;</td>
+					<td  align="left">
+						<div style="float:left;margin-left:0px;"><input   type="text" [(ngModel)]="result.old_title" class="form-control" style="width:100px;height:28px;"></div>
+						<div style="float:left;margin-left:3px;"><input   type="text" [(ngModel)]="result.old_id" class="form-control" style="width:60px;height:28px;"></div>
+						<div style="float:left;margin-left:3px;"><input   type="text" [(ngModel)]="result.old_yy" class="form-control" style="width:100px;height:28px;"></div>
+					</td>
+					<td >&nbsp;</td>
+					<td align="right" style="color:red;">หมายเลขคดีแดงศาลเดิม :&nbsp;</td>
+					<td align="left">
+						<div style="float:left;margin-left:0px;"><input   type="text" [(ngModel)]="result.old_red_title" class="form-control" style="width:100px;height:28px;"></div>
+						<div style="float:left;margin-left:3px;"><input   type="text" [(ngModel)]="result.old_red_id" class="form-control" style="width:60px;height:28px;"></div>
+						<div style="float:left;margin-left:3px;"><input   type="text" [(ngModel)]="result.old_red_yy" class="form-control" style="width:100px;height:28px;"></div>
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">รับฟ้องที่ศาล :&nbsp;</td>
+					<td  align="left">
+						<div style="float:left;">
+							<input  type="text" [(ngModel)]="old_court_id" (change)="tabChangeSelect('old_court_id',getCourt,$event,1)"  class="form-control" style="width:80px;text-align:center;float:left;" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+						</div>
+						<div style="float:left;margin-left:2px;">
+							<ng-select [(ngModel)]="result.old_court_id" style="width:300px;" (change)="tabChangeSelect('old_court_id',getCourt,$event,2)"  #sCourt >
+								<ng-option *ngFor="let getData of getCourt" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+					<td >&nbsp;</td>
+					<td align="right" >&nbsp;</td>
+					<td align="left">&nbsp;
+						<!-- <div style="float: left;">
+							<input type="checkbox" [(ngModel)]="result.e_court_flag" [value]="1" style="width:15px;height:15px;margin-top:5px;"/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:4px;">เข้าระบบ E-Court </div> -->
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">รับฟ้องตั้งแต่ :&nbsp;</td>
+					<td  align="left">
+						<div style="float:left;"><input   type="text" [(ngModel)]="result.scase_date" class="form-control jcalendar scase_date" #scase_date (click)="directiveDate(scase_date.value,'scase_date')" style="width:120px;height:28px;"></div>
+                    	<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.scase_date').focus();"></i></div>
+						<div style="float:left;margin-left:8px;margin-top:5px;color:blue;">&nbsp;ถึง&nbsp;</div>
+						<div style="float:left;"><input   type="text" [(ngModel)]="result.ecase_date" class="form-control jcalendar ecase_date"  #ecase_date (click)="directiveDate(ecase_date.value,'ecase_date')" style="width:120px;height:28px;"></div>
+                    	<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.ecase_date').focus();"></i></div>
+					</td>
+					<td >&nbsp;</td>
+					<td align="right" style="color:red;">ออกแดงตั้งแต่ :&nbsp;</td>
+					<td align="left">
+						<div style="float:left;"><input   type="text" [(ngModel)]="result.sjudging_date" class="form-control jcalendar sjudging_date" #sjudging_date (click)="directiveDate(sjudging_date.value,'sjudging_date')" style="width:120px;height:28px;"></div>
+                    	<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.sjudging_date').focus();"></i></div>
+						<div style="float:left;margin-left:8px;margin-top:5px;color:blue;">&nbsp;ถึง&nbsp;</div>
+						<div style="float:left;"><input   type="text" [(ngModel)]="result.ejudging_date" class="form-control jcalendar ejudging_date" #ejudging_date (click)="directiveDate(ejudging_date.value,'ejudging_date')" style="width:120px;height:28px;"></div>
+                    	<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.ejudging_date').focus();"></i></div>
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">&nbsp;</td>
+					<td  align="left">
+						<div style="float: left;">
+							<input type="radio" name="guar_pros" [(ngModel)]="result.guar_pros" [value]="0"  style="width:15px;height:15px;margin-top:5px;"/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:4px;">ทั้งหมด</div>
+						<div style="float: left;margin-left:8px;">
+							<input type="radio" name="guar_pros" [(ngModel)]="result.guar_pros" [value]="1" style="width:15px;height:15px;margin-top:5px;"/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:4px;">คำฟ้อง</div>
+						<div style="float: left;margin-left:8px;">
+							<input type="radio" name="guar_pros" [(ngModel)]="result.guar_pros" [value]="2" style="width:15px;height:15px;margin-top:5px;"/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:4px;">คำร้องขอ</div>
+					</td>
+					<td >&nbsp;</td>
+					<td align="right" style="color:red;">&nbsp;</td>
+					<td align="left">
+						<div style="float: left;">
+							<input type="radio" [(ngModel)]="result.case_yes_no" [value]="0" style="width:15px;height:15px;margin-top:5px;" checked/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:4px;">ทั้งหมด</div>
+						<div style="float: left;margin-left:8px;">
+							<input type="radio" [(ngModel)]="result.case_yes_no" [value]="1" style="width:15px;height:15px;margin-top:5px;"/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:4px;">สำนวน</div>
+						<div style="float: left;margin-left:8px;">
+							<input type="radio" [(ngModel)]="result.case_yes_no" [value]="2" style="width:15px;height:15px;margin-top:5px;"/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:4px;">ไม่ใช่สำนวนคดี</div>
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">มูลคดีเกิดที่อำเภอ :&nbsp;</td>
+					<td  align="left">
+						<div style="float:left;">
+							<input  type="text" [(ngModel)]="zone_id" (change)="changeAmphur($event,1)"  class="form-control" style="width:80px;text-align:center;float:left;" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+						</div>
+						<div style="float:left;margin-left:2px;">
+							<ng-select [(ngModel)]="result.zone_id" style="width:300px;" (change)="changeAmphur($event,1);"   #sZone>
+								<ng-option *ngFor="let getData of getCourtZone" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+					<td >&nbsp;</td>
+					<td align="right" >ผู้สั่ง :&nbsp;</td>
+					<td align="left">
+						<div style="float: left;">
+							<input   type="text" [(ngModel)]="result.order_judge_id" (change)="tabChangeInput('order_judge_id',$event)"  class="form-control" style="width:60px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;">
+							<input   type="text"  [(ngModel)]="order_judge_name"   class="form-control" style="width:220px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i class='far fa-list-alt iDep' style="font-size: 20px;cursor:pointer;float:left;margin-left:2px;" data-bs-toggle="modal" data-bs-target="#exampleModal-3" (click)="loadMyModalJudgeComponent(1)"></i>
+						</div>
+					</td>
+				</tr>
+				<!--
+				<tr>
+					<td  align="right">มูลคดีเกิดที่ตำบล :&nbsp;</td>
+					<td  align="left">
+						<div style="float:left;">
+							<input  type="text" [(ngModel)]="zone_tambon_id" (change)="changeTambon($event,1);"  class="form-control" style="width:80px;text-align:center;float:left;" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+						</div>
+						<div style="float:left;margin-left:2px;">
+							<ng-select [(ngModel)]="result.zone_tambon_id" style="width:300px;" (change)="changeTambon($event,1);"  #sZoneTambon >
+								<ng-option *ngFor="let getData of getCourtAmphur" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+					<td >&nbsp;</td>
+					<td align="right" >เทศบาล/อบต. :&nbsp;</td>
+					<td align="left">
+						<div style="float:left;">
+							<input  type="text" [(ngModel)]="zone_subdistrict_id" (change)="tabChangeSelect('zone_subdistrict_id',getCourtTambon,$event,1)"  class="form-control" style="width:80px;text-align:center;float:left;" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+						</div>
+						<div style="float:left;margin-left:2px;">
+							<ng-select [(ngModel)]="result.zone_subdistrict_id" style="width:300px;" (change)="tabChangeSelect('zone_subdistrict_id',getCourtTambon,$event,2)"  #sZoneSubdistrict >
+								<ng-option *ngFor="let getData of getCourtTambon" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+				</tr>-->
+				<tr>
+					<td  align="right">ฐานความผิดขึ้นปก :&nbsp;</td>
+					<td  align="left">
+						<div style="float: left;margin-left:0px;">
+							<input   type="text"  [(ngModel)]="result.alle_desc"  class="form-control" style="width:320px;height:28px;"/>
+						</div>
+					</td>
+					<td >&nbsp;</td>
+					<td align="right" >คดี :&nbsp;</td>
+					<td align="left">
+						<ng-select [(ngModel)]="result.cond_flag" class="case_type" style="width:120px;"   #sCondFlag>
+							<ng-option *ngFor="let getData of getCondFlag" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+						</ng-select>
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">ทุนทรัพย์ :&nbsp;</td>
+					<td  align="left">
+						<div style="float: left;margin-left:0px;">
+							<input   type="text" [(ngModel)]="result.sdeposit"   class="form-control" style="width:120px;height:28px;"/>
+						</div>
+						<div style="float:left;margin-left:4px;margin-top:5px;color:blue;">&nbsp;ถึง&nbsp;&nbsp;</div>
+						<div style="float: left;margin-left:2px;">
+							<input   type="text" [(ngModel)]="result.edeposit"   class="form-control" style="width:120px;height:28px;"/>
+						</div>
+					</td>
+					<td >&nbsp;</td>
+					<!-- <td align="right" >สำหรับคดีผู้บริโภค :&nbsp;</td> -->
+          <td align="right" >&nbsp;</td>
+					<td align="left">&nbsp;
+						<!-- <ng-select  [(ngModel)]="result.customer_flag" class="case_type" style="width:160px;"   #sCondFlag>
+							<ng-option *ngFor="let getData of getCustomerFlag" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+						</ng-select> -->
+
+					</td>
+				</tr>
+				<!-- <tr>
+					<td  align="right">เลขคดีแดงศาลสูง(เลขฎีกา) :&nbsp;</td>
+					<td  align="left">
+						<div style="float: left;margin-left:0px;">
+							<input   type="text"  [(ngModel)]="result.hred_no"  class="form-control" style="width:120px;height:28px;"/>
+						</div>
+						<div style="float:left;margin-left:4px;margin-top:5px;">&nbsp;สภาพการฟ้อง&nbsp;&nbsp;</div>
+						<div style="float: left;margin-left:2px;">
+							<ng-select  [(ngModel)]="result.case_level" class="case_type" style="width:220px;"   #sCondFlag>
+								<ng-option *ngFor="let getData of getIndict" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+					<td >&nbsp;</td>
+					<td align="right" >จำเลยรับสารภาพ/ปฏิเสธ :&nbsp;</td>
+					<td align="left">
+						<div style="float: left;">
+							<ng-select  [(ngModel)]="result.admit_flag" class="case_type" style="width:160px;"   #sAdmit>
+								<ng-option *ngFor="let getData of getAdmit" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+						<div style="float:left;margin-left:4px;margin-top:5px;">&nbsp;โจทก์&nbsp;&nbsp;</div>
+						<div style="float: left;">
+							<ng-select  [(ngModel)]="result.prosType" class="case_type" style="width:160px;"   #sProsType>
+								<ng-option *ngFor="let getData of getProsType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+				</tr> -->
+				<tr>
+					<td  align="right">ฐานความผิดสถิติ ลำดับที่ :&nbsp;</td>
+					<td  align="left">
+						<div style="float: left;">
+							<input   type="text"  [(ngModel)]="result.alle_seq"   class="form-control" style="width:60px;height:28px;"/>
+						</div>
+						<div style="float:left;margin-left:4px;margin-top:5px;">&nbsp;ฐานความผิด :&nbsp;</div>
+						<div style="float: left;">
+							<input   type="text" [(ngModel)]="result.alle_id" (change)="tabChangeInput('alle_id',$event)"  class="form-control" style="width:60px;height:28px;" #alle_id/>
+						</div>
+						<div style="float: left;margin-left:2px;">
+							<input   type="text"  [(ngModel)]="alle_name" class="form-control" style="width:220px;height:28px;" #alleName/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i class='far fa-list-alt iDep' style="font-size: 20px;cursor:pointer;float:left;margin-left:2px;" data-bs-toggle="modal" data-bs-target="#exampleModal-3" (click)="loadMyModalAlleComponent()"></i>
+						</div>
+					</td>
+					<td >&nbsp;</td>
+					<td align="right" >&nbsp;</td>
+					<td align="left">
+						<div style="float: left;">
+							<input type="checkbox" [(ngModel)]="result.case_flag" [value]="1" style="width:15px;height:15px;margin-top:5px;" checked/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:4px;">ไม่รวมคดีไกล่เกลี่ยและสมานฉันท์ </div>
+					</td>
+				</tr>
+				<!-- <tr>
+					<td  align="right">สน.ที่ยื่นคำฟ้อง :&nbsp;</td>
+					<td  align="left">
+						<div style="float:left;">
+							<input  type="text" [(ngModel)]="req_id" (change)="tabChangeSelect('req_id',getPolice,$event,1)"  class="form-control" style="width:70px;text-align:center;float:left;" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+						</div>
+						<div style="float:left;margin-left:3px;">
+							<ng-select [(ngModel)]="result.req_id" (change)="tabChangeSelect('req_id',getPolice,$event,2)" style="width:250px;" >
+								<ng-option *ngFor="let getData of getPolice" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+					<td >&nbsp;</td>
+					<td align="right" >รับโอนคดีจากศาล :&nbsp;</td>
+					<td align="left">
+						<div style="float:left;">
+							<input  type="text" [(ngModel)]="transfer_court_id" (change)="tabChangeSelect('transfer_court_id',getCourt,$event,1)"  class="form-control" style="width:80px;text-align:center;float:left;" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+						</div>
+						<div style="float:left;margin-left:2px;">
+							<ng-select [(ngModel)]="result.transfer_court_id" style="width:300px;" (change)="tabChangeSelect('transfer_court_id',getCourt,$event,2)"  #sCourt >
+								<ng-option *ngFor="let getData of getCourt" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+						<div style="float: left;margin-left:15px;">
+							<input type="checkbox" [(ngModel)]="result.transfer_court_flag" [value]="1" style="width:15px;height:15px;margin-top:8px;"/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:7px;">เฉพาะคดีที่โอน </div>
+					</td>
+				</tr> -->
+				<tr>
+					<td  align="right">&nbsp;</td>
+					<td  align="left">
+						<div style="float: left;">
+							<ng-select  [(ngModel)]="result.efile" style="width:260px;"   #sEfile>
+								<ng-option *ngFor="let getData of getEfile" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+						<div style="float: left;margin-left:15px;">
+							<input type="checkbox" [(ngModel)]="result.indict_flag" style="width:15px;height:15px;margin-top:8px;"/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:7px;">คดีที่ยังไม่ได้ลง ใจความฟ้อง </div>
+					</td>
+					<td colspan="2">
+						<div style="float: left;margin-left:45px;">
+							<input type="checkbox" [(ngModel)]="result.judge_flag" style="width:15px;height:15px;margin-top:8px;"/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:7px;">คดีออกแดงในวันที่รับฟ้อง </div>
+					</td>
+					<td align="left">
+						<div style="float: left;">
+							<input type="checkbox" [(ngModel)]="result.receive_flag" style="width:15px;height:15px;margin-top:8px;"/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:7px;">ยังไม่ออกใบเสร็จ </div>
+					</td>
+				</tr>
+			</table>
+			<div class="card-footer" style="text-align: center;">
+				<button type="button" class="btn btn-primary" style="margin-left:5px;"  (click)="searchData()">ค้นหา</button>
+				<button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" onclick="location.reload()">ล้างหน้าจอ</button>
+				<button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="exportAsXLSX()" >ส่งออกเป็น Excel</button>
+				<!--<button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="printReport()" >พิมพ์</button>-->
+			</div>
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;width:2800px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+				<tr>
+					<td width="40%" align="left" style="height:40px;">
+						<div style="float:left;margin-left:8px;margin-top:5px;">ทุนทรัพย์รวม :&nbsp;</div>
+						<div style="float: left;">
+							<input   type="text"  [(ngModel)]="deposit"  class="form-control" style="width:160px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:7px;">บาท </div>
+					</td>
+				</tr>
+				<tr>
+					<td width="40%" align="left">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+							<thead>
+								<tr>
+
+									<th width="3%" >ความ</th>
+									<th width="5%">คดีหมายเลขดำที่</th>
+									<th width="4%">วันที่รับฟ้อง</th>
+									<th width="5%"><span style="color: red;">คดีหมายเลขแดงที่</span></th>
+									<th width="5%"><span style="color: red;">วันที่ออกแดง</span></th>
+									<th width="5%">วันนัดถัดไป</th>
+									<th width="6%">โจทก์</th>
+									<th width="6%">จำเลย</th>
+									<th width="8%">ฐานความผิด</th>
+									<th width="7%">ใจความฟ้อง</th>
+									<th width="7%">เหตุเกิดที่</th>
+									<th width="5%">ทุนทรัพย์</th>
+									<th width="6%">ประเภท</th>
+									<th width="7%">ผู้สั่ง</th>
+									<th width="6%">เลขคดีศาลเดิม</th>
+									<th width="8%">รับสารภาพ/ปฏิเสธ</th>
+									<th width="7%">รับโอนคดีจากศาล</th>
+								</tr>
+							</thead>
+							<tbody *ngIf="dataSearch?.length != 0">
+								<tr *ngFor="let post of dataSearch;let i = index;">
+									<td align="center">{{post.case_type_desc}}</td>
+									<td align="center" ><span *ngIf="post.title && post.id && post.yy"><a href="javascript:void(0)"  (click)="retToPage(post.run_id)">{{post.title}}{{post.id}}/{{post.yy}}</a></span></td>
+									<td align="center" >{{post.case_date}}</td>
+									<td align="center" ><span *ngIf="post.red_title && post.red_id && post.red_yy" style="color: red;">{{post.red_title}}{{post.red_id}}/{{post.red_yy}}</span></td>
+									<td align="center" ><span style="color: red;">{{post.judging_date}}</span></td>
+									<td align="center" ><span *ngIf="post.date_appoint">{{post.date_appoint}}  {{post.time_appoint}}</span></td>
+									<td align="center">{{post.pros_desc}}</td>
+									<td align="center">{{post.accu_desc}}</td>
+									<td align="center">{{post.alle_desc}}</td>
+									<td align="center">{{post.indict_desc_short}}</td>
+									<td align="center">{{post.amphur_name}}</td>
+									<td align="center">{{post.deposit_comma}}</td>
+									<td align="center">{{post.guar_pros_desc}}</td>
+									<td align="center">{{post.judge_name}}</td>
+									<td align="center">{{post.old_case_no}} <span style="font-weight: bold;color:red;">{{post.old_red_no}}</span></td>
+									<td align="center">{{post.admit_desc}}</td>
+									<td align="center">{{post.transfer_court_name}}</td>
+								</tr>
+							</tbody>
+							<tbody *ngIf="dataSearch?.length == 0">
+								<tr>
+									<td colspan="17" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+								</tr>
+							</tbody>
+						</table>
+
+					</td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+
+
+	<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal-3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+			  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+
+			</div>
+			<div class="modal-body" >
+
+					<input type="hidden" name="table_name" id="table_name">
+					<input type="hidden" name="field_id" id="field_id">
+					<input type="hidden" name="field_name" id="field_name">
+					<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+					<app-modal-judge *ngIf="loadModalJudgeComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType (onClickList)="receiveJudgeListData($event)" class="modal_app"></app-modal-judge>
+					<app-datalist-return *ngIf="loadModalAlleComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value7]=listFieldCond (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+				  <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+			</div>
+		  </div>
+		</div>
+	</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

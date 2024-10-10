@@ -1,0 +1,26 @@
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered table" style="margin-top:4px;" >
+  <thead>
+    <tr align="center" >
+      <th ><strong >ใบเสร็จรับเงินเล่มที่/เลขที่</strong></th>
+      <th ><strong >วันที่ชำระเงิน</strong></th>
+      <th ><strong >ประเภทเงิน</strong></th>
+      <th ><strong >รายละเอียด</strong></th>
+      <th ><strong >จำนวนเงินที่รับ</strong></th>
+    </tr>
+  </thead>
+  <tbody *ngIf="items?.length != 0" >
+    <tr *ngFor="let datas of items;let i = index;" >
+      <td align="center" (click)="onClickListData(i)">{{datas.receipt_no}}</td>
+      <td align="center" (click)="onClickListData(i)">{{datas.rcv_date}}</td>
+      <td align="center" (click)="onClickListData(i)">{{datas.receipt_type_desc}}</td>
+      <td align="center" (click)="onClickListData(i)">{{datas.sub_type_name}}</td>
+      <td align="center" (click)="onClickListData(i)">{{datas.rcv_amt}}</td>
+    </tr>
+   </tbody>
+   <tbody *ngIf="items?.length == 0">
+    <tr><td colspan="5" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+  </tbody>
+</table>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait.</p>  
+</ngx-spinner> 

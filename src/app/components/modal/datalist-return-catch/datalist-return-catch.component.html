@@ -1,0 +1,64 @@
+<form class="form-horizontal" [formGroup]="formList">
+  <fieldset style="width:98%;border-radius:4px;border:1px solid #333333;padding:2px 5px 2px 5px;">
+    <legend  style="line-height: 15px;float:none;margin-left:18px;font-weight:bold;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;cursor:pointer;margin-bottom: 6px;" >ค้นหาข้อมูลหมายจับ</legend>
+  <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+  <tr>
+    <td height="30" align="center" class="blackb">
+      <div style="float: left;margin-top:2px;">หมายจับเลขที่ :&nbsp;</div>
+      <div style="float: left;margin-left:2px;"><input formControlName="word_id" name="word_id" type="text" class="form-control" style="width:70px;height:28px;text-align:center;" value={{value4}}></div>
+      <div style="float: left;margin-top:2px;">/</div>
+      <div style="float: left;margin-left:2px;"><input formControlName="word_desc" name="word_desc" type="text" class="form-control" style="width:80px;height:28px;text-align:center;" value={{value4}}>    </div>
+      <div style="float: left;margin-left:4px;"><input name="Submit" type="submit" class="btn btn-success" value="ค้นหา" (click)="getCatchNo()"></div>
+      <!-- <div style="float: left;margin-left:4px;"><input name="showAll" type="submit" class="btn btn-success" id="showAll" value="แสดงทั้งหมด" (click)="showDataList()"></div> -->
+      <div style="float: left;margin-left:4px;"><input name="list_table_name" type="hidden" id="list_table_name" value={{value1}}></div>
+    </td>
+  </tr>
+</table>
+</fieldset>
+
+
+
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+  <thead>
+    <tr align="center" *ngIf="!value5">
+      <th width="150" height="25" ><strong>ลำดับที่</strong></th>
+      <th ><strong >คำร้องเลขที่</strong></th>
+    </tr>
+
+    <tr align="center" *ngIf="value5">
+      <th width="150" height="25" ><strong>รหัส</strong></th>
+      <th width="150" height="25" ><strong>รหัสมาตราฐาน</strong></th>
+      <th ><strong>รายละเอียด</strong></th>
+    </tr>
+
+  </thead>
+  <tbody *ngIf="items?.length != 0" >
+    <tr *ngFor="let datas of items;let i = index;" >
+      <td align="center" (click)="onClickListData(i)">{{i+1}}</td>
+      <td align="center" (click)="onClickListData(i)">
+        {{datas.title}}{{datas.id}}/{{datas.yy}}
+        <span *ngIf="value1 === 'pword_form' && datas.fieldNameValue2">
+          {{datas.fieldNameValue2}}
+        </span>
+        <span *ngIf="value1 === 'pnotice_type'">
+          {{datas.fieldNameValue2}}
+        </span>
+        <span *ngIf="value1 === 'pcase_litigant' && datas.fieldNameValue2">
+          {{datas.fieldNameValue2}}
+        </span>
+
+      </td>
+      <td align="center" (click)="onClickListData(i)" *ngIf="value5">{{datas.fieldNameValue2}}</td>
+    </tr>
+   </tbody>
+   <tbody *ngIf="items?.length == 0">
+    <tr *ngIf="!value5"><td colspan="2" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+    <tr *ngIf="value5"><td colspan="3" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+  </tbody>
+
+</table>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+</form>

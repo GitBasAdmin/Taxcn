@@ -1,0 +1,141 @@
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="card card-info">
+	<div class="content" style="padding:10px;" >
+			<fieldset style="width:100%;border-radius:4px;border:1px solid #333333;padding:1px;padding:5px;margin-top:10px;">
+				<legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;cursor:pointer;margin-bottom: 6px;color: #333333;" >ข้อมูลเลขคดี</legend>
+				<div class="card-body">
+				<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">           
+					<tr>
+						<td height="25"  height="34" align="right" width="8%">คดีของศาล :&nbsp;</td>
+						<td width="40%">
+							<div style="float:left;margin-left:0px;">
+								<ng-select [(ngModel)]="dataHead.court_id" style="width:350px;" [ngModelOptions]="{standalone: true}" [clearable]="false"  #sCaseType>
+									<ng-option *ngFor="let getData of getCourt" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+								 </ng-select>
+							</div>
+						</td>
+						<td height="25"  height="34" align="right" width="9%">&nbsp;</td>
+						<td width="42%">&nbsp;</td>
+					</tr>
+					<tr>
+						<td height="25"  height="34" align="right" >ความ :&nbsp;</td>
+						<td >
+							<div style="float:left;margin-left:0px;">
+								<ng-select [(ngModel)]="dataHead.case_type" style="width:100px;" [ngModelOptions]="{standalone: true}" (change)="changeCaseType($event,1)" [clearable]="false"  #sCaseType>
+									<ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+								 </ng-select>
+							</div>
+							<div style="float:left;margin-left:8px;margin-top:5px;"><span style="color: red;">*</span>วันที่ยื่นฟ้อง</div>
+							<div style="float: left;margin-left:4px;">
+								<input style="width:120px;height:28px;" [(ngModel)]="dataHead.case_date" #caseDate type="text" class="form-control jcalendar case_date" (click)="directiveDate(caseDate.value,'case_date')">
+							</div>
+							<div style="float:left;margin-left:4px;margin-top: 4px;">
+								<i class="fa fa-calendar" style="font-size: 16px;"  onClick="$('.case_date').focus();"></i>
+							</div>
+							<div style="float:left;margin-left:8px;margin-top:5px;"><span >{{dataHead.title_desc_txt}}</span></div>
+						</td>
+						<td height="25"  height="34" align="right" >ประเภทคดี :&nbsp;</td>
+						<td align="left" >
+							<div style="float:left;margin-left:0px;">
+								<ng-select [(ngModel)]="dataHead.case_cate_id" style="width:250px;" [ngModelOptions]="{standalone: true}" [clearable]="false"  #sCaseType>
+									<ng-option *ngFor="let getData of getCaseCate" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+								 </ng-select>
+							</div>
+							<div style="float:left;margin-left:8px;margin-top:5px;">ชั้นพิจารณา</div>
+							<div style="float:left;margin-left:0px;">
+								<ng-select [(ngModel)]="dataHead.case_status" style="width:150px;" [ngModelOptions]="{standalone: true}" [clearable]="false"  #sCaseType>
+									<ng-option *ngFor="let getData of getCaseStatus" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+								 </ng-select>
+							</div>
+						</td>
+					</tr>
+					<!--  -->
+					<tr>
+						<td height="25" height="34" align="right" >หมายเลขคดีดำ :&nbsp;</td>
+						<td >
+							<div style="float:left;">
+								<ng-select [(ngModel)]="dataHead.title" style="width:100px;" [ngModelOptions]="{standalone: true}" [clearable]="false" (change)="changeTitle($event,dataHead.case_type,1)" #sTitle>
+									<ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+								 </ng-select>
+							</div>
+							<div style="float:left;margin-left:3px;"><input  type="text" [(ngModel)]="dataHead.id"  class="form-control" style="width:60px;"></div>
+							<div style="float:left;margin-left:4px;margin-top:3px;font-size: 20px;">/</div>
+							<div style="float:left;margin-left:3px;"><input  type="text" [(ngModel)]="dataHead.yy"  class="form-control" style="width:100px;"></div>
+							<div style="float:left;margin-left:8px;margin-top:5px;">หมายเลขคดีสุดท้ายในระบบคือ&nbsp;{{dataHead.run_case_no}}</div>
+						</td>
+						<td height="25" height="34" align="right" >หมายเลขคดีแดง :&nbsp;</td>
+						<td >
+							<div style="float:left;">
+								<ng-select [(ngModel)]="dataHead.red_title" class="ng-select-red" style="width:100px;" [ngModelOptions]="{standalone: true}" [clearable]="false"  #sRedTitle>
+									<ng-option *ngFor="let getData of getRedTitle" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+								 </ng-select>
+							</div>
+							<div style="float:left;margin-left:3px;"><input  type="text"  [(ngModel)]="dataHead.red_id" class="form-control" style="width:60px;" ></div>
+							<div style="float:left;margin-left:4px;margin-top:3px;font-size: 20px;">/</div>
+							<div style="float:left;margin-left:3px;"><input  type="text" [(ngModel)]="dataHead.red_yy"  class="form-control" style="width:100px;" ></div>
+						</td>
+					</tr> 
+					<tr>
+						<td height="25"  height="34" align="right" >ศาล :&nbsp;</td>
+						<td colspan="3">
+							<div style="float:left;">
+								<ng-select [(ngModel)]="dataHead.old_court_id" style="width:350px;" [ngModelOptions]="{standalone: true}" [clearable]="false"  #sTitle>
+									<ng-option *ngFor="let getData of getOldCourt" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+								 </ng-select>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td height="25"  height="34" align="right" >เลขคดีศาลเดิม :&nbsp;</td>
+						<td >
+							<div style="float:left;margin-left:0px;"><input type="text" [(ngModel)]="dataHead.old_title" class="form-control" style="width:87px;height:28px;"></div>
+							<div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="dataHead.old_id"  class="form-control" style="width:87px;height:28px;"></div>
+							<div style="float:left;margin-left:4px;margin-top:3px;font-size: 20px;">/</div>
+							<div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="dataHead.old_yy" class="form-control" style="width:87px;height:28px;"></div>
+						</td>
+						<td height="25"  height="34" align="right" >เลขแดงศาลเดิม :&nbsp;</td>
+						<td >
+							<div style="float:left;margin-left:0px;"><input type="text" [(ngModel)]="dataHead.old_red_title" class="form-control" style="width:87px;height:28px;"></div>
+							<div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="dataHead.old_red_id" class="form-control" style="width:87px;height:28px;"></div>
+							<div style="float:left;margin-left:4px;margin-top:3px;font-size: 20px;">/</div>
+							<div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="dataHead.old_red_yy" class="form-control" style="width:87px;height:28px;"></div>
+						</td>
+					</tr>
+					<tr>
+						<td height="25"  height="34" align="right" >โจทก์ :&nbsp;</td>
+						<td>
+							<div style="float:left;"><input  type="text"  [(ngModel)]="dataHead.pros_desc" class="form-control"  style="width:380px;"></div>
+						</td>
+						<td height="25"  height="34" align="right" >จำเลย :&nbsp;</td>
+						<td>
+							<div style="float:left;"><input  type="text"  [(ngModel)]="dataHead.accu_desc" class="form-control"  style="width:380px;"></div>
+						</td>
+					</tr>
+					<tr>
+						<td height="25"  height="34" align="right" ></td>
+						<td>
+							<div style="float:left;color: red;"><span><u><i>ตัวอย่าง</i></u></span>&nbsp;&nbsp;นาย กอไก่</div>
+						</td>
+						<td height="25"  height="34" align="right" ></td>
+						<td>
+							<div style="float:left;color: red;"><span><u><i>ตัวอย่าง</i></u></span>&nbsp;&nbsp;นาย ขอไข่ ที่ 1 กับพวกรวม 2 คน</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			</fieldset>
+			<div class="card-footer" style="text-align: center;">
+				<button type="reset" class="btn btn-success" style="margin-left:0px;" (click)="submitForm()">สร้างและจัดเก็บเลขคดี</button>
+				<!-- <button type="reset" class="btn btn-primary" style="margin-left:5px;" >ดึงข้อมูลคดีและหมายข้ามเขตจากศาลอื่น</button> -->
+				<button type="reset" class="btn btn-primary" style="margin-left:5px;"[ngStyle]="run_id == 0  || run_id == null ? {'display': 'none'} : {'display': ''}" (click)="searchLitigant()" >ข้อมูลคู่ความ</button>
+				<button type="button" class="btn btn-warning" style="margin-left:5px;" (click)="closeWindow()" >ปิดหน้าจอ</button>
+			</div>
+	</div>
+</div>
+</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner>
+

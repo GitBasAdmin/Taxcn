@@ -1,0 +1,313 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+        	<div style="float:left;margin-top:6px;"><i class="fa fa-folder-open-o" style="font-size:24px;margin-left:8px;"></i><span style="font-size: 16px;margin-left:5px;">{{programName}}</span></div>
+			</div>
+		</div>
+    	<!-- form start -->
+		<div class="card-body">
+			<div class="card"  align="center" style="box-shadow: none !important;padding:5px;">
+				<table width="100%"  border="0"  cellspacing="2" cellpadding="2" class="form_table">
+
+						<!-- <tr>
+							<td  align="right" width="20%">ความ :&nbsp;</td>
+							<td  align="left" >
+								<div style="float: left;">
+								<ng-select [(ngModel)]="result.pcase_type" style="width:100px;"  [ngModelOptions]="{standalone: true}" (change)="changeCaseType($event)"  #sCaseType>
+									<ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+								</ng-select>
+								</div>
+								<div style="float:left; margin-left:8px;margin-top:5px;">&nbsp;ประเภทคดี :&nbsp;&nbsp;</div>
+								<div style="float: left;">
+									<ng-select [(ngModel)]="result.pcase_cate_id" style="width:225px;"  [ngModelOptions]="{standalone: true}" #sCaseStat>
+										<ng-option *ngFor="let getData of getCaseCate" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+									</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td  align="right" width="20%">กลุ่มการRunเลขคดีดำ :&nbsp;</td>
+							<td  align="left" >
+								<div style="float:left;">
+									<ng-select  [(ngModel)]="result.ptitle_group" style="width:100px;"   #sTitleGroup>
+									<ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+					  			</div>
+					  			<div style="float: left;margin-left:5px;">
+									<input  name="pcheck" [(ngModel)]="result.pcheck" type="checkbox" id="pcheck" [value]="1" style="width:15px;margin-top:5px;"/>
+								</div>
+								<div style="float: left;margin-left:5px;margin-top:4px;">รวมคดีไกล่เกลี่ย</div>
+							</td>
+						</tr>
+  -->
+            <tr>
+              <td  align="right">&nbsp;</td>
+              <td  align="left">
+                <div style="float: left;">
+                  <input type="radio" name="print_type" [(ngModel)]="result.print_type"  value="1" style="width:15px;height:15px;margin-top:5px;" >
+                </div>
+                <div style="float: left;margin-left:5px;margin-top:4px;">ทั้งหมด</div>
+                <div style="float: left;margin-left:8px;">
+                  <input type="radio" name="print_type"  [(ngModel)]="result.print_type"  value="2"  style="width:15px;height:15px;margin-top:5px;"/>
+                </div>
+                <div style="float: left;margin-left:5px;margin-top:4px;">หมายข้ามเขตศาลนี้ส่งให้ศาลอื่น</div>
+              </tr>
+						<tr >
+							<td  align="right" width="20%" >หน่วยงานที่จ่ายหมาย :&nbsp;</td>
+							<div style="float: left; margin-left:3px;">
+								<input  type="text"   [(ngModel)]="result.pdep_code" (change)="tabChangeInput('pdep_code','dep_name',$event)"  class="form-control" style="width:60px;"/>
+							</div>
+							<div style="float: left; margin-left:2px;">
+								<input  type="text"  [(ngModel)]="result.dep_name"  readonly class="form-control" style="width:255px;"/>
+							</div>
+							<div style="float: left;margin-left:2px;margin-top:2px;" >
+								<i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(1)"></i>
+							</div>
+						</tr>
+            <tr>
+							<td  align="right" width="20%">
+                <div style="float:right; margin-right:3px;margin-top:5px;">:</div>
+                <div style="float: right;margin-right:15px;">
+                <ng-select [(ngModel)]="result.pdate_type" style="width:110%;min-width: 120px;"  [ngModelOptions]="{standalone: true}"  #sNoMoney>
+                <ng-option *ngFor="let getData of getDateType" [value]=getData.id >{{getData.text}}</ng-option>
+                </ng-select>
+              </div></td>
+							<div style="float: left; margin-left:3px;">
+								<input  type="text" [(ngModel)]="result.pdate_start" name="pdate_start" class="form-control jcalendar pdate_start" #pdate_start (click)="directiveDate(pdate_start.value,'pdate_start')" style="width:120px;" />
+							</div>
+							<div style="float:left; margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.pdate_start').focus();"></i></div>
+							<div style="float:left; margin-left:8px;margin-top:5px;">&nbsp;ถึง&nbsp;&nbsp;</div>
+							<div style="float:left;">
+								<input  type="text" [(ngModel)]="result.pdate_end" name="pdate_end" class="form-control jcalendar pdate_end" #pdate_end (click)="directiveDate(pdate_end.value,'pdate_end')" style="width:120px;" />
+							</div>
+							<div style="float:left; margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.pdate_end').focus();"></i></div>
+						</tr>
+
+						<tr >
+							<td  align="right" width="20%" >หมายนำ/หมายศาล :&nbsp;</td>
+							<div style="float: left;margin-left:3px;">
+							<ng-select [(ngModel)]="result.pno_money" style="width:110%;min-width: 80px;"  [ngModelOptions]="{standalone: true}"  #sNoMoney>
+							<ng-option *ngFor="let getData of getNoMoney" [value]=getData.id >{{getData.text}}</ng-option>
+							</ng-select>
+						</div>
+            <span *ngIf="result.print_type == 1">
+            <div style="float: left;margin-left:15px;margin-top:4px;">เขต :&nbsp;</div>
+            <div style="float: left;margin-left:3px;">
+							<ng-select [(ngModel)]="result.pinout_flag" style="width:110%;min-width: 80px;"  [ngModelOptions]="{standalone: true}"  #sInoutFlag>
+							<ng-option *ngFor="let getData of getInOutFlag" [value]=getData.id >{{getData.text}}</ng-option>
+							</ng-select>
+						</div>
+            <div style="float: left;margin-left:15px;margin-top:4px;">ส่งโดยวิธี :&nbsp;</div>
+            <div style="float: left;margin-left:3px;">
+							<ng-select [(ngModel)]="result.psend_by" style="width:110%;min-width: 80px;"  [ngModelOptions]="{standalone: true}"  #sSendBy>
+							<ng-option *ngFor="let getData of getSendBy" [value]=getData.id >{{getData.text}}</ng-option>
+							</ng-select>
+						</div>
+            <div style="float: left;margin-left:15px;margin-top:4px;">เรียงข้อมูลตาม :&nbsp;</div>
+            <div style="float: left;margin-left:3px;">
+							<ng-select [(ngModel)]="result.porder" style="width:110%;min-width: 80px;"  [ngModelOptions]="{standalone: true}"  #sOrder>
+							<ng-option *ngFor="let getData of getOrder" [value]=getData.id >{{getData.text}}</ng-option>
+							</ng-select>
+						</div>
+            <div style="float: left;margin-left:15px;margin-top:4px;">พิมพ์ :&nbsp;</div>
+            <div style="float: left;margin-left:3px;">
+							<ng-select [(ngModel)]="result.ptype2" style="width:110%;min-width: 80px;"  [ngModelOptions]="{standalone: true}"  #sPtype2>
+							<ng-option *ngFor="let getData of getType" [value]=getData.id >{{getData.text}}</ng-option>
+							</ng-select>
+						</div></span>
+            <span *ngIf="result.print_type == 2"><div style="float: left;margin-left:32px;margin-top:4px;">ประเภทเงิน :&nbsp;</div>
+              <div style="float: left;margin-left:3px;">
+                <ng-select [(ngModel)]="result.ptranfer_flag" style="width:110%;min-width: 80px;"  [ngModelOptions]="{standalone: true}"  #sPtype2>
+                <ng-option *ngFor="let getData of getTranferFlag" [value]=getData.id >{{getData.text}}</ng-option>
+                </ng-select>
+              </div></span>
+						</tr>
+            <tr *ngIf="result.print_type == 1"><td>&nbsp;</td>
+              <td><div style="float: left;margin-left: 8px;margin-top: 5px;">
+                <input type="checkbox" name="send_officer_flag" [(ngModel)]="result.send_officer_flag" #sSendOfficerFlag>
+              </div>
+              <div style="float: left;margin-left:3px;margin-top:3px">เฉพาะที่มีผู้เดินหมาย</div>
+              <div style="float: left;margin-left:110px;margin-top:3px">ผู้เดินหมาย :&nbsp;</div>
+              <div style="float: left; margin-left:3px;">
+                <input  type="text"   [(ngModel)]="result.ps_officer_id" (change)="tabChangeInput('ps_officer_id','ps_officer_name',$event)"  class="form-control" style="width:60px;"/>
+              </div>
+              <div style="float: left;margin-left:2px;">
+                <input  type="text"  [(ngModel)]="result.ps_officer_name"  readonly class="form-control" style="width:255px;"/>
+              </div>
+              <div style="float: left;margin-left:2px;margin-top:2px;" >
+                <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(5)"></i>
+              </div>
+              <div style="float: left;margin-left:2px;margin-top:2px;" >
+                <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(3)"></i>
+              </div></td>
+            </tr>
+            <tr *ngIf="result.print_type == 2" align="right"><td>หมายของ :&nbsp;</td>
+              <td><div style="float: left;margin-left:2px;">
+                <ng-select [(ngModel)]="result.pown_court" style="width:110%;min-width: 80px;"  [ngModelOptions]="{standalone: true}"  #sPtype2>
+                <ng-option *ngFor="let getData of getOwnCourt" [value]=getData.id >{{getData.text}}</ng-option>
+                </ng-select>
+              </div>
+              <div style="float: left;margin-left:40px;margin-top:3px">ไปยังศาล :&nbsp;</div>
+              <div style="float: left; margin-left:3px;">
+                <input  type="text"   [(ngModel)]="result.pto_court" (change)="tabChangeInput('pto_court','pto_courtname',$event)"  class="form-control" style="width:60px;"/>
+              </div>
+              <div style="float: left;margin-left:2px;">
+                <input  type="text"  [(ngModel)]="result.pto_courtname"  readonly class="form-control" style="width:255px;"/>
+              </div>
+              <div style="float: left;margin-left:2px;margin-top:2px;" >
+                <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(11)"></i>
+              </div>
+             </td>
+            </tr>
+              <tr >
+                <td  align="right" width="20%" >
+                  <div style="float: right;margin-left:5px;margin-top:4px;">ผู้จ่ายหมาย :&nbsp;</div>
+                </td>
+                <div style="float: left; margin-left:3px;">
+                  <input  type="text"   [(ngModel)]="result.passign_off_id" (change)="tabChangeInput('passign_off_id','passign_off_name',$event)"  class="form-control" style="width:60px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                  <input  type="text"  [(ngModel)]="result.passign_off_name"  readonly class="form-control" style="width:255px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:2px;" >
+                  <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(6)"></i>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:2px;" >
+                  <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(7)"></i>
+                </div>
+               </tr>
+               <tr>
+              <td align="right" >หมายเหตุ :&nbsp;</td>
+          <td><div style="float: left;">
+            <input  name="premark" type="text"  id="premark"  [(ngModel)]="result.premark" value=""  class="form-control" style="width:500px;height:28px;" >
+           </div> </td></tr>
+						<tr >
+							<td  align="right" width="20%" >
+								<div style="float: right;margin-left:5px;margin-top:4px;">ชื่อผู้จัดทำ :&nbsp;</div>
+								<!-- <div style="float: right;margin-left:5px;">
+									<input  name="pcheck" [(ngModel)]="result.poff_chk" type="checkbox" id="pcheck" [value]="1" #poff_chk (click)="assignOffChk(poff_chk.checked)" style="width:15px;margin-top:5px;"/>
+								</div> -->
+						</td>
+							<div style="float: left; margin-left:3px;">
+								<input  type="text"   [(ngModel)]="result.preport_id" (change)="tabChangeInput('preport_id','preport_name',$event)"  class="form-control" style="width:60px;"/>
+							</div>
+							<div style="float: left;margin-left:2px;">
+								<input  type="text"  [(ngModel)]="result.preport_name"  readonly class="form-control" style="width:255px;"/>
+							</div>
+							<div style="float: left;margin-left:2px;margin-top:2px;" >
+								<i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(2)"></i>
+							</div>
+							<!-- <div style="float:left; margin-left:8px;margin-top:5px;">&nbsp;ตำแหน่ง :&nbsp;&nbsp;</div>
+							<div style="float: left; margin-left:3px;">
+								<input  type="text"   [(ngModel)]="result.poff_post"   class="form-control" style="width:320px;"/>
+							</div> -->
+						</tr>
+						<tr >
+							<td  align="right" width="20%" >
+								<div style="float: right;margin-left:5px;margin-top:4px;">ชื่อผู้ตรวจ :&nbsp;</div>
+								<!-- <div style="float: right;margin-left:5px;">
+									<input  name="psign_chk" [(ngModel)]="result.psign_chk" type="checkbox" id="psign_chk" [value]="1" #psign_chk (click)="assignSignChk(psign_chk.checked)" style="width:15px;margin-top:5px;"/>
+								</div> -->
+							</td>
+							<div style="float: left; margin-left:3px;">
+								<input  type="text"   [(ngModel)]="result.pcheck_id" (change)="tabChangeInput('pcheck_id','pcheck_name',$event)"  class="form-control" style="width:60px;"/>
+							</div>
+							<div style="float: left;margin-left:2px;">
+								<input  type="text"  [(ngModel)]="result.pcheck_name"  readonly class="form-control" style="width:255px;"/>
+							</div>
+							<div style="float: left;margin-left:2px;margin-top:2px;" >
+								<i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(8)"></i>
+							</div>
+							<!-- <div style="float:left; margin-left:8px;margin-top:5px;">&nbsp;ตำแหน่ง :&nbsp;&nbsp;</div>
+							<div style="float: left; margin-left:3px;">
+								<input  type="text"   [(ngModel)]="result.psign_post"   class="form-control" style="width:320px;"/>
+							</div> -->
+						</tr>
+
+						<tr >
+							<td  align="right" width="20%" >
+								<div style="float: right;margin-left:5px;margin-top:4px;">ชื่อผู้รับเงิน :&nbsp;</div>
+								<!-- <div style="float: right;margin-left:5px;">
+									<input  name="preport_chk" [(ngModel)]="result.preport_chk" type="checkbox" id="preport_chk" [value]="1" #preport_chk (click)="assignReportChk(preport_chk.checked)" style="width:15px;margin-top:5px;"/>
+								</div> -->
+
+							</td>
+							<div style="float: left; margin-left:3px;">
+								<input  type="text"   [(ngModel)]="result.ppayee_id" (change)="tabChangeInput('ppayee_id','ppayee_name',$event)"  class="form-control" style="width:60px;"/>
+							</div>
+							<div style="float: left;margin-left:2px;">
+								<input  type="text"  [(ngModel)]="result.ppayee_name"  readonly class="form-control" style="width:255px;"/>
+							</div>
+							<div style="float: left;margin-left:2px;margin-top:2px;" >
+								<i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(9)"></i>
+							</div>
+              <div style="float: left;margin-left:2px;margin-top:2px;" >
+								<i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(10)"></i>
+							</div>
+              <div style="float: left;margin-left: 8px;margin-top: 5px;">
+                <input type="checkbox" name="checkbox" [(ngModel)]="result.checkbox" #sCheckbox>
+              </div>
+              <div style="float: left;margin-left:3px;margin-top:3px">ผู้รับเงินเป็นผู้ใช้ระบบ</div>
+							<!-- <div style="float:left; margin-left:8px;margin-top:5px;">&nbsp;ตำแหน่ง :&nbsp;&nbsp;</div>
+							<div style="float: left; margin-left:3px;">
+								<input  type="text"   [(ngModel)]="result.preport_judge_post"   class="form-control" style="width:320px;"/>
+							</div> -->
+						</tr>
+            <tr >
+							<td  align="right" width="20%" >พิมพ์ใบสรุป :&nbsp;</td>
+							<div style="float: left;margin-left:3px;">
+							<ng-select [(ngModel)]="result.psumary" style="width:110%;min-width: 80px;"  [ngModelOptions]="{standalone: true}"  #sNoMoney>
+							<ng-option *ngFor="let getData of getSumary" [value]=getData.id >{{getData.text}}</ng-option>
+							</ng-select>
+						</div></tr>
+
+						<div>&nbsp;</div>
+				</table>
+			</div>
+      		<!-- /.card-body -->
+
+			<div class="card-footer" align="center">
+        <span *ngIf="this.result.print_type == 1">	<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="checkParam(1)">พิมพ์รายงาน(แนวนอน)</button>
+            <button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="checkParam(2)">พิมพ์รายงาน(แนวตั้ง)</button>
+            <button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="checkParam(3)">พิมพ์รายงาน(เบิกเงินงบประมาณ)</button></span>
+         <span *ngIf="this.result.print_type == 2"><button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="checkParam(6)">พิมพ์บัญชีส่งคำคุ่ความหมายข้ามเขต</button></span>
+            <button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="clickOpenMyModalComponent(13)">พิมพ์รายงานตามเลขที่อ้างอิง</button>
+            <button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="clickOpenMyModalComponent(14)">สลับเลขที่อ้างอิง</button>
+        		<button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+			</div>
+				<!-- /.card-footer -->
+
+		</div>
+
+		<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+			<div class="modal-dialog">
+			  <div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+				<button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+				<button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+			  </div>
+			  <div class="modal-body" >
+				<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+				  <app-datalist-return *ngIf="loadModalListComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull  (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+          <app-print-send-notice *ngIf="loadPrintSendNotice" class="modal_app"></app-print-send-notice>
+          <app-switch-send-notice *ngIf="loadSwitchSendNotice" class="modal_app"></app-switch-send-notice>
+        </div>
+			  </div>
+			  <div class="modal-footer">
+				  <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+			  </div>
+			  </div>
+			</div>
+		  </div>
+	</div>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>

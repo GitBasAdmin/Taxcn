@@ -1,0 +1,38 @@
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered table" style="margin-top:4px;" >
+  <thead>
+    <tr align="center" >
+      <th ><strong >หมายเลขคดีดำ</strong></th>
+      <th ><strong >หมายเลขคดีแดง</strong></th>
+      <th ><strong >ใบเสร็จรับเงินเล่มที่/เลขที่</strong></th>
+      <th ><strong >ประเภทเงิน</strong></th>
+      <th ><strong >หมายเหตุ</strong></th>
+      <th ><strong >ผู้นำหมาย</strong></th>
+      <th ><strong >ผู้ชำระเงิน</strong></th>
+      <th ><strong >จำนวนเงินรับ</strong></th>
+      <th ><strong >จำนวนเงินหัก</strong></th>
+      <th ><strong >จำนวนเงินคงเหลือ</strong></th>
+    </tr>
+  </thead>
+  <tbody *ngIf="items?.length != 0" >
+    <!--<tr *ngFor="let datas of items;let i = index;" [ngClass]="{'orange': datas.remain_amt==0}" (click)="onClickListData(i)">-->
+      <tr *ngFor="let datas of items;let i = index;" [ngClass]="{'orange': datas.remain_amt<0 || datas.remain_amt==0}"  (click)="datas.remain_amt > 0 ? onClickListData(i) : false">
+      <td align="center" >{{datas.case_no}}</td>
+      <td align="center" >{{datas.red_no}}</td>
+      <td align="center" >{{datas.receipt_no}}</td>
+      <td align="center" >{{datas.sub_type_name}}</td>
+      <td align="center" >{{datas.remark}}</td>
+      <td align="center" >{{datas.lit_type_desc}}</td>
+      <td align="center" >{{datas.def_name}}</td>
+      <td align="center" >{{datas.sum_fee}}</td>
+      <td align="center" >{{datas.sent_amt}}</td>
+      <td align="center" >{{datas.remain_amt}}</td>
+    </tr>
+   </tbody>
+   <tbody *ngIf="items?.length == 0">
+    <tr><td colspan="10" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+  </tbody>
+</table>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait.</p>  
+</ngx-spinner> 

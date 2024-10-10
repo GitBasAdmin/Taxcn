@@ -1,0 +1,49 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,//true
+    "noImplicitReturns": false,//true
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false,//true
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "strictPropertyInitialization": false,
+    "strictNullChecks":false,
+    "importHelpers": true,
+    "noImplicitAny": false,
+    "useDefineForClassFields": false,
+    "module": "ES2022",
+    "target": "ES2022",
+    "paths": {
+      "@core":["src/app/@core"],
+      "@core/*":["src/app/@core/*"],
+      "@app/*":["src/app/*"],
+      "@shared":["src/app/@shared"],
+      "@shared/*":["src/app/@shared/*"],
+    },
+    "types": ["node"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "ES2022",
+      "dom",
+      "dom.iterable"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": false,//true,
+    "types" : ["node"]
+  }
+}

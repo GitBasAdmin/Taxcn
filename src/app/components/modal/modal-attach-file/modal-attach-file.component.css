@@ -1,0 +1,7 @@
+.modal-content {
+    width: 950px!important;
+    min-height: 200px !important;
+    max-height: 600px !important;
+    height: auto !important;
+    margin-left: -220px !important;
+}

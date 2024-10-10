@@ -1,0 +1,156 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info">
+			<div class="card-header">
+			<h3 class="card-title">{{programName}}</h3>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-footer" style="text-align: center; cursor:pointer;">
+				<span  (click)="buttonMailAll()" style="color: #0062cc;" >
+					<i class="fas fa-envelope"  style='cursor:pointer;font-size:18px;margin-right: 4px;'></i>
+					<b> ข้อความทั้งหมด</b>
+				</span>
+			</div>
+			<fieldset style="width:99%;border-radius:4px;border:1px solid #333333;padding:1px;margin-top:8px;">
+				<div class="card-body">
+					<!--	-->
+					<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+						<tr>
+							<td width="22%" align="right">ถึง :&nbsp;</td>
+							<td width="78%" align="left">
+								<div style="float: left;"><input type="radio" name="to" [(ngModel)]="result.to" [value]="1" (change)="assignDefault($event)" style="width:15px;height:15px;margin-top:5px;" /></div>
+								<div style="float: left;margin-left:5px;margin-top:4px;">ทั้งหมด &nbsp; &nbsp; </div>
+								<div style="float: left;"><input type="radio" name="to" [(ngModel)]="result.to" [value]="2" (change)="assignDefault($event)" style="width:15px;height:15px;margin-top:5px;" /></div>
+								<div style="float: left;margin-left:5px;margin-top:4px;"> กลุ่มงาน &nbsp; &nbsp; </div>
+								<div style="float: left;"><input type="radio" name="to" [(ngModel)]="result.to" [value]="3" (change)="assignDefault($event)" style="width:15px;height:15px;margin-top:5px;" /></div>
+								<div style="float: left;margin-left:5px;margin-top:4px;">ผู้พิพากษาทั้งหมด &nbsp; &nbsp; </div>
+								<div style="float: left;"><input type="radio" name="to" [(ngModel)]="result.to" [value]="4" (change)="assignDefault($event)" style="width:15px;height:15px;margin-top:5px;" /></div>
+								<div style="float: left;margin-left:5px;margin-top:4px;">เจ้าหน้าที่ทั้งหมด &nbsp; &nbsp; </div>
+								<div style="float: left;"><input type="radio" name="to" [(ngModel)]="result.to" [value]="5" (change)="assignDefault($event)" style="width:15px;height:15px;margin-top:5px;" /></div>
+								<div style="float: left;margin-left:5px;margin-top:4px;">ผู้พิพากษา &nbsp; &nbsp; </div>
+								<div style="float: left;"><input type="radio" name="to" [(ngModel)]="result.to" [value]="6" (change)="assignDefault($event)" style="width:15px;height:15px;margin-top:5px;" /></div>
+								<div style="float: left;margin-left:5px;margin-top:4px;">เจ้าหน้าที่ &nbsp; &nbsp; </div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">ถึง :&nbsp;</td>
+							<td align="left" [ngStyle]="result.to == 1 || result.to == 3 || result.to == 4 ?  {'display': ''} : {'display': 'none'}">
+								<div style="float: left;">
+									<input  type="text" [(ngModel)]="result.to_id"  maxlength="5" (change)="tabChangeSelect('to_id','to_name',$event)"   class="form-control" style="width:90px;height:28px;" readonly/></div>
+								<div style="float: left;margin-left:2px;">
+									<input   type="text"  [(ngModel)]="result.to_name" value=""  class="form-control" style="width:350px;height:28px;" readonly /></div>
+								<div style="float: left;margin-left:2px;margin-top:4px;">
+									<i class='far fa-list-alt iDep' style="font-size: 20px;cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="clickOpenMyModalComponent(1);"></i>
+								</div>
+							</td>
+							<td align="left"  [ngStyle]="result.to == 2 || result.to == 5 || result.to == 6 ?  {'display': ''} : {'display': 'none'}">
+								<div style="float: left;">
+									<input  type="text" [(ngModel)]="result.to_id"  maxlength="5" (change)="tabChangeSelect('to_id','to_name',$event)"   class="form-control" style="width:90px;height:28px;"/></div>
+								<div style="float: left;margin-left:2px;">
+									<input   type="text"  [(ngModel)]="result.to_name" value=""  class="form-control" style="width:350px;height:28px;" readonly /></div>
+								<div style="float: left;margin-left:2px;margin-top:4px;">
+									<i class='far fa-list-alt iDep' style="font-size: 20px;cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="clickOpenMyModalComponent(1);"></i>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">ทราบการรับ mail :&nbsp;</td>
+							<td align="left">
+								<div style="float: left;"><input type="radio" name="need_know" [(ngModel)]="result.need_know" [value]="1" style="width:15px;height:15px;margin-top:5px;" /></div>
+								<div style="float: left;margin-left:5px;margin-top:4px;">ต้องการ  &nbsp; &nbsp; </div>
+								<div style="float: left;"><input type="radio" name="need_know" [(ngModel)]="result.need_know" [value]="2" style="width:15px;height:15px;margin-top:5px;" /></div>
+								<div style="float: left;margin-left:5px;margin-top:4px;"> ไม่ต้องการ &nbsp; &nbsp; </div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">เรื่อง :&nbsp;</td>
+							<td align="left">
+								<div style="float:left;"><input [(ngModel)]="result.subject" name="subject" type="text"   value=""  class="form-control" style="width:700px;height:28px;"></div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right" style="vertical-align:top;">ข้อความ :&nbsp;</td>
+							<td align="left">
+								<textarea input [(ngModel)]="result.message" class="form-control"  style="width:700px;height: 180px;margin-top: 2px;margin-bottom:2px;"> </textarea>
+							</td>
+						</tr>
+						<tr >
+							<td colspan="2">
+								<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+									<tr *ngFor='let in of counter(5) ;let i = index'>
+										<td align="right"width="22%">ไฟล์แนบ :&nbsp;</td>
+										<td align="left" width="18%">
+											<div class="custom-file" style="float:center;width:250px;">
+												<input type="file" class="custom-file-input" id="s_file[i]" (change)="onFileChange($event,'fileToUpload'+(i),i)" style="width:230px;height:24px;">
+												<label class="custom-file-label" #labelImport for="importFile" style="height:24px;text-align: left;"></label>
+											</div>
+										</td>
+										<td width="20%" >
+											<div style="float:left;margin-left: 4px;" [ngStyle]="attach_file[i] == null ?  {'display': 'none'} : {'display': ''}">
+												<span style="cursor:pointer; color: blue;" (click)="clickOpenFile(i)">
+													<i class="fa fa-paperclip" style="float: left;font-size:18px;" ></i>
+													<span *ngIf="attach_file[i] != null">{{attach_file[i].attach_file}}</span> 
+												</span>
+											</div>
+										</td>
+										<td width="40%" >
+											<div style="float: left;margin-left: 4px;" [ngStyle]="attach_file[i] == null ?  {'display': 'none'} : {'display': ''}">
+												<input  [(ngModel)]="del_file[i]" name="del_file[i]"  type="checkbox" style="width:15px;height:15px;margin-top:5px;"/>
+											</div>
+											<div [ngStyle]="attach_file[i] == null ?  {'display': 'none'} : {'display': ''}" style="float: left;margin-left: 4px;margin-top: 3px;">ลบไฟล์แนบ</div>
+											
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</fieldset>	
+			<!-- /.card-body -->
+			<div class="card-footer" align="center">
+				<button type="button" class="btn btn-success" (click)="submitForm()">ส่งข้อความ</button>
+				<button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+				<input type="hidden" name="delValue" id="delValue">
+			</div>
+			<!-- /.card-footer -->
+		</div>
+	</div>
+ <!-- Modal -->
+
+ <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+		  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+		</div>
+		<div class="modal-body" >
+			<input type="hidden" name="table_name" id="table_name">
+			<input type="hidden" name="field_id" id="field_id">
+			<input type="hidden" name="field_name" id="field_name">
+			<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+				<app-datalist-return  *ngIf="loadComponent"  [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldName2 (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+				<app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+				<app-datalist-return-multiple *ngIf="loadMutipleComponent"  [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldName2 [value7]=listFieldCond (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return-multiple>
+				<app-modal-judge-multiple *ngIf="loadJudgeMutipleComponent"  [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType [value6]=listFieldSelect (onClickList)="receiveFuncJudgeListData($event)" class="modal_app"></app-modal-judge-multiple>
+       		</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+		  	<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>

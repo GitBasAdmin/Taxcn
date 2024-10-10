@@ -1,0 +1,652 @@
+<style></style>
+<div style="width:100%;height:100%;" id="div-wraper">
+  <div class="content" style="padding:10px;">
+    <div class="card card-info">
+      <div class="card-body">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td style="height: 34px !important;" colspan="4">
+              <div style="float: left;margin-left:3px;margin-top:3px;"><b>> ระหว่าง</b></div>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%" align="right">{{result.caseText}}</td>
+            <td align="left" colspan="3">{{result.guar_running}}</td>
+          </tr>
+          <tr>
+            <td width="25%" align="right">คำร้องประกัน :&nbsp;</td>
+            <td align="left" colspan="3">
+              <div style="float:left;margin-left:3px;">
+                <ng-select [(ngModel)]="result.form_running" [clearable]="false" style="width:450px;">
+                  <ng-option *ngFor="let getData of getFormRunning" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">วันที่:&nbsp;</td>
+            <td align="left" colspan="3">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.cday" type="text"class="form-control" readonly style="width:40px;height:28px;text-align:center;">
+              </div>
+              <div style="float: left;margin-left:10px;margin-top:3px;">เดือน </div>
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.month" type="text"class="form-control" readonly style="width:80px;height:28px;text-align:center;">
+              </div>
+              <div style="float: left;margin-left:10px;margin-top:3px;">พุทธศักราช </div>
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.guar_yy" type="text"class="form-control" readonly style="width:60px;height:28px;text-align:center;">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%" align="right">ผู้ร้อง/โจทก์ :&nbsp;</td>
+            <td align="left" colspan="3">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.pros_name" type="text" class="form-control" readonly style="width:650px;height:28px;text-align:center;">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%" align="right">ผู้ต้องหา/จำเลย :&nbsp;</td>
+            <td align="left" colspan="3">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.def_name" type="text" class="form-control" readonly style="width:650px;height:28px;text-align:center;">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%" align="right">ผู้ต้องหา/จำเลยที่ถูกขอประกัน :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.guar_def_name" type="text" class="form-control" readonly style="width:350px;height:28px;text-align:center;">
+              </div>
+            </td>
+            <td width="25%" align="right">ผู้ขอประกัน :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.guar_name" type="text" class="form-control" readonly style="width:350px;height:28px;text-align:center;">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%" align="right">หมายเลขบัตรประจำตัวประชาชน :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.id_card" type="text" class="form-control" readonly style="width:350px;height:28px;text-align:center;">
+              </div>
+            </td>
+            <td width="25%" align="right">ใช้หลักทรัพย์ร่วมกับ :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.co_name" type="text" class="form-control" style="width:350px;height:28px;text-align:center;">
+              </div>
+            </td>
+          </tr>         
+          <tr>
+            <td align="right">เกิดวันที่ :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.birth_date" type="text" class="form-control" readonly style="width:100px;height:28px;text-align:center;">
+              </div>
+              <div style="float:left;margin-left:3px;">อายุ </div>
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.age" type="text" class="form-control" readonly style="width:100px;height:28px;text-align:center;">
+              </div>
+              <div style="float:left;margin-left:3px;">ปี </div>
+            </td>
+            <td width="25%" align="right">เชื้อชาติ :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.nation" type="text" class="form-control" readonly style="width:150px;height:28px;text-align:center;">
+              </div>
+              <div style="float:left;margin-left:3px;">สัญชาติ</div>
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.inter" type="text" class="form-control"readonly  style="width:150px;height:28px;text-align:center;">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">อยู่บ้านเลขที่ :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.addr" type="text" value="" class="form-control" readonly style="width:80px;height:28px;">
+              </div>
+              <div style="float: left;margin-left:10px;margin-top:4px;">หมู่ที่</div>
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.moo" type="text" value="" class="form-control" readonly style="width:80px;height:28px;">
+              </div>
+            </td>
+            <td width="25%" align="right">ประกอบอาชีพ :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.occu" type="text" class="form-control" readonly style="width:150px;height:28px;text-align:center;">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">ตรอก/ซอย :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.soi" type="text" value=""class="form-control" readonly style="width:200px;height:28px;">
+              </div>
+            </td>
+            <td width="25%" align="right">ถนน :&nbsp;</td>
+            <td align="left"> 
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.road" name="input2" type="text" value="" class="form-control" readonly style="width:200px;height:28px;">
+              </div>
+            </td>
+          </tr>           
+          <tr>
+            <td align="right">ตำบล :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.tambon" type="text" value=""class="form-control" readonly style="width:200px;height:28px;">
+              </div>
+            </td>
+            <td width="25%" align="right">อำเภอ :&nbsp;</td>
+            <td align="left"> 
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.amphur" type="text" value="" class="form-control" readonly style="width:200px;height:28px;">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">จังหวัด :&nbsp;</td>
+            <td align="left" colspan="3">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.prov" type="text" value="" class="form-control" readonly style="width:200px;height:28px;">
+              </div>
+            </td>
+          </tr>
+         <tr>
+            <td align="right">โทรศัพท์ :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.tel" type="text" value=""class="form-control" readonly style="width:300px;height:28px;">
+              </div>
+            </td>
+            <td width="25%" align="right">หมายเลข Fax :&nbsp;</td>
+            <td align="left"> 
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.fax_no" type="text" value="" class="form-control" readonly style="width:300px;height:28px;">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">email :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.email" type="text" value=""class="form-control" readonly style="width:300px;height:28px;">
+              </div>
+            </td>
+            <td width="25%" align="right">รหัสไปรษณีย์ :&nbsp;</td>
+            <td align="left"> 
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.post_no" type="text" value="" class="form-control" readonly style="width:200px;height:28px;">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">เกี่ยวข้องเป็น :&nbsp;</td>
+            <td align="left" colspan="3">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.guar_relation"  type="text" class="form-control" style="width:250px;height:28px;">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">มีคำสั่งอนุญาตให้ปล่อยตัวชั่วคราว :&nbsp;</td>
+            <td align="left" colspan="3">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.guar_def1"  type="text" class="form-control" readonly style="width:250px;height:28px;">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">ราคาประกัน :&nbsp;</td>
+            <td align="left" colspan="3">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.guar_cost"  type="text" class="form-control" readonly style="width:150px;height:28px;">
+              </div>
+              <div style="float:left;margin-left:3px;">บาท&nbsp;(</div>
+              <div style="float:left;margin-left:2px;">
+                <input [(ngModel)]="result.guar_cost_text"  type="text" class="form-control" readonly style="width:400px;height:28px;">
+              </div>
+              <div style="float:left;margin-left:3px;">)</div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right" valign="top" >เอกสารที่ขอผัดส่ง :&nbsp;</td>
+            <td align="left" colspan="3">
+              <div style="float:left;margin-left:3px;">
+                <textarea [(ngModel)]="result.doc_delay_desc" class="form-control" style="width:650px;" readonly rows="2"></textarea>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">ตรายางอนุญาตให้ปล่อยชั่วคราว :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.req_release_id" type="text" class="form-control" (change)="tabChangeInput('req_release_id',$event)" style="width:60px;height:28px;text-align: center;">
+              </div>
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.req_release_name" type="text" class="form-control" readonly style="width:300px;height:28px;text-align: center;">
+              </div>
+              <div style="float: left;margin-left:2px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:5px;margin-top:1px;" (click)="clickOpenMyModalComponent(1)"></i>
+              </div>
+              <!-- <div style="float: left;margin-left:2px;" >
+                <i  class="fas fa-edit" style="font-size: 20px;margin-left:5px;margin-top:1px;" title="ข้อมูลตรายางอนุญาตให้ปล่อยชั่วคราว" (click)="goToPage('fct4100')"></i>
+              </div> -->
+            </td>
+            <td align="right">ตรายางขอรับรองความเกียวข้อง :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.req_relate_id" type="text" class="form-control" (change)="tabChangeInput('req_relate_id',$event)" style="width:60px;height:28px;text-align: center;">
+              </div>
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.req_relate_name" type="text" class="form-control" readonly style="width:300px;height:28px;text-align: center;">
+              </div>
+              <div style="float: left;margin-left:2px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:5px;margin-top:1px;" (click)="clickOpenMyModalComponent(2)"></i>
+              </div>
+              <!-- <div style="float: left;margin-left:2px;" >
+                <i  class="fas fa-edit" style="font-size: 20px;margin-left:5px;margin-top:1px;" title="ข้อมูลตรายางอนุญาตให้ปล่อยชั่วคราว" (click)="goToPage('fct4101')"></i>
+              </div> -->
+            </td>
+          </tr>
+          <tr>
+            <td align="right"></td>
+            <td align="left">
+              <div style="float:left;margin-left:3px;">
+                <textarea  [(ngModel)]="result.req_release_desc" class="form-control" style="width:500px;" rows="4"></textarea>
+              </div>
+            </td>
+            <td align="right"></td>
+            <td align="left">
+              <div style="float:left;margin-left:3px;">
+                <textarea  [(ngModel)]="result.req_relate_desc" class="form-control" style="width:500px;" rows="4"></textarea>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">ตรายางขอประทานเสนอ :&nbsp;</td>
+            <td align="left" colspan="3">
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.req_send_id" type="text" class="form-control" (change)="tabChangeInput('req_send_id',$event)"  style="width:60px;height:28px;text-align: center;">
+              </div>
+              <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="result.req_send_name" type="text" class="form-control" readonly style="width:300px;height:28px;text-align: center;">
+              </div>
+              <div style="float: left;margin-left:2px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:5px;margin-top:1px;" (click)="clickOpenMyModalComponent(3)"></i>
+              </div>
+              <div style="float: left;margin-left:2px;" >
+                <i  class="fas fa-edit" style="font-size: 20px;margin-left:5px;margin-top:1px;" title="ข้อมูลตรายางขอประทานเสนอ" (click)="goToPage('fct4102')"></i>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right"></td>
+            <td align="left" colspan="3">
+              <div style="float:left;margin-left:3px;">
+                <textarea  [(ngModel)]="result.req_send_desc" class="form-control" style="width:500px;" rows="4"></textarea>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" colspan="4">
+              <div>ขอรับประกัน โดยมีทรัพย์สินที่ผู้ขอประกันมีสิทธิ์ตามกฎหมายมาวางไว้ต่อศาลเป็นหลักประกัน ดังนี้</div>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" colspan="4">
+              <table width="100%" border="1" cellspacing="0" cellpadding="0" style="color: #333333;margin-top: 2px;">
+                <tr>
+                  <td align="right" width="30%" >กรณีใช้ที่ดินมากกว่า 1 ฉบับ :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.land_asset_total" type="text" class="form-control" readonly style="width:300px;height:28px;text-align: center;">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" width="30%" >ที่ดิน ตาม :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.land_type" type="text" class="form-control" readonly style="width:180px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">เลขที่</div>
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.title_deed" type="text" class="form-control" readonly style="width:180px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">จำนวน</div>
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.s_total" type="text" class="form-control" readonly style="width:80px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">ฉบับ</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" colspan="4">
+              <table width="100%" border="1" cellspacing="0" cellpadding="0" style="color: #333333;margin-top: 2px;">
+                <tr>
+                  <td align="right" width="30%" >กรณีใช้กรรมสิทธิ์ห้องชุดมากกว่า 1 ฉบับ :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.room_asset_total" type="text" class="form-control" readonly style="width:300px;height:28px;text-align: center;">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" width="30%" valign="top">รายละเอียดกรรมสิทธิ์ห้องชุด :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <textarea [(ngModel)]="result.room_desc" class="form-control" style="width:650px;" readonly rows="2"></textarea>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" colspan="4">
+              <table width="100%" border="1" cellspacing="0" cellpadding="0" style="color: #333333;margin-top: 2px;">
+                <tr>
+                  <td align="right" width="30%" >กรณีใช้พันธบัตรรัฐบาล/สลากออมสิน :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.sasset_total" type="text" class="form-control" readonly style="width:300px;height:28px;text-align: center;">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" width="30%" >พันธบัตรรัฐบาล/สลากออมสินเลขที่ :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.sno_from_to" type="text" class="form-control" readonly style="width:300px;height:28px;text-align: center;">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" width="30%" >เป็นจำนวนมูลค่า :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.s_amt" type="text" class="form-control" readonly style="width:250px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">บาท&nbsp;(</div>
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.s_amt_text" type="text" class="form-control" readonly style="width:400px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">)</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" colspan="4">
+              <table width="100%" border="1" cellspacing="0" cellpadding="0" style="color: #333333;margin-top: 2px;">
+                <tr>
+                  <td align="right" width="30%" >กรณีใช้กรมธรรมมากกว่า 1 ฉบับ :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.iasset_total" type="text" class="form-control" readonly style="width:300px;height:28px;text-align: center;">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" width="30%" >หนังสือรองรับกรมธรรม์เลขที่ :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.idoc_no" type="text" class="form-control" readonly style="width:300px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">กรมธรรม์เลขที่&nbsp;</div>
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.iins_no" type="text" class="form-control" readonly style="width:350px;height:28px;text-align: center;">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" width="30%" >ลงวันที่ :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.iins_date" type="text" class="form-control" readonly style="width:250px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">ของบริษัท&nbsp;(</div>
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.icompany" type="text" class="form-control" readonly style="width:350px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">)</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" width="30%" >วงเงิน :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.iasset_amt" type="text" class="form-control" readonly style="width:250px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">บาท&nbsp;(</div>
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.iasset_amt_text" type="text" class="form-control" readonly style="width:400px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">)</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" colspan="4">
+              <table width="100%" border="1" cellspacing="0" cellpadding="0" style="color: #333333;margin-top: 2px;">
+                <tr>
+                  <td align="right" width="30%" >กรณีใช้สมุดเงินฝากมากกว่า 1 เล่ม :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.basset_total" type="text" class="form-control" readonly style="width:300px;height:28px;text-align: center;">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" width="30%" >สมุดเงินฝากประจำธนาคาร :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.bbook" type="text" class="form-control" readonly style="width:300px;height:28px;text-align: center;">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" width="30%" >บัญชีเลขที่ :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.bbook_no" type="text" class="form-control" readonly style="width:250px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">จำนวน&nbsp;</div>
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.b_total" type="text" class="form-control" readonly style="width:350px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">เล่ม</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" width="30%" >มีเงินฝากคงเหลืออยู่ :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.b_book_amt" type="text" class="form-control" readonly style="width:250px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">บาทตามลำดับ&nbsp;</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" width="30%" >มีเงินฝากรวม :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.b_amt" type="text" class="form-control" readonly style="width:250px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">บาท&nbsp;(</div>
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.b_amt_text" type="text" class="form-control" readonly style="width:400px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">)</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" colspan="4">
+              <table width="100%" border="1" cellspacing="0" cellpadding="0" style="color: #333333;margin-top: 2px;">
+                <tr>
+                  <td align="right" width="30%" >เงินสด :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.casset_amt" type="text" class="form-control" readonly style="width:300px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">บาท&nbsp;(</div>
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.casset_amt_text" type="text" class="form-control" readonly style="width:400px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">)</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" colspan="4">
+              <table width="100%" border="1" cellspacing="0" cellpadding="0" style="color: #333333;margin-top: 2px;">
+                <tr>
+                  <td align="right" width="30%" >กรณีใช้ตำแหน่งมากกว่า 1 ตำแหน่ง :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.post_asset_total" type="text" class="form-control" readonly style="width:300px;height:28px;text-align: center;">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" width="30%" >ตำแหน่ง :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.ppost" type="text" class="form-control" readonly style="width:250px;height:28px;text-align: center;">
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" colspan="4">
+              <table width="100%" border="1" cellspacing="0" cellpadding="0" style="color: #333333;margin-top: 2px;">
+                <tr>
+                  <td align="right" width="30%" >กรณีใช้หนังสือรับรองมากกว่า 1 ฉบับ :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.gasset_total" type="text" class="form-control" readonly style="width:300px;height:28px;text-align: center;">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" width="30%" >หนังสือรับรองของธนาคาร :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.gbank_name" type="text" class="form-control" readonly style="width:250px;height:28px;text-align: center;">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" width="30%" >เลขที่ :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.gno1" type="text" class="form-control" readonly style="width:250px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">No.</div>
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.gno2" type="text" class="form-control" readonly style="width:250px;height:28px;text-align: center;">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" width="30%" >ลงวันที่ :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.gdate" type="text" class="form-control" readonly style="width:250px;height:28px;text-align: center;">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" width="30%" >วงเงิน :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.gamt" type="text" class="form-control" readonly style="width:250px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;"> บาท&nbsp;(</div>
+                    <div style="float:left;margin-left:3px;">
+                      <input [(ngModel)]="result.gasset_amt_text" type="text" class="form-control" readonly style="width:400px;height:28px;text-align: center;">
+                    </div>
+                    <div style="float:left;margin-left:3px;">)</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" colspan="4">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 2px;">
+                <tr>
+                  <td align="right" width="30%" valign="top" >นายประกันทั้งหมด :&nbsp;</td>
+                  <td align="left" width="70%" >
+                    <div style="float:left;margin-left:3px;">
+                      <textarea [(ngModel)]="result.guarantor_all" type="text" class="form-control" readonly  rows="10" style="width:650px;"></textarea>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="card-footer" align="center">
+        <button type="button" class="btn btn-success" (click)="openWord()">พิมพ์คำร้อง MS Word</button>
+        <!-- <button type="button" class="btn btn-success" style="margin-left:5px;"(click)="printReport()">พิมพ์คำร้อง PDF</button> --><!--พี่จูบอกว่าพิมพ์แต่ word-->
+        <button type="button" class="btn btn-danger" style="margin-left:5px;" *ngIf="result.file_data" (click)="deleteWord()">ลบคำร้อง MS Word</button>
+        <button type="button" class="btn btn-success" style="margin-left:5px;"(click)="ClearAll()">ยกเลิก</button>
+        <button type="reset" class="btn btn-danger" style="margin-left:5px;color:white;"(click)="closeWin()">ปิดหน้าจอ</button>
+        <input type="hidden" name="delValue" id="delValue">
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" data-refresh="true" role="dialog" id="exampleModal" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+          <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+          <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="table_name" id="table_name">
+          <input type="hidden" name="field_id" id="field_id">
+          <input type="hidden" name="field_name" id="field_name">
+          <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+            <app-datalist-return *ngIf="loadComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+            <app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+          <button type="button" class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: gray">Please Wait. </p>
+</ngx-spinner>

@@ -1,0 +1,158 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName"></app-case-header>
+			</div>
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="2" class="form_table">
+				<tr>
+					<td colspan="2" align="left" style="height:40px;">
+						<div style="float:left;margin-left:8px;margin-top:5px;">ต้องการค้นหาข้อมูลตาม ....&nbsp;</div>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td  align="right" width="650px;">ความ :&nbsp;</td>
+					<td  align="left">
+            <div style="float: left;">
+						<ng-select  style="width:80px;height:28px;" >
+							<ng-option >อาญา</ng-option>
+              <ng-option >แพ่ง</ng-option>
+						</ng-select>
+          </div>
+          </tr>
+        <tr>
+          <td align="right">ฐานความผิดขึ้นปก :&nbsp;</td>
+          <td  align="left">
+             <div style="float: left;">
+              <input  name="off_name" type="textarea" class="blackd" id="off_name" value=""  class="form-control" style="width:400px; height: 28px;" >
+            </div>
+           </td>
+        </tr>
+        <tr><td colspan="2" align="center"><hr width="50%" ></td></tr>
+        <tr>
+          <td  align="right">คดีหมายเลขแดงที่ :&nbsp;</td>
+					<td  align="left" >
+						<div style="float:left;">
+							<ng-select style="width:100px;height:28px;" >
+								<ng-option ></ng-option>
+							 </ng-select>
+						</div>
+						<div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:60px;height:28px;"></div>
+            <div style="float:left;margin-left:8px;margin-top:5px;">&nbsp;ถึง&nbsp;&nbsp;</div>
+            <div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:60px;height:28px;" readonly></div>
+            <div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:60px;height:28px;" ></div>
+            <div style="float:left;margin-left:8px;margin-top:5px;">&nbsp;/&nbsp;&nbsp;</div>
+            <div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:80px;height:28px;"></div>
+            <button type="button" class="btn btn-primary" style="margin-left:5px;"  >ค้นหา</button>
+          </td></tr>
+          <tr><td colspan="2" align="center"><hr width="50%" ></td></tr>
+				<tr>
+					<td  align="right">คดีหมายเลขแดงที่ :&nbsp;</td>
+					<td  align="left">
+            <div style="float:left;">
+							<ng-select style="width:100px;height:28px;" >
+								<ng-option ></ng-option>
+							 </ng-select>
+						</div>
+            <div style="float:left;margin-left:8px;margin-top:5px;">&nbsp;วันที่ออกแดง :&nbsp;&nbsp;</div>
+						<div style="float:left;"><input  name="" type="text"   value=""  class="form-control" style="width:120px;height:28px;"></div>
+           	<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;"></i></div>
+						<div style="float:left;margin-left:8px;margin-top:5px;">&nbsp;ถึงวันที่&nbsp;&nbsp;</div>
+						<div style="float:left;"><input  name="" type="text"   value=""  class="form-control" style="width:120px;height:28px;"></div>
+            <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;"></i></div>
+          </td>
+				</tr>
+        <tr>
+					<td  align="right" width="650px;">โทษจำเลย :&nbsp;</td>
+					<td  align="left">
+            <div style="float: left;">
+						<ng-select  style="width:400px;height:28px;" >
+							<ng-option >จำคุกไม่เกิน 6 เดือน</ng-option>
+              <ng-option >จำคุกตลอดชีวิต</ng-option>
+              <ng-option >ประหารชีวิต</ng-option>
+						</ng-select>
+          </div>
+          <div style="float:left; margin-left:15px;margin-top:5px;"><input  name="" type="checkbox"   value="" ></div>
+          <div style="float:left;margin-left:5px;margin-top:5px;">สัญชาติอื่น&nbsp;&nbsp;</div>
+          </tr>
+          <tr>
+            <td  align="right">ค่าปรับไม่เกิน :&nbsp;</td>
+            <td  align="left" >
+             <div style="float:left;"><input placeholder="เฉพาะตัวเลข" name="" type="text"   value=""  class="form-control" style="width:200px;height:28px;"></div>
+             <button type="button" class="btn btn-primary" style="margin-left:5px;"  >ค้นหา</button>
+            </td></tr>
+<div>&nbsp;</div>
+			</table>
+      <div class="card-footer" style="text-align: center; margin-top:5px;">
+        <button type="button" class="btn btn-success" style="margin-left:5px;"  >จัดเก็บ</button>
+				<button type="button" class="btn btn-warning" style="margin-left:5px;"  >ล้างหน้าจอ</button>
+        <button type="button" class="btn btn-info" style="margin-left:5px;"  >ส่งออก Excel</button>
+        <button type="button" class="btn btn-info" style="margin-left:5px;"  >พิมพ์รายงาน</button>
+			</div>
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+
+				<tr>
+					<td width="40%" align="left">
+						<table datatable  class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+							<thead>
+                <tr>
+                  <td colspan="9">
+                    <div style="float: left;"><button type="button" class="btn btn-danger">เฉพาะหมายเลขคดีที่ข้อมูลไม่ครบ</button></div>
+                    <div style="float:left;margin-left:8px;margin-top:5px;">&nbsp;<label>รวมคดีทั้งหมด</label>&nbsp;&nbsp;</div>
+					        	<div style="float:left;"><input  name="" type="text"   value=""  class="form-control" style="width:80px;height:28px;"></div>
+                    <div style="float:left;margin-left:8px;margin-top:5px;">&nbsp;<label>คดี</label>&nbsp;</div>
+                  </td>
+                </tr>
+								<tr>
+									<th width="8%" >คดีหมายเลขแดง</th>
+                  <th width="8%" >คดีหมายเลขดำ</th>
+									<th width="10%" >ฐานความผิดขึ้นปก</th>
+									<th width="5%" >ลำดับที่</th>
+									<th width="5%" >คำนำหน้า</th>
+                  <th width="10%" >ชื่อ/ชื่อสกุล</th>
+									<th width="5%" >สัญชาติ</th>
+									<th width="20%" >โทษจำเลย</th>
+									<th width="5%" >ค่าปรับ</th>
+								</tr>
+							</thead>
+
+							<tbody >
+								<tr>
+									<td colspan="9" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+                  <td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+                  <td style="display:none;"></td>
+									<td style="display:none;"></td>
+							</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+
+
+
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

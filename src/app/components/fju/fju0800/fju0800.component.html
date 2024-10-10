@@ -1,0 +1,283 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName" [runId]="runId"></app-case-header>
+			</div>
+		</div>
+		<div class="card card-info" style="box-shadow: none !important;margin-top:-4px;">
+			<app-case-head *ngIf="defaultCaseType" (sendCaseData)="fnDataHead($event)" [runId]="runId" ></app-case-head>
+		</div>	
+		<div class="card-body" style="box-shadow: none !important;padding:5px;">
+			<fieldset style="width:99%;border-radius:4px;border:1px solid #333333;padding:1px;margin-top:8px;">
+				<legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;">
+					<div style="float: left;margin-left:4px;margin-top:2px;">คำพิพากษา</div>
+				</legend>
+				<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+					<tr>
+						<td width="20%;" align="right"></td>
+						<td width="80%;" align="left">
+							<div style="float:left; color: red;">
+								** ในการบันทึกหรือแก้ไขใจความฟ้องจะมือผลกับใจความฟ้องที่หน้าจอสารบบรับฟ้องด้วย
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right" valign="top" >ใจความฟ้อง :&nbsp;</td>
+						<td  align="left">
+							<div style="float:left;">
+								<textarea  [(ngModel)]="result.indict_desc" name="indict_desc" class="form-control" rows="8" style="width:900px;"> </textarea>
+							</div>
+							<div style="float: left; margin-left:2px; margin-top: 1px;" >
+								<i class='far fa-list-alt iDep' style="font-size: 20px;cursor:pointer;" title="เลือกข้อมูล" (click)="clickOpenMyModalComponent(1);"></i>
+							</div>
+							<input type="hidden" name="jbrand_id_hide" [(ngModel)]="result.jbrand_id_hide">
+							<input type="hidden" name="jbrand_name_hide" [(ngModel)]="result.jbrand_name_hide">
+							<input type="hidden" name="edit_indict_desc" [(ngModel)]="result.edit_pinalty_desc">
+							<input type="hidden" name="edit_judge_desc" [(ngModel)]="result.edit_pinalty_desc">
+							<input type="hidden" name="edit_pinalty_desc" [(ngModel)]="result.edit_pinalty_desc">
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">เลือกคำพิพากษา :&nbsp;</td>
+						<td  align="left">
+							<div style="float: left;">
+								<input type="text"[(ngModel)]="result.jbrand_id" name="jbrand_id" class="form-control" style="width:60px;" (change)="tabChangeSelect('paid_off_name',$event)"/>
+							</div>
+							<div style="float: left;">
+								<input type="text" [(ngModel)]="result.jbrand_name"  name="jbrand_name" class="form-control" style="width:630px;" readonly/>
+							</div>
+							<div style="float: left;margin-top:2px;" >
+								<i  class="far fa-list-alt" style="font-size: 20px; margin-left:4px;" title="เลือกข้อมูลแบบคำพิพากษาของท่าน" (click)="clickOpenMyModalComponent(2)"></i>
+							</div>
+							<div style="float: left;margin-top:2px;" >
+								<i  class="far fa-list-alt" style="font-size: 20px; margin-left:4px;" title="เลือกข้อมูลแบบคำพิพากษาทั้งหมด" (click)="clickOpenMyModalComponent(3)"></i>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">ฐานความผิด :&nbsp;</td>
+						<td  align="left">
+							<div style="float:left;">
+								<input [(ngModel)]="result.judge_subject_name" name="judge_subject_name" type="text"  class="form-control" style="width:600px;height:28px;">
+							</div>
+						</td>
+					</tr>
+					<tr [ngStyle]="result.file_exists1 ?  {'display': ''} : {'display': 'none'}">
+						<td  align="right"></td>
+						<td  align="left" colspan="2">
+							<div style="float:left;color: red;" ><b>หากต้องการแก้ไขรายละเอียดคำพิพากษาให้กดปุ่ม &quot;ลบไฟล์คำพิพากษา&quot; ก่อน</b></div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right" valign="top" >รายละเอียดคำพิพากษา :&nbsp;</td>
+						<td  align="left" colspan="2">
+							<div style="float:left;">
+								<textarea [readonly]="result.file_exists1" [(ngModel)]="result.judge_desc" name="judge_desc" class="form-control"  rows="8" style="width:900px;"></textarea>
+							</div>
+							<div style="float: left;margin-top:2px;" *ngIf="result.running" >
+								<i class="fa fa-file-text-o" style="font-size:20px; margin-left:4px;color: blue;" title="ดึงมาจากคำพิพากษาย่อ" (click)="importJudgeDesc()"></i>
+								<br><span style="color: blue;">ดีงคำพิพากษา<br>มาจาก<br>คำพิพากษาย่อ</span>
+							</div>
+
+						</td>
+					</tr>
+					<tr>
+						<td  align="right" valign="top" >ขอให้ลงโทษตาม :&nbsp;</td>
+						<td  align="left">
+							<div style="float:left;margin-top: 2px;">
+								<textarea [readonly]="result.file_exists1" [(ngModel)]="result.pinalty_desc" name="pinalty_desc" class="form-control"  rows="4" style="width:900px;"> </textarea>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">ผู้พิพากษา :&nbsp;</td>
+						<td  align="left" style="margin-top: 2px;">
+							<div style="float: left;">
+								<input type="text"[(ngModel)]="result.judge_id"  name="judge_id" class="form-control" style="width:60px;" (change)="tabChangeSelect('judge_name',$event)"/>
+							</div>
+							<div style="float: left;">
+								<input type="text" [(ngModel)]="result.judge_name" name="judge_name" class="form-control" style="width:288px;" readonly/>
+							</div>
+							<div style="float: left;margin-top:2px;" >
+								<i  class="far fa-list-alt" style="font-size: 20px; margin-left:4px;" title="แสดงรายการข้อมูลทั้งหมด" (click)="clickOpenMyModalComponent(4)"></i>
+							</div>
+							<div style="float: left;margin-top:2px;" >
+								<i  class="far fa-list-alt" style="font-size: 20px; margin-left:4px;" title="แสดงรายการผู้พิพากษาทั้งหมด" (click)="clickOpenMyModalComponent(5)"></i>
+							</div>
+							<div style="float: left;margin-top:2px;" >&nbsp;กำหนดสิทธิ์ให้&nbsp;&nbsp;</div>
+							<div style="float: left;">
+								<input type="text" [(ngModel)]="result.assign_user_id"  name="assign_user_id" class="form-control" style="width:60px;" (change)="tabChangeSelect('assign_user_name',$event)"/>
+							</div>
+							<div style="float: left;">
+								<input type="text" [(ngModel)]="result.assign_user_name" name="assign_user_name" class="form-control" style="width:288px;" readonly/>
+							</div>
+							<div style="float: left;margin-top:2px;" >
+								<i  class="far fa-list-alt" style="font-size: 20px; margin-left:4px;" title="แสดงรายการข้อมูล" (click)="clickOpenMyModalComponent(6)"></i>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">องค์คณะที่ 1 :&nbsp;</td>
+						<td  align="left">
+							<div style="float: left;">
+								<input type="text" [(ngModel)]="result.judge_gid1" name="judge_gid1" class="form-control" style="width:60px;" (change)="tabChangeSelect('judge_gname1',$event)"/>
+							</div>
+							<div style="float: left;">
+								<input type="text" [(ngModel)]="result.judge_gname1"  name="judge_gname1" class="form-control" style="width:288px;" readonly/>
+							</div>
+							<div style="float: left;margin-top:2px;" >
+								<i  class="far fa-list-alt" style="font-size: 20px; margin-left:4px;" title="แสดงรายการข้อมูล" (click)="clickOpenMyModalComponent(7)"></i>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">องค์คณะที่ 2 :&nbsp;</td>
+						<td  align="left">
+							<div style="float: left;">
+								<input type="text"[(ngModel)]="result.judge_gid2" name="judge_gid2" class="form-control" style="width:60px;" (change)="tabChangeSelect('judge_gname2',$event)"/>
+							</div>
+							<div style="float: left;">
+								<input type="text" [(ngModel)]="result.judge_gname2"  name="judge_gname2" class="form-control" style="width:288px;" readonly/>
+							</div>
+							<div style="float: left;margin-top:2px;" >
+								<i  class="far fa-list-alt" style="font-size: 20px; margin-left:4px;" title="แสดงรายการข้อมูล" (click)="clickOpenMyModalComponent(8)"></i>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">แบบพิมพ์คำพิพากษา :&nbsp;</td>
+						<td  align="left">
+							<div style="float: left;">
+								<input type="text"[(ngModel)]="result.form_running" name="form_running" class="form-control" style="width:60px;" (change)="tabChangeSelect('form_name',$event)"/>
+							</div>
+							<div style="float: left;">
+								<input type="text" [(ngModel)]="result.form_name"  name="form_name" class="form-control" style="width:288px;" readonly/>
+							</div>
+							<div style="float: left;margin-top:2px;" >
+								<i  class="far fa-list-alt" style="font-size: 20px; margin-left:4px;" title="เลือกข้อมูล" (click)="clickOpenMyModalComponent(9)"></i>
+							</div>
+							<div style="float: left;" [ngStyle]="!result.file_exists1 || disableBtn ?  {'display': 'none'} : {'display': ''}">
+								<button type="button" class="btn btn-primary" style="margin-left:5px;margin-top: 2px;" (click)="printAttachJudge(0)"  >พิมพ์คำพิพากษา</button>
+							</div>
+							<div style="float: left;" [ngStyle]="result.add_form_running && !result.file_exists1 ||  disableBtn ?  {'display': 'none'} : {'display': ''}">
+								<button type="button" class="btn btn-primary" style="margin-left:5px;margin-top: 2px;" (click)="clickOpenMyModalComponent(11)"  >แนบไฟล์</button>
+							</div>
+							<div style="float: left;" [ngStyle]="!result.file_exists1 || disableBtn ?  {'display': 'none'} : {'display': ''}">
+								<button type="button" class="btn btn-danger" style="margin-left:5px;margin-top: 2px;" (click)="delAttachJudge(0)"  >ลบไฟล์คำพิพากษา</button>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">แบบพิมพ์คำให้การ :&nbsp;</td>
+						<td  align="left" >
+							<div style="float: left;">
+								<input type="text"[(ngModel)]="result.add_form_running" name="add_form_running" class="form-control" style="width:60px;" (change)="tabChangeSelect('add_form_name',$event)"/>
+							</div>
+							<div style="float: left;">
+								<input type="text" [(ngModel)]="result.add_form_name"  name="add_form_name" class="form-control" style="width:288px;" readonly/>
+							</div>
+							<div style="float: left;margin-top:2px;" >
+								<i  class="far fa-list-alt" style="font-size: 20px; margin-left:4px;" title="เลือกข้อมูล" (click)="clickOpenMyModalComponent(10)"></i>
+							</div>
+							<div style="float: left;" [ngStyle]="!result.file_exists2 || disableBtn?  {'display': 'none'} : {'display': ''}">
+								<button type="button"  class="btn btn-primary" style="margin-left:5px;margin-top: 2px;" (click)="printAttachJudge(1)"  >พิมพ์คำให้การ</button>
+							</div>
+							<div style="float: left;" [ngStyle]="result.add_form_running && !result.file_exists2 ||  disableBtn ?  {'display': 'none'} : {'display': ''}">
+								<button type="button" class="btn btn-primary" style="margin-left:5px;margin-top: 2px;" (click)="clickOpenMyModalComponent(12)"  >แนบไฟล์</button>
+							</div>
+							<div style="float: left;" [ngStyle]="!result.file_exists2 || disableBtn ?  {'display': 'none'} : {'display': ''}">
+								<button type="button" class="btn btn-danger" style="margin-left:5px;margin-top: 2px;" (click)="delAttachJudge(1)"  >ลบไฟล์คำให้การ</button>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">วันที่พิมพ์ :&nbsp;</td>
+						<td  align="left">
+							<div style="float:left;">
+								<input type="text" [(ngModel)]="result.print_date"  name="print_date" #printDate class="form-control jcalendar print_date" #systemStartDate (click)="directiveDate(printDate.value,'print_date')" style="width:120px;">
+							</div>
+							<div style="float:left;margin-left:8px;"><i class="fa fa-calendar" style="font-size: 16px;" title="ปฏิทิน" onClick="$('.print_date').focus();"></i></div>
+						</td>
+					</tr>
+					<tr [ngStyle]="result.file_exists1 ?  {'display': ''} : {'display': 'none'}">
+						<td  align="right"></td>
+						<td  align="left" >
+							<div style="float: left;margin-top: 4px;">
+								<input type="checkbox" [(ngModel)]="result.read_flag"  name="read_flag" style="width:15px;height: 15px;"/>
+							</div>
+							<div style="float: left;margin-top: 4px;margin-left: 4px;"><span class="laredb">*** ส่งลงสารระบบ </span></div>
+							<div style="float: left;margin-top: 4px;margin-left: 4px;" [ngStyle]="result.read_flag == null ?  {'display': 'none'} : {'display': ''}">
+								<button type="button" class="btn btn-primary"  (click)="printAttachJudge(0)" >ดาวน์โหลด ไฟล์คำพิพากษา</button>
+							</div>
+							<!-- <div style="float: left;margin-top: 4px;margin-left: 4px;" [ngStyle]="result.read_flag != null || disableBtn ?  {'display': 'none'} : {'display': ''}">
+								<button type="button" class="btn btn-primary" >สแกนลายนิ้วมือเพื่อส่งคำพิพากษาลงระบบ</button>
+							</div> -->
+						</td>
+					</tr>
+					<tr>
+						<td  align="center" colspan="2">
+							<div style="color: red;"><b>*** ระบบจะตัดคำพิพากษาโดยการตรวจสอบจากคำว่า &quot;พิพากษาว่า&quot;, &quot;พิพากษาให้&quot;, &quot;พิพากษายก&quot;, &quot;มีคำสั่ง&quot;</b></div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="center" colspan="2" >
+							<div style="margin:0 auto;">
+								ผู้บันทึก :	<u>{{result.create_user}}</u> 
+								วันที่บันทึก :<u>{{result.create_date}}</u> 
+								ผู้แก้ไขล่าสุด :<u>{{result.update_user}}</u> 
+								วันที่แก้ไขล่าสุด : <u>{{result.update_date}}</u> 
+							</div>
+						</td>
+					</tr>
+				</table>
+			<!-- /.card-body -->
+			<div class="card-footer" align="center">
+				<button type="button" class="btn btn-success" [ngStyle]="disableBtn ?  {'display': 'none'} : {'display': ''}" (click)="submitForm()">จัดเก็บข้อมูล</button>
+				<button type="button" class="btn btn-danger"  [ngStyle]="((run_id == null)&&(result.judge_item == 0)) || disableBtn ?  {'display': 'none'} : {'display': ''}"style="margin-left:5px;"(click)="buttonDelete()">ลบ</button>
+				<button type="button" class="btn btn-warning"  style="margin-left:5px;"(click)="buttonCancle()">ยกเลิก</button>
+				<input type="hidden" name="delValue" id="delValue">
+			</div>
+		</fieldset>
+			<!-- /.card-footer -->
+	</div>
+ 	<!-- Modal -->
+	<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+			<button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+			<button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+			</div>
+			<div class="modal-body" >
+				<input type="hidden" name="table_name" id="table_name">
+				<input type="hidden" name="field_id" id="field_id">
+				<input type="hidden" name="field_name" id="field_name">
+				<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+					<app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+					<app-datalist-return  *ngIf="loadComponent"  [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType [value6]=listFieldName2 [value7]="listFieldCond" (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+					<app-popup-attach-judge  *ngIf="loadPopupAttachJudgeComponent"  [run_id]=run_id (onClickList)="receiveAttachJudgeFile($event)" class="modal_app"></app-popup-attach-judge>
+					<app-modal-judge *ngIf="loadModalJudgeComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType (onClickList)="receiveJudgeListData($event)" class="modal_app"></app-modal-judge>
+					<app-modal-judge-group *ngIf="loadModalJudgeGroupComponent"  (onClickList)="receiveJudgeGroupListData($event)" class="modal_app"></app-modal-judge-group>
+					<app-modal-judge-group-sigle *ngIf="loadModalJudgeGroupSigleComponent"  (onClickList)="receiveJudgeGroupSigleListData($event)" class="modal_app"></app-modal-judge-group-sigle>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+				<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

@@ -1,0 +1,112 @@
+<style>
+	
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName"></app-case-header>
+			</div>				
+		</div>
+		
+		<div class="card " style="box-shadow: none !important;padding:5px;background-color: #f0f0f0;">	
+			<table style="width:100%">
+				<tr>
+					<td align="center">
+						<table style="width:95%;">
+							<tr>
+								<td  align="center">
+									<div style="width: 100%;border:1px solid #b0b0b0;height:32px;border-radius: 2px;text-align: center;padding-top:3px;">
+										<div style="margin:0 auto;display:table;">
+											<div style="float: left;margin-left:3px;margin-top:5px;">ประจำเดือน :&nbsp;</div>
+											<div style="float:left;margin-left:3px;">
+												<ng-select  style="width:150px;" >
+													<ng-option ></ng-option>
+												</ng-select>
+											</div>
+											<div style="float: left;margin-left:10px;margin-top:5px;">ปี :&nbsp;</div>
+											<div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:110px;height:28px;"></div>
+											<div style="float:left;margin-left:8px;margin-top:2px;"><i class="fa fa-calendar" style="font-size: 16px;"></i></div>
+
+											<div style="float:left;margin-left:8px;margin-top:0px;"><button type="button" class="btn btn-primary" style="margin-left:0px;"  >ค้นหา</button></div>
+											<div style="float:left;"><button type="button" class="btn btn-success" style="margin-left:3px;"> ประมวลผล</button></div>
+											<div style="float:left;"><button type="button" class="btn btn-success" style="margin-left:3px;"> จัดเก็บ</button></div>
+											<div style="float:left;"><button type="button" class="btn btn-info" style="margin-left:3px;"> พิมพ์</button></div>
+											<div style="float:left;"><button type="button" class="btn btn-primary" style="margin-left:3px;">ส่งข้อมูลเข้าส่วนกลาง</button></div>
+											<div style="float:left;"><button type="button" class="btn btn-warning" style="margin-left:3px;"> ยกเลิก</button></div>
+										</div>
+									</div>
+								</td>
+							</tr>  
+						</table>
+					</td>
+				</tr>  
+				<tr>
+					<td align="center">
+						<table style="width: 100%;" >
+							<tr>
+								<td align="right" width="20%">ผู้เสนอ :&nbsp;</td>
+								<td width="29%">
+									<div style="float: left;margin-left:0px;">
+										<input  name="user_id" type="text" id="user_id"     class="form-control" style="width:60px;height:28px;"/>
+									</div>
+									<div style="float: left;margin-left:2px;">
+										<input  name="off_name" type="text" class="blackd" id="off_name" value="" readonly  class="form-control" style="width:220px;height:28px;"/>
+									</div>
+									<div style="float: left;margin-left:2px;margin-top:1px;" >
+										<i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:0px;"></i>
+									</div>
+								</td>
+								<td align="right" width="6%">ตำแหน่ง :&nbsp;</td>
+								<td width="45%">
+									<div style="float: left;margin-left:2px;">
+										<input  name="off_name" type="text" class="blackd" id="off_name" value=""   class="form-control" style="width:416px;height:28px;"/>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td align="right" >ผู้เซ็นต์ :&nbsp;</td>
+								<td >
+									<div style="float: left;margin-left:0px;">
+										<input  name="user_id" type="text" id="user_id"     class="form-control" style="width:60px;height:28px;"/>
+									</div>
+									<div style="float: left;margin-left:2px;">
+										<input  name="off_name" type="text" class="blackd" id="off_name" value="" readonly  class="form-control" style="width:220px;height:28px;"/>
+									</div>
+									<div style="float: left;margin-left:2px;margin-top:1px;" >
+										<i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:0px;"></i>
+									</div>
+								</td>
+								<td align="right" valign="top" style="padding-top:4px;">ตำแหน่ง :&nbsp;</td>
+								<td >
+									<div style="float: left;margin-left:2px;">
+										<textarea name="fact1" class="form-control" id="" style="width: 416px; height: 38px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" align="center">
+									<div style="display:inline-block;margin:0 auto;">
+										หน่วยงานที่บันทึก :____________ ผู้บันทึก :____________ วันที่บันทึก :____________  
+									</div>
+								</td>
+								
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			
+		</div>
+		<div  style="box-shadow: none !important;margin-top:-5px;border: 0px;">
+			<app-fst1400-main></app-fst1400-main>	
+		</div>
+
+	</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner>
+

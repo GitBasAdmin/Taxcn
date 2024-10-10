@@ -1,0 +1,78 @@
+<table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+  <tr>
+    <td height="30" width="25%" align="right" class="blackb">วันที่ส่งหนังสือ :&nbsp;</td>
+    <td height="30" width="75%" align="left">
+      <div style="float: left;margin-left:4px;">
+        <input style="width:120px;height:28px;" [(ngModel)]="result.sdate" #sdate type="text" class="form-control jcalendar sdate" (click)="directiveDate(sdate.value,'sdate')">
+      </div>
+      <div style="float:left;margin-left:4px;">
+        <i class="fa fa-calendar" style="font-size: 16px;"  onClick="$('.sdate').focus();"></i>
+      </div>
+      <div style="float: left;margin-top:0px;margin-left:5px;">ถึงวันที่</div>
+      <div style="float: left;margin-left:4px;">
+        <input style="width:120px;height:28px;" [(ngModel)]="result.edate" #edate type="text" class="form-control jcalendar edate" (click)="directiveDate(edate.value,'edate')">
+      </div>
+      <div style="float:left;margin-left:4px;">
+        <i class="fa fa-calendar" style="font-size: 16px;"  onClick="$('.edate').focus();"></i>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td height="30" align="right" class="blackb">ถึง :&nbsp;</td>
+    <td  height="30" width="75%" align="left">
+      <div style="float: left;">
+        <ng-select [(ngModel)]="result.court_id" style="width:350px;" [ngModelOptions]="{standalone: true}" >
+          <ng-option *ngFor="let getData of getCourtId" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+        </ng-select>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td height="30" align="right" class="blackb">หน่วยงานที่บันทึก :&nbsp;</td>
+    <td>
+      <div style="float: left;">
+        <ng-select [(ngModel)]="result.dep_code" style="width:350px;" [ngModelOptions]="{standalone: true}">
+          <ng-option *ngFor="let getData of getDepCode" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+        </ng-select>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td height="30" align="center" class="blackb" colspan="2">
+      <div style="display: table;margin: 0 auto;">
+        <div style="float: left;margin-left:4px;"><input name="Submit" type="submit" class="btn btn-success" value="ค้นหา" (click)="searchDataList()"></div>    
+        <!-- <div style="float: left;margin-left:4px;"><input name="showAll" type="submit" class="btn btn-primary" id="showAll" value="เลือกทั้งหมด" (click)="showDataList()"></div> -->
+        <div style="float: left;margin-left:4px;"><input name="useAll" type="submit" class="btn btn-primary" id="useAll" value="ใช้ข้อมูลที่เลือก" (click)="useDataList()"></div>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+  <thead>
+   
+    <tr align="center">
+      <th width="10%" height="25" ><input type="checkbox"  [(ngModel)]="masterSelect" style="height:15px;width:15px;margin-top:2px;cursor:pointer;"  (change)="checkUncheckAll(this.items,'masterSelect','index')"></th>
+      <th width="45%" height="25" ><strong>เลขที่หนังสือส่ง</strong></th>
+      <th width="45%" height="25" ><strong>วันที่ส่งหนังสือ</strong></th>
+    </tr>
+    
+  </thead>
+  <tbody *ngIf="items?.length != 0" >
+					
+    
+    <tr *ngFor="let datas of items;let i = index;" >
+      <td align="center" ><input type="checkbox" [(ngModel)]="this.items[i].index" style="height:15px;width:15px;margin-top:2px;cursor:pointer;" (change)="isAllSelected(this.items,'masterSelect','index')"></td>
+      <td align="center" >{{datas.real_doc_no}}</td>
+      <td align="center" >{{datas.send_rcv_date}}</td>
+    </tr>
+    
+   </tbody>
+   <tbody *ngIf="items?.length == 0">
+    <tr ><td colspan="5" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+  </tbody>
+</table>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner> 

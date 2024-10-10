@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.close()"></button>
+    </div>
+<div class="modal-body" >
+    <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+    <textarea name="indictDesc" class="form-control message" style="width: 900px; height: 140px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+    <div style="padding:5px 0px 5px 0px;">
+        <div style="float:left;"><button class="voice-control record btn btn-primary">Record</button></div>
+        <div style="float:left;margin-left:5px;cursor:pointer;color:red;"><=กดปุ่มเพื่อรับข้อความจากการพูด</div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="OnSubmit()">ใช้ข้อมูลนี้</button>
+    <button type="button" class="btn btn-warning" (click)="activeModal.close()">ปิดหน้าจอ</button>
+</div>
+
+

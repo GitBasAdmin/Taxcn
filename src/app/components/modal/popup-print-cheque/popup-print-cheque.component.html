@@ -1,0 +1,61 @@
+<table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+  <tr>
+    <td height="30" align="center" class="blackb">
+      <div style="float: left;margin-top:2px;">** แต่ละศาลใช้ deafult ไม่เหมือนกัน กรณีมีการอัพเดทโปรแกรมต้องเช็คด้วย</div>
+    </td>
+  </tr>
+</table>
+<div style="margin:0 auto;margin:0 auto;display:table;padding:10px;width: 98%;" class="card" >
+  <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+      <tr >
+          <td align="right" width="30%"><input  [(ngModel)]="result.ppay" name="ppay" type="checkbox"  [value]="1" style="width:15px;height:15px;margin-top:2px;"/></td>
+          <td width="70%">
+              <div style="float:left;">&nbsp;พิมพ์ A/C PAYEE ONLY</div>
+          </td>
+      </tr>
+      <tr >
+          <td align="right"><input  [(ngModel)]="result.pmark" name="pmark" type="checkbox" [value]="1" style="width:15px;height:15px;margin-top:2px;"/></td>
+          <td>
+              <div style="float:left;">&nbsp;ขีด หรือผู้ถือ</div>
+              <div style="float:left;margin-left: 10px;"><input  [(ngModel)]="result.pline" name="pline" type="checkbox" [value]="1"style="width:15px;height:15px;margin-top:2px;"/></div>
+              <div style="float:left;margin-left:2px;">&nbsp;ขีด-หลังชื่อ จำนวน&nbsp;</div>
+              <div style="float:left;">
+                <input [(ngModel)]="result.pline_unit" name="pline_unit" type="text"  class="form-control" style="width:40px;height:28px;">
+              </div>
+          </td>
+      </tr>
+      <tr >
+        <td align="right"></td>
+        <td>
+            <div style="float:left;margin-left:2px;">
+                <ng-select [(ngModel)]="result.pcase" style="width:200px;" [ngModelOptions]="{standalone: true}" >
+                    <ng-option *ngFor="let getData of getPcase" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                </ng-select>
+            </div>
+        </td>
+    </tr>
+    <tr >
+      <td align="right"></td>
+      <td>
+          <div style="float:left;margin-left:2px;">
+              <ng-select [(ngModel)]="result.pdate" style="width:200px;" [ngModelOptions]="{standalone: true}" >
+                  <ng-option *ngFor="let getData of getPdate" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+              </ng-select>
+          </div>
+      </td>
+  </tr>
+  <tr >
+    <td align="right"></td>
+    <td>
+        <div style="float:left;margin-left:2px;">
+            <ng-select [(ngModel)]="result.pbank" style="width:200px;" [ngModelOptions]="{standalone: true}" >
+                <ng-option *ngFor="let getData of getPbank" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+            </ng-select>
+        </div>
+    </td>
+</tr>
+  </table>
+  <div class="card-footer" style="margin-top: 5px;text-align:center;">
+      <button type="button" class="btn btn-success" (click)="onClickListData()" >พิมพ์เช็ค</button>          
+  </div>           
+</div>

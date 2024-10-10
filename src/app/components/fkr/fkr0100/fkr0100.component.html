@@ -1,0 +1,262 @@
+<style>
+	
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName"></app-case-header>
+			</div>				
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">      
+				
+ 
+				<tr>
+					<td  width="240" align="right">ความ :&nbsp;</td>
+					<td  align="left">
+						<div style="float: left;">
+							<ng-select  [(ngModel)]="result.case_type" class="CaseType" [clearable]="false" style="width:120px;" (change)="changeCaseType($event,2)"  #sCaseType>
+								<ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select> 
+						</div>
+					</td>
+				</tr>  
+				<tr>
+					<td align="right" style="color:red;">คดีหมายเลขแดงที่ :&nbsp;</td>
+					<td align="left">
+						<div style="float:left;">
+							<ng-select  [(ngModel)]="result.title" class="RedTitle" [clearable]="false" style="width:100px;"   #sRedTitle>
+								<ng-option *ngFor="let getData of getRedTitle" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select> 
+						</div>
+						<div style="float:left;margin-left:3px;"><input  [(ngModel)]="result.red_id1" type="text"   value=""  class="form-control" style="width:60px;height:28px;"></div>
+						<div style="float:left;margin-left:8px;margin-top:5px;">&nbsp;ถึง&nbsp;</div>
+						<div style="float:left;margin-left:3px;"><input  [(ngModel)]="result.red_id2" type="text"   value=""  class="form-control" style="width:60px;height:28px;"></div>
+						<div style="float:left;margin-left:8px;margin-top:5px;">&nbsp;/&nbsp;</div>
+						<div style="float:left;margin-left:3px;"><input  [(ngModel)]="result.red_yy" type="text"   value=""  class="form-control" style="width:60px;height:28px;"></div>
+					</td>
+				</tr>   
+				<!-- ต้องตาให้ซ่อน -->
+				<!-- <tr>
+					<td align="right" >แยกเก็บที่ :&nbsp;</td>
+					<td align="left">
+						<div style="float:left;">
+							<ng-select  [(ngModel)]="result.case_title" class="Material" style="width:100px;"   #sMaterial>
+								<ng-option *ngFor="let getData of getMaterial" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select> 
+						</div>
+						<div style="float:left;margin-left:3px;"><input  [(ngModel)]="result.case_id1" type="text"   value=""  class="form-control" style="width:60px;height:28px;"></div>
+						<div style="float:left;margin-left:8px;margin-top:5px;">&nbsp;ถึง&nbsp;</div>
+						<div style="float:left;margin-left:3px;"><input  [(ngModel)]="result.case_id2" type="text"   value=""  class="form-control" style="width:60px;height:28px;"></div>
+						<div style="float:left;margin-left:8px;margin-top:5px;">&nbsp;/&nbsp;</div>
+						<div style="float:left;margin-left:3px;"><input  [(ngModel)]="result.case_yy" type="text"   value=""  class="form-control" style="width:60px;height:28px;"></div>
+					</td>
+				</tr>    -->
+				<tr>
+					<td align="right" >
+						<div style="float: right;margin-left:5px;margin-top:3px;">ผู้บันทึก :&nbsp; </div>
+						<div style="float: right;margin-left:15px;">
+							<input type="checkbox" [(ngModel)]="result.chk_off" [value]="1" (click)="assignUser(chk_off.checked)" #chk_off style="width:15px;height:15px;margin-top:3px;"/>
+						</div>
+						
+					</td>
+					<td align="left">
+						<div style="float: left;">
+							<input   type="text" [(ngModel)]="result.user_id" class="form-control" style="width:60px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;">
+							<input   type="text" [(ngModel)]="result.user_name"  class="form-control" style="width:220px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:1px;" (click)="clickOpenMyModalComponent(1)"></i>
+						</div>
+					</td>
+				</tr>   
+				<tr>
+					<td  align="right">
+						<select [(ngModel)]="result.find_type"  style="height:24px !important;border-radius: 4px !important;border: 1px solid #ced4da;">
+							<option value="1" >วันที่ปลดเผา</option>
+							<option value="2" >วันที่บันทึกปลดเผา/ไม่ปลดเผา</option>
+						</select>
+					</td>
+					<td  align="left" >
+						<div style="float:left;"><input   type="text" [(ngModel)]="result.find_date" class="form-control jcalendar find_date" #find_date (click)="directiveDate(find_date.value,'find_date')" style="width:120px;height:28px;"></div>
+                    	<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.find_date').focus();"></i></div>
+						<div style="float:left;margin-left:8px;margin-top:5px;color:blue;">&nbsp;ถึง&nbsp;</div>
+						<div style="float:left;"><input   type="text" [(ngModel)]="result.find_date2" class="form-control jcalendar find_date2"  #find_date2 (click)="directiveDate(find_date2.value,'find_date2')" style="width:120px;height:28px;"></div>
+                    	<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.find_date2').focus();"></i></div>
+					
+					</td>
+				</tr>
+				<tr>
+					<td align="right" >เฉพาะรายการที่ :&nbsp;</td>
+					<td style="padding:2px 0px;">
+					  <div style="border:1px solid green;float:left;border-radius:4px !important;padding:2px 4px;">
+						<!--
+						<label class="container-label">ยังไม่ได้ปลดเผาสำนวน
+							<input type="radio" checked="checked" name="radio">
+							<span class="checkmark"></span>
+						  </label>
+						-->
+						<div style="float: left;"><input type="checkbox" [(ngModel)]="result.cond_sel" [value]="1" #cond_sel (click)="condSel(1,'cond_sel',cond_sel.checked)" style="width:15px;height:15px;margin-top:5px;"/></div>
+						<div style="float: left;margin-left:6px;margin-top:4px;"><span style="color:green;">ยังไม่ได้ปลดเผาสำนวน</span></div>
+						<div style="float: left;margin-left:10px;"><input type="checkbox" [(ngModel)]="result.cond_sel2" #cond_sel2 [value]="1" (click)="condSel(1,'cond_sel2',cond_sel2.checked)" style="width:15px;height:15px;margin-top:5px;"/></div>
+						<div style="float: left;margin-left:6px;margin-top:4px;"><span style="color:green;">ปลดเผาสำนวนแล้ว</span></div>
+					  </div>
+					  <!-- ต้องให้ซ่อน -->
+					  <!-- <div style="border:1px solid blue;float:left;border-radius:4px !important;padding:2px 4px;margin-left:8px;">
+						<div style="float: left;"><input type="checkbox" [(ngModel)]="result.cond_sel3" [value]="1" #cond_sel3 (click)="condSel(2,'cond_sel3',cond_sel3.checked)" style="width:15px;height:15px;margin-top:5px;"/></div>
+						<div style="float: left;margin-left:6px;margin-top:4px;"><span style="color:blue;">ยังไม่ได้ปลดเผาเอกสาร</span></div>
+						<div style="float: left;margin-left:10px;"><input type="checkbox" [(ngModel)]="result.cond_sel4" [value]="1" #cond_sel4 (click)="condSel(2,'cond_sel4',cond_sel4.checked)" style="width:15px;height:15px;margin-top:5px;"/></div>
+						<div style="float: left;margin-left:6px;margin-top:4px;"><span style="color:blue;">ปลดเผาเอกสารแล้ว</span></div>
+					  </div>	   -->
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">หมายเหตุ :&nbsp;</td>
+					<td  align="left" style="padding-bottom: 3px;">
+						<div style="float:left;"><input   type="text" [(ngModel)]="result.remark"  class="form-control" style="width:420px;height:28px;"></div>
+						<div style="float: left;margin-left:6px;margin-top:4px;"><span style="color:red;">** ใส่แค่บางส่วนของคำที่ต้องการค้น</span></div>
+					</td>
+				</tr>
+				
+				
+				
+			</table>
+			<div class="card-footer" style="text-align: center;">
+				<button type="button" class="btn btn-success" style="margin-left:5px;"  (click)="searchData()">ค้นหา</button>
+				<button type="button" class="btn btn-primary" style="margin-left:5px;"  (click)="saveData()">จัดเก็บ</button>
+				<!-- ต้องตาให้ซ่อน -->
+				<!-- <button type="button" class="btn btn-primary" style="margin-left:5px;"  (click)="exportAsXLSX()">ส่งออกเป็น Excel</button> -->
+				<button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="setDefPage()">ยกเลิก</button>
+			</div>
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;width:120%;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">           
+				<tr>
+					<td width="40%" align="left" style="height:40px;padding-bottom: 5px;">
+						<div style="float:left;margin-left:8px;margin-top:5px;">วันที่ปลดเผาสำนวน :&nbsp;</div>
+						<div style="float:left;"><input   type="text" [(ngModel)]="result.burn_date" class="form-control jcalendar burn_date" #burn_date (click)="directiveDate(burn_date.value,'burn_date')" style="width:120px;height:28px;"></div>
+                    	<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.burn_date').focus();"></i></div>
+						<div style="float:left;margin-left:8px;margin-top:5px;">,&nbsp;</div>
+						<div style="width:16px;width:28px;background-color:#fb908b;display:table;float:left;border:0px;margin-left:15px;margin-top:3px;border-radius: 4px;">&nbsp;</div>
+						<div style="float:left;margin-left:8px;margin-top:5px;">คือ รายการที่ปลดเผาสำนวนแล้ว&nbsp;</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="40%" align="left">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+							<thead>
+								<tr>
+									<th width="5%" class="no-sort">&nbsp;<br>ไม่ปลดเผา<br><input type="checkbox"  [(ngModel)]="masterSelBurn" style="height:15px;width:15px;margin-top:2px;cursor:pointer;" #masterBurn  (change)="checkUncheckAll(this.items,'masterSelBurn','flag_cancel_burn',masterBurn.checked)"></th>
+									<th width="7%" class="no-sort">ปลดเผา/แก้ไข<br>ปลดเผาสำนวน<br><input type="checkbox"  [(ngModel)]="masterSelBurn2" #masterBurn2 style="height:15px;width:15px;margin-top:2px;cursor:pointer;"  (change)="checkUncheckAll(this.items,'masterSelBurn2','flag_burn',masterBurn2.checked)"></th>
+									<!-- ต้องตาให้ซ่อน -->
+									<!-- <th width="7%" class="no-sort">ปลดเผา/แก้ไข<br>ปลดเผาเอกสาร<br><input type="checkbox"  [(ngModel)]="masterSelBurn3" style="height:15px;width:15px;margin-top:2px;cursor:pointer;"  (change)="checkUncheckAll(this.items,'masterSelBurn3','doc_burn_flag')"></th> -->
+									<th width="5%" class="no-sort"><span style="color:green;">ปลดเผาสำนวน</span></th>
+									<!-- <th width="5%" class="no-sort"><span style="color:blue;">ปลดเผาเอกสาร</span></th> -->
+									<th width="7%" class="no-sort">คดีหมายเลขแดง</th>
+									<th width="7%" class="no-sort">คดีหมายเลขดำ</th>
+									
+									<!-- <th width="9%" class="no-sort">เอกสารแยกเก็บ</th> -->
+									<th width="7%" class="no-sort">วันที่ตัดสิน</th>
+									<!-- <th width="7%" class="no-sort">วันที่คดีถึงที่สุด</th> -->
+									<th width="9%" class="no-sort">วันที่ปลดเผา</th>
+									<th width="9%" class="no-sort">วันที่บันทึกปลดเผา</th>
+									<!-- <th width="10%" class="no-sort">ไฟล์แนบ</th> -->
+									<th width="35%" class="no-sort">หมายเหตุ&nbsp;</th>
+			
+								</tr>
+							</thead>
+							<tbody *ngIf="items?.length != 0">
+								<tr *ngFor="let post of items;let i = index;" [ngClass]="{'red': post.chk_burn == 1}">
+									<td width="5%" align="center"><input type="checkbox" [(ngModel)]="this.items[i].flag_cancel_burn" #flag_cancel_burn style="height:15px;width:15px;margin-top:2px;cursor:pointer;" (change)="isAllSelected(this.items,'masterSelBurn','flag_cancel_burn',i,flag_cancel_burn.checked);checkSelected(i,flag_cancel_burn.checked)"></td>
+                            		<td width="7%" align="center"><input type="checkbox" [(ngModel)]="this.items[i].flag_burn" #flag_burn style="height:15px;width:15px;margin-top:2px;cursor:pointer;" (change)="isAllSelected(this.items,'masterSelBurn2','flag_burn',i,flag_burn.checked);checkSelected2(i,flag_burn.checked)"></td>
+									<!-- <td align="center"><input type="checkbox" [(ngModel)]="this.items[i].doc_burn_flag" style="height:15px;width:15px;margin-top:2px;cursor:pointer;" (change)="isAllSelected(this.items,'masterSelBurn3','doc_burn_flag')" *ngIf="post.material_running"></td> -->
+									<td width="5%" align="center" ><i class="fa fa-check" style="font-size:15px;color:green;" *ngIf="post.chk_burn"></i></td>
+									<!-- <td align="center" ><i class="fa fa-check" style="font-size:15px;color:blue;" *ngIf="post.chk_doc_burn"></i></td> -->
+									<td  width="7%" align="center">{{post.red_no}}</td>
+									<td  width="7%" align="center">{{post.case_no}}</td>
+									
+									<!-- <td  align="center">{{post.matt_case_no}}</td> -->
+									<td  align="center" >{{post.judging_date}}</td>
+									<!-- <td  width="7%" align="center">{{post.end_casedate}}</td> -->
+									
+									<td width="10%" align="center">
+										<div style="display: table;margin:0 auto;width: fit-content;">
+											<div style="float: left;"><input type="text" [(ngModel)]="items[i].bdate"  class="form-control jcalendar" #jcalendar (click)="directiveDateObj(i,'bdate')" style="width:100px;"></div>
+											<div style="float: left;margin-left:2px;"><i class="fa fa-calendar" #icalendar style="font-size: 16px;margin-top:2px;" onClick="$(this).closest('td').find('.jcalendar').focus();"></i></div>
+										</div>
+									</td>
+									<td  width="9%" align="center">{{post.update_burn_date}}</td>
+									<!-- <td  align="center">
+										<div class="custom-file" style="float:left;width:100%;">
+											<input type="file" class="custom-file-input" id="importFiles"  (change)="onFileChange($event,1)" style="width: 90px; height: 24px;margin-left:190px;" #attachFile>
+											<label class="custom-file-label" #labelImport for="importFile" style="width:290px;height:24px;text-align:left;"><span style="color: green;cursor: pointer;" *ngIf="post.attachment" (click)="openFiles(i)">{{post.attachment}}</span></label>
+										</div>
+									</td> -->
+									<td  width="35%" align="center">
+										<div style="display: table;margin: 0 auto;">
+											<div style="float:left;"><input type="text" [(ngModel)]="items[i].message_id" (change)="tabChangeInputIndex(i,$event)" class="form-control" style="width:35px;"></div>
+											<div style="float:left;margin-left:2px;"><input type="text" [(ngModel)]="items[i].message" class="form-control" style="width: 520px;" #message readonly></div>
+											<div style="float:left;margin:0 auto;margin-left:2px;margin-top:2px;" ><i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;cursor: pointer;" (click)="clickOpenMyModalComponentIndex(2,i)"></i></div>
+										</div>
+									</td>
+									
+								</tr>
+							</tbody>
+							<tbody *ngIf="items?.length == 0">
+								<tr>
+									<td colspan="9" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+
+								</tr>
+							</tbody>
+						</table>
+						
+					</td>
+				</tr>
+			</table>	
+			
+		</div>	
+	</div>
+
+	
+	<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+			  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+			  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+			</div>
+			<div class="modal-body" >
+					<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+					<app-datalist-return *ngIf="loadModalListComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull  (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+					<app-modal-confirm *ngIf="loadModalConfComponent" class="modal_app"></app-modal-confirm>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalConfComponent">ตกลง</button>
+				<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+			</div>
+		  </div>
+		</div>
+	</div>
+
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner>
+

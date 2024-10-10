@@ -1,0 +1,131 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info">
+			<div class="card-header">
+			<h3 class="card-title">{{programName}}</h3>
+			</div>
+				<div class="card-body">
+					<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+						<tr>
+							<td width="240"  align="right">รหัสผู้ใช้ :&nbsp;</td>
+							<td align="left" >
+								<input type="text"  [(ngModel)]="result.user_login" name="user_login" class="form-control" style="width:220px;height:28px;" readonly>
+								<input type="hidden"  [(ngModel)]="result.user_running">
+							</td>
+						</tr>
+						<tr>
+						<tr>
+							<td align="right">รหัสผ่าน :&nbsp;</td>
+							<td align="left" >
+								<div style="float:left;">
+									<input type="password"  [(ngModel)]="result.opwd" name="opwd" value="" class="form-control" style="width:220px;height:28px;" readonly>
+								</div>
+								<span [ngStyle]="edit_pass == 1 ?  {'display': ''} : {'display': 'none'}" style="color: blue; margin-left: 4px;cursor:pointer;" (click)="edit_pass=2" >แก้ไขข้อมูล</span>
+								<span [ngStyle]="edit_pass == 2 ?  {'display': ''} : {'display': 'none'}" style="color: blue; margin-left: 4px;cursor:pointer;" (click)="edit_pass=1">ยกเลิก</span>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2"></td>
+						</tr>
+					</table>
+					<table *ngIf="edit_pass == 2 " width="100%"  border="0" cellspacing="2" cellpadding="0" >
+						<tr>
+							<td width="240" align="right">รหัสผู้ใช้ใหม่ :&nbsp;</td>
+							<td align="left" >
+								<div style="float:left;">
+									<input type="text" [(ngModel)]="result.username" name="username" value="" class="form-control" style="width:220px;height:28px;" >
+								</div>
+							</td>
+						</tr>
+						<tr >
+							<td align="right">ยืนยันรหัสผ่านเดิม :&nbsp;</td>
+							<td align="left" >
+								<div style="float:left;">
+									<input [type]="typeOldPwd ? 'text' : 'password'"  type="password" [(ngModel)]="result.old_pwd" name="old_pwd" value="" class="form-control" style="width:220px;height:28px;" >
+								</div>
+								<i [class]="typeOldPwd ? 'fa fa-eye' : 'fa fa-eye-slash'" class='' style='cursor:pointer;font-size:18px;margin-left: 2px;' (click)="showInput('typeOldPwd')"></i>
+								<span style="color: red; margin-left: 4px;">*</span> ป้อนเพื่อยืนยันการแก้ไข
+							</td>
+						</tr>
+						<tr>
+							<td align="right">รหัสผ่านใหม่ :&nbsp;</td>
+							<td align="left" >
+								<div style="float:left;">
+									<input [type]="typePwd ? 'text' : 'password'" [(ngModel)]="result.pwd" name="pwd" value="" class="form-control" style="width:220px;height:28px;" >
+								</div>
+								<i [class]="typePwd ? 'fa fa-eye' : 'fa fa-eye-slash'" class='' style='cursor:pointer;font-size:18px;margin-left: 2px;' (click)="showInput('typePwd')"></i>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">ยืนยันรหัสผ่านใหม่ :&nbsp;</td>
+							<td align="left" >
+								<div style="float:left;">
+									<input [type]="typeRePwd ? 'text' : 'password'" [(ngModel)]="result.repwd" name="repwd" value="" class="form-control" style="width:220px;height:28px;" >
+								</div>
+								<i [class]="typeRePwd ? 'fa fa-eye' : 'fa fa-eye-slash'" class='' style='cursor:pointer;font-size:18px;margin-left: 2px;' (click)="showInput('typeRePwd')"></i>
+							</td>
+						</tr>
+						<tr *ngIf="edit_pass == 2 && userData.receiptFlag" >
+							<td align="right">รหัสผ่านสำหรับแก้ไข/ลบใบเสร็จ :&nbsp;</td>
+							<td align="left" >
+								<div style="float:left;">
+									<input [type]="typeReceiptPassword ? 'text' : 'password'" [(ngModel)]="result.receipt_password" name="receipt_password" value="" class="form-control" style="width:220px;height:28px;" >
+								</div>
+								<i [class]="typeReceiptPassword ? 'fa fa-eye' : 'fa fa-eye-slash'" class='' style='cursor:pointer;font-size:18px;margin-left: 2px;' (click)="showInput('typeReceiptPassword')"></i>
+							</td>
+						</tr>
+						<tr *ngIf="edit_pass == 2 && userData.receiptFlag" >
+							<td align="right">ยืนยันรหัสผ่านสำหรับแก้ไข/ลบใบเสร็จ :&nbsp;</td>
+							<td align="left" >
+								<div style="float:left;">
+									<input [type]="typeReReceiptPassword ? 'text' : 'password'" [(ngModel)]="result.re_receipt_password" name="re_receipt_password" value="" class="form-control" style="width:220px;height:28px;" >
+								</div>
+								<i [class]="typeReReceiptPassword ? 'fa fa-eye' : 'fa fa-eye-slash'" class='' style='cursor:pointer;font-size:18px;margin-left: 2px;' (click)="showInput('typeReReceiptPassword')"></i>
+							</td>
+						</tr>
+            		</table>
+				</div>
+				<!-- /.card-body -->
+				<div *ngIf="edit_pass == 2 " class="card-footer">
+					<button type="button" class="btn btn-success" style="margin-left:180px;" (click)="submitForm()">จัดเก็บข้อมูล</button>
+                    <button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+					<button type="button" class="btn btn-danger" style="margin-left:2px;" (click)="closeWindow()" >ปิดหน้าจอ</button> 
+					<input type="hidden" name="delValue" id="delValue">
+				</div>
+				<!-- /.card-footer -->
+			<!-- </form> -->
+		</div>
+	</div>
+ <!-- Modal -->
+
+ <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+		  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+		</div>
+		<div class="modal-body" >
+			<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+				<!-- <app-datalist-return  *ngIf="loadComponent"  [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldName2 (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+				<app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm> -->
+       		</div>
+		</div>
+		<div class="modal-footer">
+			<!-- <button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+		  	<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button> -->
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>

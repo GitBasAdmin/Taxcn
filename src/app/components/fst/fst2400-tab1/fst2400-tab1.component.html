@@ -1,0 +1,475 @@
+
+    <table width="100%" border="0" cellspacing="1" cellpadding="0">
+        <tr>
+          <td style="height:35px !important;vertical-align: bottom;" ><span >&nbsp; 1.สถิติคดีแพ่งในรอบปี</span></td>
+        </tr>
+        <tr>
+            <td>
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:90%;margin-left:0px;float:left;">        
+                    <thead>
+                        <tr >
+                            <th width="21%"  style="height:40px !important;" class="no-sort">ประเภทคดี</th>
+                            <th width="19%"  class="no-sort">คดีค้างมาจากปีที่แล้ว</th>
+                            <th width="22%"  class="no-sort">คดีรับใหม่ในปีนี้</th>
+                            <th width="19%"  class="no-sort">คดีเสร็จไปในปีนี้</th>
+                            <th width="19%"  class="no-sort">คดีคงค้าง</th>
+                          </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let post of posts.data1;let i = index;">
+                            <td align="left" style="padding-left: 20px !important;">{{post.case_type_stat_desc}}</td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_old" type="text" (change)="calCase1($event, 'case_old', 0)"   type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_new" type="text" (change)="calCase1($event, 'case_new', 1)" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_finish" type="text"(change)="calCase1($event, 'case_finish', 2)" type="text"  class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_hold" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" >รวม</td>
+                            <td align="center"><input [(ngModel)]="sum1[0]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum1[1]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum1[2]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum1[3]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                          </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        
+        <tr>
+            <td style="height:35px !important;vertical-align: bottom;" ><span >&nbsp; 2.สถิติคดีแพ่งในเดือนนี้</span></td>
+          </tr>
+          <tr>
+              <td>
+                  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:90%;margin-left:0px;float:left;">        
+                      <thead>
+                          <tr >
+                              <th width="21%" style="height:40px !important;" class="no-sort">ประเภทคดี</th>
+                              <th width="19%" class="no-sort" >คดีค้างมาจากเดือนที่แล้ว</th>
+                              <th width="22%" class="no-sort" >คดีรับใหม่ในเดือนนี้</th>
+                              <th width="19%" class="no-sort" >คดีเสร็จไปในเดือนนี้</th>
+                              <th width="19%" class="no-sort" >คดีค้างไปเดือนหน้า</th>
+                            </tr>
+                      </thead>
+                      <tbody >
+                          <tr *ngFor="let post of posts.data2;let i = index;">
+                            <td align="left" style="padding-left: 20px !important;">{{post.case_type_stat_desc}}</td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_old" type="text" (change)="calCase2($event, 'case_old', 0)"  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_new" type="text" (change)="calCase2($event, 'case_new', 1)" (dblclick)="showCaseAll(post.case_new_txt)" title={{post.case_new_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_finish" type="text"(change)="calCase2($event, 'case_finish', 2)" (dblclick)="showCaseAll(post.case_finish_txt)" title={{post.case_finish_txt}}  type="text"  class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_month_hold" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly >
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="center" >รวม</td>
+                            <td align="center"><input [(ngModel)]="sum2[0]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum2[1]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum2[2]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum2[3]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            </tr>
+                      </tbody>
+                  </table>
+              </td>
+          </tr>
+         
+          <tr>
+            <td style="height:35px !important;vertical-align: bottom;" ><span >&nbsp; 3.ระยะเวลาในการพิจารณาคดี (นับตั้งแต่วันฟ้องจนคดีเสร็จสิ้น)</span><span style="color: red;">&nbsp; **รายการคดีที่แสดงเป็นคดีหมายเลขแดง</span></td>
+        </tr>
+        <tr>
+            <td>
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:100%;margin:0 auto;">        
+                    <thead>
+                        <tr >
+                            <th width="19%" height="20" rowspan="2" class="no-sort">ประเภทคดี</th>
+                            <th width="8%" class="no-sort">ไม่เกิน</th>
+                            <th width="10%" class="no-sort">เกิน1เดือน</th>
+                            <th width="10%" class="no-sort">เกิน3เดือน</th>
+                            <th width="8%" class="no-sort">เกิน6เดือน</th>
+                            <th width="9%" class="no-sort">เกิน1ปี</th>
+                            <th width="9%" class="no-sort">เกิน2ปี</th>
+                            <th width="9%" class="no-sort">เกิน3ปี</th>
+                            <th width="9%" class="no-sort">เกิน4ปี</th>
+                            <th width="9%" class="no-sort">เกิน5ปี</th>
+                        </tr>
+                        <tr >
+                            <th style="border-radius: 0px !important;" class="no-sort">1 เดือน </th>
+                            <th class="no-sort">ไม่เกิน3เดือน</th>
+                            <th class="no-sort">ไม่เกิน6เดือน</th>
+                            <th class="no-sort">ไม่เกิน1ปี</th>
+                            <th class="no-sort">ไม่เกิน2ปี</th>
+                            <th class="no-sort">ไม่เกิน3ปี</th>
+                            <th class="no-sort">ไม่เกิน4ปี</th>
+                            <th class="no-sort">ไม่เกิน5ปี</th>
+                            <th style="border-radius: 0px !important;" class="no-sort">ขึ้นไป</th>
+                          </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let post of posts.data3;let i = index;">
+                            <td align="left" style="padding-left: 20px !important;">{{post.case_type_stat_desc}}</td>
+                            <td align="center">
+                                <input [(ngModel)]="post.nover1m" type="text" (change)="calCase3($event, 'nover1m', 0)" (dblclick)="showCaseAll(post.nover1m_txt)" title={{post.nover1m_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.over1m_nover3m" type="text" (change)="calCase3($event, 'over1m_nover3m', 1)" (dblclick)="showCaseAll(post.over1m_nover3m_txt)" title={{post.over1m_nover3m_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.over3m_nover6m" type="text" (change)="calCase3($event, 'over3m_nover6m', 2)" (dblclick)="showCaseAll(post.over3m_nover6m_txt)"  title={{post.over3m_nover6m_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.over6m_nover1y" type="text" (change)="calCase3($event, 'over6m_nover1y', 3)" (dblclick)="showCaseAll(post.over6m_nover1y_txt)"  title={{post.over6m_nover1y_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.over1y_nover2y" type="text" (change)="calCase3($event, 'over1y_nover2y', 4)" (dblclick)="showCaseAll(post.over1y_nover2y_txt)"  title={{post.over1y_nover2y_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.over2y_nover3y" type="text" (change)="calCase3($event, 'over2y_nover3y', 5)" (dblclick)="showCaseAll(post.over2y_nover3y_txt)"  title={{post.over2y_nover3y_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.over3y_nover4y" type="text" (change)="calCase3($event, 'over3y_nover4y', 6)" (dblclick)="showCaseAll(post.over3y_nover4y_txt)"  title={{post.over3y_nover4y_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.over4y_nover5y" type="text" (change)="calCase3($event, 'over4y_nover5y', 7)" (dblclick)="showCaseAll(post.over4y_nover5y_txt)"  title={{post.over4y_nover5y_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.morethan5y" type="text" (change)="calCase3($event, 'morethan5y', 8)" (dblclick)="showCaseAll(post.morethan5y_txt)"  title={{post.morethan5y_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" >รวม</td>
+                            <td align="center"><input [(ngModel)]="sum3[0]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum3[1]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum3[2]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum3[3]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum3[4]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum3[5]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum3[6]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum3[7]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum3[8]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                          </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+         
+        <tr>
+            <td style="height:35px !important;vertical-align: bottom;" ><span >&nbsp; 4.การอุทธรณ์ต่อศาลอุทธรณ์</span></td>
+        </tr>
+        <tr>
+            <td>
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:100%;margin:0 auto;">        
+                    <thead>
+                        <tr >
+                            <th width="197" rowspan="2" class="no-sort">ประเภทคดี</th>
+                            <th colspan="5" class="no-sort">อุทธรณ์ต่อศาลอุทธรณ์</th>
+                        </tr>
+                        <tr >
+                            <th width="162" style="border-radius: 0px !important;" class="no-sort">ค้างส่งจากเดือนก่อน</th>
+                            <th width="141" class="no-sort">คดีที่ยื่นอุทธรณ์</th>
+                            <th width="207" class="no-sort">คดีที่ไม่อนุญาตให้ยื่นอุทธรณ์</th>
+                            <th width="164" class="no-sort">คดีที่ส่งไปยังศาลอุทธรณ์</th>
+                            <th width="160" style="border-radius: 0px !important;" class="no-sort">คงค้างส่งไปในเดือนนี้</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let post of posts.data4;let i = index;">
+                            <td align="left" style="padding-left: 20px !important;">{{post.case_type_stat_desc}}</td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_hold_app" type="text" (change)="calCase4($event, 'case_hold_app', 0)" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_new_app" type="text" (change)="calCase4($event, 'case_new_app', 1)" (dblclick)="showCaseAll(post.case_new_app_txt)" title={{post.case_new_app_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_hold_send_app" type="text" (change)="calCase4($event, 'case_hold_send_app', 2)" (dblclick)="showCaseAll(post.case_hold_send_app_txt)"  title={{post.case_hold_send_app_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_send_app" type="text" (change)="calCase4($event, 'case_send_app', 3)" (dblclick)="showCaseAll(post.case_send_app_txt)" title={{post.case_send_app_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_hold_send_month" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" >รวม</td>
+                            <td align="center"><input [(ngModel)]="sum4[0]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum4[1]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum4[2]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum4[3]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum4[4]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="height:35px !important;vertical-align: bottom;" ><span >&nbsp; 5.การฎีกาต่อศาลฎีกา</span></td>
+        </tr>
+        <tr>
+            <td>
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:100%;margin:0 auto;">        
+                    <thead>
+                        <tr >
+                            <th width="197" rowspan="2" class="no-sort">ประเภทคดี</th>
+                            <th width="142" rowspan="2" class="no-sort">คดีที่ยื่นขออนุญาตฎีกา<br>ค้างจากเดือนก่อน</th>
+                            <th width="142"rowspan="2" class="no-sort">คดีที่ยื่นขออนุญาต<br>ฎีกาในเดือนนี้</th>
+                            <th width="142"rowspan="2" class="no-sort">คดีที่ส่งไป<br>ยังศาลฎีกา</th>
+                            <th colspan="3" class="no-sort">ศาลฎีกามีคำสั่ง</th>
+                            <th width="142"rowspan="2" class="no-sort">คดีที่ค้างส่งไปยังศาล<br>ฎีกา</th>
+                        </tr>
+                        <tr >
+                            <th width="141" class="no-sort" style="border-radius: 0px !important;" >อนุญาต</th>
+                            <th width="207" class="no-sort">ไม่อนุญาต</th>
+                            <th width="164" class="no-sort" style="border-radius: 0px !important;">อยู่ระหว่างการพิจารณา</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let post of posts.data4;let i = index;">
+                            <td align="left" style="padding-left: 20px !important;">{{post.case_type_stat_desc}}</td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_hold_dika" type="text" (change)="calCase5($event, 'case_hold_dika', 0)" (dblclick)="showCaseAll(post.case_hold_dika_txt)"  title={{post.case_hold_dika_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_new_dika" type="text" (change)="calCase5($event, 'case_new_dika', 1)" (dblclick)="showCaseAll(post.case_new_dika_txt)"  title={{post.case_new_dika_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_send_dika" type="text" (change)="calCase5($event, 'case_send_dika', 2)" (dblclick)="showCaseAll(post.case_send_dika_txt)" title={{post.case_send_dika_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <!-- อนุญาต xxx-->
+                            <td align="center">
+                                <input [(ngModel)]="post.case_dika_permit" type="text" (change)="calCase5($event, 'case_dika_permit', 3)" (dblclick)="showCaseAll(post.case_dika_permit_txt)"  title={{post.case_dika_permit_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <!-- ไม่อนุญาต xxx-->
+                            <td align="center">
+                                <input [(ngModel)]="post.case_dika_npermit" type="text" (change)="calCase5($event, 'case_dika_npermit', 4)" (dblclick)="showCaseAll(post.case_dika_npermit_txt)"  title={{post.case_dika_npermit_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <!-- อยู่ระหว่างการพิจารณา xxx-->
+                            <td align="center">
+                                <input [(ngModel)]="post.case_dika" type="text" (change)="calCase5($event, 'case_dika', 5)" (dblclick)="showCaseAll(post.case_dika_txt)"  title={{post.case_dika_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_hold_send_dika_month" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" >รวม</td>
+                            <td align="center"><input [(ngModel)]="sum5[0]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum5[1]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum5[2]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum5[3]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum5[4]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum5[5]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum5[6]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                          </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <!-- <tr>
+            <td>
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:100%;margin:0 auto;">        
+                    <thead>
+                        <tr >
+                            <th width="197" rowspan="2" class="no-sort">ประเภทคดี</th>
+                            <th colspan="5" class="no-sort">อุทธรณ์ต่อศาลฎีกา</th>
+                        </tr>
+                        <tr >
+                            <th width="162" style="border-radius: 0px !important;" class="no-sort">ค้างส่งจากเดือนก่อน</th>
+                            <th width="141" class="no-sort">คดีที่ยื่นฎีกา</th>
+                            <th width="207" class="no-sort">คดีที่ไม่อนุญาตให้ยื่นฎีกา</th>
+                            <th width="164" class="no-sort">คดีที่ส่งไปยังศาลฎีกา</th>
+                            <th width="160" style="border-radius: 0px !important;" class="no-sort">คงค้างส่งไปในเดือนนี้</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let post of posts.data4;let i = index;">
+                            <td align="left" style="padding-left: 20px !important;">{{post.case_type_stat_desc}}</td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_hold_dika" type="text" (change)="calCase5($event, 'case_hold_dika', 0)" (dblclick)="showCaseAll(post.case_hold_dika_txt)"  title={{post.case_hold_dika_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_new_dika" type="text" (change)="calCase5($event, 'case_new_dika', 1)" (dblclick)="showCaseAll(post.case_new_dika_txt)"  title={{post.case_new_dika_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_hold_send_dika" type="text" (change)="calCase5($event, 'case_hold_send_dika', 2)" (dblclick)="showCaseAll(post.case_hold_send_dika_txt)"  title={{post.case_hold_send_dika_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_send_dika" type="text" (change)="calCase5($event, 'case_send_dika', 3)" (dblclick)="showCaseAll(post.case_send_dika_txt)" title={{post.case_send_dika_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                            <td align="center">
+                                <input [(ngModel)]="post.case_hold_send_dika_month" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" >รวม</td>
+                            <td align="center"><input [(ngModel)]="sum5[0]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum5[1]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum5[2]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum5[3]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                            <td align="center"><input [(ngModel)]="sum5[4]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly ></td>
+                          </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr> -->
+        <tr>
+            <td style="height:35px !important;vertical-align: bottom;" ><span >&nbsp;6.คดีละเมิดอำนาจศาล</span></td>
+        </tr>
+        <tr>
+            <td>       
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:100%;margin:0 auto;">        
+                    <thead>
+                        <tr>
+                            <th width="50%" [attr.rowspan]="2" class="no-sort">รายการ</th>
+                            <th width="50%"  class="no-sort"  [attr.colspan]="numColumn" >จำนวนคดีที่เข้าสู่การพิจารณา</th>
+                        </tr>
+                        <tr>
+                            <th height="25"  width="10%" *ngFor="let getdata of getCaseTypeStat" class="no-sort" style="border-radius: 0px !important;">{{getdata.fieldNameValue}}</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <tr >
+                            <td  align="left" style="padding-left: 20px !important;">1.ขัดขืนไม่ปฏิบัติตามกฎของศาล</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="post.case_new1" type="text" (change)="calCase6_1($event, 'case_new1', i)" tooltipClass="my-custom-class" (dblclick)="showCaseAll(post.case_new1_txt)" title={{post.case_new1_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align="left" style="padding-left: 20px !important;" >2.แสดงข้อเท็จจริงหรือแสดงหลักฐานอันเป็นเท็จต่อศาลในการไต่สวน คำร้องขอยกเลิกค่าธรรมเนียมศาล</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="post.case_new2" type="text" (change)="calCase6_1($event, 'case_new2', i)" tooltipClass="my-custom-class" (dblclick)="showCaseAll(post.case_new2_txt)"  title={{post.case_new2_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align="left" style="padding-left: 20px !important;" >3.จงใจไปเสียให้พ้นหรือหาทางหลีกเลี่ยงที่จะไม่รับรู้คำคู่ความหรือเอกสารอื่น</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="post.case_new3" type="text" (change)="calCase6_1($event, 'case_new3', i)" tooltipClass="my-custom-class" (dblclick)="showCaseAll(post.case_new3_txt)" title={{post.case_new3_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align="left" style="padding-left: 20px !important;" >4.ตรวจเอกสารทั้งหมด หรือฉบับใดฉบับหนึ่งซึ่งอยู่ในสำนวนความ หรือคัดเอาเอกสารนั้นไปโดยฝ่าฝืนต่อบทบัญญัติ</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="post.case_new4" type="text" (change)="calCase6_1($event, 'case_new4', i)" tooltipClass="my-custom-class" (dblclick)="showCaseAll(post.case_new4_txt)" title={{post.case_new4_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align="left" style="padding-left: 20px !important;" >5.ขัดขืนไม่มาศาลตามตำสั่งศาลหรือหมายเรียก</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="post.case_new5" type="text" (change)="calCase6_1($event, 'case_new5', i)" tooltipClass="my-custom-class" (dblclick)="showCaseAll(post.case_new5_txt)"  title={{post.case_new5_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align="left" style="padding-left: 20px !important;" >6.ประพันธ์ บรรณาธิการ หรือโฆษณาแห่งหนังสือพิมพ์หรือสื่อสิ่งพิมพ์ที่มีข้อความ หรือความเห็นอันเป็นการเปิดเผยข้อเท็จจริงหรือพฤติกรรมอื่นๆแห่งคดี</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="post.case_new6" type="text" (change)="calCase6_1($event, 'case_new6', i)" tooltipClass="my-custom-class" (dblclick)="showCaseAll(post.case_new6_txt)" title={{post.case_new6_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align="left" style="padding-left: 20px !important;" >7.โฆษณาหนังสือพิมพ์หรือสื่อสิ่งพิมพ์ซึ่งทำให้การพิจารณาคดีเสียความยุติธรรม</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="post.case_new7" type="text" (change)="calCase6_1($event, 'case_new7', i)" tooltipClass="my-custom-class" (dblclick)="showCaseAll(post.case_new7_txt)" title={{post.case_new7_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align="left" style="padding-left: 20px !important;" >8.อื่นๆ</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="post.case_new8" type="text" (change)="calCase6_1($event, 'case_new8', i)" tooltipClass="my-custom-class" (dblclick)="showCaseAll(post.case_new8_txt)" title={{post.case_new8_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align="center">รวม</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="sum6_1[i]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly >
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="height:5px !important;vertical-align: bottom;" ></td>
+        </tr>
+        <tr>
+            <td>   
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:100%;margin:0 auto;margin-top:3px;">        
+                    <thead>
+                        <tr>
+                            <th style="width: 50% !important;height:50px !important;" rowspan="2" class="no-sort">รายการ</th>
+                            <th style="width: 50% !important;"  class="no-sort" [attr.colspan]="numColumn" >จำนวนคดีที่ พิพากษาเสร็จไป</th>
+                        </tr>
+                        <tr>
+                            <th height="25"  width="10%" *ngFor="let getdata of getCaseTypeStat" class="no-sort" style="border-radius: 0px !important;">{{getdata.fieldNameValue}}</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <tr >
+                            <td  align="left" style="padding-left: 20px !important;" >1.ขัดขืนไม่ปฏิบัติตามกฎของศาล</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="post.case_finish1" type="text" (change)="calCase6_2($event, 'case_finish1', i)" (dblclick)="showCaseAll(post.case_finish1_txt)"  title={{post.case_finish1_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align="left" style="padding-left: 20px !important;" >2.แสดงข้อเท็จจริงหรือแสดงหลักฐานอันเป็นเท็จต่อศาลในการไต่สวน คำร้องขอยกเลิกค่าธรรมเนียมศาล</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="post.case_finish2" type="text" (change)="calCase6_2($event, 'case_finish2', i)" (dblclick)="showCaseAll(post.case_finish2_txt)" title={{post.case_finish2_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align="left" style="padding-left: 20px !important;" >3.จงใจไปเสียให้พ้นหรือหาทางหลีกเลี่ยงที่จะไม่รับรู้คำคู่ความหรือเอกสารอื่น</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="post.case_finish3" type="text" (change)="calCase6_2($event, 'case_finish3', i)" (dblclick)="showCaseAll(post.case_finish3_txt)" title={{post.case_finish3_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align="left" style="padding-left: 20px !important;" >4.ตรวจเอกสารทั้งหมด หรือฉบับใดฉบับหนึ่งซึ่งอยู่ในสำนวนความ หรือคัดเอาเอกสารนั้นไปโดยฝ่าฝืนต่อบทบัญญัติ</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="post.case_finish4" type="text" (change)="calCase6_2($event, 'case_finish4', i)" (dblclick)="showCaseAll(post.case_finish4_txt)"  title={{post.case_finish4_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align="left" style="padding-left: 20px !important;" >5.ขัดขืนไม่มาศาลตามตำสั่งศาลหรือหมายเรียก</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="post.case_finish5" type="text" (change)="calCase6_2($event, 'case_finish5', i)" (dblclick)="showCaseAll(post.case_finish5_txt)" title={{post.case_finish5_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align="left" style="padding-left: 20px !important;" >6.ประพันธ์ บรรณาธิการ หรือโฆษณาแห่งหนังสือพิมพ์หรือสื่อสิ่งพิมพ์ที่มีข้อความ หรือความเห็นอันเป็นการเปิดเผยข้อเท็จจริงหรือพฤติกรรมอื่นๆแห่งคดี</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="post.case_finish6" type="text" (change)="calCase6_2($event, 'case_finish6', i)" (dblclick)="showCaseAll(post.case_finish6_txt)" title={{post.case_finish6_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align="left" style="padding-left: 20px !important;" >7.โฆษณาหนังสือพิมพ์หรือสื่อสิ่งพิมพ์ซึ่งทำให้การพิจารณาคดีเสียความยุติธรรม</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="post.case_finish7" type="text" (change)="calCase6_2($event, 'case_finish7', i)" (dblclick)="showCaseAll(post.case_finish7_txt)"  title={{post.case_finish7_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align="left" style="padding-left: 20px !important;" >8.อื่นๆ</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="post.case_finish8" type="text" (change)="calCase6_2($event, 'case_finish8', i)" (dblclick)="showCaseAll(post.case_finish8_txt)" title={{post.case_finish8_txt}}  type="text" class="form-control" style="width:75px;height:28px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" >
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align="center">รวม</td>
+                            <td align="center" *ngFor="let post of posts.data6;let i = index;">
+                                <input [(ngModel)]="sum6_2[i]" type="text" class="form-control" style="width:75px;height:28px;text-align: center;" readonly >
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr> 
+    </table>   

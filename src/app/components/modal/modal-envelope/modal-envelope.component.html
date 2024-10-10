@@ -1,0 +1,23 @@
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+  <thead>
+    <tr align="center" >
+      <th width="150" height="25" ><strong>เลือก</strong></th>
+      <th ><strong>ลำดับที่ซอง</strong></th>
+      <th ><strong>เลขที่ซองศาลสูง</strong></th>
+    </tr>
+  </thead>
+  <tbody *ngIf="items?.length != 0" >
+    <tr *ngFor="let datas of items;let i = index;" >
+      <td align="center" ><input type="checkbox" [(ngModel)]="this.items[i].index" style="height:15px;width:15px;margin-top:2px;cursor:pointer;" (change)="isAllSelected(this.items,'masterSelect','index')"></td>
+      <td align="center" (click)="onClickListData(i)">{{datas.case_desc}}</td>
+      <td align="center" (click)="onClickListData(i)">{{datas.hcase_no1}}</td>
+    </tr>
+   </tbody>
+   <tbody *ngIf="items?.length == 0">
+    <tr><td colspan="3" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+  </tbody>
+</table>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner> 

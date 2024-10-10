@@ -1,0 +1,26 @@
+<div [style.width]="widthSet" style="margin-top:12px;">
+  <mat-tab-group animationDuration="0ms" [selectedIndex]="0" (selectedIndexChange)="1" (selectedTabChange)="assignWidth($event)" >
+    <mat-tab label="รับฟ้อง" style="padding:10px !important;"  >
+      <app-fca0200-tab1 
+        [caseCateId]="sendCaseCateId" 
+        [caseType]="sendCaseType" 
+        [caseCateName]="sendCaseCateName" 
+        [caseCateFlag]="sendCaseCateFlag" 
+        [dataHead]="sendDataHead" 
+        [courtFee]="sendCourtFee" 
+        [courtProv]="sendCourtProv" 
+        [callTab1]="sendCallTab1" 
+        [loginCase]="sendLoginCase" 
+        (onUpdateCase)="receiveObjData($event)"
+        (onCaseInsert)="receiveObjData2($event)"
+        (onChangeActive)="receiveObjData3($event)"
+        (onReloadCase)="receiveObjData4($event)">
+      </app-fca0200-tab1>
+    </mat-tab>
+    <mat-tab label="สารบบคำฟ้อง" style="padding:10px !important;" ><app-fca0200-tab2 [caseType]="sendCaseType" [dataHead]="sendDataHead" (onUpdateCase)="receiveObjData($event)"></app-fca0200-tab2></mat-tab>
+    <mat-tab label="รายการหมาย" style="padding:10px !important;" ><app-fca0200-tab3 [dataHead]="sendDataHead" ></app-fca0200-tab3></mat-tab>
+    
+  </mat-tab-group>
+</div> 
+
+

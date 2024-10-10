@@ -1,0 +1,192 @@
+<style>
+
+</style>
+<!-- <app-menu></app-menu> -->
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info">
+			<!-- <div class="card-header">
+			<h3 class="card-title">{{programName}}</h3>
+			</div> -->
+			<!-- /.card-header -->
+			<!-- form start -->
+
+				<div class="card-body">
+					<!--	-->
+					<table width="100%"  border="0" cellspacing="0" cellpadding="0" >
+            <tr>
+              <td style="height: 34px !important;" colspan="2">
+                  <div style="float: left;margin-left:3px;margin-top:3px;"><b>> ข้อมูลหลักทรัพย์บัญชีเงินฝาก</b></div>
+              </td>
+          </tr>
+            <!-- <tr>
+              <td width="20%"  align="right">ลำดับที่ :&nbsp;</td>
+              <td align="left" >
+                <div style="float:left;margin-left:3px;"><input [(ngModel)]="result.guarman_item" name="guarman_item" id="guarman_item" type="text" class="form-control" style="width:60px;height:28px;text-align:center;"></div>
+                <div style="float:left;margin-left:3px;padding-top: 4px;"> &nbsp; จำเลยที่ :&nbsp; </div>
+                <div style="float:left;margin-left:3px;"><input [(ngModel)]="result.accu" name="accu" id="accu" type="text" class="form-control" style="width:60px;height:28px;text-align:center;"></div>
+                <div style="float: left;margin-left:2px;" >
+                  <i  class="far fa-list-alt" style="font-size: 20px;margin-left:5px;margin-top:1px;" (click)="clickOpenMyModalComponent(1)"></i>
+              </div>
+              <div style="float:left;margin-left:3px;padding-top: 4px;"> &nbsp; (ใช้เฉพาะกรณีใช้ตนเองเป็นหลักประกัน)</div>
+                <input type="hidden" [(ngModel)]="hid_guarantor_id" name="hid_guarantor_id" id="hid_guarantor_id" >
+               </td>
+            </tr> -->
+            <!-- <tr>
+              <td width="40%"  align="right">นายประกัน :&nbsp;</td>
+              <td align="left" >
+                <div style="float:left;margin-left:3px;"><input [(ngModel)]="result.guarman_item" name="guarman_item" id="guarman_item" type="text"  class="form-control" style="width:60px;height:28px;text-align:center;"></div>
+                <div style="float:left;margin-left:3px;"><input [(ngModel)]="result.guarman_name" name="guarman_name" id="guarman_name" type="text"  class="form-control" style="width:250px;height:28px;text-align:center;" readonly></div>
+                            <div style="float: left;margin-left:2px;" >
+                  <i  class="far fa-list-alt" style="font-size: 20px;margin-left:5px;margin-top:1px;" (click)="clickOpenMyModalComponent(3)"></i>
+              </div>
+                  <input type="hidden" [(ngModel)]="hid_guarman_item" name="hid_guarman_item" id="hid_guarman_item" >
+                  <input type="hidden" [(ngModel)]="hid_asset_item" name="hid_asset_item" id="hid_asset_item" >
+              </td>
+            </tr> -->
+            <tr>
+              <td align="right">นายประกัน :&nbsp;</td>
+              <td><div style="float:left;margin-left:3px;">
+                <input  type="text" [(ngModel)]="result.guarman_item"  (change)="tabChangeGuar('guar_name',GuarantorDataObj,$event,1)"  class="form-control" style="width:80px;text-align:center;float:left;" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+              </div>
+              <div style="float:left;margin-left:2px;">
+                <ng-select [(ngModel)]="result.guar_name" style="width:200px;" class="guar_name " (change)="tabChangeGuar('guarman_item',GuarantorDataObj,$event,2)" >
+                  <ng-option *ngFor="let getData of GuarantorDataObj" [value]=getData.guar_name>{{getData.guar_name}}</ng-option>
+                </ng-select>
+              </div>
+              <input type="hidden" [(ngModel)]="hid_guarman_item" name="hid_guarman_item" id="hid_guarman_item" >
+              <input type="hidden" [(ngModel)]="hid_asset_item" name="hid_asset_item" id="hid_asset_item" >
+            </td>
+            </tr>
+            <tr>
+              <td width="40%"  align="right"><span style="color:red">*</span>บัญชีเงินฝากประจำธนาคาร :&nbsp;</td>
+              <td align="left" >
+                <div style="float:left;margin-left:3px;"><input [(ngModel)]="result.bbook" name="bbook" id="bbook" type="text"  class="form-control" style="width:60px;height:28px;text-align:center;"></div>
+                <div style="float:left;margin-left:3px;"><input [(ngModel)]="result.bank_name" name="bank_name" id="bank_name" type="text"  class="form-control" style="width:250px;height:28px;text-align:center;" readonly></div>
+                <!-- <div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" >ค้นหา</button></div> -->
+                <div style="float: left;margin-left:2px;" >
+                  <i  class="far fa-list-alt" style="font-size: 20px;margin-left:5px;margin-top:1px;" (click)="clickOpenMyModalComponent(4)"></i>
+              </div>
+              </td>
+            </tr>
+            <tr>
+              <td  align="right">สาขา :&nbsp;</td>
+              <td  align="left" >
+                <div style="float:left;margin-left:3px;"><input [(ngModel)]="result.bbranch" name="" type="text"  class="form-control" style="width:250px;height:28px;"></div>
+                <!-- <div style="float:left; margin-left:5px;margin-top:3px;">กับผู้ถูกประกัน &nbsp;</div> -->
+              </td>
+             </tr>
+            <tr>
+              <td  align="right"><span style="color:red">*</span>เลขที่บัญชี :&nbsp;</td>
+              <td  align="left" >
+                <div style="float:left;margin-left:3px;"><input [(ngModel)]="result.bbook_no" name="" type="text"  class="form-control" style="width:250px;height:28px;"></div>
+                <!-- <div style="float:left; margin-left:5px;margin-top:3px;">กับผู้ถูกประกัน &nbsp;</div> -->
+              </td>
+             </tr>
+              <tr>
+              <td  align="right">ยอดเงินคงเหลือ :&nbsp;</td>
+              <td  align="left" >
+                <div style="float:left;margin-left:3px;"><input [(ngModel)]="result.asset_amt" placeholder="***ตัวเลขเท่านั้น" type="text" name="asset_amt" class="form-control" style="width:250px;height:28px;" onkeypress="return event.charCode >= 48 && event.charCode <= 57"></div>
+                <!-- <div style="float:left; margin-left:5px;margin-top:3px;">กับผู้ถูกประกัน &nbsp;</div> -->
+              </td>
+             </tr>
+             <tr>
+              <td  align="right">ผู้ยินยอม :&nbsp;</td>
+              <td  align="left" >
+                <div style="float:left;margin-left:3px;"><input [(ngModel)]="result.permit" type="text"  class="form-control" style="width:250px;height:28px;"></div>
+              </td>
+             </tr>
+             <tr>
+              <td  align="right">อายุ :&nbsp;</td>
+              <td  align="left" colspan="3" >
+                <div style="float:left;margin-left:3px;"><input [(ngModel)]="result.age" type="text"  class="form-control" style="width:60px;height:28px;text-align:center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57"></div>
+                <div style="float:left; margin-left:5px;margin-top:3px;">เกี่ยวข้องเป็น :&nbsp;</div>
+                <div style="float:left;margin-left:3px;"><input [(ngModel)]="result.rel" type="text"  class="form-control" style="width:250px;height:28px;"></div>
+              </td>
+             </tr>
+             <!-- <tr *ngFor='let in of counter(3) ;let i = index'>
+              <td align="right"width="22%">ไฟล์แนบ :&nbsp;</td>
+              <td align="left" width="18%">
+                <div class="custom-file" style="float:center;width:250px;margin-left:3px">
+                  <input type="file" class="custom-file-input" id="s_file[i]" (change)="onFileChange($event,'fileToUpload'+(i),i)" style="width:230px;height:24px;">
+                  <label class="custom-file-label" #labelImport for="importFile" style="height:24px;text-align: left;"></label>
+                </div>
+              </td>
+              <td width="20%" >
+                <div style="float:left;margin-left: 4px;" [ngStyle]="attach_file[i] == null ?  {'display': 'none'} : {'display': ''}">
+                  <span style="cursor:pointer; color: blue;" (click)="clickOpenFile(i)">
+                    <i class="fa fa-paperclip" style="float: left;font-size:18px;" ></i>
+                    <span *ngIf="attach_file[i] != null">{{attach_file[i].attach_file}}</span>
+                  </span>
+                </div>
+              </td>
+              <td width="40%" >
+                <div style="float: left;margin-left: 4px;" [ngStyle]="attach_file[i] == null ?  {'display': 'none'} : {'display': ''}">
+                  <input  [(ngModel)]="del_file[i]" name="del_file[i]"  type="checkbox" style="width:15px;height:15px;margin-top:5px;"/>
+                </div>
+                <div [ngStyle]="attach_file[i] == null ?  {'display': 'none'} : {'display': ''}" style="float: left;margin-left: 4px;margin-top: 3px;">ลบไฟล์แนบ</div>
+
+              </td>
+            </tr> -->
+                 <tr>
+                <td  align="right">หมายเหตุ :&nbsp;</td>
+                <td  align="left" >
+                  <div style="float:left;margin-left:3px;"><input [(ngModel)]="result.remark"  type="text"   class="form-control" style="width:500px;height:28px;"></div>
+                </td></tr>
+        	</table>
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer">
+          <button type="button" class="btn btn-success" style="margin-left:35%;" (click)="submitForm()">จัดเก็บข้อมูล</button>
+				  <!-- <button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="confirmBox()" >ลบข้อมูลที่เลือก</button> -->
+          <button type="reset" class="btn btn-primary" style="margin-left:5px;color:white;" (click)="ClearAll()">เพิ่ม</button>
+          <button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+          <button type="reset" class="btn btn-danger" style="margin-left:5px;color:white;" (click)="closeWin()">ปิดหน้าจอ</button>
+                     <!-- <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="searchData()">ค้นหา</button> -->
+					<!--<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="goToLink('http://bizascorp.thddns.net:8848/taxcRpt56/rct0226.jsp')">พิมพ์</button>-->
+					<!-- <button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printReport(0)">พิมพ์</button>
+          <button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printReport(1)">พิมพ์(เฉพาะถูกพักใบอนุญาต)</button> -->
+					<input type="hidden" name="delValue" id="delValue">
+					<!-- <input type="hidden" name="delValue2" id="delValue2"> -->
+				</div>
+				<!-- /.card-footer -->
+
+		</div>
+	</div>
+
+
+ <!-- Modal -->
+
+ <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+		  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+		</div>
+		<div class="modal-body" >
+
+      <input type="hidden" name="table_name" id="table_name">
+      <input type="hidden" name="field_id" id="field_id">
+      <input type="hidden" name="field_name" id="field_name">
+      <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+      <app-datalist-return *ngIf="loadComponent"  [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+      <app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+       </div>
+
+		</div>
+		<div class="modal-footer">
+			<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+		  	<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

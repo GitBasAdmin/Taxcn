@@ -1,0 +1,18 @@
+
+    <div style="margin:0 auto;margin:0 auto;display:table;padding:10px;width: 98%;" class="card" >
+        <fieldset style="width:100%;border-radius:4px;border:1px solid #333333;padding:15px;margin:0 auto;display: table;">
+            <legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;" class="lClick">แนบไฟล์ WORD</legend>
+            <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">           
+                <tr>
+                    <td align="left">
+                        <!--<input-file ></input-file>-->
+                        <div class="custom-file" style="float:left;width:370px;">
+                            <input type="file" class="custom-file-input" id="importFiles" (change)="onFileChange($event)" style="width:360px;height:24px;" #file1>
+                            <label class="custom-file-label" #labelImport for="importFile" style="width:360px;height:24px;"></label>
+                        </div>
+
+                    </td>	
+                </tr>
+            </table>
+        </fieldset>            
+    </div>

@@ -1,0 +1,306 @@
+import { Component, OnInit , ViewChild , ElementRef,AfterViewInit,OnDestroy,Injectable   } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators, FormArray , NgForm } from "@angular/forms";
+import {NgbPopover} from '@ng-bootstrap/ng-bootstrap';
+import { HttpClient,HttpHeaders,HttpErrorResponse } from '@angular/common/http';
+import { NgxSpinnerService } from "ngx-spinner";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogLayoutDisplay,ConfirmBoxInitializer } from '@costlydeveloper/ngx-awesome-popup';
+
+// import ในส่วนที่จะใช้งานกับ Observable
+import {Observable,of, Subject  } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
+import { delay } from 'rxjs/operators';
+import { tap, map ,catchError } from 'rxjs/operators';
+import { NgSelectComponent } from '@ng-select/ng-select';
+import { DataTableDirective } from 'angular-datatables';
+import { AuthService } from 'src/app/auth.service';
+import * as $ from 'jquery';
+import { PrintReportService } from 'src/app/services/print-report.service';
+
+//import { ModalConfirmComponent } from '../modal-confirm/modal-confirm.component';
+declare var myExtObject: any;
+
+@Component({
+  selector: 'app-prsn0100,ngbd-popover-basic,ngbd-popover-tplcontent',
+  templateUrl: './prsn0100.component.html',
+  styleUrls: ['./prsn0100.component.css']
+})
+
+
+export class Prsn0100Component implements AfterViewInit, OnInit, OnDestroy {
+  myExtObject :any;
+  //form: FormGroup;
+  title = 'datatables';
+
+  posts:any;
+  search:any;
+  masterSelected:boolean;
+  checklist:any;
+  checkedList:any;
+  delValue:any;
+  sessData:any;
+  userData:any;
+  programName:any;
+  defaultCaseType:any;
+  defaultCaseTypeText:any;
+  defaultTitle:any;
+  defaultRedTitle:any;
+  asyncObservable: Observable<string>;
+  selectedCasetype:any='แพ่ง';
+  getCaseType:any;
+  selCaseType:any;
+  selCaseId:any;
+  result:any = [];
+  dep_id:any;
+  modalType:any;
+  getNoMoney:any;
+  getBkk:any;
+  getPostType:any;
+
+  pcase_type:any;
+  pno_money:any;
+
+  public list:any;
+  public listTable:any;
+  public listFieldId:any;
+  public listFieldName:any;
+  public listFieldName2:any;
+  public listFieldNull:any;
+  public listFieldCond:any;
+  public listFieldType:any;
+  public loadModalListComponent: boolean = false;
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+  public loadComponent: boolean = false;
+
+  @ViewChild('prsn0100',{static: true}) prsn0100 : ElementRef;
+  @ViewChild('openbutton',{static: true}) openbutton : ElementRef;
+  @ViewChild('closebutton',{static: true}) closebutton : ElementRef;
+  //@ViewChild('crudModal') crudModal: ElementRef;
+  @ViewChild(DataTableDirective) dtElement: DataTableDirective; dtInstance:DataTables.Api;
+  //@ViewChild( ModalConfirmComponent ) child: ModalConfirmComponent ;
+  @ViewChild('scasetypeid') scasetypeid : NgSelectComponent;
+
+  constructor(
+    public formBuilder: FormBuilder,
+    private http: HttpClient,
+    private SpinnerService: NgxSpinnerService,
+    private printReportService: PrintReportService,
+    private authService: AuthService
+  ){  }
+
+  ngOnInit(): void {
+    this.sessData=localStorage.getItem(this.authService.sessJson);
+    this.userData = JSON.parse(this.sessData);
+    //this.asyncObservable = this.makeObservable('Async Observable');
+    this.successHttp();
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type','application/json');
+    //======================== pcase_type ======================================
+    var student = JSON.stringify({
+      "table_name" : "pcase_type",
+      "field_id" : "case_type",
+      "field_name" : "case_type_desc",
+      "order_by" : "case_type ASC",
+      "userToken" : this.userData.userToken
+    });
+    this.http.post('/'+this.userData.appName+'ApiUTIL/API/getData', student , {headers:headers}).subscribe(
+      (response) =>{
+        let getDataOptions : any = JSON.parse(JSON.stringify(response));
+        this.getCaseType = getDataOptions;
+        this.selCaseType = this.userData.defaultCaseType;
+
+      //console.log(this.getCaseType)
+      //console.log(this.userData.defaultCaseType)
+      //console.log(this.selCaseType)
+      },
+      (error) => {}
+    )
+    //----------------------end pcase_type -------------------
+
+this.getNoMoney = [{id:'0',text:'ทัั้งหมด'},{id:'1',text:'หมายศาล'},{id:'2',text:'หมายนำ'}];
+this.getBkk = [{id:'1',text:'กทม.'},{id:'2',text:'ตจว.'}];
+this.getPostType = [{id:'0',text:'ทัั้งหมด'},{id:'1',text:'EMS'},{id:'2',text:'ลงทะเบียนตอบรับ'}];
+
+this.setDefPage();
+}
+
+setDefPage(){
+this.result = [];
+this.result.pno_money = '0';
+this.result.pbkk = '1';
+this.result.ppost_type = '0';
+}
+
+changeCaseType(caseType:any){
+  this.selCaseType = caseType;
+}
+
+directiveDate(date:any,obj:any){
+  this.result[obj] = date;
+}
+
+tabChangeInput(name:any,event:any){
+  if(name=='pdep_code'){
+    var student = JSON.stringify({
+      "table_name" : "pdepartment",
+      "field_id" : "dep_code",
+      "field_name" : "dep_name",
+      "condition" : " AND dep_code='"+event.target.value+"'",
+      "userToken" : this.userData.userToken
+    });
+      console.log(student)
+      this.http.post('/'+this.userData.appName+'ApiUTIL/API/getData', student ).subscribe(
+        (response) =>{
+        let productsJson : any = JSON.parse(JSON.stringify(response));
+        console.log(productsJson)
+        if(productsJson.length){
+          this.result.dep_name = productsJson[0].fieldNameValue;
+        }else{
+          this.result.pdep_code = '';
+          this.result.dep_name = '';
+        }
+        },
+        (error) => {}
+      )
+  }
+}
+
+clickOpenMyModalComponent(type:any){
+  this.modalType = type;
+  this.openbutton.nativeElement.click();
+}
+
+receiveFuncListData(event:any){
+console.log(event)
+if(this.modalType==1){
+  this.result.pdep_code=event.fieldIdValue;
+  this.result.dep_name=event.fieldNameValue;
+}else if(this.modalType==2){
+  this.result.poff_id=event.fieldIdValue;
+  this.result.poff_name=event.fieldNameValue;
+}
+this.closebutton.nativeElement.click();
+}
+
+closeModal(){
+this.loadModalListComponent = false;
+}
+
+loadMyModalComponent(){
+$(".modal-backdrop").remove();
+if(this.modalType==1){
+  $("#exampleModal").find(".modal-content").css("width","800px");
+  var student = JSON.stringify({
+    "table_name" : "pdepartment",
+    "field_id" : "dep_code",
+    "field_name" : "dep_name",
+    "search_id" : "",
+    "search_desc" : "",
+    "userToken" : this.userData.userToken});
+  this.listTable='pdepartment';
+  this.listFieldId='dep_code';
+  this.listFieldName='dep_name';
+  this.listFieldNull='';
+
+  this.http.disableLoading().post('/'+this.userData.appName+'ApiUTIL/API/popup', student).subscribe(
+    (response) =>{
+      console.log(response)
+      this.list = response;
+        this.loadModalListComponent = true;
+    },
+    (error) => {}
+  )
+
+}
+}
+
+  /*makeObservable(value: string): Observable<string> {
+    return of(value).pipe(delay(3000));
+  }*/
+
+  successHttp() {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type','application/json');
+    var authen = JSON.stringify({
+      "userToken" : this.userData.userToken,
+      "url_name" : "prsn0100"
+    });
+    let promise = new Promise((resolve, reject) => {
+      //let apiURL = `${this.apiRoot}?term=${term}&media=music&limit=20`;
+      //this.http.get(apiURL)
+      this.http.post('/'+this.userData.appName+'Api/API/authen', authen , {headers:headers})
+        .toPromise()
+        .then(
+          res => { // Success
+          //this.results = res.json().results;
+          let getDataAuthen : any = JSON.parse(JSON.stringify(res));
+          console.log(getDataAuthen)
+          this.programName = getDataAuthen.programName;
+          this.defaultCaseType = getDataAuthen.defaultCaseType;
+          this.defaultCaseTypeText = getDataAuthen.defaultCaseTypeText;
+          this.defaultTitle = getDataAuthen.defaultTitle;
+          this.defaultRedTitle = getDataAuthen.defaultRedTitle;
+            resolve(res);
+          },
+          msg => { // Error
+            reject(msg);
+          }
+        );
+    });
+    return promise;
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    // Destroy the table first
+    dtInstance.destroy();
+    // Call the dtTrigger to rerender again
+    this.dtTrigger.next(null);
+      });}
+
+ ngAfterViewInit(): void {
+    myExtObject.callCalendar();
+    this.dtTrigger.next(null);
+     }
+
+  ngOnDestroy(): void {
+      this.dtTrigger.unsubscribe();
+    }
+
+    ClearAll(){
+      window.location.reload();
+    }
+
+
+    printReport(type:any){
+      var rptName = 'rsn0100';
+
+      // For no parameter : paramData ='{}'
+      var paramData ='{}';
+
+      // For set parameter to report
+       var paramData = JSON.stringify({
+        'ptype' : type,
+        "pdata_type" : this.result.pdata_type ? this.result.pdata_type.toString() : '',
+        "pdate_start" : this.result.txtStartDate ? myExtObject.conDate(this.result.txtStartDate) : '',
+        "pdate_end" : this.result.txtEndDate ? myExtObject.conDate(this.result.txtEndDate) : '',
+        "pdep_code" : this.result.pdep_code ? this.result.pdep_code.toString() : '',
+        "pcase_type" : this.result.pcase_type ? this.result.pcase_type.toString() : '',
+        "pno_money" : this.result.pno_money ? this.result.pno_money.toString() : '',
+        "pbkk" : this.result.pbkk ? this.result.pbkk.toString() : '',
+        "ppost_type" : this.result.ppost_type ? this.result.ppost_type.toString() : '',
+        "pdep_name" : this.result.dep_name ? this.result.dep_name.toString() : '',
+       });
+       console.log(paramData);
+      // alert(paramData);return false;
+      this.printReportService.printReport(rptName,paramData);
+    }
+}
+
+
+
+
+
+

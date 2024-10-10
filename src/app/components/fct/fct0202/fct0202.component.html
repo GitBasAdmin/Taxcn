@@ -1,0 +1,216 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info">
+			<div class="card-header">
+			<h3 class="card-title">{{programName}}</h3>
+			</div>
+			<!-- /.card-header -->
+			<!-- form start -->
+				<form class="form-horizontal" id="myForm"  #fct0202>
+				<div class="card-body">
+					<!--
+					<div class="form-group row">
+					<label for="inputEmail3" class="col-sm-2 col-form-label">รหัส :</label>
+					<div class="col-sm-10">
+						<input type="text"  name="case_type" id="case_type"  class="form-control" placeholder="" >
+						<input type="hidden"  name="hid_case_type" id="hid_case_type" >
+					</div>
+					</div>
+
+					<div class="form-group row">
+					<label for="inputPassword3" class="col-sm-2 col-form-label">ประเภทคดี :</label>
+					<div class="col-sm-10">
+						<input type="text"  name="case_type_desc" id="case_type_desc" class="form-control" placeholder="" >
+					</div>
+					</div>
+					-->
+					<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+            <tr>
+              <td height="25" width="150" height="34" align="right">ความ :&nbsp;</td>
+              <td >
+                <div style="float:left;" >
+                  <div style="float:left;" >
+                    <ng-select [(ngModel)]="selCaseType" style="width:180px;" [ngModelOptions]="{standalone: true}"  #sCaseTypeId>
+                      <ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+              </td>
+              </tr>
+						<tr>
+						<td   align="right">รหัส :&nbsp;</td>
+						<td >
+							<input type="text"  name="case_cate_id" id="case_cate_id"  class="form-control" style="width:80px;" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+							<input type="hidden"  name="hid_case_cate_id" id="hid_case_cate_id" >
+						</td>
+						</tr>
+            <tr>
+              <td align="right" >รหัสมาตราฐาน :&nbsp;</td>
+					<td align="left">
+						<div style="float: left;">
+              <input  name="std_id" type="text" id="std_id"  maxlength="5" (change)="tabChange($event)"  class="form-control" style="width:90px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:2px;">
+                <input  name="std_case_cate_name" type="text"  id="std_case_cate_name" value="" readonly class="form-control" style="width:220px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:2px;margin-top:4px;">
+              <i class='far fa-list-alt iDep' style="font-size: 20px;cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadTableComponent(1);"></i>
+            </div>
+					</td>
+            </tr>
+
+						<tr>
+							<td   align="right" >ประเภทคดี :&nbsp;</td>
+							<td ><input type="text"  name="case_cate_name" id="case_cate_name" class="form-control" style="width:300px;" ></td>
+						</tr>
+						<tr>
+							<td    align="right" >ประเภทย่อย :&nbsp;</td>
+							<td >
+                <div style="float: left;">
+
+                  <ng-select [(ngModel)]="selCaseFlag"  style="width:150px;height:28px;" [ngModelOptions]="{standalone: true}" #sCaseFlag>
+                    <ng-option *ngFor="let getData of getCaseFlag" [value]="getData.id">{{getData.text}}</ng-option>
+                   </ng-select>
+
+                </div>
+								<div style="float: left;margin-left:8px;margin-top:3px;">
+									<input  name="no_edit_flag" type="checkbox" id="no_edit_flag" style="width:15px;margin-top:5px;"/>
+								</div>
+								<div style="float: left;margin-left:2px;margin-top:3px;">ห้ามแก้ไข</div>
+							</td>
+						</tr>
+            <tr>
+              <td height="28"  align="right">&nbsp;</td>
+              <td >
+                <span style="float:left;margin-left:8px;margin-top:5px; text-align: center; color: red;">*** ประเภทย่อยคดีศาลอื่น จะไม่สร้างข้อมูลจัดปกในคดี&nbsp;</span>
+              </td>
+              </tr>
+					</table>
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer" >
+          <button type="button" class="btn btn-success" style="margin-left:150px;" (click)="submitForm()">จัดเก็บข้อมูล</button>
+          <button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="confirmBox()" >ลบข้อมูลที่เลือก</button>
+          <button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+					<button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="searchData()">ค้นหา</button>
+					<!--<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="goToLink('http://basbanpuy.thddns.net:8848/taxcRpt56/rct0218.jsp')">พิมพ์</button>-->
+          <button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printReport()">พิมพ์</button>
+					<input type="hidden" value="" name="delValue" id="delValue">
+				</div>
+				<!-- /.card-footer -->
+				</form>
+		</div>
+	</div>
+
+	<div class="content" style="padding:10px;margin-top:-25px;">
+		<section class="content" style="width: 100%;">
+		<div class="card card-info">
+			<div class="card-header" style="display:none;">
+			<h3 class="card-title">ข้อมูล</h3>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover myTable1">
+					<thead>
+						<tr>
+						<th width="3%" class="no-sort">
+							<input type="checkbox" name="all" [(ngModel)]="masterSelected" value="m1" (change)="checkUncheckAll()"/>
+						</th>
+						<th width="3%" class="no-sort">แก้ไข</th>
+						<th width="5%">รหัส</th>
+            			<th width="5%">รหัส<br>มาตราฐาน</th>
+						<th width="7%">ความ</th>
+            			<th width="10%">ประเภทคดี</th>
+						<th width="8%">ประเภทย่อย</th>
+           				<th width="5%">ห้ามแก้ไข</th>
+						<th width="8%" >หน่วยงานที่จัดเก็บ</th>
+						<th width="8%" >ผู้จัดเก็บ</th>
+						<th width="8%" >วัน/เวลาที่จัดเก็บ</th>
+						<th width="8%" >หน่วยงานที่แก้ไข</th>
+						<th width="8%" >ผู้แก้ไข</th>
+						<th width="8%"  >วัน/เวลาที่แก้ไข</th>
+						<!--<th width="15%">&nbsp;</th>-->
+						</tr>
+					</thead>
+					<tbody *ngIf="posts?.length != 0">
+
+					<tr *ngFor="let post of posts;let i = index;">
+							<td align="center">
+								<input type="checkbox" [ngStyle]="userData.offName !='ADMINISTRATOR' && post.no_edit_flag==1 ?  {'display': 'none'} : {'display': ''}" [(ngModel)]="post.editCaseCateId"  value="{{post.case_cate_id}}" (change)="isAllSelected()" >
+							</td>
+							<td align="center"><i class='fas fa-pencil-alt' [ngStyle]="userData.offName !='ADMINISTRATOR' && post.no_edit_flag==1 ?  {'display': 'none'} : {'display': ''}" style='cursor:pointer;font-size:20px' (click)="editData(post.edit_case_cate_id)"></i></td>
+							<td align="center">{{post.case_cate_id}}</td>
+              				<td align="center">{{post.std_id}}</td>
+							<td align="center">{{post.case_type_desc}}</td>
+              				<td align="center">{{post.case_cate_name}}</td>
+              				<td align="center">{{post.case_flag_desc}}</td>
+							<td align="center"><i class='fas fa-check' style='font-size:20px;color:green' *ngIf="post.no_edit_flag==1"></i></td>
+							<td align="center">{{post.create_dep_name}}</td>
+							<td align="center">{{post.create_user}}</td>
+							<td align="center">{{post.create_date}}</td>
+							<td align="center">{{post.update_dep_name}}</td>
+							<td align="center">{{post.update_user}}</td>
+							<td align="center">{{post.update_date}}</td>
+							<!---<td align="center">
+								<ng-template #popContent>
+									หน่วยงานที่จัดเก็บ = {{post.createDepName}}<br>
+									ผู้จัดเก็บ = {{post.createUser}}<br>
+									วันที่จัดเก็บ = {{post.createDate}}<br>
+									หน่วยงานที่แก้ไข = {{post.updateDepName}}<br>
+									ผู้แก้ไข = {{post.updateUser}}<br>
+									วันที่แก้ไข = {{post.updateDate}}<br>
+								</ng-template>
+								<i class="fa fa-eye" placement="left" popoverTitle="รายละเอียดการจัดเก็บข้อมูล" [ngbPopover]="popContent" style="cursor:pointer;font-size:22px"></i>
+							</td>-->
+						</tr>
+					</tbody>
+					<tbody *ngIf="posts?.length == 0">
+						<tr>
+							<td colspan="14" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+		</section>
+	</div>
+
+<!-- Modal -->
+
+<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+		  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+		</div>
+		<div class="modal-body" >
+
+				<input type="hidden" name="table_name" id="table_name">
+				<input type="hidden" name="field_id" id="field_id">
+				<input type="hidden" name="field_name" id="field_name">
+				<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+				<app-datalist-return *ngIf="loadComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldName2 (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+				<app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+			</div>
+
+		</div>
+		<div class="modal-footer">
+			<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+		  	<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>

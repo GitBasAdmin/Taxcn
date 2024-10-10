@@ -1,0 +1,47 @@
+<div class="modal-header">
+  <span class="modal-title">ข้อมูลที่แสดงนี้เป็นข้อมูลบนเว็บ กรุณาคลิกเลือกข้อมูลที่ต้องการ แล้วกดปุ่ม [นำเข้าข้อมูลที่เลือก]</span>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.close()"></button>
+</div>
+<div class="modal-body" >
+  <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+    
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered dataTableImport" style="margin-top:4px;">
+    <thead>
+      <tr align="center" >
+        <th width="10%" height="25" ><input type="checkbox" #impAll2 (change)="checkUncheckAll(1,impAll2.checked)"></th>
+        <th width="10%"><strong>เลขอ้างอิง</strong></th>
+        <th width="20%"><strong>ผู้ขอให้ออกหมาย</strong></th>
+        <th width="20%"><strong>ขอให้ออกหมาย</strong></th>
+        <th width="10%"><strong>หมายเลขคดีดำ</strong></th>
+        <th ><strong>คู่ความ</strong></th>
+      </tr>
+    </thead>
+    <tbody *ngIf="items?.length != 0" >
+      <tr *ngFor="let datas of items;let i = index;" >
+        <td width="10%" align="center" ><input type="checkbox" (change)="isAllSelected(1)"  [value]="datas.notice_running" class="delM"></td>
+        <td width="10%" align="center" >{{datas.req_no}}/{{datas.req_yy}}</td>
+        <td width="20%" align="center" >{{datas.req_user_name}}</td>
+        <td width="20%" align="center" >{{datas.notice_type_name}}</td>
+        <td width="10%" align="center" >{{datas.title}}{{datas.id}}/{{datas.yy}}</td>
+        <td align="center" >
+          <div style="width:98%;margin:0 auto;text-align:left;padding-left:5px;" *ngFor="let datas2 of datas.withness;let ii = index;">{{datas2.full_name}}</div>
+        </td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="items?.length == 0">
+      <tr><td colspan="6" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+    </tbody>
+  </table>
+
+  
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn btn-primary" (click)="importData()">นำเข้าข้อมูลที่เลือก</button>
+  <button type="button" class="btn btn-warning" (click)="activeModal.close()">ปิดหน้าจอ</button>
+</div>
+
+
+<!-- <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner>  -->

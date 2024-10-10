@@ -1,0 +1,69 @@
+
+<table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+  <tr >
+    <td height="30" align="center" class="blackb">
+      <div style="display: table;margin: 0 auto;">
+        <div style="float: left;margin-top:2px;"><input type="radio" [(ngModel)]="result.j_type" name="cond2" [value]="1"  style="height: 14px;width: 14px;cursor:pointer;" (click)="case_cate_id.clearModel()"></div>
+        <div style="float: left;margin-top:0px;margin-left:5px;">ผู้พิพากษาทั้งหมด</div>
+        <div style="float: left;margin-top:2px;margin-left:10px;"><input type="radio" [(ngModel)]="result.j_type" name="cond2" [value]="2"  checked style="height: 14px;width: 14px;cursor:pointer;"></div>
+        <div style="float: left;margin-top:0px;margin-left:5px;">ผู้พิพากษาในองค์คณะ</div>
+        <div style="float:left;margin-left:2px;margin-top:-3px;">
+          <ng-select  [(ngModel)]="result.case_cate_id"  style="width:260px;" (change)="result.j_type=2" #case_cate_id>
+            <ng-option *ngFor="let getData of getCaseCate" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+          </ng-select>
+        </div>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td height="30" align="center" class="blackb">
+      <div style="display: table;margin: 0 auto;">
+        <div style="float: left;margin-top:2px;"><input type="radio" [(ngModel)]="result.cond" [value]="1" class="radio1" style="height: 14px;width: 14px;cursor:pointer;"></div>
+        <div style="float: left;margin-top:0px;margin-left:5px;">ทั้งหมด</div>
+        <div style="float: left;margin-top:2px;margin-left:10px;"><input type="radio" [(ngModel)]="result.cond" [value]="2" class="radio2" checked style="height: 14px;width: 14px;cursor:pointer;"></div>
+        <div style="float: left;margin-top:0px;margin-left:5px;">ชุดปัจจุบัน</div>
+        <div style="float: left;margin-top:2px;margin-left:10px;"><input type="radio" [(ngModel)]="result.cond" [value]="3" class="radio3" style="height: 14px;width: 14px;cursor:pointer;"></div>
+        <div style="float: left;margin-top:0px;margin-left:5px;">ชุดก่อน</div>
+        <div style="float: left;margin-top:2px;margin-left:10px;"><input type="radio" [(ngModel)]="result.cond" [value]="4" class="radio4" style="height: 14px;width: 14px;cursor:pointer;"></div>
+        <div style="float: left;margin-top:0px;margin-left:5px;">ชุดใหม่</div>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td height="30" align="center" class="blackb">
+      <div style="float: left;margin-top:2px;">ค้นหา :&nbsp;</div>
+      <div style="float: left;margin-left:2px;"><input  [(ngModel)]="result.word_id"  type="text" class="form-control" style="width:70px;height:28px;" value={{value4}}></div>
+      <div style="float: left;margin-left:2px;"><input  [(ngModel)]="result.word_desc"  type="text" class="form-control" style="width:250px;height:28px;" value={{value4}}>    </div>
+      <div style="float: left;margin-left:4px;"><input name="Submit" type="submit" class="btn btn-success" value="ค้นหา" (click)="searchDataList()"></div>
+      <div style="float: left;margin-left:4px;"><input name="list_table_name" type="hidden" id="list_table_name" value={{value1}}></div>
+    </td>
+  </tr>
+</table>
+
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+  <thead>
+   
+    <tr align="center">
+      <th width="150" height="25" ><strong>รหัส</strong></th>
+      <th width="150" height="25" ><strong>ชื่อ/สกุล</strong></th>
+    </tr>
+    
+  </thead>
+  <tbody *ngIf="items?.length != 0" >
+					
+    
+    <tr *ngFor="let datas of items;let i = index;" >
+      <td align="center" (click)="onClickListData(i)">{{datas.judge_id}}</td>
+      <td align="center" (click)="onClickListData(i)">{{datas.judge_name}}</td>
+    </tr>
+    
+   </tbody>
+   <tbody *ngIf="items?.length == 0">
+    <tr *ngIf="value5"><td colspan="2" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+  </tbody>
+
+</table>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner> 

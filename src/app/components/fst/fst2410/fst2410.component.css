@@ -1,0 +1,59 @@
+/*********** table form *************/
+table.form_table_data tbody tr:nth-child(odd) {
+    background-color: #D4F1D4 !important;
+}
+table.form_table_data tbody tr:nth-child(even) {
+    background-color: #fbfbdf !important;
+}
+
+table.form_table_data tbody tr:hover {
+    background-color: #eeeeee !important;
+}
+
+.table-striped>tbody>tr:nth-of-type(even) {
+    --bs-table-accent-bg: none !important;
+}
+.table-striped>tbody>tr:nth-of-type(odd) {
+    --bs-table-accent-bg: none !important;
+}
+table.bordered  tr:nth-child(odd){
+	background-color:#d4f1d4 !important;
+	height:32px !important;
+}
+table.bordered  tr:nth-child(even){
+	background-color:#fbfbdf !important;
+	height:32px !important;
+}
+table.bordered thead th {
+    background-color: #94b4b9!important;
+    text-shadow: none !important;
+    padding: 10px 18px 6px 18px !important;
+    /* border-top: 1px solid #111 !important; */
+}
+.my-class.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    text-align: center !important;
+  }
+
+  .my-class .modal-dialog {
+    position: fixed;
+    margin: 0;
+    width: 200px;
+    height:auto;
+    max-width: 200px !important;
+    max-height: 100vh !important;
+    padding: 0;
+  }
+  .my-class .modal-content {
+    /*max-height: 100% !important;
+    height: 100% !important; */
+    min-height: 200px !important;
+    max-height: 100vh !important;
+    height: auto !important;
+    margin: 0px !important;
+  }

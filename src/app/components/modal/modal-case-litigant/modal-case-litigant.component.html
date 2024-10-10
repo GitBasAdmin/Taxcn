@@ -1,0 +1,105 @@
+<div *ngIf="!this.types">
+  <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+    <tr *ngIf="type==1 || type==3">
+      <td height="30" align="center" class="blackb">
+        <div style="float: left;margin-top:2px;">ค้นหา :&nbsp;</div>
+        <div style="float: left;margin-left:2px;"><input  [(ngModel)]="form.word_id" type="text" class="form-control" style="width:70px;height:28px;" ></div>
+        <div style="float: left;margin-left:2px;"><input  [(ngModel)]="form.word_desc" type="text" class="form-control" style="width:250px;height:28px;" >    </div>
+        <div style="float: left;margin-left:4px;"><input name="Submit" type="submit" class="btn btn-success" value="ค้นหา" (click)="searchDataList()"></div>
+        <div style="float: left;margin-left:4px;"><input name="showAll" type="submit" class="btn btn-success" id="showAll" value="แสดงทั้งหมด" (click)="showDataList()"></div>
+        <div style="float: left;margin-left:4px;"><input name="useAll" type="submit" class="btn btn-success" id="useAll" value="ใช้ข้อมูลที่เลือก" (click)="useDataList()"></div>
+
+      </td>
+    </tr>
+  </table>
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+    <thead>
+      <tr align="center" *ngIf="type==1">
+        <th width="50" height="25" ><input type="checkbox"  [(ngModel)]="masterSelect" style="height:15px;width:15px;margin-top:2px;cursor:pointer;"  (change)="checkUncheckAll(this.items,'masterSelect','index')"></th>
+        <th width="150" height="25" ><strong>ลำดับที่</strong></th>
+        <th ><strong >ชื่อคู่ความ</strong></th>
+      </tr>
+      
+      
+      <tr align="center" *ngIf="type==2">
+        <th width="150" height="25" ><strong>ประเภท</strong></th>
+        <th width="150" height="25" ><strong>ลำดับที่</strong></th>
+        <th ><strong>ชื่อคู่ความ</strong></th>
+      </tr>
+
+      <tr align="center" *ngIf="type==3">
+        <th width="150" height="25" ><strong>ลำดับที่</strong></th>
+        <th ><strong >ชื่อคู่ความ</strong></th>
+      </tr>
+      
+    </thead>
+    <tbody *ngIf="items?.length != 0 && type==1" >
+      <tr *ngFor="let datas of items;let i = index;" >
+        <td align="center" ><input type="checkbox" [(ngModel)]="this.items[i].index" style="height:15px;width:15px;margin-top:2px;cursor:pointer;" (change)="isAllSelected(this.items,'masterSelect','index')"></td>
+        <td align="center" (click)="onClickListData(i)">{{datas.seq}}</td>
+        <td align="center" (click)="onClickListData(i)">{{datas.lit_name}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="items?.length != 0 && type==2" >
+      <tr *ngFor="let datas of items;let i = index;" >
+        <td align="center" (click)="onClickListData(i)">{{datas.lit_type_desc}}</td>
+        <td align="center" (click)="onClickListData(i)">{{datas.seq}}</td>
+        <td align="center" (click)="onClickListData(i)" >{{datas.lit_name}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="items?.length != 0 && type==3" >
+      <tr *ngFor="let datas of items;let i = index;" >
+        <td align="center" (click)="onClickListData(i)">{{datas.seq}}</td>
+        <td align="center" (click)="onClickListData(i)">{{datas.lit_name}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="items?.length == 0">
+      <tr ><td colspan="3" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+    </tbody>
+
+  </table>
+</div>
+
+<div *ngIf="this.types">
+    <div class="modal-header">
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.close()"></button>
+    </div>
+    <div class="modal-body" >
+      <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+        <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+          <tr>
+            <td height="30" align="center" class="blackb">
+              <div style="float: left;margin-top:2px;">ค้นหา :&nbsp;</div>
+              <div style="float: left;margin-left:2px;"><input  [(ngModel)]="form.word_id" type="text" class="form-control" style="width:70px;height:28px;" ></div>
+              <div style="float: left;margin-left:2px;"><input  [(ngModel)]="form.word_desc" type="text" class="form-control" style="width:250px;height:28px;" >    </div>
+              <div style="float: left;margin-left:4px;"><input name="Submit" type="submit" class="btn btn-success" value="ค้นหา" (click)="searchDataList()"></div>     
+            </td>
+          </tr>
+        </table>
+      
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+          <thead>
+            <tr align="center">
+              <th width="150" height="25" ><strong>ลำดับที่</strong></th>
+              <th ><strong >ชื่อคู่ความ</strong></th>
+            </tr>
+            
+          </thead>
+          <tbody *ngIf="items?.length != 0" >
+            <tr *ngFor="let datas of items;let i = index;" >
+              <td align="center" (click)="onClickListData(i)">{{datas.seq}}</td>
+              <td align="center" (click)="onClickListData(i)">{{datas.lit_name}}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="items?.length == 0">
+            <tr ><td colspan="2" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+          </tbody>
+      
+        </table>
+      </div>
+    </div>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner> 

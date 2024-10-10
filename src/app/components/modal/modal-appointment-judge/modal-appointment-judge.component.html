@@ -1,0 +1,55 @@
+<div class="modal-header">
+  <span style="font-size: 16px;">{{modal_name}}</span>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.close()"></button>
+</div>
+<div class="modal-body" >
+  <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+    <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+      <tr>
+        <td height="30" align="center" class="blackb">
+          <div style="float: left;margin-top:2px;"><span style="color: red;"></span>ข้อมูลนัดความวันที่ {{date_appoint}}</div>
+        </td>
+      </tr>
+    </table>
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+      <thead>
+        <tr align="center" >
+          <!-- <th width="180" height="25" ><strong>วันที่นัด</strong></th> -->
+          <th width="20%" height="25" ><strong>เลขคดีดำ/เลขคดีแดง</strong></th>
+          <th width="30%" height="25" ><strong>ข้อหา</strong></th>
+          <th width="10%" height="25" ><strong>ทุนทรัพย์</strong></th>
+          <th width="10%"><strong >เวลานัด</strong></th>
+          <th width="10%"><strong >บัลลังก์</strong></th>
+          <th width="20%"><strong >นัดเพื่อ</strong></th>
+          <!-- <th ><strong >เหตุที่เลื่อน</strong></th> -->
+        </tr>
+      </thead>
+
+      <tbody *ngIf="items?.length != 0" >
+        <tr *ngFor="let datas of items;let i = index;" [ngClass]="{'red': datas.cancel_flag == 1}">
+          <!-- <td align="center">{{datas.date_appoint}}</td> -->
+          <td align="center">{{datas.case_no}} {{datas.red_no}}</td>
+          <td align="left">{{datas.alle_desc}}</td>
+          <td align="center">{{datas.deposit}}</td>
+          <td align="center">{{datas.time_appoint}}</td>
+          <td align="center">{{datas.room_desc}}</td>
+          <td align="center">{{datas.app_name}}</td>
+          <!-- <td align="center">{{datas.delay_name}}</td> -->
+        </tr>
+      </tbody>
+      <tbody *ngIf="items?.length == 0">
+        <tr><td colspan="5" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-warning" (click)="activeModal.close()">ปิดหน้าจอ</button>
+</div>
+
+<!--
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait.</p>  
+</ngx-spinner> 
+-->

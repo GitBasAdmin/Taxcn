@@ -1,0 +1,66 @@
+<div style="margin:0 auto;margin:0 auto;display:table;padding:10px;width: 98%;height: 350px!important;" class="card" >
+  <table width="100%"  border="0" align="center" cellpadding="2" cellspacing="0">
+    <tr>
+      <td align="right" width="25%">กำหนดให้หน่วยงาน :&nbsp;</td>
+      <td width="75%">
+        <div style="float:left;">
+          <ng-select [(ngModel)]="result.dep_code" style="width:280px;" [ngModelOptions]="{standalone: true}" >
+            <ng-option *ngFor="let getData of getDepCode" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+          </ng-select>
+        </div>
+        
+      </td>
+    </tr>
+    <tr>
+      <td align="right"></td>
+      <td align="left"><span style="color: red;">*ไม่ต้องเลือกกรณี assign ทั้งหมด </span></td>
+    </tr>
+    <tr>
+      <td align="right">หน้าจอ	 :&nbsp;</td>
+      <td>
+        <div style="float:left;">
+          <ng-select [(ngModel)]="result.program_id" style="width:280px;" [ngModelOptions]="{standalone: true}" >
+            <ng-option *ngFor="let getData of getProgram" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+          </ng-select>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td align="right" width="16%">Parent Menu	 :&nbsp;</td>
+      <td>
+        <div style="float: left;">
+          <ng-select [(ngModel)]="result.parent_id" style="width:280px;" [ngModelOptions]="{standalone: true}" >
+            <ng-option *ngFor="let getData of getParent" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+          </ng-select>
+        </div>
+        <div style="float: left; margin-left:4px;">ลำดับที่</div>
+        <div style="float: left; margin-left:4px;">
+          <input  type="text" [(ngModel)]="result.display_number"  maxlength="5" class="form-control" style="width:50px;height:28px;"/>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="middle" colspan="2">
+        <div style="margin:0 auto;display:table;">
+          <div style="float:left;margin-top: 4px;"><input type="checkbox" [(ngModel)]="result.favorites"  style="width:15px;height: 15px;" /></div>
+          <div style="float: left; margin-left:4px;">รายการโปรด</div>
+          <div style="float:left; margin-left:4px;margin-top: 4px;"><input type="checkbox" [(ngModel)]="result.query" style="width:15px;height: 15px;" /></div>
+          <div style="float: left; margin-left:4px;">query</div>
+          <div style="float:left; margin-left:4px;margin-top: 4px;"><input type="checkbox" [(ngModel)]="result.insert" style="width:15px;height: 15px;" /></div>
+          <div style="float: left; margin-left:4px;">insert</div>
+          <div style="float:left; margin-left:4px;margin-top: 4px;"><input type="checkbox" [(ngModel)]="result.update" style="width:15px;height: 15px;" /></div>
+          <div style="float: left; margin-left:4px;">update</div>
+          <div style="float:left; margin-left:4px;margin-top: 4px;"><input type="checkbox" [(ngModel)]="result.delete" style="width:15px;height: 15px;" /></div>
+          <div style="float: left; margin-left:4px;">delete</div>
+          <div style="float:left; margin-left:4px;margin-top: 4px;"><input type="checkbox" [(ngModel)]="result.print" style="width:15px;height: 15px;" /></div>
+          <div style="float: left; margin-left:4px;">print</div>
+        </div>
+      </td>
+  </table>
+
+  <div class="card-footer" style="margin-top: 5px;text-align:center;">
+    <button type="button" class="btn btn-success" (click)="onClickSaveData()">บันทึก</button>
+    <button type="button" class="btn btn-warning" style="margin-left:5px;" (click)="ClearAll()" >ยกเลิก</button>
+  </div>
+</div>
+

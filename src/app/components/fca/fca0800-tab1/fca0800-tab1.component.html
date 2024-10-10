@@ -1,0 +1,483 @@
+<fieldset style="width:100%;border-radius:4px;border:1px solid #333333;padding:1px;">
+    <legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;" class="lClick">ข้อมูลคดี </legend>
+    <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">    
+        <!--      
+        <tr>
+            <td height="25" width="188" height="34" align="right" >ข้อพิพาท :&nbsp;</td>
+            <td width="467">
+                <div style="float:left;"><input  name="dispute" type="radio" id="dispute1" [(ngModel)]="_result.dispute"  [value]="1"  style="height:16px;width:16px;margin-top:2px;"></div>
+                <div style="float:left;margin-left:4px;margin-top:2px;">มีข้อพิพาท</div>
+                <div style="float:left;margin-left:15px;"><input  name="dispute" type="radio" id="dispute2" [(ngModel)]="_result.dispute" [value]="2"  style="height:16px;width:16px;margin-top:2px;"></div>
+                <div style="float:left;margin-left:4px;margin-top:2px;">ไม่มีข้อพิพาท</div>
+            </td>
+            <td height="25" width="166" height="34" align="right" >&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>--> 
+        <tr>
+            <td height="25" height="34" align="right" >ทุนทรัพย์ :&nbsp;</td>
+            <td colspan="3">
+                <div style="float:left;"><input  type="text" [(ngModel)]="_result.deposit"  class="form-control" style="width:95%;height:28px;text-align:center;"></div>
+                <div style="float:left;margin-left:2px;margin-top:3px;">บาท</div>
+                <div style="float:left;margin-left:200px;"><input  name="guar_pros" type="radio" id="guar_pros1" [(ngModel)]="_result.guar_pros"  [value]="1"   style="height:16px;width:16px;margin-top:2px;"></div>
+                <div style="float:left;margin-left:4px;margin-top:2px;">คำฟ้อง</div>
+                <div style="float:left;margin-left:8px;"><input  name="guar_pros" type="radio" id="guar_pros2" [(ngModel)]="_result.guar_pros"  [value]="2"   style="height:16px;width:16px;margin-top:2px;"></div>
+                <div style="float:left;margin-left:4px;margin-top:2px;">คำร้องขอ</div>
+                <div style="float:left;margin-left:200px;margin-top:4px;">สถานภาพการฟ้อง :&nbsp;</div>
+                <div style="float:left;width:204px;">
+                    <ng-select  [(ngModel)]="_result.case_level"class="CaseLevel" [clearable]="false" style="width:95%;"   #sCaseLevel>
+                        <ng-option *ngFor="let getData of getCaseLevel" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                    </ng-select>
+                </div>
+                
+            </td>
+        </tr>
+        <tr>
+            <td height="25" height="34" align="right" valign="top" style="padding-top:4px;">ฐานความผิดสถิติ :&nbsp;</td>
+            <td colspan="3" style="padding-right: 4px;padding-top:2px;">
+                <div style="margin-top:3px;float:left;color:red;"  [ngStyle]="!result.run_id ?  {'display': ''} : {'display': 'none'}">กรุณาจัดเก็บข้อมูลสำนวนคดีก่อนบันทึกฐานความผิด</div>
+                <fieldset style="width:100%;border-radius:4px;border:1px solid #333333;padding:5px;" [ngStyle]="result.run_id > 0 ?  {'display': ''} : {'display': 'none'}">
+                    <legend style="line-height: 10px;display:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;" class="lClick">ข้อมูลคดี </legend>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="height: 36px;">
+                                <div style="width: 99%;border:2px solid #ffffff;height:32px;border-radius: 2px;float:left;margin-top:2px;padding-top: 3px;">
+                                    <div style="float: left;margin-left:2px;margin-top:2px;">ลำดับที่ :&nbsp;</div>
+                                    <div style="float: left;">
+                                        <input  [(ngModel)]="alleSeq" type="text" class="form-control" style="width:38px;text-align: center;" readonly/>
+                                    </div>
+                                    <div style="float: left;margin-left:5px;margin-top:2px;">รหัส :&nbsp;</div>
+                                    <div style="float: left;">
+                                        <input [(ngModel)]="alleId" type="text"  class="form-control" style="width:50px;" (change)="changeInputData($event,'pallegation',1)"/>
+                                    </div>
+                                    <div style="float: left;margin-left:5px;margin-top:2px;">ฐานความผิด :&nbsp;</div>
+                                    <div style="float: left;margin-left:2px;">
+                                        <input type="text"  class="form-control" style="width:220px;" readonly/>
+                                    </div>
+                                    <div style="float: left;margin-left:2px;margin-top:1px;">
+                                        <i class='far fa-list-alt iPost' style="font-size: 20px;cursor:pointer;margin-top:1px;" (click)="clickOpenMyModalComponent(7);"></i>
+                                    </div>
+                                    
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >
+                                
+                                <table datatable id="tableAlle" [dtOptions]="dtOptions" [dtTrigger]="dtTriggerAlle"  class="table table-striped table-bordered table-sm row-border hover">
+                                    <thead>
+                                        <tr>
+                                        <th width="8%" class="no-sort"></th>
+                                        <th width="8%" class="no-sort">ลำดับที่</th>
+                                        <th width="8%">รหัส</th>
+                                        <th width="76%">รายละเอียดฐานความผิด</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="getDataAlle?.length">
+                                        <tr  *ngFor="let datas of getDataAlle; index as i">
+                                            <td align="center">
+                                                <i class="fa fa-close" style="font-size:18px;color:#d50000d1;cursor: pointer;" (click)="this.alleIndex=i;clickOpenMyModalComponent(8);"></i>
+                                            </td>
+                                            <td align="center">{{datas.alle_seq}}</td>
+                                            <td align="center">{{datas.alle_id}}</td>
+                                            <td align="left" style="padding-left:3px;">{{datas.alle_name}}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="!getDataAlle?.length">
+                                        <tr >
+                                            <td colspan="4" style="color:red;text-align: center;background-color: rgb(255, 255, 238);" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+                                            <td style="display:none;"></td>
+                                            <td style="display:none;"></td>
+                                            <td style="display:none;"></td>                              
+                                        </tr>
+                                    </tbody>
+                                </table>   
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+            
+        </tr>
+       
+        <tr>
+            <td height="25"  height="34" align="right" >ฐานความผิดขึ้นปก :&nbsp;</td>
+            <td colspan="3">
+                <div style="float:left;"><input  type="text" [(ngModel)]="_result.alle_id" (change)="tabChangeInput('alle_id',$event)"  class="form-control" style="width:45px;height:28px;text-align:center;"></div>
+                <div style="float:left;"><input  type="text"  [(ngModel)]="_result.alle_desc"  class="form-control" style="width:660px;height:28px;text-align:left;margin-left:2px;"></div>
+                <div style="float:left;"><i class='far fa-list-alt iDep' style="font-size: 20px;cursor:pointer;margin-left:2px;margin-top:4px;" (click)="clickOpenMyModalComponent(2)"></i></div>
+            </td>
+        </tr>
+        <tr>
+            <td height="25" height="34" align="right" >คำสั่ง :&nbsp;</td>
+            <td colspan="3">
+                <div style="float:left;width:164px;">
+                    <ng-select  [(ngModel)]="_result.case_result" style="width:95%;"   #sCaseResult>
+                        <ng-option *ngFor="let getData of getCaseResult" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                    </ng-select>
+                </div>
+                <div style="float:left;margin-left:200px;margin-top:4px;">ผู้สั่ง :&nbsp;</div>
+                <div style="float: left;">
+                    <input  type="text" [(ngModel)]="_result.order_judge_id"  (change)="tabChangeInput('order_judge_id',$event)" class="form-control" style="width:60px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                    <input  type="text"  [(ngModel)]="_result.order_judge_name"   class="form-control" style="width:255px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:2px;" >
+                    <i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(3)"></i>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:2px;" >
+                    <i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(4)"></i>
+                </div>
+                <div style="float:left;margin-left:200px;margin-top:4px;">วันที่สั่ง :&nbsp;</div>
+                <div style="float:left;"><input  type="text" [(ngModel)]="_result.order_judge_date" style="width:120px;" class="form-control jcalendar order_judge_date" #order_judge_date (click)="directiveDate(order_judge_date.value,'order_judge_date')"></div>
+                <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.order_judge_date').focus();"></i></div>
+            </td>
+        </tr>
+        
+        <tr>
+            <td height="25" height="34" align="right" valign="top" style="padding-top:4px;">หมายเหตุ :&nbsp;</td>
+            <td colspan="3" style="padding-top:2px;padding-bottom:3px;">
+                <textarea [(ngModel)]="_result.remark" name="remark" #remark='ngModel' class="form-control" style="width: 900px; height: 38px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+			</td>
+        </tr>
+        <tr>
+            <td height="25" height="34" align="right" >เจ้าของสำนวน :&nbsp;</td>
+            <td colspan="3">
+
+                <div style="float:left;"><input  type="text"  [(ngModel)]="_result.case_judge_id"  class="form-control" (change)="tabChangeInput('case_judge_id',$event)" style="width:45px;height:28px;text-align:center;"></div>
+                <div style="float:left;"><input  type="text"  [(ngModel)]="_result.case_judge_name"  class="form-control" readonly style="width:260px;height:28px;text-align:left;margin-left:2px;"></div>
+                <div style="float:left;"><i class='far fa-list-alt iDep' style="font-size: 20px;cursor:pointer;margin-left:2px;margin-top:4px;" (click)="clickOpenMyModalComponent(5)"></i></div>
+
+                <div style="float:left;margin-left:40px;margin-top:4px;">วันที่จ่ายสำนวน :&nbsp;</div>
+                <div style="float:left;"><input  type="text" [(ngModel)]="_result.case_judge_date" style="width:120px;" class="form-control jcalendar case_judge_date" #case_judge_date (click)="directiveDate(case_judge_date.value,'case_judge_date')"></div>
+                <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.case_judge_date').focus();"></i></div>
+            </td>
+        </tr>
+        <tr>
+            <td  height="34" align="center" colspan="4" style="padding:5px 0px 5px 0px;">
+                <div style="margin-left:78px;" *ngIf="caseDataObjTmp.run_id">
+                    หน่วยงานที่บันทึก : <u *ngIf="caseDataObjTmp.create_dep_name">{{caseDataObjTmp.create_dep_name}}</u><u *ngIf="!caseDataObjTmp.create_dep_name">&nbsp;&nbsp;&nbsp;</u> &nbsp;
+                    ผู้บันทึก : <u *ngIf="caseDataObjTmp.create_user">{{caseDataObjTmp.create_user}}</u><u *ngIf="!caseDataObjTmp.create_user">&nbsp;&nbsp;&nbsp;</u> &nbsp;
+                    วันที่บันทึก : <u *ngIf="caseDataObjTmp.create_date">{{caseDataObjTmp.create_date}}</u><u *ngIf="!caseDataObjTmp.create_date">&nbsp;&nbsp;&nbsp;</u> &nbsp;
+                    หน่วยงานที่แก้ไข : <u *ngIf="caseDataObjTmp.update_dep_name">{{caseDataObjTmp.update_dep_name}}</u><u *ngIf="!caseDataObjTmp.update_dep_name">&nbsp;&nbsp;&nbsp;</u> &nbsp;
+                    แก้ไขล่าสุด : <u *ngIf="caseDataObjTmp.update_user">{{caseDataObjTmp.update_user}}</u><u *ngIf="!caseDataObjTmp.update_user">&nbsp;&nbsp;&nbsp;</u> &nbsp;
+                    วันที่แก้ไขล่าสุด : <u *ngIf="caseDataObjTmp.update_date">{{caseDataObjTmp.update_date}}</u><u *ngIf="!caseDataObjTmp.update_date">&nbsp;&nbsp;&nbsp;</u> &nbsp;
+                </div>
+                <div style="margin-left:78px;" *ngIf="!caseDataObjTmp.run_id">
+                    หน่วยงานที่บันทึก :____________ ผู้บันทึก :____________ วันที่บันทึก :____________ หน่วยงานที่แก้ไข :____________ แก้ไขล่าสุด :____________ วันที่แก้ไขล่าสุด :____________ 
+                </div>
+            </td>
+        </tr>
+        
+
+        
+    </table>
+    <div class="card-footer" style="margin-top: 5px;text-align:center;">
+        <button type="button" class="btn btn-primary" (click)="buttonNew()">เพิ่ม</button>
+        <button type="button" class="btn btn-success" style="margin-left:5px;"  (click)="callDataHead()">จัดเก็บ</button>
+        <!--<button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="clickOpenMyModalComponent(6)">ลบข้อมูลคดี</button>-->
+        <button type="button" class="btn btn-warning" style="margin-left:5px;"  (click)="resetPage()">ล้างหน้าจอ</button>
+        <!--<button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="printReport(1)">ปกนอก</button>
+        <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="printReport(2)">ปกใน</button>-->
+        <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="printReport(3)">ปกนอกA4</button>
+        <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="printReport(4)">ปกในA4</button>
+        <!--<button type="button" class="btn btn-primary" style="margin-left:5px;">ปลิว</button>-->
+    </div>
+</fieldset>
+
+
+<fieldset style="width:100%;border-radius:4px;border:1px solid #333333;padding:1px;margin-top:8px;">
+    <legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;" class="lClick">ข้อมูลคู่ความ</legend>
+    <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table" >  
+        <!--------เพิ่มข้อมูลโจทก์---------->         
+        <tr>
+            <td height="25" height="34" align="left" >
+                <button type="button" class="btn btn-primary" style="margin-left:5px;margin-top:5px;" (click)="openLitWindow(1)">เพิ่มข้อมูลโจทก์</button>
+                <button type="button" class="btn btn-danger" style="margin-left:5px;margin-top:5px;" (click)="delLitData('delPros')" *ngIf="buttonDelPros">ลบข้อมูลโจทก์ที่เลือก</button>
+            </td>
+        </tr>
+        <tr>
+            <td height="25" height="34" align="left" style="padding:5px;">
+                <table datatable id="tablePros" [dtOptions]="dtOptions" [dtTrigger]="dtTriggerPros"  class="table tablePros table-striped table-bordered table-sm row-border hover" style="border:1px solid #ced4da !important;border-radius: 6px 6px 0px 0px;">
+                    <thead>
+                        <tr>
+                        <th width="4%" class="no-sort" style="border-left:1px solid #ced4da !important;">
+                          <input type="checkbox"  [(ngModel)]="masterSelPros" style="height:15px;width:15px;margin-top:2px;cursor:pointer;"  (change)="checkUncheckAll(this.result.prosObj,'masterSelPros','seqPros')">
+                        </th>
+                        <th width="5%" class="no-sort"></th>
+                        <th width="6%">ลำดับ</th>
+                        <th width="20%">ชื่อ/ชื่อสกุล</th>
+                        <th width="12%">ประเภทบัตร</th>
+                        <th width="11%">เลขที่บัตร</th>
+                        <th width="11%">สถานะ</th>
+                        <th width="7%">รูป</th>
+                        <th width="12%">ผู้บันทึก</th>
+                        <th width="12%" style="border-right:1px solid #ced4da !important;">ผู้แก้ไข</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="getDataPros?.length">
+                        <tr  *ngFor="let datas of getDataPros; index as i">
+                            <td align="center">
+                                <input type="checkbox" [(ngModel)]="this.result.prosObj[i].seqPros" style="height:15px;width:15px;margin-top:2px;cursor:pointer;" (change)="isAllSelected(this.result.prosObj,'masterSelPros','seqPros')">
+                            </td>
+                            <td align="center"><i class="fa fa-pencil" style="font-size:18px;cursor: pointer;" (click)="editLitData(datas.lit_running)"></i></td>
+                            <td align="center">{{datas.seq}}</td>
+                            <td align="center" >{{datas.title}}{{datas.name}}</td>
+                            <td align="center">{{datas.card_type_name}}</td>
+                            <td align="center">{{datas.id_card}}</td>
+                            <td align="center">{{datas.status_desc}}</td>
+                            <td align="center" ><i class="fa fa-image" style="font-size:24px" *ngIf="datas.image_name"></i></td>
+                            <td align="center">{{datas.create_user}} {{datas.create_date}}</td>
+                            <td align="center">{{datas.update_user}} {{datas.update_date}}</td>                                       
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="!getDataPros?.length">
+                        <tr >
+                            <td colspan="10" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>      
+                            <td style="display:none;"></td>                            
+                        </tr>
+                    </tbody>
+                    
+                </table> 
+            </td>
+        </tr>
+
+        <!--------เพิ่มข้อมูลจำเลย---------->
+        
+        <tr>
+            <td height="25" height="34" align="left" >
+                <button type="button" class="btn btn-primary" style="margin-left:5px;margin-top:5px;" (click)="openLitWindow(2)">เพิ่มข้อมูลจำเลย</button>
+                <button type="button" class="btn btn-danger" style="margin-left:5px;margin-top:5px;" (click)="delLitData('delAccu')" *ngIf="buttonDelAccu">ลบข้อมูลจำเลยที่เลือก</button>
+            </td>
+        </tr>
+        <tr>
+            <td height="25" height="34" align="left" style="padding:5px;">
+                <table datatable id="tableAccu" [dtOptions]="dtOptions" [dtTrigger]="dtTriggerAccu"  class="table table-striped table-bordered table-sm row-border hover" style="border:1px solid #ced4da !important;border-radius: 6px 6px 0px 0px;">
+                    <thead>
+                        <tr>
+                        <th width="5%" class="no-sort" style="border-left:1px solid #ced4da !important;">
+                            <input type="checkbox"  [(ngModel)]="masterSelAccu" style="height:15px;width:15px;margin-top:2px;cursor:pointer;"  (change)="checkUncheckAll(this.result.accuObj,'masterSelAccu','seqAccu')">
+                        </th>
+                        <th width="5%" class="no-sort"></th>
+                        <th width="6%">ลำดับ</th>
+                        <th width="9%">ชื่อ/ชื่อสกุล</th>
+                        <th width="12%">ประเภทบัตร</th>
+                        <th width="12%">เลขที่บัตร</th>
+                        <th width="10%">สถานะ</th>
+                        <th width="7%">รูป</th>
+                        <th width="7%">พิมพ์คำให้การ</th>
+                        <th width="7%">ลบคำให้การ</th>
+                        <th width="10%">ผู้บันทึก</th>
+                        <th width="10%" style="border-right:1px solid #ced4da !important;">ผู้แก้ไข</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="getDataAccu?.length">
+                        <tr  *ngFor="let datas of getDataAccu; index as i">
+                            <td align="center">
+                                <input type="checkbox" [(ngModel)]="this.result.accuObj[i].seqAccu" style="height:15px;width:15px;margin-top:2px;cursor:pointer;" (change)="isAllSelected(this.result.accuObj,'masterSelAccu','seqAccu')">
+                            </td>
+                            <td align="center"><i class="fa fa-pencil" style="font-size:18px;cursor: pointer;" (click)="editLitData(datas.lit_running)"></i></td>
+                            <td align="center">{{datas.seq}}</td>
+                            <td align="center" >{{datas.title}}{{datas.name}}</td>
+                            <td align="center">{{datas.card_type_name}}</td>
+                            <td align="center">{{datas.id_card}}</td>
+                            <td align="center">{{datas.status_desc}}</td>
+                            <td align="center" ><i class="fa fa-image" style="font-size:24px" *ngIf="datas.image_name"></i></td>
+                            <td align="center"></td>
+                            <td align="center"></td>
+                            <td align="center">{{datas.create_user}} {{datas.create_date}}</td>
+                            <td align="center">{{datas.update_user}} {{datas.update_date}}</td>                                        
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="!getDataAccu?.length">
+                        <tr >
+                            <td colspan="12" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>      
+                            <td style="display:none;"></td>     
+                            
+                            <td style="display:none;"></td>      
+                            <td style="display:none;"></td> 
+                        </tr>
+                    </tbody>
+                </table> 
+            </td>
+        </tr>
+        
+        <!--------เพิ่มข้อมูลคู่ความอื่น---------->
+        
+        <tr>
+            <td height="25" height="34" align="left" >
+                <button type="button" class="btn btn-primary" style="margin-left:5px;margin-top:5px;" (click)="openLitWindow(3)">เพิ่มข้อมูลคู่ความอื่น</button>
+                <button type="button" class="btn btn-danger" style="margin-left:5px;margin-top:5px;" (click)="delLitData('delLit')" *ngIf="buttonDelLit">ลบข้อมูลคู่ความอื่นที่เลือก</button>
+            </td>
+        </tr>
+        <tr>
+            <td height="25" height="34" align="left" style="padding:5px;">
+                <table datatable id="tableLit" [dtOptions]="dtOptions" [dtTrigger]="dtTriggerLit"  class="table table-striped table-bordered table-sm row-border hover" style="border:1px solid #ced4da !important;border-radius: 6px 6px 0px 0px;">
+                    <thead>
+                        <tr>
+                        <th width="4%" class="no-sort" style="border-left:1px solid #ced4da !important;">
+                            <input type="checkbox"  [(ngModel)]="masterSelLit" style="height:15px;width:15px;margin-top:2px;cursor:pointer;"  (change)="checkUncheckAll(this.result.litObj,'masterSelLit','seqLit')">
+                        </th>
+                        <th width="5%" class="no-sort"></th>
+                        <th width="8%">ประเภทคู่ความ</th>
+                        <th width="6%">ลำดับ</th>
+                        <th width="20%">ชื่อ/ชื่อสกุล</th>
+                        <th width="12%">ประเภทบัตร</th>
+                        <th width="9%">เลขที่บัตร</th>
+                        <th width="9%">สถานะ</th>
+                        <th width="7%">รูป</th>
+                        <th width="10%">ผู้บันทึก</th>
+                        <th width="10%" style="border-right:1px solid #ced4da !important;">ผู้แก้ไข</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="getDataLit?.length">
+                        <tr  *ngFor="let datas of getDataLit; index as i">
+                            <td align="center">
+                                <input type="checkbox" [(ngModel)]="this.result.litObj[i].seqLit" style="height:15px;width:15px;margin-top:2px;cursor:pointer;" (change)="isAllSelected(this.result.litObj,'masterSelLit','seqLit')">
+                            </td>
+                            <td align="center"><i class="fa fa-pencil" style="font-size:18px;cursor: pointer;" (click)="editLitData(datas.lit_running)"></i></td>
+                            <td align="center">{{datas.lit_type_desc}}</td>
+                            <td align="center">{{datas.seq}}</td>
+                            <td align="center" >{{datas.title}}{{datas.name}}</td>
+                            <td align="center">{{datas.card_type_name}}</td>
+                            <td align="center">{{datas.id_card}}</td>
+                            <td align="center">{{datas.status_desc}}</td>
+                            <td align="center" ><i class="fa fa-image" style="font-size:24px" *ngIf="datas.image_name"></i></td>
+                            <td align="center">{{datas.create_user}} {{datas.create_date}}</td>
+                            <td align="center">{{datas.update_user}} {{datas.update_date}}</td>                                        
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="!getDataLit?.length">
+                        <tr >
+                            <td colspan="11" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>      
+                            <td style="display:none;"></td> 
+
+                            <td style="display:none;"></td>                         
+                        </tr>
+                    </tbody>
+                </table> 
+            </td>
+        </tr>
+        
+        <!--------เพิ่มข้อมูลผู้เกี่ยวข้อง---------->
+        
+        <tr>
+            <td height="25" height="34" align="left" >
+                <button type="button" class="btn btn-primary" style="margin-left:5px;margin-top:5px;" (click)="openLitWindow('')">เพิ่มข้อมูลผู้เกี่ยวข้อง</button>
+                <button type="button" class="btn btn-danger" style="margin-left:5px;margin-top:5px;" (click)="delLitData('delOther')" *ngIf="buttonDelOther">ลบข้อมูลผู้เกี่ยวข้องที่เลือก</button>
+            </td>
+        </tr>
+        <tr>
+            <td height="25" height="34" align="left" style="padding:5px;">
+                <table datatable id="tableOther" [dtOptions]="dtOptions" [dtTrigger]="dtTriggerOther"  class="table table-striped table-bordered table-sm row-border hover" style="border:1px solid #ced4da !important;border-radius: 6px 6px 0px 0px;">
+                    <thead>
+                        <tr>
+                        <th width="4%" class="no-sort" style="border-left:1px solid #ced4da !important;">
+                            <input type="checkbox"  [(ngModel)]="masterSelOther" style="height:15px;width:15px;margin-top:2px;cursor:pointer;"  (change)="checkUncheckAll(this.result.otherObj,'masterSelOther','seqOther')">
+                        </th>
+                        <th width="5%" class="no-sort"></th>
+                        <th width="8%">ประเภทคู่ความ</th>
+                        <th width="6%">ลำดับ</th>
+                        <th width="20%">ชื่อ/ชื่อสกุล</th>
+                        <th width="12%">ประเภทบัตร</th>
+                        <th width="9%">เลขที่บัตร</th>
+                        <th width="9%">สถานะ</th>
+                        <th width="7%">รูป</th>
+                        <th width="10%">ผู้บันทึก</th>
+                        <th width="10%" style="border-right:1px solid #ced4da !important;">ผู้แก้ไข</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="getDataOther?.length">
+                        <tr  *ngFor="let datas of getDataOther; index as i">
+                            <td align="center">
+                                <input type="checkbox" [(ngModel)]="this.result.otherObj[i].seqOther" style="height:15px;width:15px;margin-top:2px;cursor:pointer;" (change)="isAllSelected(this.result.otherObj,'masterSelOther','seqOther')">
+                            </td>
+                            <td align="center"><i class="fa fa-pencil" style="font-size:18px;cursor: pointer;" (click)="editLitData(datas.lit_running)"></i></td>
+                            <td align="center">{{datas.lit_type_desc}}</td>
+                            <td align="center">{{datas.seq}}</td>
+                            <td align="center" >{{datas.title}}{{datas.name}}</td>
+                            <td align="center">{{datas.card_type_name}}</td>
+                            <td align="center">{{datas.id_card}}</td>
+                            <td align="center">{{datas.status_desc}}</td>
+                            <td align="center" ><i class="fa fa-image" style="font-size:24px" *ngIf="datas.image_name"></i></td>
+                            <td align="center">{{datas.create_user}} {{datas.create_date}}</td>
+                            <td align="center">{{datas.update_user}} {{datas.update_date}}</td>                                        
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="!getDataOther?.length">
+                        <tr >
+                            <td colspan="11" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>      
+                            <td style="display:none;"></td>        
+                            
+                            <td style="display:none;"></td>   
+                        </tr>
+                    </tbody>
+                </table> 
+            </td>
+        </tr>
+        
+        <tr><td height="25" height="34" align="left" style="padding:5px;color:red;">	* เป็นข้อมูลเก็บสถิติ โปรดบันทึกให้ถูกต้อง ครบถ้วน</td></tr>
+
+    </table>
+</fieldset>
+
+<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+          <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+          <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal2" (click)="loadMyModalComponent();" #openbutton></button>
+        </div>
+        <div class="modal-body" >
+            <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+                <app-datalist-return-multiple *ngIf="loadModalListMultiComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value7]=listFieldCond (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return-multiple>
+                <app-datalist-return *ngIf="loadModalListComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value7]=listFieldCond (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+                <app-modal-confirm *ngIf="loadModalConfComponent" class="modal_app"></app-modal-confirm>
+                <app-modal-judge *ngIf="loadModalJudgeComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType (onClickList)="receiveJudgeListData($event)" class="modal_app"></app-modal-judge>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalConfComponent">ตกลง</button>
+              <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+        </div>
+      </div>
+    </div>
+</div>

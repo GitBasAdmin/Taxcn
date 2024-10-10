@@ -1,0 +1,8 @@
+<button type="button" class="btn btn-success" style="margin-top:5px;"  (click)="copyData(tbCopy)">คลิก copy ทั้งหมด</button>
+<div style="max-height: 96vh;overflow: auto;padding-top:5px;">
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"  #tbCopy>
+      <tr align="center" *ngFor="let post of result;let i = index;">
+        <td width="150" height="18" style="font-size:13px;">{{post.case}}</td>
+      </tr>
+  </table>
+</div>

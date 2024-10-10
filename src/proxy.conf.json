@@ -1,0 +1,23 @@
+{
+  "/crimApiUTIL/*": {
+    "target": "http://bizascorp.thddns.net:8853",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/crimApiCT/*": {
+    "target": "http://bizascorp.thddns.net:8853",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/crimApiCA/*": {
+    "target": "http://bizascorp.thddns.net:8853",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/crimApi/*": {
+    "target": "http://bizascorp.thddns.net:8853",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}
+

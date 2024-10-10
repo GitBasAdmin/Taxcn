@@ -1,0 +1,34 @@
+<div class="" style="width:100%;height:40px;border-radius: 4px;border:1px solid #999999 !important;background-color: #a2e0de;" [formGroup]="headerFormGroup">
+    <div class="programName" style="float:left;margin-top:6px;"><i class="fa fa-folder-open-o" style="font-size:24px;margin-left:8px;"></i><span style="font-size: 16px;margin-left:5px;">{{programName}}</span></div>
+    <div *ngIf="urlName=='fpo0100'; else elseBlock" >
+        <div class="linkButton" style="float:right;margin-top:7px;padding:0 5px 0 0px;">
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fca0150')">จัดปก</button>
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fco0400')">ส่งหนังสือ</button>
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fkn0800')">รายงานจนท.</button>
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fca0300')">ค้นหาคดี</button>
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fkn0300')">ความเคลื่อนไหว</button>
+        </div>
+    </div>
+    <ng-template #elseBlock>
+        <div class="linkButton" style="float:right;margin-top:7px;padding:0 5px 0 0px;"  *ngIf="!hidden">
+            <button type="button" class="btn btn-primary" style="margin-left:0px;" (click)="openNewTab('fmg0200')">ข้อมูลคดี</button>
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fkn0800')">รายงานจนท.</button>
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fkb0100')">คำคู่ความ</button>
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fkn0300')">ความเคลื่อนไหว</button>
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fkn0200')">ส่งสำนวน</button>
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fkn0100')">รับสำนวน</button>
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fco0400')">ส่งหนังสือ</button>
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fco0300')">รับหนังสือ</button>
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fca0150')">จัดปก</button>
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fca0300')">ค้นหาคดี</button>
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fkn0500')">ค้นหาชื่อ</button>
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fca0130')">ข้อมูลคู่ความ</button><!--ทำรับ run_id แล้ว-->
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fca0220')">สำนวนพ่วง</button><!--ทำรับ run_id แล้ว-->
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fca0230')">แนบไฟล์</button><!--ทำรับ run_id แล้ว-->
+            <button type="button" class="btn btn-primary" style="margin-left:2px;" (click)="openNewTab('fap0200')">ตรวจนัด</button>
+        </div>
+    </ng-template>
+</div>
+
+
+

@@ -1,0 +1,50 @@
+<!--<div [style.width]="widthSet">
+  <mat-tab-group animationDuration="0ms" [selectedIndex]="0" (selectedIndexChange)="1" (selectedTabChange)="assignWidth($event)">
+    <mat-tab label="รับฟ้อง" style="padding:10px !important;" ><app-fca0800-tab1></app-fca0800-tab1></mat-tab>
+    <mat-tab label="สารบบคำฟ้อง" style="padding:10px !important;" ><app-fca0800-tab2></app-fca0800-tab2></mat-tab>
+    <mat-tab label="นัดความ" style="padding:10px !important;" ><app-fca0800-tab3></app-fca0800-tab3></mat-tab>
+    <mat-tab label="คำพิพากษาย่อ" style="padding:10px !important;" ><app-fca0800-tab4></app-fca0800-tab4></mat-tab>
+  </mat-tab-group>
+</div>-->
+
+<div [style.width]="widthSet">
+  <mat-tab-group animationDuration="0ms" [selectedIndex]="0" (selectedIndexChange)="1" (selectedTabChange)="activeTab($event);assignWidth($event);">
+    <mat-tab label="รับฟ้อง" style="padding:5px !important;"><app-fca0800-tab1 (onClickListData)="callDataHead($event)" [getDataHead]="this.sendHead"></app-fca0800-tab1></mat-tab>
+    <!--<mat-tab label="สารบบคำฟ้อง" style="padding:5px !important;" ><app-fca0800-tab2 [getTab]="this.tab" [getDataHead]="this.sendHead"></app-fca0800-tab2></mat-tab>
+    <mat-tab label="นัดความ" style="padding:5px !important;" ><app-fca0800-tab3 [getTab]="this.tab" [getDataHead]="this.sendHead"></app-fca0800-tab3></mat-tab>
+    <mat-tab label="คำพิพากษาย่อ" style="padding:5px !important;" ><app-fca0800-tab4 [getTab]="this.tab" [getDataHead]="this.sendHead"></app-fca0800-tab4></mat-tab>-->
+  </mat-tab-group>
+</div>
+  <!-- Nav tabs
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">รับฟ้อง</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">สารบบคำฟ้อง</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">นัดความ</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="judge-tab" data-toggle="tab" href="#judge" role="tab" aria-controls="judge" aria-selected="false">คำพิพากษาย่อ</a>
+    </li>
+  </ul>
+  
+  
+  <div class="tab-content">
+    <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab" style="padding:20px;">
+      <app-fca0800-tab1></app-fca0800-tab1>
+    </div>
+    <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab" style="padding:20px;">
+      <app-fca0800-tab2></app-fca0800-tab2>
+    </div>
+    <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab" style="padding:20px;">
+      <app-fca0800-tab3></app-fca0800-tab3>
+    </div>
+    <div class="tab-pane" id="judge" role="tabpanel" aria-labelledby="judge-tab" style="padding:20px;">
+      <app-fca0800-tab4></app-fca0800-tab4>
+    </div>
+
+  </div>
+-->

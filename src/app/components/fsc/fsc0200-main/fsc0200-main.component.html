@@ -1,0 +1,4 @@
+  <mat-tab-group animationDuration="0ms" [selectedIndex]="0" (selectedIndexChange)="1" (selectedTabChange)="activeTab($event)" #tabGroup>
+    <mat-tab label="หมายจับ" style="padding:5px !important;"><app-fsc0200-tab1 (onClickListData)="callDataHead($event)" [getDataHead]="this.sendHead"></app-fsc0200-tab1></mat-tab>
+    <mat-tab label="รายงานผลหมายจับ" style="padding:5px !important;" ><app-fsc0200-tab2 [getTab]="this.tab" [getDataHead]="this.sendHead"></app-fsc0200-tab2></mat-tab>
+  </mat-tab-group>

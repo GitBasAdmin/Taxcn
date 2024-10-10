@@ -1,0 +1,149 @@
+<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">      
+
+    <tr>
+        <td  align="right" valign="top" style="padding-top:4px;">ฐานความผิด :&nbsp;</td>
+        <td  align="left" style="padding-bottom: 2px;">
+            <div style="float: left;">
+                <textarea name="fact1" class="form-control" id="" style="width: 511px; height: 30px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+            </div>
+        </td>
+    </tr>  
+    <tr>
+        <td  align="right">ประเภท :&nbsp;</td>
+        <td  align="left" style="padding:0px 100px 0px 0px">
+            <div style="float:left;">
+                <ng-select  style="width:180px;" #sPersType>
+                    <ng-option *ngFor="let getData of getPersType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+                  </ng-select>
+            </div>
+            <div style="float: left;margin-top:2px;margin-left:12px;">ลำดับที่ :&nbsp;</div>
+            <div style="float: left;">
+                <input  name="" type="text" id="" class="form-control" style="width:60px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:2px;">
+                <input  name="" type="text"  id="off_name" value=""   class="form-control" style="width:300px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:2px;margin-top:1px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:1px;"></i>
+            </div>
+            <div style="float: right;"><button type="button" class="btn btn-warning" style="margin-left:5px;margin-top:0px;width:70px;"  >ยกเลิก</button></div>
+            <div style="float: right;"><button type="button" class="btn btn-success" style="margin-top:0px;width:70px;"  >จัดเก็บ</button></div>
+        </td>
+    </tr> 
+    <tr>
+        <td  align="right">ประเภทหมายขัง :&nbsp;</td>
+        <td  align="left" style="padding:0px 100px 0px 0px">
+            <div style="float: left;">
+                <input  name="" type="text" id="" class="form-control" style="width:60px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:2px;">
+                <input  name="" type="text"  id="off_name" value=""   class="form-control" style="width:300px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:2px;margin-top:1px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:1px;"></i>
+            </div>
+            <div style="float: right;"><button type="button" class="btn btn-primary" style="width:145px;"  >เพิ่มข้อมูล</button></div>
+        </td>
+    </tr> 
+    <tr>
+        <td  align="right">เลขที่หมายขัง :&nbsp;</td>
+        <td  align="left" style="padding:0px 100px 0px 0px">
+           
+            <div style="float: left;">
+                <input  name="" type="text" id="" class="form-control" style="width:60px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-top:5px;margin-left:5px;">/&nbsp;</div>
+            <div style="float: left;margin-left:3px;">
+                <input  name="" type="text" id="" class="form-control" style="width:60px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:6px;"><button type="button" class="btn btn-primary" style="margin-left:5px;"  >ค้นหา</button></div>
+            <div style="float: left;margin-top:5px;margin-left:12px;">วันที่ออกหมาย :&nbsp;</div>
+            <div style="float:left;"><input  name="" type="text"   value=""  class="form-control" style="width:120px;height:28px;"></div>
+		    <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;"></i></div>
+            <div style="float: right;"><button type="button" class="btn btn-success" style="width:145px;"  >สำเนาข้อมูล</button></div>
+        </td>
+    </tr> 
+    <tr>
+        <td  align="right">เรือนจำ :&nbsp;</td>
+        <td  align="left" style="padding:0px 100px 0px 0px">
+
+            <div style="float: left;">
+                <input  name="" type="text" id="" class="form-control" style="width:60px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:2px;">
+                <input  name="" type="text"  id="off_name" value=""   class="form-control" style="width:300px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:2px;margin-top:1px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:1px;"></i>
+            </div>
+            <div style="float: left;margin-left:5px;">
+                <input  name="" type="text"  id="off_name" value=""   class="form-control" style="width:220px;height:28px;"/>
+            </div>
+            <div style="float: right;"><button type="button" class="btn btn-info" style="width:145px;"  >พิมพ์หมายลงฟอร์ม</button></div>
+        </td>
+    </tr> 
+   
+    <tr>
+        <td  align="right" >หมายเหตุยกเลิกหมายเก่า :&nbsp;</td>
+        <td  align="left" style="padding:0px 100px 2px 0px">
+            <div style="float: left;">
+                <textarea name="fact1" class="form-control" id="" style="width: 511px; height: 30px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+            </div>
+            <div style="float: right;"><button type="button" class="btn btn-info" style="width:145px;margin-top:7px;"  >หมายกระดาษเปล่า</button></div>
+        </td>
+    </tr>  
+    <tr>
+        <td  align="right" >หมายเหตุ :&nbsp;</td>
+        <td  align="left" style="padding:0px 100px 0px 0px">
+            <div style="float: left;">
+                <input  name="" type="text" id="" class="form-control" style="width:60px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:2px;margin-top:1px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:1px;"></i>
+            </div>
+            <div style="float: left;margin-left:20px;margin-top:8px;"><input type="checkbox" name="x" style="height: 15px;width: 15px;"></div>
+			<div style="float: left;margin-left:4px;margin-top:7px;">ยกเลิกหมาย</div>
+            <div style="float: right;"><button type="button" class="btn btn-info" style="width:145px;"  >พิมพ์หลังหมาย</button></div>
+        </td>
+    </tr>  
+    <tr>
+        <td  align="right" >&nbsp;</td>
+        <td  align="left" style="padding:0px 100px 2px 0px">
+            <div style="float: left;">
+                <textarea name="fact1" class="form-control" id="" style="width: 511px; height: 30px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+            </div>
+            <div style="float: right;"><button type="button" class="btn btn-info" style="width:145px;"  >หลังหมาย(word)</button></div>
+        </td>
+    </tr>  
+    <tr>
+        <td  align="right" >หมายเหตุ(บัญชีคุม) :&nbsp;</td>
+        <td  align="left" style="padding-bottom: 2px;">
+            <div style="float: left;">
+                <textarea name="fact1" class="form-control" id="" style="width: 511px; height: 30px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+            </div>
+        </td>
+    </tr>  
+    <tr>
+        <td  width="440" align="right">&nbsp;</td>
+        <td  align="left" style="padding:2px 0px 2px 0px;">
+            <div style="border:1px solid #666666;width:85%;border-radius: 6px;padding:3px;">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="15%" align="right">ผู้พิมพ์ :&nbsp;</td>
+                        <td width="45%">
+                            <div style="float: left;">
+                                <input  name="" type="text" id="" readonly class="form-control" style="width:200px;height:28px;"/>
+                            </div>
+                        </td>
+                        <td width="12%" align="right" >วันที่พิมพ์ :&nbsp;</td>
+                        <td width="28%">
+                            <div style="float:left;"><input  name="" type="text"   value=""  class="form-control" style="width:120px;height:28px;"></div>
+                            <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;"></i></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+

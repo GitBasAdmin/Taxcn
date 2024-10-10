@@ -1,0 +1,90 @@
+<style>
+
+</style>
+<!-- <app-menu></app-menu> -->
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content">
+    <!-- <div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;"> -->
+			<!-- <div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName" ></app-case-header>
+			</div> -->
+      <!-- <div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+        <div style="float:left;margin-top:6px;"><i class="fa fa-folder-open-o" style="font-size:24px;margin-left:8px;"></i><span style="font-size: 16px;margin-left:5px;">{{programName}}</span></div>
+       </div>
+		</div> -->
+    	<!-- form start -->
+
+				<div class="card-body">
+
+
+		<div class="card"  align="center" style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0"  cellspacing="2" cellpadding="2" class="form_table">
+        <!-- <div align="center" style="width:60%; margin:0 auto"> -->
+
+          <tr >
+            <td  align="right" width="45%" >จากวันที่ :&nbsp;</td>
+              <td  align="left">
+              <div style="float:left;"><input  name="txt_date_start" id="txt_date_start" type="text"  placeholder="่วว/ดด/ปปปป" value=""  class="form-control jcalendar date_start" style="width:120px;height: 28px;" ></div>
+              <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.date_start').focus();"></i></div>
+              <div style="float:left;margin-left:8px;margin-top:5px;">&nbsp;ถึง&nbsp;&nbsp;</div>
+              <div style="float:left;"><input  name = "txt_date_end" id="txt_date_end" type="text" placeholder="วว/ดด/ปปปป" value=""  class="form-control jcalendar date_end" style="width:120px;height: 28px;" ></div>
+              <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.date_end').focus();"></i></div>
+            </td>
+          </tr>
+
+          <tr>
+            <td align="right"></td>
+              <td  align="left">
+                <div style="float:left;">
+                  <input type="radio" name="chk" [(ngModel)]="result.chk" [value]="1" style="margin-right:5px;">&nbsp; คดีไกล่เกลี่ย&nbsp;
+                  <!-- <input type="radio" name="chk" [(ngModel)]="result.chk" [value]="2"style="margin-right:5px;">&nbsp; คดีสมานฉันท์&nbsp;
+                  <input type="radio" name="chk" [(ngModel)]="result.chk" [value]="3"style="margin-right:5px;">&nbsp; คลินิคจิตสังคม&nbsp;
+                  <input type="radio" name="chk" [(ngModel)]="result.chk" [value]="4"style="margin-right:5px;">&nbsp; คุ้มครองสิทธิ์&nbsp; -->
+                </div>
+              </td>
+          </tr>
+
+          <tr >
+            <td  align="right">ความ :&nbsp;</td>
+              <td  align="left">
+                <div style="float: left;">
+                  <ng-select [(ngModel)]="result.case_type" style="width:100px;"  [ngModelOptions]="{standalone: true}" (change)="changeCaseType($event)"  #sCaseType>
+                    <ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                  </ng-select>
+                </div>
+                <div style="float: left; margin-left: 5px;">คำนำหน้าคดี :&nbsp;</div>
+                <div style="float:left;margin-left: 5px;">
+                  <ng-select  [(ngModel)]="result.ptitle" style="width:100px;"   #sTitle>
+                    <ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                  </ng-select>
+                </div>
+                <div style="float: left; margin-left: 5px;">คำนำหน้าคดีแดง :&nbsp;</div>
+                <div style="float:left;margin-left: 5px;">
+                  <ng-select  [(ngModel)]="result.red_title" style="width:100px;"   #sTitle>
+                    <ng-option *ngFor="let getData of getRedTitle" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                  </ng-select>
+                </div>
+            </td>
+          </tr>
+
+        <tr><td    align="right" >ประเภทสถิติคดี :&nbsp;</td>
+          <td  align="left" >
+          <div style="float: left;">
+            <ng-select [(ngModel)]="pcase_type_stat" style="width:150px;"  [ngModelOptions]="{standalone: true}"  #sType>
+            <ng-option *ngFor="let getData of getCaseTypeStat" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+            </ng-select>
+          </div>
+        </td></tr>
+
+    <!-- </div> -->
+       <div>&nbsp;</div>
+	</table> </div>
+      <!-- /.card-body -->
+				<div class="card-footer" >
+          <button type="button" class="btn btn-info" style="margin-left:45%;"  (click)="printReport()">พิมพ์รายงาน</button>
+          <button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+				</div>
+				<!-- /.card-footer -->
+</div>
+

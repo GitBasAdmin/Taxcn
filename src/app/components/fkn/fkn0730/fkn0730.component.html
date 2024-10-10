@@ -1,0 +1,89 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info">
+			<div class="card-header">
+				<h3 class="card-title">{{programName}}</h3>
+			</div>
+			<div class="card-body">
+				<!--	-->
+				<div class="card-footer" align="center">
+					<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+						<tr align="left">
+							<td>
+								<a style="margin-right: 6px; cursor:pointer;" (click)="goToPage()" ><i class='fas fa-envelope' style='margin-right: 4px;padding-top: 3px; font-size:16px; color: #f5b349;' ></i>กลับ</a>|
+								<a style="margin-right: 6px; cursor:pointer;"(click)="mailReply()" ><i class='fa fa-reply' style='margin-right: 4px;padding-top: 3px; font-size:16px; color: #f5b349;' ></i>ตอบ</a>|
+								<a style="margin-right: 6px; cursor:pointer;" (click)="mailForward()" ><i class='fa fa-share' style='margin-right: 4px;padding-top: 3px; font-size:16px; color: #f5b349;' ></i>ส่งต่อ</a>|
+								<a style="margin-right: 6px; cursor:pointer;" (click)="mailDelete()"><i class="fa fa-close" style="margin-right: 4px;padding-top: 3px; font-size:18px;color:#d50000d1;"></i>ลบ</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<fieldset style="width:99%;border-radius:4px;border:1px solid #333333;padding:1px;margin-top:8px;">
+					<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+						<tr>
+							<td width="8%" align="right">จาก :&nbsp;</td>
+							<td width="92%" align="left">{{result.create_user}}</td>
+						</tr>
+						<tr>
+							<td align="right">เรื่อง :&nbsp;</td>
+							<td align="left">{{result.subject}}</td>
+						</tr>
+						<tr>
+							<td colspan="2" align="center">
+								<table style="width: 99.7%;">	
+									<tr><td bgcolor="#FFFFFF">&nbsp;</td></tr>
+									<tr><td bgcolor="#FFFFFF" style="padding:10px;"><span [innerHTML]="result.message"></span></td></tr>
+									<tr><td bgcolor="#FFFFFF">&nbsp;</td></tr>
+								</table>
+							</td>
+						</tr>
+						<tr *ngFor="let post of attachment;let i = index;">
+							<td align="right">แนบไฟล์ :&nbsp;</td>
+							<td align="left">
+								<a style="margin-right: 6px; cursor:pointer;" (click)="clickOpenFile(i)">
+									<i class="fa fa-paperclip" style="margin-right: 4px;padding-top: 3px; font-size:18px;"></i>
+									<span style="color: blue;">{{post.attach_file}}</span>
+								</a>
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+			</div>
+		</div>
+	</div>
+ <!-- Modal -->
+
+ <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+		  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+		</div>
+		<div class="modal-body" >
+			<input type="hidden" name="table_name" id="table_name">
+			<input type="hidden" name="field_id" id="field_id">
+			<input type="hidden" name="field_name" id="field_name">
+			<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+				<app-datalist-return  *ngIf="loadComponent"  [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldName2 (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+				<app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+       		</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+		  	<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>

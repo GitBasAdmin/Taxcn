@@ -1,0 +1,84 @@
+<fieldset style="width:100%;border-radius:4px;border:1px solid rgba(0,0,0,.125);padding:4px;margin-top:5px;">
+  <legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;" >
+    <span >ไฟล์แนบ (E-CMS)</span>
+  </legend>
+  <table class="myTable1" cellspacing="2" cellpadding="0" class="bordered">
+    <thead>
+      <tr style="background-color: rgb(218 218 218)!important;">
+        <th width="5%" style="background-color: transparent!important;" >ลำดับที่</th>
+        <th width="9%" style="background-color: transparent!important;" >เปิดไฟล์</th>
+        <th width="32%" style="background-color: transparent!important;" >ชื่อไฟล์แนบ</th>
+        <th width="18%" style="background-color: transparent!important;"  >ประเภทเอกสารแนบ</th>
+        <th width="12%" style="background-color: transparent!important;" >วันที่อนุมัติ</th>
+        <th width="12%" style="background-color: transparent!important;" >ผู้อนุมัติ</th>
+        <th width="12%" style="background-color: transparent!important;" >วัน/เวลาที่จัดเก็บ</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="dataFileSearch2.length">
+      <tr  *ngFor="let post of dataFileSearch2; let i = index;" style="background-color: rgb(254, 254, 254)!important;">
+        <td align="center">{{post.issue}}</td>
+        <td align="center"><i class="fas fa-link" style="font-size:16px;cursor: pointer;" *ngIf="post.file_name" (click)="clickOpenFile2(i)"></i></td>
+        <td align="left" >{{post.file_name}}</td>
+        <td align="left">{{post.doc_type_name}}</td>
+        <td align="center">{{post.approve_date}}</td>
+        <td align="center">{{post.approve_name}}</td>
+        <td align="center" >{{post.attach_date}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="!dataFileSearch2.length">
+      <tr style="background-color: rgb(254, 254, 254)!important;">
+        <td colspan="7" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+        <td style="display:none;"></td>
+        <td style="display:none;"></td>
+        <td style="display:none;"></td>
+        <td style="display:none;"></td>
+
+        <td style="display:none;"></td>
+        <td style="display:none;"></td>
+      </tr>
+    </tbody>
+  </table>
+</fieldset>
+<fieldset style="width:100%;border-radius:4px;border:1px solid rgba(0,0,0,.125);padding:4px;margin-top:10px;">
+  <legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;" class="lClick">ไฟล์แนบในระบบสารสนเทศสำนวนคดี (crim)</legend>
+    <table class="myTable1" cellspacing="2" cellpadding="0" class="bordered">
+    <thead>
+      <tr>
+        <th width="7%" >วันที่แนบไฟล์</th>
+        <th width="11%" >รายละเอียด</th>
+        <th width="13%" >ไฟล์แนบ</th>
+        <th width="7%" >ผู้จัดเก็บ</th>
+        <th width="7%" >วัน/เวลาที่จัดเก็บ</th>
+        <th width="7%" >ผู้แก้ไข</th>
+        <th width="7%"  >วัน/เวลาที่แก้ไข</th>
+      </tr>
+    </thead>
+    
+    <tbody *ngIf="dataFileSearch1.length">
+      <tr  *ngFor="let post of dataFileSearch1; let i = index;">
+        <td align="center">{{post.attach_date}}</td>
+        <td align="center">{{post.file_desc}}</td>
+        <td align="center">
+          <span *ngIf="post.file_name" style="color:blue;cursor:pointer;" (click)="clickOpenFile(i,'')">{{dataFileSearch1[i].file_name}}</span>
+        </td>
+        <td  align="center">{{dataFileSearch1[i].create_user}}</td>
+        <td align="center" >{{dataFileSearch1[i].create_date}}</td>
+        <td  align="center">{{dataFileSearch1[i].update_user}}</td>
+        <td  align="center">{{dataFileSearch1[i].update_date}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="!dataFileSearch1.length">
+      <tr >
+        <td colspan="7" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+        <td style="display:none;"></td>
+        <td style="display:none;"></td>
+        <td style="display:none;"></td>
+        <td style="display:none;"></td>
+
+        <td style="display:none;"></td>
+        <td style="display:none;"></td>
+      </tr>
+    </tbody>
+  </table>
+</fieldset>
+

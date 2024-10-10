@@ -1,0 +1,165 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName"></app-case-header>
+			</div>
+		</div>
+
+
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="2" class="form_table">
+				<tr>
+					<td colspan="2" align="left" style="height:40px;">
+						<div style="float:left;margin-left:8px;margin-top:5px;">ต้องการค้นหาข้อมูลตาม ....&nbsp;</div>
+					</td>
+				</tr>
+
+        <tr>
+					<td  align="right">ความ :&nbsp;</td>
+					<td  align="left">
+            <!-- <div style="float: left;margin-left:10px;margin-top:4px;">ความ :&nbsp;</div> -->
+						<div style="float: left;">
+              <ng-select [(ngModel)]="result.case_type" style="width:100px;"  [ngModelOptions]="{standalone: true}"  #sCaseType>
+								<ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+				</tr>
+        <tr>
+					<td  width="240" align="right" >วันที่รับไกล่เกลี่ยตั้งแต่วันที่ :&nbsp;</td>
+					<td  align="left">
+						<div style="float:left;"><input   type="text" [(ngModel)]="result.case_date1" class="form-control jcalendar case_date1" #case_date1 (click)="directiveDate(case_date1.value,'case_date1')" style="width:120px;height:28px;"></div>
+                    	<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.case_date1').focus();"></i></div>
+						<div style="float:left;margin-left:8px;margin-top:5px;color:blue;">&nbsp;ถึง&nbsp;</div>
+						<div style="float:left;"><input   type="text" [(ngModel)]="result.case_date2" class="form-control jcalendar case_date2"  #case_date2 (click)="directiveDate(case_date2.value,'case_date2')" style="width:120px;height:28px;"></div>
+           	<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.case_date2').focus();"></i></div>
+            <div style="float:left;margin-left:8px;margin-top:5px;color:blue;">&nbsp;หรือ/และ&nbsp;</div>
+          </td>
+				</tr>
+        <tr>
+					<td  width="240" align="right" >ไกล่เกลี่ยเสร็จตั้งแต่วันที่ :&nbsp;</td>
+					<td  align="left">
+						<div style="float:left;"><input   type="text" [(ngModel)]="result.judge_date1" class="form-control jcalendar judge_date1" #judge_date1 (click)="directiveDate(judge_date1.value,'judge_date1')" style="width:120px;height:28px;"></div>
+                    	<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.judge_date1').focus();"></i></div>
+						<div style="float:left;margin-left:8px;margin-top:5px;color:blue;">&nbsp;ถึง&nbsp;</div>
+						<div style="float:left;"><input   type="text" [(ngModel)]="result.judge_date2" class="form-control jcalendar judge_date2"  #judge_date2 (click)="directiveDate(judge_date2.value,'judge_date2')" style="width:120px;height:28px;"></div>
+                    	<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.judge_date2').focus();"></i></div>
+					</td>
+				</tr>
+        <tr>
+					<td  align="right">ผลการไกล่เกลี่ย :&nbsp;</td>
+					<td  align="left">
+            <!-- <div style="float: left;margin-left:10px;margin-top:4px;">ความ :&nbsp;</div> -->
+						<div style="float: left;">
+              <ng-select [(ngModel)]="result.con_result"  style="width:150px;height:28px;" [ngModelOptions]="{standalone: true}" #conResult>
+                <ng-option *ngFor="let getData of getConResult" [value]="getData.id">{{getData.text}}</ng-option>
+               </ng-select>
+						</div>
+					</td>
+				</tr>
+
+
+
+			</table>
+      <div class="card-footer" >
+				<button type="button" class="btn btn-primary" style="margin-left:250px;"  (click)="searchData()">ค้นหา</button>
+				<button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" onclick="location.reload()">ล้างหน้าจอ</button>
+				<!-- <button type="button" class="btn btn-primary" style="margin-left:5px;"  >พิมพ์รายงานแนวตั้ง</button>
+				<button type="button" class="btn btn-primary" style="margin-left:5px;"  >พิมพ์รายงานแนวนอน</button>
+				<button type="button" class="btn btn-primary" style="margin-left:5px;"  >ส่งออกเป็น Excel</button> -->
+			</div>
+		</div>
+
+<div class="card " style="box-shadow: none !important;padding:5px;width:100%;">
+  <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+    <!-- <tr>
+      <td width="40%" align="left" style="height:40px;">
+        <div style="float:left;margin-left:8px;margin-top:5px;">รวม &nbsp;</div>
+        <div style="float: left;">
+          <input  type="text" id="" [(ngModel)]="numCase"    class="form-control" style="text-align:center;width:60px;border:1px solid red;color:red;height:25px;"/>
+        </div>
+        <div style="float: left;margin-left:5px;margin-top:5px;">คดี </div>
+        <div style="float: left;margin-left:4px;">
+          <input  type="text" id=""  [(ngModel)]="numLit"   class="form-control" style="text-align:center;width:60px;border:1px solid blue;color:blue;height:25px;"/>
+        </div>
+        <div style="float: left;margin-left:5px;margin-top:5px;">คน </div>
+      </td>
+    </tr> -->
+    <tr>
+      <td width="40%" align="left">
+        <table datatable  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+          <thead>
+            <tr>
+
+              <th width="7%"  height="20">คดีไกล่เกลี่ยดำที่</th>
+              <th width="7%"  height="20">คดีไกล่เกลี่ยแดงที่</th>
+              <th width="7%">คดีหมายเลขดำที่</th>
+              <th width="4%">ความ</th>
+              <th width="7%" >โจทก์</th>
+              <th width="7%" >จำเลย</th>
+              <th width="5%" >วันที่รับ</th>
+              <th width="5%"><span style="color: red;">วันที่เสร็จ</span></th>
+              <th width="5%" >เสร็จโดย</th>
+              <th width="7%" >ผู้พิพากษา</th>
+              <th width="7%" >ผู้ไกล่เกลี่ย</th>
+
+            </tr>
+          </thead>
+          <tbody *ngIf="dataSearch?.length != 0">
+            <tr *ngFor="let post of dataSearch;let i = index;">
+              <td align="center">{{post.black_no}}</td>
+              <td align="center">{{post.red_no}}</td>
+              <td align="center">{{post.old_black_no}}</td>
+              <td align="center">{{post.case_type_desc}}</td>
+              <td align="center">{{post.pros_desc}}</td>
+              <td align="center">{{post.accu_desc}}</td>
+              <td align="center">{{post.case_date}}</td>
+              <td align="center">{{post.judging_date}}</td>
+              <td align="center">{{post.con_result_desc}}</td>
+              <td align="center">{{post.judge_name}}</td>
+              <td align="center">{{post.conciliatename}}</td>
+              <!-- <td align="center"><span *ngIf="post.file_name"><a href=""><i class='fas fa-file-alt' style='font-size:16px;color: #0099cc;'></i></a></span></td> -->
+              <!-- <td style="padding-left:8px;">{{post.name}}</td> -->
+
+
+            </tr>
+          </tbody>
+          <tbody *ngIf="dataSearch?.length == 0">
+            <tr>
+              <td colspan="11" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+
+              <td style="display:none;"></td>
+
+            </tr>
+          </tbody>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+
+
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

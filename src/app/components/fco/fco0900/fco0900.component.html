@@ -1,0 +1,201 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName"></app-case-header>
+			</div>
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="1" cellspacing="2" cellpadding="5" class="form_table">
+
+       <tr>
+        <td> &nbsp;</td>
+        <td  align="left">
+          <div style="float:left;margin-left:3px;"><input type="radio"></div>
+          <div style="float:left;margin-left:3px;">&nbsp; ทั้งหมด &nbsp;</div>
+          <div style="float:left;margin-left:3px;"><input type="radio"></div>
+          <div style="float:left;margin-left:3px;">&nbsp; สำนวน &nbsp;</div>
+          <div style="float:left;margin-left:3px;"><input type="radio"></div>
+          <div style="float:left;margin-left:3px;">&nbsp; หนังสือทั่วไป &nbsp;</div>
+        </td>
+        <td  align="left" colspan="2">
+          <div style="float:left;margin-left:3px;"><input type="radio"></div>
+          <div style="float:left;margin-left:3px;">&nbsp; ส่งทั้งหน่วยงาน &nbsp;</div>
+          <div style="float:left;margin-left:3px;"><input type="radio"></div>
+          <div style="float:left;margin-left:3px;">&nbsp; ส่งเฉพาะที่บันทึกเอง &nbsp;</div>
+          <div style="float:left;margin-left:3px;"><input type="radio"></div>
+          <div style="float:left;margin-left:3px;">&nbsp; ส่งทั้งหมด &nbsp;</div>
+        </td>
+          <td >&nbsp;</td>
+          <td >&nbsp;</td>
+				</tr>
+				<tr>
+					<td  align="right">Barcode เลขที่หนังสือรับ :&nbsp;</td>
+					<td  align="left" >
+						<div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:150px;height:28px;"></div>
+					</td>
+          <td  align="right"  width="150px" >เลขที่รับ :&nbsp;</td>
+					<td  align="left">
+						<div style="float:left;">
+							<ng-select style="width:80px;height:28px;" >
+								<ng-option >ท</ng-option>
+                <ng-option >ส</ng-option>
+							 </ng-select>
+						</div>
+						<div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:60px;height:28px;"></div>
+						<div style="float: left;margin-left:2px; padding-top: 4px;">
+              &nbsp; ถึง &nbsp;
+             </div>
+            <div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:80px;height:28px;"></div>
+            <div style="float: left;margin-left:2px; padding-top: 4px;">
+              &nbsp; / &nbsp;
+             </div>
+            <div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:60px;height:28px;"></div>
+            <div style="float: left;margin-left:2px; padding-top: 4px; color: red;">
+              &nbsp; *ช่วงเลขหนังสือที่ส่งต้องไม่เกิน 100 เลข &nbsp;
+             </div>
+          </td>
+					<td >&nbsp;</td>
+          <td >&nbsp;</td>
+				</tr>
+        <tr><td colspan="6"><div><hr></div></td></tr>
+        <tr>
+          <td> &nbsp;</td>
+          <td  align="left">
+            <div style="float:left;margin-left:3px;"><input type="checkbox"></div>
+            <div style="float:left;margin-left:3px;">&nbsp; ส่ง &nbsp;</div>
+            <div style="float:left;">
+							<ng-select style="width:80px;height:28px;" >
+								<ng-option >สำนวน</ng-option>
+                <ng-option >กากสำนวน</ng-option>
+                <ng-option >อื่นๆ</ng-option>
+							 </ng-select>
+						</div>
+            <div style="float:left;margin-left:3px;">&nbsp; พร้อมหนังสือ &nbsp;</div>
+            <div style="float:left;margin-left:3px;"><input type="checkbox"></div>
+            <div style="float:left;margin-left:3px;">&nbsp; ส่งสำนวนพ่วงพร้อมหนังสือ &nbsp;</div>
+          </td>
+          <td >&nbsp;</td>
+            <td >&nbsp;</td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td  align="right">ปลายทาง :&nbsp;</td>
+            <td  align="left">
+              <div style="float: left;">
+                <input  name="user_id" type="text" id="user_id"  maxlength="5"   class="form-control" style="width:60px;height:28px;"/>
+              </div>
+              <div style="float: left;margin-left:2px;">
+                <input  name="off_name" type="text" class="blackd" id="off_name" value=""  class="form-control" style="width:220px;height:28px;" readonly>
+              </div>
+              <div style="float: left;margin-left:2px;margin-top:4px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:4px;"></i>
+              </div>
+                          </td>
+           <td  align="right">ผู้รับหนังสือ :&nbsp;</td>
+            <td  align="left">
+              <div style="float: left;">
+                <input  name="user_id" type="text" id="user_id"  maxlength="5"   class="form-control" style="width:60px;height:28px;"/>
+              </div>
+              <div style="float: left;margin-left:2px;">
+                <input  name="off_name" type="text" class="blackd" id="off_name" value=""  class="form-control" style="width:220px;height:28px;"readonly >
+              </div>
+              <div style="float: left;margin-left:2px;margin-top:4px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:4px;"></i>
+              </div>
+
+           </td>
+           <td >&nbsp;</td>
+           <td >&nbsp;</td>
+          </tr>
+				<tr>
+					<td  align="right">วันที่ส่งหน้งสือ :&nbsp;</td>
+					<td  align="left">
+            <div style="float:left;"><input  name="" type="text"   value=""  class="form-control" style="width:120px;height:28px;"></div>
+            <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;"></i></div>
+            <div style="float: left;margin-left:2px; padding-top: 4px;">
+              &nbsp; เวลาที่ส่ง &nbsp;
+             </div>
+            <div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:80px;height:28px;" readonly></div>
+          </td>
+         <td  align="right">ส่งเพื่อ :&nbsp;</td>
+					<td  align="left">
+            <div style="float: left;">
+							<input  name="user_id" type="text" id="user_id"  maxlength="5"   class="form-control" style="width:60px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;">
+							<input  name="off_name" type="text" class="blackd" id="off_name" value=""  class="form-control" style="width:220px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:4px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:4px;"></i>
+						</div>
+
+         </td>
+         <td >&nbsp;</td>
+         <td >&nbsp;</td>
+				</tr>
+
+        <div>&nbsp;</div>
+			</table>
+      <div class="card-footer" style="text-align: center; margin-top: 5px;">
+        <button type="button" class="btn btn-success" style="margin-left:5px;" >จัดเก็บ</button>
+				<button type="button" class="btn btn-warning" style="margin-left:5px;" >ยกเลิก</button>
+        <button type="button" class="btn btn-danger" style="margin-left:5px;" >ลบข้อมูลที่เลือก</button>
+				<button type="button" class="btn btn-info" style="margin-left:5px;"  >พิมพ์รายงาน</button>
+			</div>
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+					<tr>
+					<td width="40%" align="left">
+						<table datatable  class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+							<thead>
+								<tr>
+                  <th width="2%" ><input type="checkbox"></th>
+									<th width="4%" >ลำดับที่</th>
+									<th width="5%" >เลขที่รับ</th>
+                  <th width="10%" >เรื่อง</th>
+									<th width="10%" >ปลายทาง</th>
+									<th width="7%" >วันที่ส่งหนังสือ</th>
+									<th width="4%" >เวลาที่ส่งหนังสือ</th>
+									<th width="7%" >ส่งเพื่อ</th>
+                  <th width="4%" >ส่งสำนวนมาด้วย</th>
+									<th width="4%" >ส่งสำนวนพ่วงมาด้วย</th>
+                 	</tr>
+							</thead>
+
+							<tbody >
+								<tr>
+									<td colspan="10" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+                  <td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+
+
+
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

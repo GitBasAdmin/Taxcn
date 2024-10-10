@@ -1,0 +1,222 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info">
+			<div class="card-header">
+			<h3 class="card-title">{{programName}}</h3>
+			</div>
+			<!-- /.card-header -->
+			<!-- form start -->
+				<form class="form-horizontal" [formGroup]="form" #fct0209>
+				<div class="card-body">
+
+					<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+						<tr>
+						<td height="25" width="250" height="34" align="right">รหัส :&nbsp;</td>
+						<td >
+							<input type="text" readonly formControlName="lit_type" name="lit_type" id="lit_type"  class="form-control" style="width:80px;height:28px;" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+
+						</td>
+						</tr>
+						<tr>
+							<td height="25" height="34" align="right" >ชื่อประเภทคู่ความ :&nbsp;</td>
+							<td ><input type="text" formControlName="lit_type_desc" name="lit_type_desc" id="lit_type_desc" class="form-control" style="width:300px;height:28px;" ></td>
+						</tr>
+            <tr>
+              <td height="25"  height="34" align="right">คู่ความฝ่าย :&nbsp;</td>
+              <td > <div style="float: left;">
+                <ng-select [(ngModel)]="selectedData"  style="width:150px;height:28px;" [ngModelOptions]="{standalone: true}" #myselect>
+                  <ng-option *ngFor="let getData of selData" [value]="getData.id">{{getData.text}}</ng-option>
+                 </ng-select>
+              </div>
+              <div style="float: left;margin-left:8px;margin-top:3px;">
+                <input formControlName="show_lit_flag" name="show_lit_flag" type="checkbox" id="show_lit_flag" style="width:15px;height:15px;margin-top:5px;"/>
+              </div>
+                <div style="float:left;margin-left:3px;margin-top:5px;">&nbsp;ไม่แสดงประเภทคู่ความต่อท้ายหมาย&nbsp;</div>
+                <input type="hidden" formControlName="hid_lit_type" name="hid_lit_type" id="hid_lit_type" >
+              </td>
+              </tr>
+              <tr>
+                <td height="25"  height="34" align="right">ประเภท :&nbsp;</td>
+                <td > <div style="float: left;">
+                  <ng-select [(ngModel)]="selectedData2"  style="width:150px;height:28px;" [ngModelOptions]="{standalone: true}" #myselect2>
+                    <ng-option *ngFor="let getData of selData2" [value]="getData.id">{{getData.text}}</ng-option>
+                   </ng-select>
+                </div>
+                <div style="float: left;margin-left:8px;margin-top:3px;">
+                  <input formControlName="center_flag" name="center_flag" type="checkbox" id="center_flag" style="width:15px;height:15px;margin-top:5px;"/>
+                </div>
+                  <div style="float:left;margin-left:3px;margin-top:5px;">&nbsp;แสดงข้อมูลระหว่างคู่ความ&nbsp;</div>
+                  <div style="float: left;margin-left:8px;margin-top:3px;">
+                    <input formControlName="display_flag" name="display_flag" type="checkbox" id="display_flag" style="width:15px;height:15px;margin-top:5px;"/>
+                  </div>
+                    <div style="float:left;margin-left:3px;margin-top:5px;">&nbsp;พิมพ์แทนโจทก์/จำเลย&nbsp;</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td height="25"  height="34" align="right">ทนาย/พยาน :&nbsp;</td>
+                  <td > <div style="float: left;">
+                    <ng-select [(ngModel)]="selectedData3"  style="width:150px;height:28px;" [ngModelOptions]="{standalone: true}" #myselect3>
+                      <ng-option *ngFor="let getData of selData3" [value]="getData.id">{{getData.text}}</ng-option>
+                     </ng-select>
+                  </div>
+                  <div style="float: left;margin-left:8px;margin-top:3px;">
+                    <input formControlName="no_edit_flag" name="no_edit_flag" type="checkbox" id="no_edit_flag" style="width:15px;height:15px;margin-top:5px;"/>
+                  </div>
+                    <div style="float:left;margin-left:3px;margin-top:5px;">&nbsp;ห้ามแก้ไข&nbsp;</div>
+                    <div style="float: left;margin-left:8px;margin-top:3px;">
+                      <input formControlName="politician_flag" name="politician_flag" type="checkbox" id="politician_flag" style="width:15px;height:15px;margin-top:5px;"/>
+                    </div>
+                      <div style="float:left;margin-left:3px;margin-top:5px;">&nbsp;ใช้ในการตรวจสอบรายชื่อนักการเมือง&nbsp;</div>
+
+                  </td>
+                  </tr>
+                  <tr>
+                    <td height="25" width="200" height="34" align="right" >รหัสประเภทคู่ความ(สำหรับออกใบแจ้งหนี้) :&nbsp;</td>
+                    <td >
+                      <div style="float: left;">
+                      <input type="text" formControlName="lit_inv_code" name="lit_inv_code" id="lit_inv_code" class="form-control" style="width:60px;height:28px;" >
+                    </div>
+                    <div style="float:left;margin-left:3px;margin-top:5px;">&nbsp;01 = โจทก์, 02 = จำเลย, 03 = ผู้ร้อง, 04 = ผู้คัดค้าน, 05 = ผู้ร้องสอด, 06 = อื่นๆ, 07 = นายประกัน&nbsp;</div>
+                  </td>
+                  </tr>
+                  <tr>
+                    <td height="25"  height="34" align="right" >หมายเหตุ :&nbsp;</td>
+                    <td ><input type="text" formControlName="remark" name="remark" id="remark" class="form-control" style="width:500px;height:28px;" ></td>
+                  </tr>
+					</table>
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer" >
+					<button type="button" class="btn btn-success" style="margin-left:250px;" (click)="submitForm()">จัดเก็บข้อมูล</button>
+					<button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="confirmBox()" >ลบข้อมูลที่เลือก</button>
+          <button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+          <!-- <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="searchData()">ค้นหา</button> -->
+					<!--<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="goToLink('http://bizascorp.thddns.net:8848/taxcRpt56/rct0226.jsp')">พิมพ์</button>-->
+					<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printReport()">พิมพ์</button>
+          <input type="hidden" name="delValue" id="delValue">
+				</div>
+				<!-- /.card-footer -->
+				</form>
+		</div>
+	</div>
+
+	<div class="content" style="padding:10px;margin-top:-25px;">
+		<section class="content" style="width: 2400px;">
+		<div class="card card-info">
+			<div class="card-header" style="display:none;">
+			<h3 class="card-title">ข้อมูล</h3>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover">
+					<thead>
+						<tr>
+						<th width="3%" class="no-sort">
+							<input type="checkbox" name="all" [(ngModel)]="masterSelected" name="list_name" value="m1" (change)="checkUncheckAll()"/>
+						</th>
+				    <th width="3%">แก้ไข</th>
+						<th width="3%">รหัส</th>
+						<th width="5%">ชื่อประเภทคู่ความ</th>
+            <th width="5%">คู่ความฝ่าย</th>
+            <th width="5%">ประเภท</th>
+            <th width="5%">ทนาย/พยาน</th>
+            <th width="5%">แสดงข้อมูลระหว่างคู่ความ</th>
+            <th width="5%">พิมพ์แทนโจทก์/จำเลย</th>
+						<th width="5%">ห้ามแก้ไข</th>
+            <th width="5%">ตรวจสอบรายชื่อ</th>
+            <th width="5%">ไม่แสดงประเภทคู่ความต่อท้ายหมาย</th>
+						<th width="5%" >หน่วยงานที่จัดเก็บ</th>
+						<th width="5%" >ผู้จัดเก็บ</th>
+						<th width="5%" >วัน/เวลาที่จัดเก็บ</th>
+						<th width="5%" >หน่วยงานที่แก้ไข</th>
+						<th width="5%" >ผู้แก้ไข</th>
+						<th width="5%"  >วัน/เวลาที่แก้ไข</th>
+						<!--<th width="15%">&nbsp;</th>-->
+						</tr>
+					</thead>
+					<tbody *ngIf="posts?.length != 0">
+
+					<tr *ngFor="let post of posts;let i = index;">
+							<td align="center">
+								<input type="checkbox" name="listName[]" value="{{post.lit_type}}" [(ngModel)]="post.editLitType" (change)="isAllSelected()" >
+							</td>
+							<td align="center"><i class='fas fa-pencil-alt' style='cursor:pointer;font-size:20px' (click)="editData(post.lit_type)"></i></td>
+							<td align="center">{{post.lit_type}}</td>
+							<td align="center">{{post.lit_type_desc}}</td>
+              <td align="center">{{post.pros_accu_type_desc}}</td>
+              <td align="center">{{post.lit_type_flag_desc}}</td>
+              <td align="center">{{post.lit_flag_desc}}</td>
+              <td align="center"><i class='fas fa-check' style='font-size:20px;color:green' *ngIf="post.center_flag==1"></i></td>
+              <td align="center"><i class='fas fa-check' style='font-size:20px;color:green' *ngIf="post.display_flag==1"></i></td>
+              <td align="center"><i class='fas fa-check' style='font-size:20px;color:green' *ngIf="post.no_edit_flag==1"></i></td>
+              <td align="center"><i class='fas fa-check' style='font-size:20px;color:green' *ngIf="post.politician_flag==1"></i></td>
+              <td align="center"><i class='fas fa-check' style='font-size:20px;color:green' *ngIf="post.show_lit_flag==1"></i></td>
+							<td align="center">{{post.create_dep_name}}</td>
+							<td align="center">{{post.create_user}}</td>
+							<td align="center">{{post.create_date}}</td>
+							<td align="center">{{post.update_dep_name}}</td>
+							<td align="center">{{post.update_user}}</td>
+							<td align="center">{{post.update_date}}</td>
+							<!---<td align="center">
+								<ng-template #popContent>
+									หน่วยงานที่จัดเก็บ = {{post.createDepName}}<br>
+									ผู้จัดเก็บ = {{post.createUser}}<br>
+									วันที่จัดเก็บ = {{post.createDate}}<br>
+									หน่วยงานที่แก้ไข = {{post.updateDepName}}<br>
+									ผู้แก้ไข = {{post.updateUser}}<br>
+									วันที่แก้ไข = {{post.updateDate}}<br>
+								</ng-template>
+								<i class="fa fa-eye" placement="left" popoverTitle="รายละเอียดการจัดเก็บข้อมูล" [ngbPopover]="popContent" style="cursor:pointer;font-size:22px"></i>
+							</td>-->
+						</tr>
+					</tbody>
+					<tbody *ngIf="posts?.length == 0">
+						<tr>
+							<td colspan="18" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+		</section>
+	</div>
+
+<!-- Modal -->
+
+	<div class="modal fade" data-refresh="true"  role="dialog" #crudModal id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+			<button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+			<button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyChildComponent();" #openbutton></button>
+			</div>
+			<div class="modal-body" >
+
+					<input type="hidden" name="table_name" id="table_name">
+					<input type="hidden" name="field_id" id="field_id">
+					<input type="hidden" name="field_name" id="field_name">
+					<div >
+					<app-modal-confirm *ngIf="loadComponent" class="modal_app"></app-modal-confirm>
+					</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()">ตกลง</button>
+				<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

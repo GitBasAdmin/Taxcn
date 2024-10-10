@@ -1,0 +1,245 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info">
+			<div class="card-header">
+			<h3 class="card-title">{{programName}}</h3>
+			</div>
+			<!-- /.card-header -->
+			<!-- form start -->
+
+				<div class="card-body">
+					<!--	-->
+					<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+						<tr>
+						<td  width="150"  align="right">รหัสเรียน :&nbsp;</td>
+						<td >
+							<input type="text" [(ngModel)]="docto_id"  name="docto_id" id="docto_id"  class="form-control" style="width:80px;" >
+							<input type="hidden"  [(ngModel)]="hid_docto_id" name="hid_docto_id" id="hid_docto_id" >
+            </td>
+						</tr>
+           	<tr>
+							<td    align="right" >เรียน (ส่งหนังสือ) :&nbsp;</td>
+							<td ><input type="text" [(ngModel)]="docto_desc" name="docto_desc" id="docto_desc" class="form-control" style="width:450px;" ></td>
+						</tr>
+            <tr>
+              <td  align="right">ที่ตั้ง/อาคาร :&nbsp;</td>
+              <td  align="left" >
+                <div style="float:left;"><input [(ngModel)]="address" name="" type="text"   value=""  class="form-control" style="width:250px;height:28px;"></div>
+              </td>
+              <td >&nbsp;</td>
+              <td >&nbsp;</td>
+
+            </tr>
+            <tr>
+              <td  align="right">บ้านเลขที่ :&nbsp;</td>
+              <td  align="left" >
+                <div style="float:left;"><input [(ngModel)]="addr_no" name="" type="text"   value=""  class="form-control" style="width:100px;height:28px;"></div>
+                <div style="float: left;margin-left:10px;margin-top:4px;">หมู่ที่ :&nbsp;</div>
+                <div style="float:left;margin-left:3px;"><input [(ngModel)]="moo" name="" type="text"   value=""  class="form-control" style="width:100px;height:28px;"></div>
+              </td>
+             </tr>
+             <tr>
+              <td align="right">ตรอก/ซอย :&nbsp;</td>
+              <td >
+                <div style="float:left;"><input [(ngModel)]="soi" name="" type="text"   value=""  class="form-control" style="width:200px;height:28px;"></div>
+                <div style="float: left;margin-left:10px;margin-top:4px;">ถนน :&nbsp;</div>
+                <div style="float:left;margin-left:3px;">
+                <input [(ngModel)]="road" name="input2" type="text"   value=""  class="form-control" style="width:200px;height:28px;">
+              </div></td>
+             </tr>
+             <tr>
+              <td align="right" >จังหวัด :&nbsp;</td>
+				<td align="left">
+					<div style="float:left;width:300px;">
+						<ng-select [(ngModel)]="prov_id" style="width:95%;" name="something1" (change)="changeProv($event,1)" [ngModelOptions]="{standalone: true}" #sProv >
+							<ng-option *ngFor="let getData of getProv" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+						</ng-select>
+					</div>
+				</td>
+            </tr>
+            <tr>
+              <td align="right" >อำเภอ :&nbsp;</td>
+				<td align="left">
+					<div style="float:left;width:300px;">
+						<ng-select [(ngModel)]="amphur_id" style="width:95%;" name="something2" (change)="changeAmphur($event,1)" [ngModelOptions]="{standalone: true}" #sAmphur>
+							<ng-option *ngFor="let getData of getAmphur" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+						</ng-select>
+					</div>
+				</td>
+            </tr>
+            <tr>
+              <td align="right" >ตำบล :&nbsp;</td>
+				<td align="left">
+					<div style="float:left;width:300px;">
+						<ng-select [(ngModel)]="tambon_id" style="width:95%;" name="something3" #sTambon>
+							<ng-option *ngFor="let getData of getTambon" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+						</ng-select>
+					</div>
+				</td>
+            </tr>
+            <!-- <tr>
+							<td    align="right" >หมายถึง :&nbsp;</td>
+							<td ><input type="text"  name="notice_to" id="notice_to" class="form-control" style="width:450px;" ></td>
+						</tr> -->
+					</table>
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer">
+					<button type="button" class="btn btn-success" style="margin-left:150px;" (click)="submitForm()">จัดเก็บข้อมูล</button>
+					<button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="confirmBox()" >ลบข้อมูลที่เลือก</button>
+                    <button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+                     <!-- <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="searchData()">ค้นหา</button> -->
+					<!--<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="goToLink('http://bizascorp.thddns.net:8848/taxcRpt56/rct0226.jsp')">พิมพ์</button>-->
+					<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printReport()">พิมพ์</button>
+					<input type="hidden" name="delValue" id="delValue">
+          <!-- <input type="hidden" name="delValue2" id="delValue2"> -->
+				</div>
+				<!-- /.card-footer -->
+
+		</div>
+	</div>
+
+	<div class="content" style="padding:10px;margin-top:-25px;">
+		<section class="content" style="width: 125%;">
+		<div class="card card-info">
+			<div class="card-header" style="display:none;">
+			<h3 class="card-title">ข้อมูล</h3>
+			</div>
+			<!-- /.card-header -->
+			<!-- /.card-header -->
+			<div class="card-body">
+				<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover myTable1">
+					<thead>
+						<tr>
+						<th width="3%" class="no-sort">
+							<input type="checkbox" name="all" [(ngModel)]="masterSelected" value="m1" (change)="checkUncheckAll()"/>
+						</th>
+						<th width="3%" class="no-sort">แก้ไข</th>
+						<th width="5%">รหัสเรียน</th>
+					 <th width="15%">เรียน (ส่งหนังสือ)</th>
+           <th width="5%">ที่ตั้ง</th>
+           <th width="5%">บ้านเลขที่</th>
+           <th width="5%">หมู่</th>
+           <th width="5%">ตรอก/ซอย</th>
+           <th width="5%">ถนน</th>
+           <th width="5%">ตำบล/แขวง</th>
+           <th width="5%">อำเภอ/เขต</th>
+           <th width="5%">จังหวัด</th>
+            <th width="6%" >หน่วยงานที่บันทึก</th>
+						<th width="6%" >ผู้บันทึก</th>
+						<th width="6%" >วัน/เวลาที่บันทึก</th>
+						<th width="6%" >หน่วยงานที่แก้ไข</th>
+						<th width="6%" >ผู้แก้ไข</th>
+						<th width="6%"  >วัน/เวลาที่แก้ไข</th>
+						<!--<th width="15%">&nbsp;</th>-->
+						</tr>
+					</thead>
+					<tbody *ngIf="posts?.length != 0">
+
+					<tr *ngFor="let post of posts;let i = index;">
+							<td align="center">
+                <input type="checkbox"  [(ngModel)]="posts[i].edit0407" (change)="isAllSelected()" >
+								<!-- <input type="checkbox" name="listName[]" value="{{post.docto_id}}" [(ngModel)]="post.editJailId" (change)="isAllSelected()" > -->
+							</td>
+							<td align="center"><i class='fas fa-pencil-alt' style='cursor:pointer;font-size:20px' (click)="editData(i)"></i></td>
+						  <td align="center">{{post.docto_id}}</td>
+              <td align="center">{{post.docto_desc}}</td>
+              <td align="center">{{post.address}}</td>
+              <td align="center">{{post.addr_no}}</td>
+              <td align="center">{{post.moo}}</td>
+              <td align="center">{{post.soi}}</td>
+              <td align="center">{{post.road}}</td>
+              <td align="center">{{post.tambon_name}}</td>
+              <td align="center">{{post.amphur_name}}</td>
+              <td align="center">{{post.prov_name}}</td>
+							<td align="center">{{post.create_dep_name}}</td>
+							<td align="center">{{post.create_user}}</td>
+							<td align="center">{{post.create_date}}</td>
+							<td align="center">{{post.update_dep_name}}</td>
+							<td align="center">{{post.update_user}}</td>
+							<td align="center">{{post.update_date}}</td>
+							<!---<td align="center">
+								<ng-template #popContent>
+									หน่วยงานที่จัดเก็บ = {{post.createDepName}}<br>
+									ผู้จัดเก็บ = {{post.createUser}}<br>
+									วันที่จัดเก็บ = {{post.createDate}}<br>
+									หน่วยงานที่แก้ไข = {{post.updateDepName}}<br>
+									ผู้แก้ไข = {{post.updateUser}}<br>
+									วันที่แก้ไข = {{post.updateDate}}<br>
+								</ng-template>
+								<i class="fa fa-eye" placement="left" popoverTitle="เรื่อนจำการจัดเก็บข้อมูล" [ngbPopover]="popContent" style="cursor:pointer;font-size:22px"></i>
+							</td>-->
+						</tr>
+					</tbody>
+					<tbody *ngIf="posts?.length == 0">
+						<tr>
+							<td colspan="18" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+
+              <td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+
+							<td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+		</section>
+	</div>
+
+ <!-- Modal -->
+
+ <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+		  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+		</div>
+		<div class="modal-body" >
+
+      <input type="hidden" name="table_name" id="table_name">
+      <input type="hidden" name="field_id" id="field_id">
+      <input type="hidden" name="field_name" id="field_name">
+      <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+      <app-datalist-return *ngIf="loadComponent"  [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+      <app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+       </div>
+
+		</div>
+		<div class="modal-footer">
+			<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+		  	<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

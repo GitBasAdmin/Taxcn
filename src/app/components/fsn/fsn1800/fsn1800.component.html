@@ -1,0 +1,181 @@
+<style>
+	
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName"></app-case-header>
+			</div>				
+		</div>
+
+		<div class="card card-info" style="box-shadow: none !important;padding:8px 0px 8px 0px;background-color: #f0f0f0;">
+
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table" style="margin-top:5px;"> 
+				<tr>
+					<td height="25"  align="right" >
+						<div style="float: right;margin-right: 4px;">
+							<ng-select [(ngModel)]="selDayType" class="DayType" style="width:180px;"   #sDayType>
+								<ng-option *ngFor="let getData of getDayType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+					<td >
+						<div style="float: left;margin-left:0px;">
+							<input  name="" type="text" id="" class="form-control" style="width:120px;height:28px;"/>
+						</div>
+						<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;"></i></div>
+						<div style="float: left;margin-left:10px;margin-top:2px;">ถึงวันที่ :&nbsp;</div>
+						<div style="float: left;margin-left:0px;">
+							<input  name="" type="text" id="" class="form-control" style="width:120px;height:28px;"/>
+						</div>
+						<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;"></i></div>
+					</td>
+				</tr>   
+				<tr>
+					<td width="20%" align="right">จนท.เดินหมาย :&nbsp;</td>
+					<td width="80%" align="left" >
+						<div style="float: left;margin-right: 0px;">
+							<ng-select  class="SendOfficer" style="width:200px;"   #sSendOfficer>
+								<ng-option *ngFor="let getData of getSendOfficer" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+							
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">ที่อยู่หมาย จังหวัด :&nbsp;</td>
+					<td  align="left" >
+						<div style="float: left;">
+							<ng-select [(ngModel)]="selProv" class="Prov" style="width:200px;" (change)="changeProv($event)" #sProv>
+								<ng-option *ngFor="let getData of getProv" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+						<div style="float: left;margin-left:15px;margin-top:2px;">เขต/อำเภอ :&nbsp;</div>
+						<div style="float: left;">
+							<ng-select  class="Amphur" style="width:200px;" (change)="changeAmphur($event)"  #sAmphur>
+								<ng-option *ngFor="let getData of getAmphur" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">แขวง/ตำบล :&nbsp;</td>
+					<td  align="left" >
+						<div style="float: left;">
+							<ng-select  class="Tambon" style="width:200px;"   #sTambon>
+								<ng-option *ngFor="let getData of getTambon" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+						
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">หมาย :&nbsp;</td>
+					<td  align="left" >
+						<div style="float: left;">
+							<ng-select [(ngModel)]="selNoticeAmt" class="NoticeAmt" style="width:160px;"   #sNoticeAmt>
+								<ng-option *ngFor="let getData of getNoticeAmt" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+							
+						</div>
+						
+					</td>
+				</tr>
+				
+				
+				
+				
+				
+			</table>
+			<div class="card-footer" style="margin-top: 5px;text-align:center;">
+				<button type="button" class="btn btn-primary" >ค้นหา</button>
+				<button type="button" class="btn btn-warning" style="margin-left:5px;"  >ยกเลิก</button>
+			</div>
+		</div>
+
+
+		<div class="card card-info" style="box-shadow: none !important;padding:8px 0px 8px 0px;background-color: #f0f0f0;">
+
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table" style="margin-top:5px;"> 
+ 
+				<tr>
+					<td width="20%" align="right">กำหนดค่านำหมาย :&nbsp;</td>
+					<td width="80%" align="left" >
+						<div style="float: left;margin-left:0px;">
+							<input  name="" type="text" id="" class="form-control" style="width:80px;height:28px;"/>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">หมายเหตุ :&nbsp;</td>
+					<td  align="left" >
+						<div style="float: left;margin-left:0px;">
+							<textarea name="fact1" class="form-control" id="" style="width: 580px; height: 40px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+						</div>
+					</td>
+				</tr>
+				
+			</table>
+			<div class="card-footer" style="margin-top: 5px;text-align:center;">
+				<button type="button" class="btn btn-primary" >จัดเก็บหมายที่เลือก</button>
+			</div>
+		</div>
+
+		<div class="card " style="box-shadow: none !important;padding:5px;background-color: #f0f0f0;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">           
+				<tr>
+					<td width="40%" align="left">
+						<table datatable  class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+							<thead>
+								<tr>
+								<th width="4%" ><input type="checkbox" name="checkAll" id="checkAll" class="checkAll" onclick="copyAmtAll(this)"></th>
+								<th width="8%" >รหัสหมาย</th>
+								<th width="8%" >เลขคดี</th>
+								<th width="24%" >ที่อยู่ผู้รับหมาย</th>
+								<th width="6%" >วันที่จ่ายหมาย</th>
+								<th width="6%" >วันที่ส่งหมาย</th>
+								<th width="8%" >ค่าส่งหมาย</th>
+								<th width="18%" >หมายเหตุ</th>
+								<th width="18%" >หมายถึง</th>
+								  
+								</tr>
+							</thead>
+							
+							<tbody >
+								<tr>
+									<td colspan="9" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+
+
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>	
+			
+		</div>	
+
+		
+
+	</div>
+
+	
+
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner>
+

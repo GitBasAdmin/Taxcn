@@ -1,0 +1,218 @@
+
+
+
+  <div class="card " style="box-shadow: none !important;padding:5px;width:100%;background-color: #f0f0f0;margin-top:10px;">
+    <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+      <tr>
+        <td colspan="4" style="padding-top:6px;">
+            <fieldset style="width:99%;border-radius:4px;border:1px solid #333333;padding:5px;margin-left:9px;">
+                <legend style="line-height: 10px;float:none;margin-left:14px;font-weight:bold;color:black;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;font-weight: normal;cursor:pointer;color:rgb(25, 107, 214)" >ข้อมูลประกันตัว </legend>
+                <table width="100%"  border="0">
+                  <tr *ngIf="result.all_def_name">
+                    <td width="12%" align="right">ผู้ถูกประกัน	:&nbsp;</td>
+                    <td>{{result.all_def_name}}</td>
+                   </tr>
+                  <tr>
+                    <td width="15%" align="right">ประกันระหว่าง	:&nbsp;</td>
+                    <td width="35%">
+                      <div style="float: left;">
+                        <ng-select [(ngModel)]="result.guar_period" [clearable]="false" style="width:110%;min-width:120px;" >
+                            <ng-option *ngFor="let getData of getGuarPeriod"  [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                        </ng-select>
+                      </div>
+                      <div style="float:left;margin-left:18px;"><span style="color: red;">เลขที่คำร้องสุดท้าย คือ (</span>{{result.guarmax_no}} <span style="color: red;">)</span></div>
+                    </td>
+                    <td width="15%" align="right">วันที่ขอประกัน <span style="color: red;">*</span> :&nbsp;</td>
+                    <td width="35%">
+                      <div style="float:left;"><input  type="text" [(ngModel)]="result.guar_date" style="width:110px;text-align:center;" class="form-control jcalendar guar_date" #guar_date (click)="directiveDate(guar_date.value,'guar_date')"></div>
+                      <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.guar_date').focus();"></i></div>
+                      <div style="float: left;margin-left:5px;margin-top:4px;">เวลา :&nbsp;</div>
+                      <div style="float: left;margin-left:4;">
+                        <input  type="text"  [(ngModel)]="result.guar_time"    class="form-control" style="width:70px;text-align: center;">
+                     </div>
+                      <div style="float:left;margin-left:12px;"><span style="color: red;">เลขที่สัญญาสุดท้าย คือ (</span>{{result.contractmax_no}} <span style="color: red;">)</span></div>
+                    </td>
+                 </tr>
+                 <tr>
+                  <td  align="right" >เลขที่คำร้อง :&nbsp;</td>
+                  <td >
+                      <div style="float:left;">
+                          <ng-select [(ngModel)]="result.guar_title" style="width:110%;min-width:60px;" [ngModelOptions]="{standalone: true}" [clearable]="false"  #sTitle>
+                              <ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+                           </ng-select>
+                      </div>
+                      <div style="float:left;margin-left:8px;"><input #hId type="text" [(ngModel)]="result.guar_no"  class="form-control" style="width:65px;text-align:center;" (click)="runGuarNo(1)"></div>
+                      <div style="float:left;margin-left:3px;margin-top:5px;">/</div>
+                      <div style="float:left;margin-left:3px;"><input  type="text" [(ngModel)]="result.guar_yy"  class="form-control" style="width:70px;text-align:center;"></div>
+                      <div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" (click)="searchMainData(1,'')">ค้นหา</button></div>
+                      <div *ngIf="this.dataHeadValue.run_id" style="float:left;margin-left:3px;"><button type="button" class="btn btn-success" (click)="saveGuarMain(1)">สร้างเลขที่คำร้อง</button></div>
+                      <div style="float:left;margin-left:3px;"><button type="button" class="btn btn-success" (click)="openCopyCaseGuar()">คัดลอกมาจากเลขประกัน</button></div>
+                  </td>
+                  <td  align="right" >เลขที่สัญญา :&nbsp;</td>
+                  <td >
+                      <div style="float:left;">
+                          <ng-select [(ngModel)]="result.contract_title" style="width:110%;min-width:60px;" [ngModelOptions]="{standalone: true}" [clearable]="false"  #sTitle>
+                              <ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+                           </ng-select>
+                      </div>
+                      <div style="float:left;margin-left:8px;"><input #hId type="text" [(ngModel)]="result.contract_no"  class="form-control" style="width:65px;text-align:center;" (click)="runContractNo(1)"></div>
+                      <div style="float:left;margin-left:3px;margin-top:5px;">/</div>
+                      <div style="float:left;margin-left:3px;"><input  type="text" [(ngModel)]="result.contract_yy"  class="form-control" style="width:70px;text-align:center;"></div>
+                      <div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" (click)="searchMainData(2,'')">ค้นหา</button></div>
+                      <div style="float:left;margin-left:3px;"><button type="button" class="btn btn-danger" (click)="this.delMessage(1,'ไม่พบเลขที่สัญญาที่ต้องการลบ')">ลบเลขที่สัญญา</button></div>
+                  </td>
+              </tr>
+              <tr>
+                <td width="15%" align="right">สัญญาจบโดย	:&nbsp;</td>
+                <td width="31%">
+                  <div style="float: left;">
+                    <ng-select [(ngModel)]="result.end_by" [clearable]="false" style="width:110%;min-width:120px;" >
+                        <ng-option *ngFor="let getData of getGuarEndBy"  [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                    </ng-select>
+                  </div>
+               <span style="margin-left:15px;"><i title="ข้อมูลสัญญาประกันจบโดย" class='fas fa-edit' style='cursor:pointer;font-size:20px' (click)="goToPage('fct0902','')"></i></span>
+               </td>
+                <td width="15%" align="right">เมื่อวันที่ :&nbsp;</td>
+                <td width="35%">
+                  <div style="float:left;"><input  type="text" [(ngModel)]="result.end_date" style="width:110px;text-align:center;" class="form-control jcalendar end_date" #end_date (click)="directiveDate(end_date.value,'end_date')"></div>
+                  <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.end_date').focus();"></i></div>
+                </td>
+             </tr>
+             <tr>
+              <td  align="right" >ทุเลาสำหรับ อุทธรณ์/ฏีกาฉบับ :&nbsp;</td>
+              <td  align="left">
+                  <!-- <div style="float: left;">
+                      <input  type="text"   [(ngModel)]="result.app_id" (change)="tabChangeInput('app_id',$event)"  class="form-control" style="width:60px;text-align:center;"/>
+                  </div> -->
+                  <div style="float: left;margin-left:0px;">
+                      <input  type="text"  [(ngModel)]="result.appeal_detail"  class="form-control" style="width:280px;"/>
+                  </div>
+                      <div style="float: left;margin-left:2px;margin-top:2px;" *ngIf="this.result.run_id">
+                      <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;"  (click)="openGuarAppeal()"></i>
+                  </div>
+              </td>
+              <td width="15%" align="right">เลขที่แยกเก็บหลักประกัน :&nbsp;</td>
+                <td width="35%">
+                  <tr *ngFor="let post of KeepDataObj;let i = index;"><td><a href="javascript:void(0)" (click)="goToPage('fas0100',post.keep_running)">{{post.asset_no}}</a></td></tr>
+                </td>
+             </tr>
+             <tr>
+              <td  align="right" >วันที่นัด :&nbsp;</td>
+              <td  align="left" >
+                  <div style="float: left;margin-left:0px;">
+                      <input  type="text" [(ngModel)]="result.date_appoint" class="form-control jcalendar date_appoint" #date_appoint (click)="directiveDate(date_appoint.value,'date_appoint')" style="width:120px;text-align:center;" />
+                  </div>
+                  <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.date_appoint').focus();"></i></div>
+                  <div style="float: left;margin-left:5px;margin-top:4px;">เวลา :&nbsp;</div>
+                  <div style="float: left;margin-left:4;">
+                    <input  type="text"  [(ngModel)]="result.time_appoint"    class="form-control" style="width:70px;text-align: center;">
+                 </div>
+                </td>
+                <td  align="right" >นัดเพื่อ :&nbsp;</td>
+                <td  align="left" colspan="3">
+                    <div style="float: left;">
+                        <input  type="text"   [(ngModel)]="result.app_id" (change)="tabChangeInput('app_id',$event)"  class="form-control" style="width:60px;text-align:center;"/>
+                    </div>
+                    <div style="float: left;margin-left:2px;">
+                        <input  type="text"  [(ngModel)]="result.app_name"  readonly class="form-control" style="width:255px;"/>
+                    </div>
+                        <div style="float: left;margin-left:2px;margin-top:2px;" >
+                        <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;"  (click)="clickOpenMyModalComponent(1)"></i>
+                    </div>
+                </td>
+              </tr>
+                <tr>
+                  <td  align="right" >หมายเหตุ :&nbsp;</td>
+                  <td  align="left" colspan="3">
+                    <div style="float: left;margin-left:0px;">
+                      <textarea [(ngModel)]="result.remark" class="form-control" rows="2" cols="100"></textarea>
+                  </div>
+                  </td>
+              </tr>
+                </table>
+                <div *ngIf="this.result.guar_running" class="card-footer" style="margin-top: 5px;text-align:center;padding-bottom: 5px;">
+                  <button type="button" class="btn btn-success" (click)="copyGuarMain()">สำเนาข้อมูล</button>
+                  <button type="button" class="btn btn-success" style="margin-left:5px;" (click)="saveGuarMain(0)">จัดเก็บ</button>
+                  <button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="this.delMessage(2,'ไม่พบเลขที่คำร้องที่ต้องการลบ')">ลบข้อมูล</button>
+                  <button type="button" class="btn btn-success" style="margin-left:5px;" (click)="ClearAll()">เพิ่ม</button>
+                  <!-- <button type="button" class="btn btn-success" style="margin-left:5px;" (click)="setDefPage()">เพิ่ม</button> -->
+                  <button type="button" class="btn btn-warning" style="margin-left:5px;" (click)="ClearAll()">ล้างหน้าจอ</button>
+                  <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="printReport(18)">ใบเสร็จรับเงิน</button>
+                  <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="printReport(19)">รับหลักประกัน</button>
+                  <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="printReport(17)">ลงนัด</button>
+                  <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="printReport(20)">หน้าจอบังคับคดี</button>
+                  <br>
+                  <button type="button" class="btn btn-primary" style="margin-left:5px;margin-top:5px;" (click)="printReport(21)">พิมพ์ใบปล่อยตัว</button>
+                  <button type="button" class="btn btn-primary" style="margin-left:5px;margin-top:5px;" (click)="printReport(22)" >พิมพ์ใบนัด(ลงฟอร์ม)</button>
+                  <button type="button" class="btn btn-primary" style="margin-left:5px;margin-top:5px;" (click)="printReport(23)" >พิมพ์ใบนัด(ด้านนอก)</button>
+                  <button type="button" class="btn btn-primary" style="margin-left:5px;margin-top:5px;" (click)="printReport(24)" >พิมพ์ใบนัด(ด้านใน)</button>
+                  <button type="button" class="btn btn-primary" style="margin-left:5px;margin-top:5px;" (click)="printReport(25)" >พิมพ์ใบนัด(A4)</button>
+                  <!--<button type="button" class="btn btn-primary" style="margin-left:5px;"  >ผูกข้อมูลนัดความกับอุทธรณ์/ฎีกานี้</button>-->
+                </div>
+                <!-- <div style="color: red;margin:0 auto;text-align: center;font-weight: bold;">* เป็นข้อมูลเก็บสถิติ โปรดบันทึกให้ถูกต้อง ครบถ้วน</div> -->
+            <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+              <tr>
+                <td width="15%" align="right">คำร้องที่เกี่ยวข้อง	:&nbsp;</td>
+                <!-- <td colspan="3"><tr *ngFor="let post of RelateDataObj;let i = index;"><td><a href="javascript:void(0)" (click)="searchMainData(3,post.guar_running)">{{post.guar_relate}}</a></td></tr></td> -->
+                <td colspan="3" ><div *ngFor="let post of RelateDataObj;let i = index;" style="float: left;margin-left:15px;"><a href="javascript:void(0)" (click)="searchMainData(3,post.guar_running)">{{post.guar_period}} {{post.guar_no}}<span style="color:red">[{{post.contract_no}}]</span>({{post.def_no}})</a></div></td>
+              </tr>
+               <tr >
+                <td  colspan="4" align="center" style="height: 36px !important;">
+                  <div style="margin:0 auto;">
+                    หน่วยงานที่บันทึก : <span style="text-decoration:underline">{{result.create_dep_name}}</span> ผู้บันทึก : <span style="text-decoration:underline">{{result.create_user}}</span> วันที่บันทึก : <span style="text-decoration:underline">{{result.create_date}}</span>
+                    หน่วยงานที่แก้ไข : <span style="text-decoration:underline">{{result.update_dep_name}}</span> ผู้แก้ไข : <span style="text-decoration:underline">{{result.update_user}}</span> วันที่แก้ไข : <span style="text-decoration:underline">{{result.update_date}}</span>
+                  </div>
+                </td>
+              </tr>
+            </table>
+              </fieldset>
+         </td>
+        </tr>
+    </table>
+</div>
+
+
+
+  <div [style.width]="widthSet">
+  <mat-tab-group animationDuration="0ms" [selectedIndex]='0' (selectedIndexChange)="1" (selectedTabChange)="assignWidth($event)" #tabGroup>
+    <mat-tab label="รายละเอียด" style="padding:5px !important;" ><app-fgu0100-tab1 [getDataHead]="this.sendHead" [sendEdit]="this.sendEdit" (onClickList)="receiveTab1Data($event)"></app-fgu0100-tab1></mat-tab>
+    <mat-tab label="หลักประกัน" style="padding:5px !important;" ><app-fgu0100-tab2 [getDataHead]="this.sendHead" [sendEdit]="this.sendEdit"></app-fgu0100-tab2></mat-tab>
+    <mat-tab label="ชำระค่าปรับ" style="padding:5px !important; "><app-fgu0100-tab3 [getDataHead]="this.sendHead" [sendEdit]="this.sendEdit" [getTab]="this.tab"></app-fgu0100-tab3></mat-tab>
+    <!-- <mat-tab label="เอกสารที่ขอผัดส่ง" style="padding:5px !important; "><app-fgu0100-tab4 [getDataHead]="this.sendHead" [sendEdit]="this.sendEdit"></app-fgu0100-tab4></mat-tab> -->
+    <mat-tab label="รายงาน" style="padding:5px !important; "><app-fgu0100-tab5 [getDataHead]="this.sendHead" [sendEdit]="this.sendEdit" [getTab]="this.tab"></app-fgu0100-tab5></mat-tab>
+  </mat-tab-group>
+</div>
+
+
+<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal_main" tabindex="-1" aria-labelledby="exampleModalLabel_main" aria-hidden="true" style="width:100%;height:100%;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title text-danger" id="exampleModalLabel_main"></h5>
+      <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+      <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal_main" (click)="loadMyModalComponent();" #openbutton></button>
+    </div>
+    <div class="modal-body" >
+        <input type="hidden" name="table_name" id="table_name">
+        <input type="hidden" name="field_id" id="field_id">
+        <input type="hidden" name="field_name" id="field_name">
+        <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+          <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal_main" (click)="loadCopyCaseComponent();" #openCopyCaseGuarButton></button>
+          <app-datalist-return *ngIf="loadModalListComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull  (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+          <app-modal-confirm *ngIf="loadModalConfComponent_main" class="modal_app"></app-modal-confirm>
+          <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal_main" (click)="loadGuarAppealComponent();" #openGuarAppealButton></button>
+          <app-modal-guar-appeal *ngIf="loadAppealComponent" class="modal_app" (onClickList)="receiveFuncListData($event)" [run_id]="result.run_id"></app-modal-guar-appeal>
+          <app-case-copy-guar *ngIf="loadCopyComponent" class="modal_app" (onCopyData)="receiveCopyData($event)" [headData]="{'title':result.guar_title,'id':result.guarnext_no,'yy':result.guar_yy,run_id :result.run_id,guar_period:result.guar_period }"></app-case-copy-guar>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalConfComponent_main">ตกลง</button>
+      <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+    </div>
+    </div>
+  </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>

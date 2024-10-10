@@ -1,0 +1,40 @@
+
+  <form class="form-horizontal" [formGroup]="formList">
+    <div class="modal-header">
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.close()"></button>
+    </div>
+    <div class="modal-body" >
+      <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+          <thead>
+            <tr align="center" >
+              <th width="50%" height="25" ><strong>ประเภทหมาย</strong></th>
+              <th width="25%"><strong >เลขที่หมาย</strong></th>
+              <th width="25%"><strong >วันที่ออกหมาย</strong></th>
+            </tr>           
+          </thead>
+          <tbody *ngIf="dataSearch?.length != 0" >
+            <tr *ngFor="let datas of dataSearch;let i = index;" >
+              <td align="left" width="50%" (click)="onClickListData(i)" style="padding-left:5px;">{{datas.notice_type_name}}</td>
+              <td align="center" width="25%" (click)="onClickListData(i)">{{datas.notice_no}}</td>
+              <td align="center" width="25%" (click)="onClickListData(i)">{{datas.notice_date}}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="dataSearch?.length == 0">
+            <tr><td colspan="3" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+          </tbody>
+
+        </table>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" (click)="activeModal.close()">ปิดหน้าจอ</button>
+  </div>
+
+  </form>
+
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner> 

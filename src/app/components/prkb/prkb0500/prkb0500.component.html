@@ -1,0 +1,158 @@
+<style>
+
+</style>
+<!-- <app-menu></app-menu> -->
+<div style="width:100%;height:100%;" id="div-wraper">
+  <div class="content" style="padding:10px;">
+    <!-- <div class="card card-info" style="box-shadow: none !important;">
+      <div class=""
+        style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+        <div style="float:left;margin-top:6px;"><i class="fa fa-folder-open-o"
+            style="font-size:24px;margin-left:8px;"></i><span
+            style="font-size: 16px;margin-left:5px;">{{programName}}</span></div>
+      </div>
+    </div> -->
+    <!-- form start -->
+    <!-- <form class="form-horizontal" id="myForm"  #prkb0500> -->
+    <div class="card-body">
+      <div class="card" align="center" style="box-shadow: none !important;padding:5px;">
+        <table width="100%" border="0" cellspacing="2" cellpadding="2" class="form_table">
+          <tr>
+            <td align="right" width="45%">วันที่ทำรายการ :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;"><input type="text" [(ngModel)]="result.event_date"
+                  class="form-control jcalendar event_date" #event_date
+                  (click)="directiveDate(event_date.value,'event_date')" style="width:120px;height:28px;"></div>
+              <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;"
+                  onClick="$('.event_date').focus();"></i></div>
+              <div style="float:left;margin-left:8px;margin-top:5px;">&nbsp;ประเภท&nbsp;</div>
+              <div style="float:left;margin-left:2px;">
+                <ng-select [(ngModel)]="result.event_type" style="width:120%;" [ngModelOptions]="{standalone: true}"
+                  #sEventType>
+                  <ng-option *ngFor="let getData of getEventType" [value]=getData.id>{{getData.text}}</ng-option>
+                </ng-select>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">เลขที่ :&nbsp;</td>
+            <td align="left" colspan="6">
+              <div style="float: left;">
+                <input name="pno_from" type="text" class="blackd" id="pno_from" [(ngModel)]="result.pno_from" value=""
+                  class="form-control" style="width:150px;" />
+              </div>
+              <div style="float: left;margin-left:8px;margin-top:5px;">ถึงเลขที่ :&nbsp;</div>
+              <div style="float: left;margin-left:2px;">
+                <input name="pno_to" type="text" class="blackd" id="pno_to" [(ngModel)]="result.pno_to" value=""
+                  class="form-control" style="width:150px;" />
+              </div>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">เรียงข้อมูลตาม :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;">
+                <ng-select [(ngModel)]="result.order_type" style="width:120%;" [ngModelOptions]="{standalone: true}"
+                  #sOrderType>
+                  <ng-option *ngFor="let getData of getOrderType" [value]=getData.id>{{getData.text}}</ng-option>
+                </ng-select>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">หน่วยงานปลายทาง :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;">
+                <input type="text" [(ngModel)]="dep_id" (change)="tabChangeSelect('dep_id',getDep,$event,1)"
+                  class="form-control" style="width:80px;text-align:center;float:left;"
+                  onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46">
+              </div>
+              <div style="float:left;margin-left:2px;">
+                <ng-select [(ngModel)]="result.dep_id" style="width:300px;"
+                  (change)="tabChangeSelect('dep_id',getDep,$event,2)" #sDep>
+                  <ng-option [value]=""></ng-option>
+                  <ng-option *ngFor="let getData of getDep" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </td>
+          </tr>
+          <div>&nbsp;</div>
+        </table>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+        <button type="button" class="btn btn-info" style="margin-left:45%;" (click)="printReport()">พิมพ์รายงาน</button>
+        <button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;"
+          (click)="ClearAll()">ล้างหน้าจอ</button>
+        <button type="button" class="btn btn-danger" (click)="CloseWindow()"
+          style="margin-left: 8px;">ปิดหน้าจอ</button>
+      </div>
+      <!-- /.card-footer -->
+    </div>
+    <!-- </form> -->
+    <div style="width:100%;height:100%;" id="div-wraper">
+      <div class="content" style="padding:10px;">
+        <div class="card " style="box-shadow: none !important;padding:5px;width:100%;">
+          <table width="100%" border="0" cellspacing="2" cellpadding="0" class="form_table">
+            <tr>
+              <td width="40%" align="left">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                  class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+                  <thead>
+                    <tr>
+                      <th width="3%">เลขที่</th>
+                      <th width="5%">เลขอ้างอิง</th>
+                      <th width="4%">ความ</th>
+                      <th width="5%">คดีหมายเลขดำ</th>
+                      <th width="4%">คดีหมายเลขแดง</th>
+                      <th width="5%">ประเภทการส่ง</th>
+                      <th width="7%">ปลายทาง</th>
+                      <th width="4%">วันที่</th>
+                      <th width="4%">เวลา</th>
+                      <th width="8%">ส่งเพื่อ</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="dataSearch?.length != 0">
+                    <tr *ngFor="let post of dataSearch;let i = index;">
+                      <td align="center">{{post.send_running}}</td>
+                      <td align="center">{{post.request_no}}</td>
+                      <td align="center">{{post.case_type_desc}}</td>
+                      <td align="center">{{post.case_no}}</td>
+                      <td align="center">{{post.red_no}}</td>
+                      <td align="center">{{post.event_type_name}}{{post.req_desc}}</td>
+                      <td align="center">{{post.dep_name}}</td>
+                      <td align="center">{{post.event_date}}</td>
+                      <td align="center">{{post.event_time}}</td>
+                      <td align="center">{{post.subject_name}}</td>
+                    </tr>
+                  </tbody>
+                  <tbody *ngIf="dataSearch?.length == 0">
+                    <tr>
+                      <td colspan="10" style="color:red;text-align: center;" class="no-data-available">######
+                        ไม่พบข้อมูล #######</td>
+                      <td style="display:none;"></td>
+                      <td style="display:none;"></td>
+                      <td style="display:none;"></td>
+                      <td style="display:none;"></td>
+                      <td style="display:none;"></td>
+                      <td style="display:none;"></td>
+                      <td style="display:none;"></td>
+                      <td style="display:none;"></td>
+                      <td style="display:none;"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!--<script src="case-type.component.js"></script>-->
+    <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+      <p style="color: gray">Please Wait. </p>
+    </ngx-spinner>
+  </div>
+</div>

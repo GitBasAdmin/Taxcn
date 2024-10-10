@@ -1,0 +1,387 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;">
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class=""
+				style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName" [runId]="runId"></app-case-header>
+			</div>
+		</div>
+		<div class="card card-info" style="box-shadow: none !important;margin-top:-4px;">
+			<app-case-head *ngIf="defaultCaseType"  [runId]="runId" (sendCaseData)="fnDataHead($event)"></app-case-head>
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%" border="0" cellspacing="2" cellpadding="0" class="form_table">
+				<tr>
+					<td width="15%" align="right">วันที่ขอคัดถ่าย :&nbsp;</td>
+					<td width="30%" align="left">
+						<div style="float:left;">
+							<input style="width:120px;height:28px;" [(ngModel)]="result.req_date" #reqDate type="text" class="form-control jcalendar req_date" (click)="directiveDate(reqDate.value,'req_date')">
+						</div>
+						<div style="float:left;margin-left:8px;margin-top:5px;">
+							<i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.req_date').focus();"></i>
+						</div>
+					</td>
+					<td width="55%" align="left"></td>
+				</tr>
+				<tr>
+					<td align="right">เลขที่อ้างอิงประจำวัน :&nbsp;</td>
+					<td align="left" colspan="2">
+						<div style="float:left;">
+							<ng-select [(ngModel)]="result.date_run_title" style="width:80px;" (change)="runDateNo(getCopyReqTitle)">
+								<ng-option *ngFor="let getData of getCopyReqTitle" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+						<div style="float: left;">
+							<input style="width:60px;height:28px;" name="date_run_no" type="text" [(ngModel)]="result.date_run_no" (click)="runDateNo(getCopyReqTitle)" maxlength="5" class="form-control" />
+						</div>
+						<button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="searchData()">ค้นหา</button>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">ผู้ขอคัดถ่าย :&nbsp;</td>
+					<td align="left" colspan="2">
+						<div style="float:left;">
+							<ng-select [(ngModel)]="result.lit_type" style="width:180px;">
+								<ng-option [value]=""></ng-option>
+								<ng-option *ngFor="let getData of getLitType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+						<div style="float:left;margin-left:4px;margin-top:5px;"> &nbsp;ที่ &nbsp;</div>
+						<div style="float: left;">
+							<input name="req_user_id" type="text" [(ngModel)]="result.req_user_id" maxlength="5" (change)="tabChangeInput('req_user_id',$event)" class="form-control" style="width:60px;height:28px;" />
+						</div>
+						<div style="float: left;margin-left:2px;">
+							<input name="req_user_name" type="text" [(ngModel)]="result.req_user_name" value="" class="form-control" style="width:260px;height:28px;" />
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;">
+							<i class='far fa-list-alt iDep' style="font-size: 20px;cursor:pointer;" (click)="clickOpenMyModalComponent(1);"></i>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;">
+							<i class='far fa-list-alt iDep' style="font-size: 20px;cursor:pointer;" (click)="clickOpenMyModalComponent(2);"></i>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">กำหนดรับเอกสารวันที่ :&nbsp;</td>
+					<td align="left">
+						<div style="float:left;">
+							<input style="width:120px;height:28px;" [(ngModel)]="result.rcv_due_date" #rcvDueDate type="text" class="form-control jcalendar rcv_due_date" (click)="directiveDate(rcvDueDate.value,'rcv_due_date')">
+						</div>
+						<div style="float:left;margin-left:8px;margin-top:5px;">
+							<i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.rcv_due_date').focus();"></i>
+						</div>
+						<div style="float:left;margin-left:4px;margin-top:5px;"> &nbsp;โดย &nbsp;</div>
+						<div style="float:left;">
+							<ng-select [(ngModel)]="result.rcv_type" style="width:180px;">
+								<ng-option *ngFor="let getData of getRcvType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+					<td align="left">
+						<div style="float:left;margin-left:4px;margin-top:5px;">ค่าถ่ายเอกสารที่รับมา</div>
+						<div style="float:left;margin-left:4px;">
+							<input type="text" [(ngModel)]="result.rcv_fee" class="form-control" style="width:120px;text-align:left;float:left;">
+						</div>
+						<div style="float:left;margin-left:4px;margin-top:5px;">&nbsp;บาท&nbsp;&nbsp;ค่ารับรองที่รับมา
+						</div>
+						<div style="float:left;margin-left:4px;">
+							<input type="text" [(ngModel)]="result.rcv_certificate" class="form-control" style="width:120px;text-align:left;float:left;">
+						</div>
+						<div style="float:left;margin-left:4px;margin-top:5px;">&nbsp;บาท</div>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="3">
+						<hr style="width:90%;color:#333333;">
+					</td>
+				</tr>
+				<tr>
+					<td align="right">วันที่รับเอกสาร :&nbsp;</td>
+					<td align="left">
+						<div style="float:left;">
+							<input style="width:120px;height:28px;" [(ngModel)]="result.rcv_date" #typeDate type="text" class="form-control jcalendar rcv_date" (click)="directiveDate(typeDate.value,'rcv_date')">
+						</div>
+						<div style="float:left;margin-left:8px;margin-top:5px;">
+							<i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.rcv_date').focus();"></i>
+						</div>
+					</td>
+					<td align="left">
+						<div style="float: left;">ค่าถ่ายฯ</div>
+						<div style="float:left;margin-left:4px;">
+							<ng-select [(ngModel)]="result.pr_flag" style="width:120px;">
+								<ng-option *ngFor="let getData of getPrFlag" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+						<div style="float:left;margin-left:4px;">
+							<input type="text" [(ngModel)]="result.pr_amt" class="form-control" style="width:120px;text-align:left;float:left;">
+						</div>
+						<div style="float:left;margin-left:4px;margin-top:5px;">&nbsp;บาท&nbsp;&nbsp;ค่ารับรองฯ</div>
+						<div style="float:left;margin-left:4px;">
+							<ng-select [(ngModel)]="result.cer_flag" style="width:120px;">
+								<ng-option *ngFor="let getData of getCerFlag" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+						<div style="float:left;margin-left:4px;">
+							<input type="text" [(ngModel)]="result.cer_amt" class="form-control" style="width:120px;text-align:left;float:left;">
+						</div>
+						<div style="float:left;margin-left:4px;margin-top:5px;">&nbsp;บาท</div>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">ชื่อผู้รับเอกสาร :&nbsp;</td>
+					<td align="left" colspan="2">
+						<div style="float:left;">
+							<ng-select [(ngModel)]="result.rcv_lit_type" style="width:180px;">
+								<ng-option [value]=""></ng-option>
+								<ng-option *ngFor="let getData of getRcvLitType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+						<div style="float:left;margin-left:4px;margin-top:5px;"> &nbsp;ที่ &nbsp;</div>
+						<div style="float: left;">
+							<input name="rcv_user_id" type="text" [(ngModel)]="result.rcv_user_id" maxlength="5" (change)="tabChangeInput('rcv_user_id',$event)" class="form-control" style="width:60px;height:28px;" />
+						</div>
+						<div style="float: left;margin-left:2px;">
+							<input name="rcv_user_name" type="text" [(ngModel)]="result.rcv_user_name" value="" class="form-control" style="width:260px;height:28px;" />
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;">
+							<i class='far fa-list-alt iDep' style="font-size: 20px;cursor:pointer;" (click)="clickOpenMyModalComponent(3);"></i>
+						</div>
+						<div style="float:left;margin-left:4px;margin-top:5px;">&nbsp;จำนวนรวมทั้งหมด</div>
+						<div style="float:left;margin-left:4px;">
+							<input type="text" [(ngModel)]="result.page_qty" class="form-control" style="width:70px;text-align:left;float:left;">
+						</div>
+						<div style="float:left;margin-left:4px;margin-top:5px;">&nbsp;หน้า</div>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<div style="float: right;">
+							<input [(ngModel)]="result.finish_flag" name="finish_flag" type="checkbox" style="width:15px;height:15px;margin-top:5px;" />
+						</div>
+					</td>
+					<td align="left" colspan="2">
+						<div style="float:left;margin-left:4px;margin-top:5px;">ถ่ายเสร็จแล้วเมื่อวันที่ &nbsp;</div>
+						<div style="float:left;">
+							<input style="width:120px;height:28px;" [(ngModel)]="result.finish_date" #finishDate type="text" class="form-control jcalendar finish_date" (click)="directiveDate(finishDate.value,'finish_date')">
+						</div>
+						<div style="float:left;margin-left:8px;margin-top:5px;">
+							<i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.finish_date').focus();"></i>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<div style="float: right;">
+							<input [(ngModel)]="result.cancel_flag" name="cancel_flag" type="checkbox" style="width:15px;height:15px;margin-top:5px;" />
+						</div>
+					</td>
+					<td align="left" colspan="2">
+						<div style="float:left;margin-left:4px;margin-top:5px;">ยกเลิกการคัดถ่ายเนื่องจาก &nbsp;</div>
+						<div style="float:left;">
+							<input type="text" [(ngModel)]="result.cancel_reason" class="form-control" style="width:450px;text-align:left;float:left;">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">ใบเสร็จรับเงินที่ :&nbsp;</td>
+					<td align="left" colspan="2">
+						<div style="float: left;">
+							<input name="receipt_no" type="text" [(ngModel)]="result.receipt_no" value="" class="form-control" style="width:180px;height:28px;" readonly />
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;">
+							<i class='far fa-list-alt iDep' style="font-size: 20px;cursor:pointer;" (click)="clickOpenMyModalComponent(4);"></i>
+						</div>
+						<div style="float:left;margin-left:4px;margin-top:5px;">&nbsp;จำนวนรวมทั้งหมด</div>
+						<div style="float:left;margin-left:4px;">
+							<input type="text" [(ngModel)]="result.receipt_item" class="form-control" style="width:180px;text-align:left;float:left;" readonly>
+						</div>
+						<div style="float:left;margin-left:4px;margin-top:5px;">&nbsp;บาท</div>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">หมายเหตุ :&nbsp;</td>
+					<td align="left" colspan="2">
+						<input type="text" [(ngModel)]="result.remark" class="form-control" style="width:450px;text-align:left;float:left;">
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="3">
+						<hr style="width:90%;color:#333333 ;">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<fieldset style="width:99%;border-radius:4px;border:1px solid #333333;padding:1px;margin-top:8px;">
+							<legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;">
+								<div style="float: left;margin-left:4px;margin-top:2px;">รายการเอกสารที่ขอคัดถ่าย</div>
+							</legend>
+							<table width="100%" border="0" cellspacing="2" cellpadding="0" class="">
+								<tr *ngFor="let item of item;let i = index;" >
+									<td width="22%" align="right">{{copy_name[i]}}:&nbsp;
+										<input type="hidden" [(ngModel)]="item[i]">
+									</td>
+									<td width="23%" align="left">
+										<div style="float: left;margin-left:2px;margin-top: 2px;">
+											<input name="copy_desc" type="text" [(ngModel)]="copy_desc[i]" (change)="assignNumCopy(i)" value=""class="form-control" style="width:180px;height:28px;"  />
+										</div>
+									</td>
+									<td width="20%" align="center">
+										<div style="float: left;">&nbsp;จำนวน&nbsp;</div>
+										<div style="float:left;">
+											<input type="text" [(ngModel)]="num_copy[i]" class="form-control" style="width:70px;text-align:left;float:left;">
+										</div>
+										<div style="float: left;">&nbsp;ชุด</div>
+									</td>
+									<td width="35%" align="left">
+										<div style="float: left;"><input type="radio" name={{copy_name[i]}} [(ngModel)]="guar_fag[i]" [value]="1" style="width:15px;height:15px;margin-top:5px;" checked /></div>
+										<div style="float: left;margin-left:5px;margin-top:4px;">รับรอง &nbsp; &nbsp; </div>
+										<div style="float: left;"><input type="radio" name={{copy_name[i]}} [(ngModel)]="guar_fag[i]" [value]="2" style="width:15px;height:15px;margin-top:5px;" /></div>
+										<div style="float: left;margin-left:5px;margin-top:4px;">ไม่รับรอง &nbsp; &nbsp;
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4"></td>
+								</tr>
+							</table>
+
+						</fieldset>
+					</td>
+				</tr>
+			</table>
+			<!-- /.card-body -->
+			<div class="card-footer" align="center">
+				<button type="button" class="btn btn-success" (click)="submitForm()">จัดเก็บข้อมูล</button>
+				<button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;"(click)="ClearAll()">ล้างหน้าจอ</button>
+				<button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="buttonNew()">เพิ่ม</button>
+				<button type="button" class="btn btn-info" style="margin-left:5px;"(click)="printReport()">พิมพ์</button>
+				<!-- <button [ngStyle]="result.create_dep_code == 10 ?  {'display': ''} : {'display': 'none'}"type="button" class="btn btn-info" style="margin-left:5px;"(click)="printWord(28)">พิมพ์รายงานเจ้าหน้าที่ (18)</button>
+				<button [ngStyle]="result.create_dep_code != 10 ?  {'display': ''} : {'display': 'none'}" type="button" class="btn btn-info" style="margin-left:5px;" (click)="printWord(19)">พิมพ์รายงานเจ้าหน้าที่(19)</button>
+				<button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="deleteWord()">ลบWord</button> -->
+				<input type="hidden" name="delValue" id="delValue">
+			</div>
+		</div>
+
+		<div class="content">
+			<section class="content" style="width: 145%;">
+				<div class="card card-info">
+					<div class="card-header" style="display:none;"></div>
+					<!-- /.card-header -->
+					<div class="card-body">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+							class="table table-striped table-bordered table-sm row-border hover myTable1">
+							<thead>
+								<tr>
+									<!-- <th width="3%" class="no-sort"><input type="checkbox" name="all" [(ngModel)]="masterSelected" value="m1" (change)="checkUncheckAll()"/></th> -->
+									<th width="3%" class="no-sort">ลบ</th>
+									<th width="3%" class="no-sort">แก้ไข</th>
+									<th width="4%">เลขที่อ้างอิง</th>
+									<th width="5%">วันที่ขอคัดถ่าย</th>
+									<th width="7%">เลขอ้างอิงประจำวัน</th>
+									<th width="8%">ผู้ขอคัดถ่าย</th>
+									<th width="8%">กำหนดวันรับเอกสาร</th>
+									<th width="6%">จำนวนเงินที่รับมา</th>
+									<th width="8%">รายการที่ขอคัดถ่าย</th>
+									<th width="8%">หมายเหตุ</th>
+									<th width="7%">ผู้บันทึก</th>
+									<th width="7%">หน่วยงานที่บันทึก</th>
+									<th width="6%">วันที่เวลาบันทึก</th>
+									<th width="7%">ผู้แก้ไขล่าสุด</th>
+									<th width="7%">หน่วยงานที่แก้ไข</th>
+									<th width="6%">วันที่เวลาแก้ไขล่าสุด</th>
+								</tr>
+							</thead>
+							<tbody *ngIf="posts?.length != 0">
+								<tr *ngFor="let post of posts;let i = index;">
+									<td align="center"><i class="fa fa-close" style="cursor:pointer;font-size:20px;color:#d50000d1;" (click)="deleteData(i)"></i></td>
+									<td align="center"><i class='fas fa-pencil-alt' style='cursor:pointer;font-size:20px' (click)="editData(i)"></i></td>
+									<td align="center">{{post.copy_title_desc}}</td>
+									<td align="center">{{post.req_date}}</td>
+									<td align="center">{{post.date_run_title}}{{post.date_run_no}}</td>
+									<td align="left">{{post.req_user_name}}</td>
+									<td align="center">{{post.rcv_due_date}}</td>
+									<td align="center">{{post.rcv_fee}}</td>
+									<td align="left">{{post.copy_desc}}</td>
+									<td align="center">{{post.remark}}</td>
+									<td align="center">{{post.create_dep_name}}</td>
+									<td align="center">{{post.create_user}}</td>
+									<td align="center">{{post.create_date}}</td>
+									<td align="center">{{post.update_dep_name}}</td>
+									<td align="center">{{post.update_user}}</td>
+									<td align="center">{{post.update_date}}</td>
+								</tr>
+							</tbody>
+							<tbody *ngIf="posts?.length == 0">
+								<tr>
+									<td colspan="16" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+									<td style="display:none;"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+			</section>
+		</div>
+		<!-- Modal -->
+
+		<div class="modal fade" data-refresh="true" role="dialog" id="exampleModal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+						<button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+							(click)="closeModal()"></button>
+						<button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal"
+							data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" name="table_name" id="table_name">
+						<input type="hidden" name="field_id" id="field_id">
+						<input type="hidden" name="field_name" id="field_name">
+						<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+							<app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+							<!--popup -->
+							<app-datalist-return *ngIf="loadComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value7]=listFieldCond (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+							<!--popup case-litigant-->
+							<app-modal-case-litigant *ngIf="loadModalLitComponent" [type]=listTable [run_id]=dataHead.run_id [lit_type]=sLitType (onClickList)="receiveFuncLitData($event)" class="modal_app"></app-modal-case-litigant>
+							<!--popup modal-receipt-->
+							<app-popup-receipt *ngIf="loadPopupReceiptComponent" [run_id]=dataHead.run_id (onClickList)="receiveFuncLitData($event)" class="modal_app"></app-popup-receipt>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+						<button type="button" class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--<script src="case-type.component.js"></script>-->
+	<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+		<p style="color: gray">Please Wait. </p>
+	</ngx-spinner>

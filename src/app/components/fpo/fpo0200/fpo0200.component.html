@@ -1,0 +1,389 @@
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div style="box-shadow: none !important;">
+			<app-case-header  *ngIf="programName" [runId]="runId"></app-case-header>			
+		</div>
+		<div class="card card-info" style="box-shadow: none !important;margin-top:8px;">
+			<div class="card-header">
+				<h3 class="card-title">ข้อมูลเลขคดีฝากขัง</h3>
+			</div>
+			<div class="card-body" >
+				<table width="100%"  border="0" cellspacing="2" cellpadding="" class="form_table">       
+					<tr>
+						<td></td>
+						<td colspan="3"><div style="color: red;">*เมื่ออ่าน barcode ระบบจะสร้างรายการครั้งต่อไป และพิมพ์หมายให้อัตโนมัติ</div></td>
+					</tr>    
+					<tr>
+						<td align="right" >Barcode :&nbsp;</td>
+						<td colspan="3" align="left">
+							<div style="float:left;">
+								<input type="text" [(ngModel)]="dataHead.barcode" class="form-control" style="width:120px;" (keyup.enter)="barcodeEnter()">
+							</div>
+							<div style="float:left;margin-left:6px;">
+								<input [(ngModel)]="result.first" [value]="1" type="checkbox" style="height:15px;width:15px;margin-top:3px;"></div>
+                			<div style="float:left;margin-left:4px;margin-top:3px;">ไม่สร้างรายการกำหนดฝากขัง	</div>
+
+							<div style="float:left;margin-left:6px;">
+								<input [(ngModel)]="result.genNotice" [value]="1" type="checkbox" style="height:15px;width:15px;margin-top:3px;"></div>
+                			<div style="float:left;margin-left:4px;margin-top:3px;">ไม่สร้างหมาย	</div>
+							<div style="float:left;margin-left:3px;">
+								<ng-select [(ngModel)]="result.select_print" style="width:150px;cursor: pointer;">
+									<ng-option *ngFor="let getData of getSelectPrint" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+								</ng-select>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td width="12%" align="right" >คดีฝากขังที่ :&nbsp;</td>
+						<td width="39%" align="left">
+							<div style="float:left;">
+								<ng-select [(ngModel)]="dataHead.ptitle" id="ptitle" [clearable]="false" style="width:100px;" [ngModelOptions]="{standalone: true}"  #pTitle>
+									<ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue>{{getData.fieldIdValue}}</ng-option>
+								</ng-select>
+							</div>
+							<div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="dataHead.pid" id="pid" class="form-control" style="width:60px;" #pid></div>
+							<div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="dataHead.pyy" id="pyy" class="form-control" style="width:100px;" #pyy></div>
+							<div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" (click)="searchCaseNo(1,0)">ค้นหา</button></div>
+						</td>
+						<td width="12%" align="right">วันที่ออกหมาย :&nbsp;</td>
+						<td width="37%" align="left">
+							<div style="float:left;">
+								<input   type="text" [(ngModel)]="result.notice_date" name="notice_date" class="form-control jcalendar notice_date" (click)="directiveDate($event)" style="width:120px;">
+							</div>
+                    		<div style="float:left;margin-left:3px;margin-top:3px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.notice_date').focus();"></i></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" >ผู้พิมพ์ :&nbsp;</td>
+						<td align="left">
+							<div style="float:left;">
+								<input  [(ngModel)]="result.type"  type="text" class="form-control" style="width:250px;cursor: pointer;" readonly></div>
+						</td>
+						<td align="right" >พิมพ์ออก	 :&nbsp;</td>
+						<td align="left">
+							<div style="float:left;">
+								<ng-select [(ngModel)]="result.select" style="width:150px;height:26px;" >
+									<ng-option *ngFor="let getData of getSelect" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+								</ng-select>
+							</div>
+							<div style="float:left;margin-left:8px;margin-top:3px;">จำนวน</div>
+							<div style="float:left;margin-left:8px;">
+								<input  [(ngModel)]="result.page"  type="text" class="form-control" style="width:80px;cursor: pointer;">
+							</div>
+							<div style="float:left;margin-left:8px;margin-top:3px;">หน้า</div>
+						</td>
+					</tr>
+					<tr *ngIf="dataHead.case_cate_id==19">
+						<td align="right" >หมายเหตุท้ายหมาย :&nbsp;</td>
+						<td align="left" colspan="3">
+							<div style="float:left;">
+								<input  [(ngModel)]="result.endnotice_id"  type="text" class="form-control" style="width:50px;cursor: pointer;">
+							</div>
+							<div style="float:left;margin-left:2px;">
+								<input  [(ngModel)]="result.endnotice_desc"  type="text" class="form-control" style="width:250px;cursor: pointer;">
+							</div>
+							<div style="float: left;margin-left:2px;margin-top:2px;" >
+								<i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;cursor:pointer;" (click)="openMyModal(1)"></i>
+							</div>
+						</td>						
+					</tr>
+					<tr>
+						<td align="right" >ฝากขังได้ :&nbsp;</td>
+						<td align="left">
+							<div style="float:left;margin-left:8px;">
+								<input  [(ngModel)]="dataHead.post_day"  type="text" class="form-control" style="width:80px;cursor: pointer;">
+							</div>
+							<div style="float:left;margin-left:8px;margin-top:3px;">วัน</div>
+							<div style="float:left;margin-left:8px;margin-top:3px;">ฝากขังแล้ว </div>
+							<div style="float:left;margin-left:8px;">
+								<input  [(ngModel)]="result.sum"  type="text" class="form-control" style="width:80px;cursor: pointer;" readonly>
+							</div>
+							<div style="float:left;margin-left:8px;margin-top:3px;">วัน</div>
+							<div style="float:left;margin-left:8px;margin-top:3px;">ฝากขังศาลอื่นแล้ว </div>
+							<div style="float:left;margin-left:8px;">
+								<input  [(ngModel)]="dataHead.post_day_other"  type="text" class="form-control" style="width:80px;cursor: pointer;">
+							</div>
+							<div style="float:left;margin-left:8px;margin-top:3px;">วัน</div>
+						</td>
+						<td align="right" colspan="2"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+		<div class="card card-info" style="box-shadow: none !important;width:2500px;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">           
+				<tr style="height: 40px !important;">
+					<td width="40%" align="left" style="height:40px;">
+						<button type="button" class="btn btn-primary" style="margin-left:5px;"  (click)="openLiteData()">ข้อมูลผู้ต้องหา</button>
+						<button type="button" class="btn btn-danger" style="margin-left:5px;"  (click)="delAccuData()">ลบข้อมูลผู้ต้องหาที่เลือก</button>
+					</td>
+				</tr>
+				<tr>
+					<td width="40%" align="left">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+							<thead>
+								<tr>
+									<th width="2%" class="no-sort"><input type="checkbox"  [(ngModel)]="masterSelect" style="height:15px;width:15px;margin-top:2px;cursor:pointer;"  (change)="checkUncheckAll(this.dataHead.accuObj,'masterSelect','seqAccu')"></th>
+									<th width="2%" class="no-sort" >แก้ไข</th>
+									<th width="5%" class="no-sort">ลำดับที่</th>
+									<th width="5%" class="no-sort" >สถานะ</th>
+									<th width="7%" class="no-sort">ขังที่</th>
+									<th width="10%" class="no-sort">ชื่อ/ชื่อสกุล</th>
+									<th width="8%"  class="no-sort">สร้างหมาย</th>
+									<th width="6%"  class="no-sort">วันที่ฝากขังสิ้นสุด</th>
+									<th width="7%"  class="no-sort">เหตุฝากขังสิ้นสุด</th>
+									<th width="8%"  class="no-sort">หน่วยงานที่บันทึก</th>
+									<th width="9%"  class="no-sort">ผู้บันทึก</th>
+									<th width="7%"  class="no-sort">วัน/เวลาที่บันทึก</th>
+									<th width="9%"  class="no-sort">หน่วยงานที่แก้ไข</th>
+									<th width="8%"  class="no-sort">ผู้แก้ไข</th>
+									<th width="7%"  class="no-sort">วัน/เวลาที่แก้ไข</th>
+			
+								</tr>
+							</thead>
+							
+							<tbody *ngIf="(accuData$ | async )">
+								<tr *ngFor="let post of accuData$ | async;let i = index;" [ngClass]="{'red': post.cancel_flag == 1}">
+									<td width="2%" align="center"><input type="checkbox" [(ngModel)]="this.dataHead.accuObj[i].seqAccu" style="height:15px;width:15px;margin-top:2px;cursor:pointer;" (change)="isAllSelected(this.dataHead.accuObj,'masterSelect','seqAccu')"></td>
+                            		<td width="2%" align="center"><i class="fa fa-pencil" style="font-size:18px;cursor:pointer;" (click)="editData(i)"></i></td>
+
+									<td width="5%" align="center">{{post.seq}}</td>
+									<td width="5%" align="center">{{post.status_desc}}</td>
+									<td width="7%" align="center">{{post.noticeto_name}}</td>
+									<td width="10%" align="center">{{post.title}}{{post.name}}</td>
+									<td width="8%" align="center">
+										<div style="float:left;" *ngIf="(postData$ | async)">
+											<select [(ngModel)]="this.dataHead.accuObj[i].post_seq"  style="height:24px !important;border-radius: 4px !important;border: 1px solid #ced4da;">
+												<option *ngFor="let post of postData$ | async;let i = index;" [value]="post.post_seq">ครั้งที่ {{post.post_seq}}</option>
+											</select>
+										</div>
+										<div style="float:left;margin-left:3px;" *ngIf="(postData$ | async)"><button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="genNotice(i)">สร้างหมาย</button></div>
+									</td>
+									<td width="6%" align="center">{{post.post_ending_date}}</td>
+									<td width="7%" align="center">{{post.postending_reason}}</td>
+
+									<td width="8%" align="center">{{post.create_dep_name}}</td>
+									<td width="9%" align="center">{{post.create_user}}</td>
+									<td width="7%" align="center">{{post.create_date}}</td>
+									<td width="9%" align="center">{{post.update_dep_name}}</td>
+									<td width="8%" align="center">{{post.update_user}}</td>
+									<td width="7%" align="center">{{post.update_date}}</td>
+								</tr>
+							</tbody>
+							<tbody *ngIf="!(accuData$ | async)">
+								<tr>
+									<td colspan="15" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="card card-info" style="box-shadow: none !important;width:2500px;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">      
+				<tr>
+					<td>
+						<div style="float: left;margin-left: 6px;margin-top:3px;">กำหนดฝากขัง</div>
+                    </td>
+				</tr>  
+				<tr>
+					<td>
+						<div style="float: left;margin-left: 49px;margin-top:3px;">ครั้งที่ :&nbsp;</div>
+                        <div style="float:left;margin-left: 3px;" >
+                            <input type="text" [(ngModel)]="result.item"  class="form-control" style="width:38px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+                        </div>
+						<div style="float: left;margin-left: 144px;margin-top:3px;">วันที่ยื่น :&nbsp;</div>
+						<div style="float:left;margin-left:2px;"><input   type="text" [(ngModel)]="result.post_start" name="post_start" class="form-control jcalendar post_start" (click)="directiveDate($event)" style="width:120px;"></div>
+                        <div style="float:left;margin-left:3px;margin-top:3px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.post_start').focus();"></i></div>
+						<div style="float: left;margin-left: 144px;margin-top:3px;">จำนวนวันที่ศาลอนุญาต :&nbsp;</div>
+						<div style="float:left;margin-left: 3px;" >
+                            <input type="text" [(ngModel)]="result.days_amount"  class="form-control" style="width:38px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57" (focusout)="assignDate($event)"/>
+                        </div>
+						<div style="float: left;margin-left: 144px;margin-top:3px;">จำนวนวันออกหมายขัง :&nbsp;</div>
+						<div style="float:left;margin-left: 3px;" >
+                            <input type="text" [(ngModel)]="result.pk_day"  class="form-control" style="width:38px;text-align: center;" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+                        </div>
+					</td>
+				</tr>     
+				<tr>
+					<td style="padding-bottom:5px;">
+						<div style="float: left;margin-left: 6px;margin-top:3px;">นับตั้งแต่วันที่ :&nbsp;</div>
+                        <div style="float:left;margin-left:2px;"><input   type="text" [(ngModel)]="result.from_date" name="from_date" class="form-control jcalendar from_date" (click)="directiveDate($event)" style="width:120px;"></div>
+                        <div style="float:left;margin-left:3px;margin-top:3px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.from_date').focus();"></i></div>
+						<div style="float: left;margin-left: 38px;margin-top:3px;">ครบวันที่ :&nbsp;</div>
+                        <div style="float:left;margin-left:2px;"><input   type="text" [(ngModel)]="result.post_end" name="post_end" class="form-control jcalendar post_end" (click)="directiveDate($event)" style="width:120px;"></div>
+                        <div style="float:left;margin-left:3px;margin-top:3px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.post_end').focus();"></i></div>
+						<div style="float: left;margin-left: 205px;margin-top:3px;">ยื่นครั้งต่อไป :&nbsp;</div>
+                        <div style="float:left;margin-left:2px;"><input   type="text" [(ngModel)]="result.next_post_date" name="next_post_date" class="form-control jcalendar next_post_date" (click)="directiveDate($event)" style="width:120px;"></div>
+                        <div style="float:left;margin-left:3px;margin-top:3px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.next_post_date').focus();"></i></div>
+						<div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="savePost()">จัดเก็บ</button></div>
+						<div style="float:left;margin-left:3px;"><button type="button" class="btn btn-warning" style="margin-left:5px;" (click)="setDefPage()">ยกเลิก</button></div>
+                        <div style="float:left;margin-left:3px;"><button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="delPost()">ลบกำหนดฝากขังที่เลือก</button></div>
+					</td>
+				</tr>   
+				<tr>
+					<td width="40%" align="left">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+							<thead>
+								<tr>
+									<th width="2%" class="no-sort"><input type="checkbox"  [(ngModel)]="masterSelect2" style="height:15px;width:15px;margin-top:2px;cursor:pointer;"  (change)="checkUncheckAll(this.postData,'masterSelect2','seqPost')"></th>
+									<th width="4%" class="no-sort" >แก้ไข</th>
+									<th width="2%" class="no-sort">ครั้งที่</th>
+									<th width="5%" class="no-sort">วันที่ยื่น</th>
+									<th width="6%" class="no-sort">จำนวนวัน<br />ศาลอนุญาต</th>
+									<th width="7%" class="no-sort">นับแต่วันที่</th>
+									<th width="8%" class="no-sort">ครบวันที่</th>
+									<th width="8%" class="no-sort">ยื่นครั้งต่อไปวันที่</th>
+									<th width="5%" class="no-sort">จำนวนวัน<br />ออกหมายขัง</th>
+									<th width="10%" class="no-sort">หน่วยงานที่บันทึก</th>
+									<th width="10%" class="no-sort">ผู้บันทึก</th>
+									<th width="9%" class="no-sort">วัน/เวลาที่บันทึก</th>
+									<th width="9%" class="no-sort">หน่วยงานที่แก้ไข</th>
+									<th width="10%" class="no-sort">ผู้แก้ไข</th>
+									<th width="8%"  class="no-sort">วัน/เวลาที่แก้ไข</th>
+								</tr>
+							</thead>
+							
+							<tbody *ngIf="(postData$ | async )">
+								<tr *ngFor="let post of postData$ | async;let i = index;" [ngClass]="{'red': post.cancel_flag == 1}">
+									<td width="2%" align="center"><input type="checkbox" [(ngModel)]="this.postData[i].seqPost" style="height:15px;width:15px;margin-top:2px;cursor:pointer;" (change)="isAllSelected(this.postData,'masterSelect2','seqPost')"></td>
+                            		<td width="4%" align="center"><i class="fa fa-pencil" style="font-size:18px;cursor:pointer;" (click)="editPost(i)"></i></td>
+
+									<td width="5%" align="center">{{post.post_seq}}</td>
+									<td width="5%" align="center">{{post.post_start}}</td>
+									<td width="5%" align="center">{{post.days_amount}}</td>
+									<td width="5%" align="center">{{post.from_date}}</td>
+									<td width="5%" align="center">{{post.post_end}}</td>
+									<td width="5%" align="center">{{post.next_post_date}}</td>
+									<td width="5%" align="center">{{post.pk_day}}</td>
+
+									<td width="8%" align="center">{{post.create_dep_name}}</td>
+									<td width="9%" align="center">{{post.create_user}}</td>
+									<td width="9%" align="center">{{post.create_date}}</td>
+									<td width="10%" align="center">{{post.update_dep_name}}</td>
+									<td width="10%" align="center">{{post.update_user}}</td>
+									<td width="8%" align="center">{{post.update_date}}</td>
+								</tr>
+							</tbody>
+							<tbody *ngIf="!(postData$ | async)">
+								<tr>
+									<td colspan="15" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="card card-info" style="box-shadow: none !important;width:2500px;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">   
+				<tr>
+					<td>
+						<div style="float: left;margin-left: 6px;margin-top:3px;">ข้อมูลหมายขังระหว่างสอบสวน</div>
+                    </td>
+				</tr>         
+				<tr>
+					<td width="40%" align="left">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+							<thead>
+								<tr>
+									<th width="2%" class="no-sort">&nbsp;</th>
+									<th width="4%" class="no-sort">แก้ไข</th>
+									<th width="5%" class="no-sort">วันที่พิมพ์</th>
+									<th width="5%" class="no-sort">เลขที่หมาย</th>
+									<th width="12%" class="no-sort">หมายถึง</th>
+									<th width="12%" class="no-sort">ผู้ต้องหา</th>
+									<th width="5%" class="no-sort">พิมพ์หมายลงกระดาษเปล่า</th>
+									<th width="8%" class="no-sort">หน่วยงานที่บันทึก</th>
+									<th width="9%" class="no-sort">ผู้บันทึก</th>
+									<th width="9%" class="no-sort">วัน/เวลาที่บันทึก</th>
+									<th width="10%" class="no-sort">หน่วยงานที่แก้ไข</th>
+									<th width="10%" class="no-sort">ผู้แก้ไข</th>
+									<th width="8%" class="no-sort">วัน/เวลาที่แก้ไข</th>
+			
+								</tr>
+							</thead>							
+							<tbody *ngIf="(NoticeData$ | async )">
+								<tr *ngFor="let post of NoticeData$ | async;let i = index;" [ngClass]="{'red': post.cancel_flag == 1}">
+									<td width="2%" align="center"><i class="fa fa-close" style="font-size:18px;color:#d50000d1;cursor: pointer;"  (click)="delNoticeData(i)"></i></td>
+                            		<td width="4%" align="center"><i class="fa fa-pencil" style="font-size:18px;cursor:pointer;" (click)="editNoticeData(i)"></i></td>
+
+									<td width="5%" align="center">{{post.notice_date}}</td>
+									<td width="5%" align="center">{{post.notice_no}}/{{post.notice_yy}}</td>
+									<td width="12%" align="center">{{post.noticeto_name}}</td>
+									<td width="12%" align="center">{{post.accuitem_name}}</td>
+									<td width="5%" align="center"><i class='far fa-newspaper' style='font-size:16px' (click)="printReportIndex(i)"></i></td>
+
+									<td width="8%" align="center">{{post.create_dep_name}}</td>
+									<td width="9%" align="center">{{post.create_user}}</td>
+									<td width="9%" align="center">{{post.create_date}}</td>
+									<td width="10%" align="center">{{post.update_dep_name}}</td>
+									<td width="10%" align="center">{{post.update_user}}</td>
+									<td width="8%" align="center">{{post.update_date}}</td>
+								</tr>
+							</tbody>
+							<tbody *ngIf="!(NoticeData$ | async)">
+								<tr>
+									<td colspan="13" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner>
+

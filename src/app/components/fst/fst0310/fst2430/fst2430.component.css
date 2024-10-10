@@ -1,0 +1,25 @@
+/*********** table form *************/
+table.form_table_data tbody tr:nth-child(odd) {
+    background-color: #D4F1D4 !important;
+}
+table.form_table_data tbody tr:nth-child(even) {
+    background-color: #fbfbdf !important;
+}
+
+table.form_table_data tbody tr td tr:nth-child(odd) {
+  background-color: transparent  !important;
+}
+table.form_table_data tbody tr td tr:nth-child(even) {
+  background-color: transparent !important;
+}
+
+table.form_table_data tbody tr:hover {
+    background-color: #eeeeee !important;
+}
+
+.table-striped>tbody>tr:nth-of-type(even) {
+    --bs-table-accent-bg: none !important;
+}
+.table-striped>tbody>tr:nth-of-type(odd) {
+    --bs-table-accent-bg: none !important;
+}

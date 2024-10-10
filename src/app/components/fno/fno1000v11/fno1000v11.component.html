@@ -1,0 +1,260 @@
+<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">      
+    <tr>
+        <td  width="18%" align="right">&nbsp;</td>
+        <td  align="left" width="82%">
+            <div style="float: left;font-size:18px;">	.................................................................. |</div>
+            <div style="float: left;margin-left:5px;"><span style="color: red;">ฐานความผิดไม่เกินนี้ Enter เพื่อไม่ให้เกินหน้ากระดาษ</span></div>
+        </td>
+    </tr> 
+    <tr>
+        <td  align="right" valign="top" style="padding-top:4px;">ฐานความผิด :&nbsp;</td>
+        <td  align="left" style="padding-right: 100px;">
+            <div style="float: left;">
+                <textarea [(ngModel)]="result.alle_desc" name="alle_desc" #alle_desc='ngModel' class="form-control"  style="width: 721px; height: 65px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+            </div>
+            <div style="float: left;margin-left:5px;margin-top:16px;"><span style="color: red;">บรรทัดที่ 2 ข้อความยาวเต็มกล่อง</span></div>
+            <div style="float: right;"><button type="button" class="btn btn-warning" style="margin-left:5px;margin-top:7px;width:70px;"  (click)="cancelPage()">ยกเลิก</button></div>
+            <div style="float: right;"><button type="button" class="btn btn-success" style="margin-top:7px;width:70px;" (click)="saveData()" >จัดเก็บ</button></div>
+        </td>
+    </tr>  
+    <tr>
+        <td  align="right">ประเภท :&nbsp;</td>
+        <td  align="left" style="padding-right: 100px;">
+            <div style="float:left;">
+                <ng-select [(ngModel)]="result.lit_type"  style="width:180px;" [clearable]="false">
+                    <ng-option *ngFor="let getData of litType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+                  </ng-select>
+            </div>
+            <div style="float: left;margin-top:5px;margin-left:12px;">ลำดับที่ :&nbsp;</div>
+            <div style="float: left;">
+                <input   type="text" [(ngModel)]="result.item" (change)="tabChangeInput('item',$event)" class="form-control" style="width:60px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:2px;">
+                <input   type="text"  [(ngModel)]="result.accuitem_name"   class="form-control" style="width:300px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:2px;margin-top:1px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:2px;" (click)="clickOpenMyModal(1)"></i>
+            </div>
+            <div style="float: right;"><button type="button" class="btn btn-primary" style="width:145px;"  (click)="setDefPage('')">เพิ่มข้อมูล</button></div>
+        </td>
+    </tr> 
+    <tr>
+        <td  align="right">หมายจำคุกระหว่างอุทธรณ์/ฎีกา :&nbsp;</td>
+        <td  align="left" style="padding-right: 100px;">
+           
+            <div style="float: left;">
+                <input   type="text" [(ngModel)]="result.notice_no" (focus)="runNoticeNo()" [readonly]="isReadonly"  class="form-control" style="width:60px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-top:5px;margin-left:5px;">/&nbsp;</div>
+            <div style="float: left;margin-left:3px;">
+                <input   type="text" [(ngModel)]="result.notice_yy" [readonly]="isReadonly" class="form-control" style="width:60px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:6px;"><button type="button" class="btn btn-primary" style="margin-left:5px;"  (click)="searchNotice()">ค้นหา</button></div>
+            <div style="float: left;margin-left:3px;"><button type="button" class="btn btn-success" style="margin-left:5px;"  *ngIf="result.notice_running" (click)="loginChange()">login เพื่อเปลี่ยนเลขหมาย</button></div>
+            <div style="float: left;margin-top:5px;margin-left:12px;">วันที่ออกหมาย :&nbsp;</div>
+            <div style="float:left;"><input  type="text" [(ngModel)]="result.notice_date" style="width:120px;" class="form-control jcalendar notice_date" #notice_date (click)="directiveDate(notice_date.value,'notice_date')"></div>
+			<div style="float:left;margin-left:8px;margin-top:1px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.notice_date').focus();"></i></div>
+            <div style="float: right;"><button type="button" class="btn btn-success" style="width:145px;" (click)="copyNotice()">สำเนาข้อมูล</button></div>
+        </td>
+    </tr> 
+    <tr>
+        <td  align="right">
+            <div style="float: right; margin-top: -2px;margin-right:2px;">
+                <!-- <select  [(ngModel)]="result.back_notice_id"  style="height:24px !important;border-radius: 4px !important;border: 1px solid #ced4da;">
+                    <option *ngFor="let getData of noticeType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</option>
+                </select> -->
+                <ng-select [(ngModel)]="result.back_notice_id" [clearable]="false"  style="width:280px;" >
+                    <ng-option *ngFor="let getData of noticeType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+                  </ng-select>
+            </div>
+            
+        </td>
+        <td  align="left" style="padding-right: 100px;">
+           
+            <div style="float: left;margin-left:0px;">
+                <input   type="text" [(ngModel)]="result.noticetype_no1"   class="form-control" style="width:80px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-top:5px;margin-left:5px;">/&nbsp;</div>
+            <div style="float: left;margin-left:3px;">
+                <input   type="text" [(ngModel)]="result.noticetype_yy1"  class="form-control" style="width:80px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-top:5px;margin-left:12px;">วันที่ออกหมาย :&nbsp;</div>
+            <div style="float:left;"><input  type="text" [(ngModel)]="result.noticetype_date1" style="width:120px;" class="form-control jcalendar noticetype_date1" #noticetype_date1 (click)="directiveDate(noticetype_date1.value,'noticetype_date1')"></div>
+			<div style="float:left;margin-left:8px;margin-top:1px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.noticetype_date1').focus();"></i></div>
+            <div style="float: left;margin-left:2px;margin-top:1px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:2px;" (click)="clickOpenMyModal(2)"></i>
+            </div>
+            <div style="float: left;margin-top:5px;margin-left:12px;">คำพิพากษาศาล :&nbsp;</div>
+            <div style="float:left;">
+                <ng-select  style="width:180px;" [(ngModel)]="result.prison_type">
+                    <ng-option *ngFor="let getData of getAppeal" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+                  </ng-select>
+            </div>
+            <div style="float: right;"><button type="button" class="btn btn-info" style="width:145px;margin-top:5px;"  (click)="printReport(2)">หมายกระดาษเปล่า</button></div>
+        </td>
+    </tr> 
+    <tr>
+        <td  align="right">เรือนจำ :&nbsp;</td>
+        <td  align="left" style="padding-right: 100px;">
+            <div style="float: left;">
+                <input   type="text" [(ngModel)]="result.prison" (change)="tabChangeInput('prison',$event)" class="form-control" style="width:60px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:2px;">
+                <input   type="text" [(ngModel)]="result.noticeto_name"      class="form-control" style="width:300px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:2px;margin-top:1px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:2px;" (click)="clickOpenMyModal(3)"></i>
+            </div>
+            <div style="float: left;margin-left:5px;">
+                <input   type="text"  [(ngModel)]="result.noticeto_name2"   class="form-control" style="width:220px;height:28px;"/>
+            </div>
+            <div style="float: right;">
+                <button type="button" class="btn btn-info" style="width:145px;display:table;margin-top:2px;"  (click)="printReport(3)">พิมพ์หมายหน้าหลัง</button>
+            </div>
+        </td>
+    </tr> 
+    <tr>
+        <td  align="right" valign="top" style="padding-top:4px;">ต้องตามกฎหมาย :&nbsp;</td>
+        <td  align="left" style="padding:0px 100px 2px 0px" valign="top">
+            <div style="float: left;">
+                <textarea [(ngModel)]="result.by_law" name="by_law" #by_law='ngModel' class="form-control"  style="width: 637px; height: 89px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+            </div>
+            <div style="float: left;margin-left:2px;margin-top:1px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:2px;" (click)="clickOpenMyModal(4)"></i>
+            </div>
+            <!-- <div style="float: left;margin-left:4px;margin-top:1px;" >
+                <i class="fa fa-file-text-o" style="font-size:20px;color: green;cursor: pointer;" title="นำเข้าคำพิพากษาย่อ"></i>
+            </div> -->
+            <div style="float: right;">
+                <button type="button" class="btn btn-info" style="width:145px;display:table;margin-top:2px;"  (click)="printReport(4)">พิมพ์หลังหมาย</button>
+            </div>
+           
+        </td>
+    </tr>  
+    <tr>
+        <td  align="right" valign="top" style="padding-top:4px;">เพิ่มเติม(พิมพ์ด้านหลังหมาย) :&nbsp;</td>
+        <td  align="left" style="padding:0px 100px 2px 0px">
+            <div style="float: left;">
+                <textarea  [(ngModel)]="result.by_add" name="by_add" #by_add='ngModel' class="form-control"  style="width: 637px; height: 89px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+            </div>
+            
+        </td>
+    </tr>
+    <tr>
+        <td  align="right" valign="top" style="padding-top:4px;">มาตรา :&nbsp;</td>
+        <td  align="left" style="padding:0px 100px 2px 0px">
+            <div style="float: left;">
+                <textarea [(ngModel)]="result.by_matra" name="by_matra" #by_matra='ngModel' class="form-control"  style="width: 637px; height: 55px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+            </div>
+            
+        </td>
+    </tr>
+    <tr>
+        <td  align="right" valign="top">
+            <div style="float: right;margin-right:2px;">
+                <input   type="text" [(ngModel)]="result.in_jail_person_id" (change)="tabChangeInput('in_jail_person_id',$event)" class="form-control" style="width:60px;height:28px;"/>
+            </div>
+            <div style="float: right;margin-right:4px;margin-top:1px;">ให้จำคุก</div>
+        </td>
+        <td  align="left" style="padding-right: 100px;">
+            <div style="float: left;">
+                <textarea [(ngModel)]="result.in_jail_person" name="in_jail_person" #in_jail_person='ngModel'  class="form-control"  style="width: 637px; height: 38px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+            </div>
+            <div style="float: left;margin-left:2px;margin-top:1px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:2px;" (click)="clickOpenMyModal(5)"></i>
+            </div>
+        </td>
+    </tr>  
+    <tr>
+        <td  align="right" valign="top" >ให้จำคุก(เพิ่มเติม) :&nbsp;</td>
+        <td  align="left" >
+            <div style="float: left;">
+                <input   type="text" [(ngModel)]="result.in_jail_person_add" class="form-control" style="width:556px;height:28px;"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td  align="right">นับตั้งแต่วันที่ :&nbsp;</td>
+        <td  align="left" style="padding-right: 100px;">
+            <div style="float:left;"><input  type="text" [(ngModel)]="result.start_date" style="width:120px;" class="form-control jcalendar start_date" #start_date (click)="directiveDate(start_date.value,'start_date')"></div>
+			<div style="float:left;margin-left:8px;margin-top:1px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.start_date').focus();"></i></div>
+            <div style="float: left;margin-top:5px;margin-left:12px;">ต้องขังมาแล้ว :&nbsp;</div>
+            <div style="float: left;margin-right:2px;">
+                <input   type="text" [(ngModel)]="result.hold_day" class="form-control" style="width:73px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-top:5px;margin-left:4px;">วัน</div>
+            <div style="float: left;margin-top:5px;margin-left:12px;">คดีถึงที่สุดวันที่ :&nbsp;</div>
+            <div style="float:left;"><input  type="text" [(ngModel)]="result.end_date" style="width:120px;" class="form-control jcalendar end_date" #end_date (click)="directiveDate(end_date.value,'end_date')"></div>
+			<div style="float:left;margin-left:8px;margin-top:1px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.end_date').focus();"></i></div>
+        </td>
+    </tr> 
+    <tr>
+        <td  align="right" valign="top" style="padding-top:4px;">หมายเหตุยกเลิกหมายเก่า :&nbsp;</td>
+        <td  align="left" style="padding:0px 100px 2px 0px">
+            <div style="float: left;">
+                <textarea [(ngModel)]="result.cancel_remark" name="cancel_remark" #cancel_remark='ngModel' class="form-control"  style="width: 637px; height: 55px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+            </div>
+            <div style="float: left;margin-left:2px;margin-top:1px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:2px;" (click)="clickOpenMyModal(7)"></i>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td  align="right" >หมายเหตุ :&nbsp;</td>
+        <td  align="left" style="padding:0px 100px 0px 0px">
+            <div style="float: left;">
+                <input   type="text" [(ngModel)]="result.endnotice_id" (change)="tabChangeInput('endnotice_id',$event)" class="form-control" style="width:460px;height:28px;"/>
+            </div>
+            <div style="float: left;margin-left:2px;margin-top:1px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:1px;" (click)="clickOpenMyModal(6)"></i>
+            </div>
+            <div style="float: left;margin-left:20px;margin-top:8px;"><input type="checkbox" [(ngModel)]="result.cancel_flag" style="height: 15px;width: 15px;"></div>
+			<div style="float: left;margin-left:4px;margin-top:7px;">ยกเลิกหมาย</div>
+
+        </td>
+    </tr>  
+    <tr>
+        <td  align="right" >&nbsp;</td>
+        <td  align="left" style="padding:0px 100px 0px 0px">
+            <div style="float: left;">
+                <div style="float: left;">
+                    <textarea [(ngModel)]="result.bremark" name="bremark" #bremark='ngModel' class="form-control"  style="width: 637px; height: 38px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td  align="right" >&nbsp;</td>
+        <td  align="left" style="padding:0px 100px 0px 0px">
+            <div style="float: left;">
+                <div style="float: left;">
+                    <ng-select [(ngModel)]="result.remark1"  style="width:460px;" [clearable]="false">
+                        <ng-option *ngFor="let getData of remark" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+                      </ng-select></div>
+            </div>
+        </td>
+    </tr>
+    
+    <tr>
+        <td  width="440" align="right">&nbsp;</td>
+        <td  align="left" style="padding:2px 0px 2px 0px;">
+            <div style="border:1px solid #666666;width:85%;border-radius: 6px;padding:3px;">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="15%" align="right">ผู้พิมพ์ :&nbsp;</td>
+                        <td width="45%">
+                            <div style="float: left;">
+                                <input   type="text" [(ngModel)]="result.type_by"  readonly class="form-control" style="width:200px;height:28px;"/>
+                            </div>
+                        </td>
+                        <td width="12%" align="right" >วันที่พิมพ์ :&nbsp;</td>
+                        <td width="28%">
+                            <div style="float:left;"><input  type="text" [(ngModel)]="result.type_date" style="width:120px;" class="form-control jcalendar type_date" #type_date (click)="directiveDate(type_date.value,'type_date')"></div>
+			                <div style="float:left;margin-left:8px;margin-top:1px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.type_date').focus();"></i></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>

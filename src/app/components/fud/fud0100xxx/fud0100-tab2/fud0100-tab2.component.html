@@ -1,0 +1,209 @@
+
+                <fieldset style="width:1750px;border-radius:4px;border:1px solid #333333;padding:5px;margin-left:9px;margin-top:4px;">
+                    <legend style="line-height: 10px;float:none;margin-left:14px;font-weight:bold;color:black;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;cursor:pointer;margin-bottom: 6px;font-weight: normal;" class="lClick">รายการอุทธรณ์/ฎีกาที่เลือก</legend>
+                    <!--<table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger_2" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">-->
+                    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;width:100%;">
+                        <thead>
+                            <tr>
+                                <th width="4%" style="background-color: #94b4b9 !important;">รายการ</th>
+                                <th width="4%" style="background-color: #94b4b9 !important;"> ประเภท</th>
+                                <th width="2%" style="background-color: #94b4b9 !important;">รายการที่</th>
+                                <th width="3%" style="background-color: #94b4b9 !important;">วันที่เริ่มต้น</th>
+                                <th width="3%" style="background-color: #94b4b9 !important;">คำสั่งศาล</th>
+                                <th width="6%" style="background-color: #94b4b9 !important;">ไปยังศาล</th>
+                                <th width="5%" style="background-color: #94b4b9 !important;">วันที่ศาลสั่งให้ส่งสำนวน</th>
+                                <th width="4%" style="background-color: #94b4b9 !important;">วันที่ส่งไป</th>
+                                <th width="4%" style="background-color: #94b4b9 !important;">วันที่รับคืน</th>
+                                <th width="4%" style="background-color: #94b4b9 !important;">วันที่อ่านคำสั่ง/คำพิพากษา </th>
+                                <th width="4%" style="background-color: #94b4b9 !important;">วันที่แจ้งการอ่าน</th>
+                                <th width="4%" style="background-color: #94b4b9 !important;">วันที่รับซอง</th>
+                                <th width="4%" style="background-color: #94b4b9 !important;">เลขที่ซอง</th>
+        
+                            </tr>
+                        </thead>
+                        
+                        <tbody *ngIf="sendEditData?.length != 0">
+							<tr *ngFor="let post of sendEditData;let i = index;" >
+                                <td align="center">{{post.appeal_type_name}}</td>
+                                <td align="center">{{post.app_type_name}}</td>
+                                <td align="center">{{post.appeal_item}}</td>
+                                <td align="center">{{post.start_date}}</td>
+                                <td align="center">{{post.judge_order_name}}</td>
+                                <td align="center">{{post.send_to_name}}</td>
+                                <td align="center">{{post.case_send_date}}</td>
+                                <td align="center">{{post.hsend_date}}</td>
+                                <td align="center">{{post.hrec_date}}</td>
+                                <td align="center">{{post.judge_date}}</td>
+                                <td align="center">{{post.read_date}}</td>
+                                <td align="center">{{post.rcv_date}}</td>
+                                <td align="center">{{post.case_no}}</td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="sendEditData?.length == 0">
+							<tr >
+                                <td colspan="13" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                                <td style="display:none;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>   
+                
+                <table style="width: 3050px;margin-top:10px;">
+                    <tr>
+                        <td style="height: 34px !important;">
+                            <div style="float: left;padding-left:5px;"><button type="button" class="btn btn-primary" style="margin-left:5px;"  (click)="gotoFkbPage()">บันทึกคำคู่ความ</button></div>
+                            <div style="float: left;"><button type="button" class="btn btn-primary" style="margin-left:5px;"  (click)="gotoFudPage()">ผูกข้อมูลคำคู่ความกับอุทธรณ์/ฎีกานี้</button></div>
+                            <div style="float: left;margin-top:3px;margin-left:8px;"><input type="radio" name="n_type1" [(ngModel)]="result.n_type1" [value]="1" (click)="loadData(1)" style="width:15px;height:15px;"></div>
+                            <div style="float: left;margin-left:3px;margin-top:3px;">คำคู่ความหลังวันที่เริ่ม</div>
+                            <div style="float: left;margin-left:13px;margin-top:3px;"><input type="radio" name="n_type1" [(ngModel)]="result.n_type1" [value]="2" (click)="loadData(2)" style="width:15px;height:15px;"></div>
+                            <div style="float: left;margin-left:3px;margin-top:3px;">คำคู่ความเฉพาะอุทธรณ์/ฎีกาฉบับนี้</div>
+                            <div style="float:left;margin-left:12px;"><button type="button" class="btn btn-success" style="margin-left:5px;" (click)="reloadTab()">reload ข้อมูลใหม่</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:10px;text-align: left;">
+                            <table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger_2" class="table table-striped table-bordered table-sm row-border hover" style="width:99.5%;float:left;">
+                                <thead>
+                                    <tr align="center">
+                                        <th width="1%" class="no-sort">ลบ</th>
+                                        <th width="3%">เลขที่อ้างอิง</th>
+                                        <th width="3%">ประเภทคำร้อง</th>
+                                        <th width="3%">เรื่อง</th>
+                                        <th width="5%">วันที่/เวลาที่รับคำร้อง</th>
+                                        <th width="3%">ประเภทผู้ยื่น</th>
+                                        <th width="5%">ผู้ยื่น</th>
+                                        <th width="5%">ผู้รับคำร้อง</th>
+                                        <th width="5%">หน่วยงานที่รับคำร้อง</th>
+                                        <th width="4%">วัน/เวลาเสนอคำร้อง</th>
+                                        <th width="5%">ผู้เสนอคำร้อง </th>
+                                        <th width="5%">หน่วยงานที่เสนอคำร้อง</th>
+                                        <th width="5%">วันที่สั่งคำร้อง</th>
+                                        <th width="5%">คำสั่งศาล</th>
+                                        <th width="2%">ไฟล์คำสั่ง</th>
+                                        <th width="6%">ผู้พิพากษาสั่งคำร้อง</th>
+                                        <th width="4%">ผู้บันทึกคำสั่งศาล</th>
+                                        <th width="4%">หน่วยงานที่บันทึก<br>คำสั่งศาล</th>
+                                        <th width="4%">หน่วยงานที่บันทึก</th>
+                                        <th width="4%">ผู้บันทึก</th>
+                                        <th width="5%">วัน/เวลาที่บันทึก</th>
+                                        <th width="4%">หน่วยงานที่แก้ไข</th>
+                                        <th width="4%">ผู้แก้ไข</th>
+                                        <th width="5%">วัน/เวลาที่แก้ไข</th>
+                                      </tr>
+                                </thead>
+                                <tbody *ngIf="AppealReqData?.length != 0">
+                                    <tr *ngFor="let post of AppealReqData;let i = index;" >
+                                        <td align="center"><i class='fas fa-times' style='font-size:18px;color:rgba(255, 0, 0, 0.7);cursor: pointer;' (click)="delData(i)"></i></td>
+										<td align="center" width="3%"><span style="color:blue;cursor:pointer;" (click)="fkb0100Page(i)">{{post.reqest_no}}</span></td>
+                                        <td align="center" width="3%">{{post.req_desc}}</td>
+                                        <td align="center" width="3%">{{post.subject_name}}</td>
+                                        <td align="center" width="5%">{{post.date_rcv}}<br>{{post.rcv_time}}</td>
+                                        <td align="center" width="3%">{{post.lit_type_desc}}</td>
+                                        <td align="center" width="5%">{{post.req_name}}</td>
+                                        <td align="center" width="5%">{{post.rcv_req_name}}</td>
+                                        <td align="center" width="5%">{{post.rcv_dep_name}}</td>
+                                        <td align="center" width="4%">{{post.submit_date}}<br>{{post.submit_time}}</td>
+                                        <td align="center" width="5%">{{post.user_submit_name}}</td>
+                                        <td align="center" width="5%">{{post.dep_submit_name}}</td>
+                                        <td align="center" width="5%">{{post.order_date}}</td>
+                                        <td width="5%">{{post.req_order}}</td>
+                                        <td align="center" width="2%">{{post.file_exists}}</td>
+                                        <td align="center" width="6%">{{post.judge_name}}</td>
+                                        <td align="center">{{post.user_type_order_name}}</td>
+                                        <td align="center">{{post.user_type_dep_name}}</td>
+                                        <td align="center">{{post.create_dep_name}}</td>
+                                        <td align="center">{{post.create_user}}</td>
+                                        <td align="center" >{{post.create_date}}</td>
+                                        <td align="center">{{post.update_dep_name}}</td>
+                                        <td align="center">{{post.update_user}}</td>
+                                        <td align="center">{{post.update_date}}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="AppealReqData?.length == 0">
+                                    <tr>
+                                        <td colspan="24" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+                                        <td style="display:none;"></td>
+
+            
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+                          <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+                          <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal3" (click)="loadMyModalComponent();" #openbutton></button>
+                        </div>
+                        <div class="modal-body" >
+                                <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+                                <app-modal-confirm *ngIf="loadModalConfComponent" class="modal_app"></app-modal-confirm>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalConfComponent">ตกลง</button>
+                            <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            
+            <!--<script src="case-type.component.js"></script>-->
+            <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+                <p style="color: gray">Please Wait. </p>  
+            </ngx-spinner>
+
+
+                
+            
+
+    
+
+
+
+    
+

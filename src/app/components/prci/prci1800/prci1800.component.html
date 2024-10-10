@@ -1,0 +1,205 @@
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content">
+	<!-- <div class="content" style="padding:10px;" > -->
+		<!-- <div class="card card-info" style="box-shadow: none !important;"> -->
+			<!-- <div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName"></app-case-header>
+			</div> -->
+      <!-- <div class="programName" style="float:left;margin-top:6px;"><i class="fa fa-folder-open-o" style="font-size:24px;margin-left:8px;"></i><span style="font-size: 16px;margin-left:5px;">{{programName}}</span></div>
+		</div> -->
+
+
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="2" class="form_table">
+        <tr>
+					<td  width="22%" align="right" >หมายเลขคดีดำ :&nbsp;</td>
+					<td  width="36%" align="left">
+            <div style="float:left;">
+              <input   type="text" [(ngModel)]="result.black_no" readonly  class="form-control" style="width:180px;"/>
+            </div>
+          </td>
+          <td  width="6%" align="right" >&nbsp;</td>
+					<td  width="36%" align="left">&nbsp;</td>
+				</tr>
+        <tr>
+					<td   align="right" ><span style="color:red;">หมายเลขคดีแดง :&nbsp;</span></td>
+					<td   align="left">
+            <div style="float:left;">
+              <input   type="text" [(ngModel)]="result.red_no" readonly  class="form-control" style="width:180px;"/>
+            </div>
+          </td>
+          <td   align="right" >ใบรับเงิน :&nbsp;</td>
+					<td   align="left">
+            <div style="float: left;margin-left:2px;margin-top:4px;"><input type="checkbox" [(ngModel)]="result.pchk_type_date" [value]="1" style="height: 15px;width: 15px;"  ></div>
+						<div style="float: left;margin-left:4px;margin-top:3px;">พิมพ์วันที่เบิก</div>
+            <div style="float: left;margin-left:20px;margin-top:4px;"><input type="checkbox" [(ngModel)]="result.pchk_pay_date" [value]="1" style="height: 15px;width: 15px;"  ></div>
+						<div style="float: left;margin-left:4px;margin-top:3px;">พิมพ์วันที่จ่าย </div>
+          </td>
+				</tr>
+        <tr>
+					<td   align="right" >วันที่เบิก/รับเงิน :&nbsp;</td>
+					<td   align="left">
+            <div style="float:left;"><input   type="text" [(ngModel)]="result.type_date" class="form-control jcalendar type_date" #type_date (click)="directiveDate(type_date.value,'type_date')" style="width:100px;"></div>
+            <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.type_date').focus();"></i></div>
+
+          </td>
+          <td   align="right" >&nbsp;</td>
+					<td   align="left">&nbsp;</td>
+				</tr>
+        <tr>
+					<td   align="right" >
+            <div style="float: right;margin-left:4px;margin-top:3px;">เสนอ ผ.อ.</div>
+            <div style="float: right;margin-left:12px;margin-top:4px;"><input type="checkbox" [(ngModel)]="result.pchk4" [value]="1" (click)="getPre(1)" style="height: 15px;width: 15px;"  ></div>
+						<div style="float: right;margin-left:4px;margin-top:3px;">เสนอหัวหน้า </div>
+            <div style="float: right;margin-left:5px;margin-top:4px;"><input type="checkbox" [(ngModel)]="result.pchk5" [value]="1" (click)="getPre(2)" style="height: 15px;width: 15px;"  ></div>
+            <div style="float: right;margin-left:4px;margin-top:3px;">เรียน </div>
+          </td>
+					<td   align="left">
+            <div style="float:left;">
+              <input   type="text" [(ngModel)]="result.ppost_to" class="form-control e"  style="width:380px;">
+            </div>
+          </td>
+          <td   align="right" >&nbsp;</td>
+					<td   align="left">&nbsp;</td>
+				</tr>
+        <tr>
+					<td   align="right" >ผู้ตรวจสอบ :&nbsp;</td>
+					<td   align="left">
+            <div style="float: left;">
+							<input  type="text" [(ngModel)]="result.puser_check_id"   class="form-control" (change)="tabChangeInput('puser_check_id',$event)" style="width:66px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;">
+							<input   type="text" [(ngModel)]="result.puser_check"   class="form-control" style="width:312px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(1)"></i>
+						</div>
+          </td>
+          <td   align="right" >ตำแหน่ง :&nbsp;</td>
+					<td   align="left">
+            <div style="float: left;margin-left:2px;">
+							<input   type="text" [(ngModel)]="result.ppost_check"   class="form-control" style="width:312px;"/>
+						</div>
+          </td>
+				</tr>
+        <tr>
+					<td   align="right" >ผู้อนุมัติคนที่ 1/ ขอประทานเสนอ :&nbsp;</td>
+					<td   align="left">
+            <div style="float: left;">
+							<input  type="text" [(ngModel)]="result.ppresent_id"   class="form-control" (change)="tabChangeInput('ppresent_id',$event)" style="width:66px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;">
+							<input   type="text" [(ngModel)]="result.ppresent_name"   class="form-control" style="width:312px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(2)"></i>
+						</div>
+          </td>
+          <td   align="right" >ตำแหน่ง :&nbsp;</td>
+					<td   align="left">
+            <div style="float: left;margin-left:2px;">
+							<input   type="text" [(ngModel)]="result.ppresent_to"   class="form-control" style="width:312px;"/>
+						</div>
+          </td>
+				</tr>
+        <tr>
+					<td   align="right" >ผู้อนุมัติคนที่ 2/ ผู้มีอำนาจอนุมัติ :&nbsp;</td>
+					<td   align="left">
+            <div style="float: left;">
+							<input  type="text" [(ngModel)]="result.puser_approve_id"   class="form-control" (change)="tabChangeInput('puser_approve_id',$event)" style="width:66px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;">
+							<input   type="text" [(ngModel)]="result.puser_approve"   class="form-control" style="width:312px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(3)"></i>
+						</div>
+            <div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(4)"></i>
+						</div>
+          </td>
+          <td   align="right" >ตำแหน่ง :&nbsp;</td>
+					<td   align="left">
+            <div style="float: left;margin-left:2px;">
+							<input   type="text" [(ngModel)]="result.ppost_approve"   class="form-control" style="width:312px;"/>
+						</div>
+          </td>
+				</tr>
+        <tr>
+					<td   align="right" >ผู้จ่ายเงิน/ ผู้ทำรายการ :&nbsp;</td>
+					<td   align="left">
+            <div style="float: left;">
+							<input  type="text" [(ngModel)]="result.puser_pay_id"   class="form-control" (change)="tabChangeInput('puser_pay_id',$event)" style="width:66px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;">
+							<input   type="text" [(ngModel)]="result.puser_pay"   class="form-control" style="width:312px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(5)"></i>
+						</div>
+          </td>
+          <td   align="right" >ตำแหน่ง :&nbsp;</td>
+					<td   align="left">
+            <div style="float: left;margin-left:2px;">
+							<input   type="text" [(ngModel)]="result.ppost_pay"   class="form-control" style="width:312px;"/>
+						</div>
+          </td>
+				</tr>
+        <tr>
+					<td   align="right" ><span style="color:red;">***</span></td>
+					<td   align="left" colspan="3">
+            กรณีค่าป่วยการผู้ประนอมจะมีผู้ตรวจสอบ ส่วนค่าอื่นๆ ไม่ต้องเลือกผู้ตรวจสอบ
+          </td>
+				</tr>
+			</table>
+      <div class="card-footer" style="text-align: center;">
+				<button type="button" class="btn btn-primary" style="margin-left:1px;" (click)="printReport(1)">พิมพ์ใบสั่งจ่าย</button>
+        <span style="border:1px solid gray;padding:8px;border-radius:4px;margin-left:5px;">
+            <button type="button" class="btn btn-primary" style="margin-left:1px;" (click)="printReport(2)">พิมพ์ใบคำขอค่าป่วยการ</button>
+            <select style="height:24px !important;border-radius: 4px !important;border: 1px solid #ced4da;margin-left:3px;" [(ngModel)]="result.pprint_by" ><option value="1">PDF</option><option value="2">WORD</option></select>
+        </span>
+        <span style="border:1px solid gray;padding:8px;border-radius:4px;margin-left:5px;">
+          <button type="button" class="btn btn-primary" style="margin-left:1px;" (click)="printReport(5)">พิมพ์ใบคำขอค่าป่วยการ(ศาลภาษี)</button>
+          <select style="height:24px !important;border-radius: 4px !important;border: 1px solid #ced4da;margin-left:3px;" [(ngModel)]="result.pprint_by" ><option value="1">PDF</option><option value="2">WORD</option></select>
+      </span>
+        <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="printReport(3)">พิมพ์ใบรับเงิน (แบบเก่า)</button>
+        <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="printReport(4)">พิมพ์ใบรับเงิน (แบบใหม่)</button>
+        <button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="closeWin()">ปิดหน้าจอ</button>
+			</div>
+		</div>
+
+
+
+<!-- <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+      <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+      <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+    </div>
+    <div class="modal-body" >
+
+        <input type="hidden" name="table_name" id="table_name">
+        <input type="hidden" name="field_id" id="field_id">
+        <input type="hidden" name="field_name" id="field_name">
+        <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+        <app-modal-judge *ngIf="loadModalJudgeComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType (onClickList)="receiveJudgeListData($event)" class="modal_app"></app-modal-judge>
+        <app-datalist-return *ngIf="loadModalComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value7]=listFieldCond (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+        <app-modal-confirm *ngIf="loadModalConfComponent" class="modal_app"></app-modal-confirm>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalConfComponent">ตกลง</button>
+      <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+    </div>
+    </div>
+  </div>
+</div> -->
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

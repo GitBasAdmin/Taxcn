@@ -1,0 +1,36 @@
+<div style="margin:0 auto;margin:0 auto;display:table;padding:10px;width: 98%;" class="card" *ngIf="mail.length">     
+  <table width="98%" border="0" align="center" cellpadding="0" cellspacing="1" style="margin-top:4px;">
+    <thead>
+      <tr align="center" >
+        <th height="25" align="center" style="background-color: #94B4B9;text-align: center;"><strong style="color: rgb(255, 81, 0);">แจ้งเตือน</strong><strong> มีข้อความใหม่ {{mail.length}} ข้อความ</strong></th>
+      </tr>
+      <!--
+      <tr align="center" >
+        <th height="25" align="center" style="background-color: #94B4B9;text-align: center;"><span style="color: rgb(63, 152, 224);cursor: pointer;">เปิดอ่าน</span></th>
+      </tr>-->
+    </thead>
+    <tbody >
+      <tr >
+        <td align="left" (click)="onClickListData2()" style="height:30px;"><i class="fa fa-angle-double-right" style="font-size:15px"></i>&nbsp;<span style="color:mediumblue;cursor: pointer;">เปิดอ่าน</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div style="margin:0 auto;margin:0 auto;display:table;padding:10px;width: 98%;" class="card" [ngStyle]="mail.length ?  {'margin-top': '8px'} : {'margin-top': '0px'}" *ngIf="alert.length">     
+  <table width="98%" border="0" align="center" cellpadding="0" cellspacing="1" style="margin-top:4px;">
+    <thead>
+      <tr align="center" >
+        <th height="25" align="center" style="background-color: #94B4B9;text-align: center;"><strong>ข้อมูลการเตือน {{alert.length}} หัวข้อ</strong></th>
+      </tr>
+    </thead>
+    <tbody *ngIf="alert?.length != 0">
+      <tr *ngFor="let datas of alert;let i = index;">
+        <td align="left" (click)="onClickListData(i)" style="height:30px;"><i class="fa fa-angle-double-right" style="font-size:15px"></i>&nbsp;<span style="color:mediumblue;cursor: pointer;">{{datas.alert_subject}}</span></td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="alert?.length == 0">
+      <tr><td style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+    </tbody>
+  </table>
+</div>

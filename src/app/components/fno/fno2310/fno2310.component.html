@@ -1,0 +1,234 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName"></app-case-header>
+			</div>
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;background-color: #f0f0f0">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+
+
+				<tr>
+					<td  align="right" >Barcode หมาย :&nbsp;</td>
+					<td  align="left" colspan="3">
+						<div style="float:left;"><input   type="text"  [(ngModel)]="result.barcode" (keyup.enter)="searchNotice(2)"  class="form-control" style="width:120px;"></div>
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">คดีของศาล :&nbsp;</td>
+					<td  align="left" colspan="3">
+						<div style="float: left;">
+							<ng-select [(ngModel)]="result.court_id" class="Court" style="width:200px;" [clearable]=false  #sCourt>
+								<ng-option *ngFor="let getData of getCourt" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">ความ :&nbsp;</td>
+					<td  align="left" colspan="3">
+						<div style="float: left;">
+							<ng-select  [(ngModel)]="result.case_type" class="CaseType" style="width:120px;" (change)="changeCaseType($event)" [clearable]=false  #sCaseType>
+								<ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td  align="right" width="15%">หมายเลขคดีดำที่ :&nbsp;</td>
+					<td  align="left" width="33%">
+						<div style="float: left;">
+							<ng-select  [(ngModel)]="result.title" class="Title" style="width:100px;" [clearable]=false  #sTitle>
+								<ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+						<div style="float:left;margin-left:3px;"><input   type="text"  [(ngModel)]="result.id"  class="form-control" style="width:60px;height:28px;"></div>
+						<div style="float:left;margin-left:3px;"><input   type="text"  [(ngModel)]="result.yy"  class="form-control" style="width:100px;height:28px;"></div>
+						<div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" (click)="searchCaseNo(1)">ค้นหา</button></div>
+					</td>
+					<td  align="right" width="18%" style="color: red;">หมายเลขคดีแดงที่ :&nbsp;</td>
+					<td  align="left" width="34%">
+						<div style="float: left;">
+							<ng-select  [(ngModel)]="result.red_title" class="RedTitle" style="width:100px;" [clearable]=false  #sRedTitle>
+								<ng-option *ngFor="let getData of getRedTitle" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+						<div style="float:left;margin-left:3px;"><input   type="text"  [(ngModel)]="result.red_id"  class="form-control" style="width:60px;height:28px;"></div>
+                    	<div style="float:left;margin-left:3px;"><input   type="text"  [(ngModel)]="result.red_yy"  class="form-control" style="width:100px;height:28px;"></div>
+						<div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" (click)="searchCaseNo(2)">ค้นหา</button></div>
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">รหัสหมาย :&nbsp;</td>
+					<td  align="left" colspan="3">
+						<div style="float: left;margin-top:1px;font-size: 18px;">(</div>
+						<div style="float: left;margin-left:1px;">
+							<input   type="text" [(ngModel)]="result.notice_court_running"  class="form-control" style="width:60px;height:28px;text-align: center;"/>
+						</div>
+						<div style="float: left;margin-top:1px;font-size: 18px;margin-left:1px;">) -</div>
+						<div style="float: left;margin-left:10px;">
+							<input   type="text" [(ngModel)]="result.notice_no" class="form-control" style="width:80px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-top:5px;margin-left:2px;font-size: 18px;">/</div>
+						<div style="float: left;margin-left:10px;">
+							<input   type="text" [(ngModel)]="result.notice_yy" class="form-control" style="width:80px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;"><button type="button" class="btn btn-primary" (click)="searchNotice(1)">ค้นหา</button></div>
+					</td>
+				</tr>
+			</table>
+			<div class="card-footer" style="text-align: center;margin-top:6px;">
+				<button type="button" class="btn btn-success" style="margin-left:5px;"  (click)="saveData()">จัดเก็บ</button>
+				<button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="setDefPage()">ล้างหน้าจอ</button>
+				<button type="button" class="btn btn-danger" style="margin-left:5px;"  (click)="cancelData()">ยกเลิกการรับหมาย</button>
+	  		<button type="button" class="btn btn-danger" style="margin-left:5px;"  (click)="closeWin()">ปิดหน้าจอ</button>
+			</div>
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="4" class="form_table" [ngStyle]="dataHead.run_id > 0 ?  {'display': 'none'} : {'display': ''}">
+				<tr>
+					<td width="40%" align="left" style="height:40px;">
+						<div style="float:left;margin-left:8px;margin-top:5px;">&nbsp;วันที่รับหมาย&nbsp;</div>
+						<div style="float:left;"><input   type="text" [(ngModel)]="result2.sevent_date" class="form-control jcalendar sevent_date"  #sevent_date (click)="directiveDate(sevent_date.value,'sevent_date')" style="width:100px;height:28px;text-align: center;"></div>
+						<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.sevent_date').focus();"></i></div>
+						<div style="float: left;margin-left:6px;"><button type="button" class="btn btn-primary" style="margin-left:5px;"  (click)="searchNoticeHistoricalData()">ค้นหา</button></div>
+            <button type="button" class="btn btn-info" style="margin-left:5px;" (click)="printReport(0)" >พิมพ์</button>
+					</td>
+				</tr>
+				<tr>
+					<td width="40%" align="left" >
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;" >
+							<thead>
+								<tr>
+									<th width="4%" class="no-sort">เลือกเพื่อยกเลิก</th>
+
+									<th width="8%">หมายเลขคดีดำ</th>
+									<th width="8%"><span style="color: red;">หมายเลขคดีแดง</span></th>
+									<th width="10%">ประเภทหมาย</th>
+									<th width="8%">รหัสหมาย</th>
+									<th width="18%">หมายถึง</th>
+									<th width="7%" >วันที่รับหมาย</th>
+									<th width="10%" >ปลายทาง</th>
+
+								</tr>
+							</thead>
+
+							<tbody *ngIf="dataNoticeHistorical?.length != 0">
+								<tr *ngFor="let post of dataNoticeHistorical;let i = index;" [ngClass]="{'red': post.cancel_flag == 1}">
+									<td align="center">
+										<input type="checkbox" [(ngModel)]="this.dataNoticeHistorical[i].hRunning" style="height:15px;width:15px;margin-top:2px;cursor:pointer;" *ngIf="post.cancel_flag!=1">
+										<span *ngIf="post.cancel_flag==1">[ ยกเลิก ]</span>
+									</td>
+									<td align="center">{{post.case_no}}</td>
+									<td align="center">{{post.red_no}}</td>
+									<td align="center">{{post.notice_type_name}}</td>
+									<td align="center">{{post.notice_no}}</td>
+									<td align="center">{{post.noticeto_name}}</td>
+									<td align="center">{{post.event_date}} {{post.event_time}}</td>
+									<td align="center">{{post.dep_name}}</td>
+
+								</tr>
+							</tbody>
+							<tbody *ngIf="dataNoticeHistorical?.length == 0">
+								<tr  >
+									<td colspan="8" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+
+								</tr>
+							</tbody>
+						</table>
+
+					</td>
+				</tr>
+			</table>
+
+			<table width="100%"  border="0" cellspacing="2" cellpadding="4" class="form_table">
+				<tr>
+					<td width="40%" align="left" >
+						<table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;" [ngStyle]="dataHead.run_id > 0 ?  {'display': ''} : {'display': 'none'}">
+							<thead>
+								<tr>
+									<th class="no-sort">เลือก</th>
+									<th width="18%" >หมายเลขคดีดำ</th>
+									<th width="14%" ><span style="color: red;">หมายเลขคดีแดง</span></th>
+									<th width="26%" >ประเภทหมาย</th>
+									<th width="19%" >รหัสหมาย</th>
+									<th width="17%" >หมายถึง</th>
+
+								</tr>
+							</thead>
+
+							<tbody *ngIf="dataNotice?.length != 0">
+								<tr *ngFor="let post of dataNotice;let i = index;" >
+									<td align="center">
+										<input type="checkbox" [(ngModel)]="this.dataNotice[i].nRunning" style="height:15px;width:15px;margin-top:2px;cursor:pointer;" >
+									</td>
+									<td align="center">{{dataHead.title}}{{dataHead.id}}/{{dataHead.yy}}</td>
+									<td align="center"><span *ngIf="dataHead.red_id">{{dataHead.red_title}}{{dataHead.red_id}}/{{dataHead.red_title}}</span></td>
+									<td align="center">{{post.notice_type_name}}</td>
+									<td align="center">{{post.notice_no}}</td>
+									<td align="center">{{post.noticeto_name}}</td>
+								</tr>
+							</tbody>
+							<tbody *ngIf="dataNotice?.length == 0">
+								<tr >
+									<td colspan="6" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+									<td style="display:none;"></td>
+								</tr>
+							</tbody>
+						</table>
+
+					</td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+
+
+	<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+			  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+			  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+			</div>
+			<div class="modal-body" >
+				<input type="hidden" name="table_name" id="table_name">
+				<input type="hidden" name="field_id" id="field_id">
+				<input type="hidden" name="field_name" id="field_name">
+				<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+					<app-datalist-return *ngIf="loadModalComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value7]=listFieldCond (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+					<app-modal-confirm *ngIf="loadModalConfComponent" class="modal_app"></app-modal-confirm>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalConfComponent">ตกลง</button>
+				  <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+			</div>
+		  </div>
+		</div>
+	</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

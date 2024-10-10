@@ -1,0 +1,67 @@
+<div class="modal-header">
+  <div style="float: left;margin-top:2px;"><span style="color: red;"></span>ข้อมูลนัดความวันที่ {{date_appoint}}</div>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.close()"></button>
+</div>
+<div class="modal-body" >
+  <div style="min-height: 300px;max-height: 480px;overflow: auto;">
+    <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+      <tr>
+        <td height="30" align="center" class="blackb">
+          <div style="float: left;margin-top:2px;">ความ :</div>
+          <div style="float: left;margin-left:2px;">
+            <ng-select [(ngModel)]="result.case_type" style="width:100px;height:26px;" [clearable]="false"  [ngModelOptions]="{standalone: true}"  (change)="fCaseTitle($event)">
+              <ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+           </ng-select>
+          </div>
+          <div style="float: left;margin-top:2px;margin-left:6px;">หมายเลขคดี :</div>
+          <div style="float: left;margin-left:2px;">
+            <ng-select [(ngModel)]="result.title" style="width:100px;height:26px;" [clearable]="false" [ngModelOptions]="{standalone: true}"   #sTitle>
+              <ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue>{{getData.fieldIdValue}}</ng-option>
+           </ng-select>
+          </div>
+          <div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="result.id" id="id" class="form-control" style="width:60px;height:26px;" #id></div>
+          <div style="float: left;margin-top:2px;margin-left:3px;">/</div>
+          <div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="result.yy" id="yy" class="form-control" style="width:100px;height:26px;" #yy></div>
+          <div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" (click)="showDataList(2)">ค้นหา</button></div>
+          <div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" (click)="showDataList(1)">แสดงทั้งหมด</button></div>
+        </td>
+      </tr>
+    </table>
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+      <thead>
+        <tr align="center" >
+          <th width="130" height="25" ><strong>หมายเลขคดี</strong></th>
+          <th width="120"><strong >เวลานัด</strong></th>
+          <th width="180"><strong >นัดเพื่อ</strong></th>
+          <th ><strong >โจทก์</strong></th>
+          <th ><strong >จำเลย</strong></th>
+          <th ><strong >ผู้ประนอม</strong></th>
+        </tr>
+      </thead>
+
+      <tbody *ngIf="items?.length != 0" >
+        <tr *ngFor="let datas of items;let i = index;" [ngClass]="{'red': datas.cancel_flag == 1}">
+          <td align="center"><span style="color:blue;cursor:pointer;" (click)="openLink(datas.run_id)">{{datas.case_no}}</span></td>
+          <td align="center">{{datas.time_appoint}}</td>
+          <td align="center">{{datas.app_name}}</td>
+          <td align="center">{{datas.pros_desc}}</td>
+          <td align="center">{{datas.accu_desc}}</td>
+          <td align="center">{{datas.conc_name}}</td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="items?.length == 0">
+        <tr><td colspan="6" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-warning" (click)="activeModal.close()">ปิดหน้าจอ</button>
+</div>
+
+<!--
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait.</p>  
+</ngx-spinner> 
+-->

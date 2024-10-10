@@ -1,0 +1,4 @@
+  <mat-tab-group animationDuration="0ms" [selectedIndex]="0" (selectedIndexChange)="1" (selectedTabChange)="activeTab($event)">
+    <mat-tab label="สารบบคำพิพากษา" style="padding:5px !important;"><app-fju0100-tab1 (onClickListData)="callDataHead($event)" [getDataHead]="this.sendHead"></app-fju0100-tab1></mat-tab>
+    <mat-tab label="คำพิพากษา" style="padding:5px !important;" ><app-fju0100-tab2 [getTab]="this.tab" [getDataHead]="this.sendHead"></app-fju0100-tab2></mat-tab>
+  </mat-tab-group>

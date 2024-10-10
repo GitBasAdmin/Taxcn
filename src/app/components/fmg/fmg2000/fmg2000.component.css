@@ -1,0 +1,6 @@
+.btn-info{color:white !important;}
+.modal-content{width:700px !important;min-height:200px !important;max-height: 600px !important;height: auto !important;} 
+tr.cancel{
+  /*background-color: #de8397 !important;*/
+  background-color: #F9A3A3 !important;
+}

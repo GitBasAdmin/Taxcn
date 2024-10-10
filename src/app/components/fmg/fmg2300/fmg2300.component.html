@@ -1,0 +1,306 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info">
+			<div class="card-header">
+			<h3 class="card-title">{{programName}}</h3>
+			</div>
+			<!-- /.card-header -->
+			<!-- form start -->
+			<!-- <form class="form-horizontal" #form_id> -->
+				<div class="card-body">
+					<!--	-->
+					<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+						<tr>
+							<td width="18%"  align="right">เลขที่แจ้ง :&nbsp;</td>
+							<td  align="left" >
+                <div style="float: left;">
+								<input [(ngModel)]="result.req_no" name="req_no" type="text"  class="form-control" style="width:80px;height:28px;text-align: center;"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+								<input type="hidden"  name="edit_req_no" [(ngModel)]="result.edit_req_no" >
+                <input type="hidden"  name="edit_req_no_item" [(ngModel)]="result.edit_req_no_item" ></div>
+                <div style="float: left;margin-left:10px;margin-top:4px;">ครั้งที่ :&nbsp;</div>
+                <div style="float: left;">
+                  <input [(ngModel)]="result.req_no_item"  type="text"  class="form-control" style="width:60px;height:28px;text-align: center;"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                </div>
+                <div style="float: left;margin-left: 5px;" >
+                <!-- <span><i class='fa fa-search' style='font-size:18px;cursor: pointer;' (click)="getData()"></i></span> -->
+                <button type="button" class="btn btn-primary" (click)="getData()">ค้นหา</button>
+                </div>
+                <div style="float: left;margin-left:10px;margin-top:4px;">วันที่ :&nbsp;</div>
+                <div style="float:left;">
+                  <input  readonly type="text" [(ngModel)]="result.req_date" class="form-control jcalendar req_date" #req_date (click)="directiveDate(req_date.value,'req_date')" style="width:120px;height:28px;text-align: center;"></div>
+              <!-- <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.req_date').focus();"></i></div> -->
+              <div style="float: left;margin-left:10px;margin-top:4px;">เวลา :&nbsp;</div>
+              <div style="float: left;">
+								<input [(ngModel)]="result.req_time" name="req_time" type="text" readonly class="form-control" style="width:80px;height:28px;text-align: center;" >
+						 </div>
+             </td>
+						</tr>
+            <tr>
+              <td align="right">หน่วยงานที่แจ้ง :&nbsp;</td>
+              <td align="left">
+                <div style="float:left;display: none;" >
+                  <input type="text" [(ngModel)]="result.req_dep_code" (change)="tabChangeSelect('req_dep_name',getDep,$event,1)"
+                    class="form-control" style="width:80px;text-align:center;float:left;"
+                    onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46">
+                </div>
+                 <div style="float:left;margin-left:0px;">
+                  <ng-select [(ngModel)]="result.req_dep_name" [clearable]="false" style="width:300px;" (change)="tabChangeSelect('req_dep_code',getDep,$event,2)" #sDepname>
+                    <!-- <ng-option [value] = ""></ng-option> -->
+                    <ng-option *ngFor="let getData of getDep" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+                    </ng-option>
+                  </ng-select>
+                </div>
+                <div style="float: left;margin-left:10px;margin-top:4px;">ผู้แจ้ง :&nbsp;</div>
+                <div style="float:left;">
+                  <input type="text" [(ngModel)]="result.req_user_id" (change)="tabChangeSelect('req_user',getReqUser,$event,1)"
+                    class="form-control" style="width:80px;text-align:center;float:left;"
+                    onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46" readonly>
+                </div>
+                <div style="float:left;margin-left:2px;" >
+                  <ng-select [(ngModel)]="result.req_user" [clearable]="false" style="width:300px;"
+                    (change)="tabChangeSelect('req_user_id',getReqUser,$event,2)" #sReqUser >
+                    <ng-option *ngFor="let getData of getReqUser" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+                    </ng-option>
+                  </ng-select>
+                </div>
+              </td></tr>
+              <tr>
+                <td align="right">แจ้งถึงหน่วยงาน :&nbsp;</td>
+                <td align="left">
+                  <div style="float:left;">
+                    <input type="text" [(ngModel)]="result.send_dep_code" (change)="tabChangeSelect('send_dep_name',getDep,$event,1)"
+                      class="form-control" style="width:80px;text-align:center;float:left;"
+                      onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46">
+                  </div>
+                  <div style="float:left;margin-left:2px;">
+                    <ng-select [(ngModel)]="result.send_dep_name" style="width:300px;" (change)="tabChangeSelect('send_dep_code',getDep,$event,2)" #sDep>
+                      <ng-option [value] = ""></ng-option>
+                      <ng-option *ngFor="let getData of getDep" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                </td></tr>
+                <tr [ngStyle]="this.send_dep != 0 ?  {'display': ''} : {'display': 'none'}">
+                  <td align="right">ประเภทของปัญหา :&nbsp;</td>
+                  <td align="left" colspan="6" >
+                    <div style="float:left;margin-left:0px;">
+                      <ng-select [(ngModel)]="result.problem_type" style="width:110%;min-width:150px;" #sProblem>
+                        <ng-option *ngFor="let getData of getProblem" [value]=getData.id>{{getData.text}}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                   </td>
+                  </tr>
+                <tr>
+                  <td align="right">&nbsp;</td>
+                  <td align="left">
+                     <div style="float: left;margin-left:0px;margin-top:1px;">
+                      <input type="checkbox" name="cancel_flag" [(ngModel)]="result.cancel_flag">
+                    </div>
+                    <div style="float: left;margin-left:3px;">ยกเลิกการแจ้งปัญหา เนื่องจาก: &nbsp;</div>
+                    <div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="result.cancel_remark" class="form-control" style="width:400px;height:28px;"></div>
+                  </td>
+                 </tr>
+                 <tr>
+                   <td colspan="2">
+                      <fieldset style="width:100%;border-radius:4px;border:1px solid rgba(0,0,0,.125);padding:4px;" >
+                  <legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;" class="lClick">รายละเอียดของปัญหา</legend>
+                  <table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+                  <tr>
+                    <td width="18%">&nbsp;</td>
+                    <td width="82%">
+                      <textarea [(ngModel)]="result.req_desc" #req_desc='ngModel' class="form-control" style="width: 723px; height: 146px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td align="right" >ไฟล์แนบ :&nbsp;</td>
+                    <td style="padding-top:2px;">
+                    <div class="custom-file" style="float:left;width:100%;">
+                      <div class="custom-file" style="float:left;width:370px;">
+                        <input type="file" class="custom-file-input" id="importFiles" name="importFiles" (change)="onFileChange($event)"  style="width:360px;height:24px;" #file1>
+                        <label class="custom-file-label" #labelImport for="importFile" style="width:360px;height:24px;"></label>
+                      </div>
+                    </div>
+                    <div style="float:left;margin-top:3px;cursor: pointer;" *ngIf="result.file_attach" (click)="clickOpenFile(0)">
+                      <i class="fas fa-link" style="font-size:17px;color:#1ea7cf"></i>
+                      <span style="font-size:14px;color:#1ea7cf">{{result.file_attach}}</span>
+                    </div>
+
+                  </td>
+                  </tr>
+                  </table>
+                     </fieldset>
+                   </td>
+                 </tr>
+                 <tr [ngStyle]="this.search != 0 ?  {'display': ''} : {'display': 'none'}">
+                  <td colspan="2" style="padding-top:5px;">
+                     <fieldset style="width:100%;border-radius:4px;border:1px solid rgba(0,0,0,.125);padding:4px;" >
+                 <legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;" class="lClick">ผู้รับผิดชอบปัญหา</legend>
+                 <table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+                 <tr>
+                   <td align="right" >ผู้รับผิดชอบ :&nbsp;</td>
+                   <td>	<div style="float:left;">
+                    <input type="text" [(ngModel)]="result.assign_user_id" (change)="tabChangeSelect('assign_user_name',getOff,$event,1) ; getAssignData()"
+                      class="form-control" style="width:80px;text-align:center;float:left;"
+                      onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46" >
+                  </div>
+                  <div style="float:left;margin-left:2px;" >
+                    <ng-select [(ngModel)]="result.assign_user_name" style="width:300px;"
+                      (change)="tabChangeSelect('assign_user_id',getOff,$event,2); getAssignData()" #sAssignUser >
+                      <ng-option *ngFor="let getData of getOff" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                 <div style="float: left;margin-left:10px;margin-top:4px;">วันที่สั่งแก้ไข :&nbsp;</div>
+                 <div style="float:left;">
+                  <input  type="text" [(ngModel)]="result.assign_date" class="form-control jcalendar assign_date" #assign_date (click)="directiveDate(assign_date.value,'assign_date')" style="width:120px;height:28px;text-align: center;"></div>
+              <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.assign_date').focus();"></i></div>
+              <div style="float: left;margin-left:10px;margin-top:4px;">เวลา :&nbsp;</div>
+              <div style="float: left;">
+                <input [(ngModel)]="result.assign_time" name="assign_time" type="text"  class="form-control" style="width:80px;height:28px;text-align: center;" >
+             </div>
+                </td>
+                 </tr>
+                 <tr>
+                  <td width="18%" align="right">หมายเหตุ: &nbsp;</td>
+                  <td width="82%"><input type="text" [(ngModel)]="result.remark" name="remark" id="remark" class="form-control" style="width:750px;height:28px;"></td>
+                </tr>
+                 </table>
+                    </fieldset>
+                  </td>
+                </tr>
+                 <tr>
+                  <td colspan="2" style="padding-top:5px;">
+                     <fieldset style="width:100%;border-radius:4px;border:1px solid rgba(0,0,0,.125);padding:4px;" >
+                 <legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;" class="lClick">การแก้ไข</legend>
+                 <table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+                 <tr>
+                   <td width="18%" align="right"><span style="color: red;">วันที่บริษัทรับแจ้ง :&nbsp;</span></td>
+                   <td width="82%"><div style="float:left;">
+                    <input  type="text" [(ngModel)]="result.comp_date" class="form-control jcalendar comp_date" #comp_date (click)="directiveDate(comp_date.value,'comp_date');getCompData()" style="width:120px;height:28px;text-align: center;"></div>
+                <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.comp_date').focus();"></i></div>
+                <div style="float: left;margin-left:10px;margin-top:4px;"><span style="color: red;">เวลาที่บริษัทรับแจ้ง :&nbsp;</span></div>
+                <div style="float: left;">
+                  <input [(ngModel)]="result.comp_time" name="comp_time" type="text"  class="form-control" style="width:80px;height:28px;text-align: center;" >
+               </div></td>
+                 </tr>
+                 <tr>
+                   <td align="right" >เลขที่บริษัทรับแจ้ง :&nbsp;</td>
+                   <td>	<div style="float: left;">
+                    <input [(ngModel)]="result.response_no" readonly name="response_no" type="text"  class="form-control" style="width:80px;height:28px;text-align: center;" >
+                 </div>
+                 <div style="float: left;margin-left:10px;margin-top:4px;"><span style="color: red;">วันที่แก้ไข :&nbsp;</span></div>
+                 <div style="float:left;">
+                  <input  type="text" [(ngModel)]="result.response_date" readonly class="form-control jcalendar response_date" #response_date (click)="directiveDate(response_date.value,'response_date')" style="width:120px;height:28px;text-align: center;"></div>
+              <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.response_date').focus();"></i></div>
+              <div style="float: left;margin-left:10px;margin-top:4px;"><span style="color: red;">เวลา :&nbsp;</span></div>
+              <div style="float: left;">
+                <input [(ngModel)]="result.response_time" name="response_time" type="text"  class="form-control" style="width:80px;height:28px;text-align: center;" >
+             </div>
+                </td>
+                 </tr>
+                 <tr>
+                  <td width="18%" align="right">รายละเอียด :&nbsp;</td>
+                  <td width="82%">
+                    <textarea  [readonly]="userData.depCode != 19 || result.edit_req_no==''" [(ngModel)]="result.response_desc" #response_desc='ngModel' class="form-control" style="width: 723px; height: 86px; line-height: 18px;overflow-wrap: break-word;" (keyup)="getResponseData()" ></textarea>
+
+                  </td>
+                </tr>
+                 </table>
+                    </fieldset>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="padding-top:5px;">
+                     <fieldset style="width:100%;border-radius:4px;border:1px solid rgba(0,0,0,.125);padding:4px;" >
+                 <legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;" class="lClick">การตรวจสอบ</legend>
+                 <table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+                 <tr>
+                   <td align="right" >ผลการทดสอบ :&nbsp;</td>
+                   <td><span (click)="getProveData();">
+                    <div style="float: left;">
+                      <input type="radio" name="prove_result" [(ngModel)]="result.prove_result"  value="1" style="width:15px;height:15px;margin-top:5px;" >
+                    </div>
+                    <div style="float: left;margin-left:5px;margin-top:4px;">ผ่าน</div>
+                    <div style="float: left;margin-left:8px;">
+                      <input type="radio" name="prove_result"  [(ngModel)]="result.prove_result"  value="2"  style="width:15px;height:15px;margin-top:5px;"/>
+                    </div>
+                    <div style="float: left;margin-left:5px;margin-top:4px;">ไม่ผ่าน</div></span>
+                    <input type="hidden" name="old_result" value="1" [(ngModel)]="result.old_result">
+                </td>
+                 </tr>
+                 <tr>
+                  <td width="18%" align="right">วันที่ตรวจสอบ: &nbsp;</td>
+                  <td width="82%"><div style="float:left;">
+                    <input  type="text" [(ngModel)]="result.prove_date" readonly class="form-control jcalendar prove_date" #prove_date (click)="directiveDate(prove_date.value,'prove_date')" style="width:120px;height:28px;text-align: center;"></div>
+                <!-- <div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.prove_date').focus();"></i></div> -->
+                <div style="float: left;margin-left:10px;margin-top:4px;">เวลา :&nbsp;</div>
+                <div style="float: left;">
+                  <input [(ngModel)]="result.prove_time" readonly name="prove_time" type="text"  class="form-control" style="width:80px;height:28px;text-align: center;" >
+               </div></td>
+                </tr>
+                 </table>
+                    </fieldset>
+                  </td>
+                </tr>
+                <tr *ngIf="result.prove_result == 2">
+                  <td width="18%" align="right">เหตุผล :&nbsp;</td>
+                  <td width="82%">
+                    <textarea [(ngModel)]="result.result_desc" #result_desc='ngModel' class="form-control" style="width: 723px; height: 86px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+
+                  </td>
+                </tr>
+            		</table>
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer" align="center">
+					<button type="button" class="btn btn-success" style="margin-left:150px;" (click)="submitForm()">จัดเก็บข้อมูล</button>
+					<!-- <button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="confirmBox()" >ลบข้อมูลที่เลือก</button> -->
+                    <button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+                    <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="ClearAll()">เพิ่ม</button>
+					<!--<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="goToLink('http://bizascorp.thddns.net:8848/taxcRpt56/rct0226.jsp')">พิมพ์</button>-->
+					<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printReport(1)">พิมพ์รายงาน</button>
+         </div>
+         <div style="float: left; margin-left:35%;margin-top:4px;color:blue;"><label style="text-align: center;">*** การแจ้งปัญหา สามารถแจ้งได้เฉพาะวันและเวลาราชการเท่านั้นและอยู่ในช่วงเวลา 08.00 - 16.59 น. ***</label></div>
+				<!-- /.card-footer -->
+			<!-- </form> -->
+		</div>
+	</div>
+
+ <!-- Modal -->
+
+ <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+		  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+		</div>
+		<div class="modal-body" >
+			<input type="hidden" name="table_name" id="table_name">
+			<input type="hidden" name="field_id" id="field_id">
+			<input type="hidden" name="field_name" id="field_name">
+			<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+				<app-datalist-return  *ngIf="loadComponent"  [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldName2 (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+				<app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+       		</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+		  	<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>

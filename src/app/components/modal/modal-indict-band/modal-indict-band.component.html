@@ -1,0 +1,170 @@
+<form class="form-horizontal" >
+  <div *ngIf="!this.types">
+  <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+    <tr>
+      <td height="30" align="center" class="blackb">
+        <div style="float: left;margin-top:2px;">ค้นหา :&nbsp;</div>
+        <div style="float: left;margin-left:2px;">
+          <select name="court_type_id" id="court_type_id" style="height:24px !important;border-radius: 4px !important;border: 1px solid #ced4da;padding:0px 5px;" #courtTypeId>
+            <option value="0" selected>แสดงทั้งหมด</option>
+            <option value="1">ศาลจังหวัด</option>
+            <option value="2">ศาลแขวง</option>
+          </select>
+        </div>
+        <div style="float: left;margin-left:5px;"><input  name="word_desc" type="text" class="form-control" style="width:350px;height:28px;" value='' #wordDesc>    </div>
+        <div style="float: left;margin-left:4px;"><input name="Submit" type="submit" class="btn btn-success" value="ค้นหา" (click)="searchDataList()"></div>
+        <div style="float: left;margin-left:4px;"><input name="showAll" type="submit" class="btn btn-success" id="showAll" value="แสดงทั้งหมด" (click)="showDataList()"></div>
+      </td>
+    </tr>
+  </table>
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+    <thead>
+      <tr align="center" *ngIf="value1==1">
+        <th width="100" height="25" ><strong>ลำดับ</strong></th>
+        <th width="100" height="25" ><strong>รหัส</strong></th>
+        <th ><strong >เรื่อง</strong></th>
+        <th ><strong >คดีที่อยู่ในอำนาจศาล</strong></th>
+        <th ><strong >ใจความฟ้อง</strong></th>
+      </tr>
+
+      <tr align="center" *ngIf="value1==2">
+        <th width="100" height="25" ><strong>ลำดับ</strong></th>
+        <th width="100" height="25" ><strong>รหัส</strong></th>
+        <th ><strong >คดีที่อยู่ในอำนาจศาล	</strong></th>
+        <th ><strong >ใจความฟ้อง</strong></th>
+      </tr>
+
+      <tr align="center" *ngIf="value1==3">
+        <th width="100" height="25" ><strong>ลำดับ</strong></th>
+        <th width="200"><strong >คดีที่อยู่ในอำนาจศาล	</strong></th>
+        <th ><strong >ใจความฟ้อง</strong></th>
+      </tr>
+
+    </thead>
+    <tbody *ngIf="value1==1 && items?.length != 0" >	
+      <tr *ngFor="let datas of items;let i = index;" >
+        <td align="center" (click)="onClickListData(i,1)">{{i+1}}</td>
+        <td align="center" (click)="onClickListData(i,1)">{{datas.jbrand_id}}</td>
+        <td align="center" (click)="onClickListData(i,1)">{{datas.subject_name}}</td>
+        <td align="center" (click)="onClickListData(i,1)">{{datas.court_type_name}}</td>
+        <td align="center" (click)="onClickListData(i,1)">{{datas.jbrand_name}} {{datas.indict_desc}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="value1==2 && items?.length != 0" >	
+      <tr *ngFor="let datas of items;let i = index;" >
+        <td align="center" (click)="onClickListData(i,2)">{{i+1}}</td>
+        <td align="center" (click)="onClickListData(i,2)">{{datas.ibrand_id}}</td>
+        <td align="center" (click)="onClickListData(i,2)">{{datas.court_type_name}}</td>
+        <td align="center" (click)="onClickListData(i,2)">{{datas.ibrand_name}} {{datas.pers_desc}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="value1==3 && items?.length != 0" >	
+      <tr *ngFor="let datas of items;let i = index;" >
+        <td align="center" (click)="onClickListData(i,3)">{{i+1}}</td>
+        <td align="center" (click)="onClickListData(i,3)">{{datas.court_type_name}}</td>
+        <td align="center" (click)="onClickListData(i,3)">{{datas.jbrand_name}} {{datas.pers_desc}}</td>
+      </tr>
+    </tbody>
+
+    <tbody *ngIf="items?.length == 0">
+      <tr *ngIf="value1==1"><td colspan="5" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+      <tr *ngIf="value1==2"><td colspan="4" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+      <tr *ngIf="value1==3"><td colspan="3" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+    </tbody>
+
+  </table>
+</div>
+<!--  -->
+<div *ngIf="this.types">
+  <div class="modal-header">
+    <a>modal-indict-band</a>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.close()"></button>
+  </div>
+  <div class="modal-body" >
+    <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+      <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+        <tr>
+          <td height="30" align="center" class="blackb">
+            <div style="float: left;margin-top:2px;">ค้นหา :&nbsp;</div>
+            <div style="float: left;margin-left:2px;">
+              <select name="court_type_id" id="court_type_id" style="height:24px !important;border-radius: 4px !important;border: 1px solid #ced4da;padding:0px 5px;" #courtTypeId>
+                <option value="0" selected>แสดงทั้งหมด</option>
+                <option value="1">ศาลจังหวัด</option>
+                <option value="2">ศาลแขวง</option>
+              </select>
+            </div>
+            <div style="float: left;margin-left:5px;"><input  name="word_desc" type="text" class="form-control" style="width:350px;height:28px;" value='' #wordDesc>    </div>
+            <div style="float: left;margin-left:4px;"><input name="Submit" type="submit" class="btn btn-success" value="ค้นหา" (click)="searchDataList()"></div>
+            <div style="float: left;margin-left:4px;"><input name="showAll" type="submit" class="btn btn-success" id="showAll" value="แสดงทั้งหมด" (click)="showDataList()"></div>
+          </td>
+        </tr>
+      </table>
+
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+        <thead>
+          <tr align="center" *ngIf="value1==1">
+            <th width="100" height="25" ><strong>ลำดับ</strong></th>
+            <th width="100" height="25" ><strong>รหัส</strong></th>
+            <th ><strong >เรื่อง</strong></th>
+            <th ><strong >คดีที่อยู่ในอำนาจศาล</strong></th>
+            <th ><strong >ใจความฟ้อง</strong></th>
+          </tr>
+
+          <tr align="center" *ngIf="value1==2">
+            <th width="100" height="25" ><strong>ลำดับ</strong></th>
+            <th width="100" height="25" ><strong>รหัส</strong></th>
+            <th ><strong >คดีที่อยู่ในอำนาจศาล	</strong></th>
+            <th ><strong >ใจความฟ้อง</strong></th>
+          </tr>
+
+          <tr align="center" *ngIf="value1==3">
+            <th width="100" height="25" ><strong>ลำดับ</strong></th>
+            <th width="200"><strong >คดีที่อยู่ในอำนาจศาล	</strong></th>
+            <th ><strong >ใจความฟ้อง</strong></th>
+          </tr>
+
+        </thead>
+        <tbody *ngIf="value1==1 && items?.length != 0" >	
+          <tr *ngFor="let datas of items;let i = index;" >
+            <td align="center" (click)="onClickListData(i,1)">{{i+1}}</td>
+            <td align="center" (click)="onClickListData(i,1)">{{datas.jbrand_id}}</td>
+            <td align="center" (click)="onClickListData(i,1)">{{datas.subject_name}}</td>
+            <td align="center" (click)="onClickListData(i,1)">{{datas.court_type_name}}</td>
+            <td align="center" (click)="onClickListData(i,1)">{{datas.jbrand_name}} {{datas.indict_desc}}</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="value1==2 && items?.length != 0" >	
+          <tr *ngFor="let datas of items;let i = index;" >
+            <td align="center" (click)="onClickListData(i,2)">{{i+1}}</td>
+            <td align="center" (click)="onClickListData(i,2)">{{datas.ibrand_id}}</td>
+            <td align="center" (click)="onClickListData(i,2)">{{datas.court_type_name}}</td>
+            <td align="center" (click)="onClickListData(i,2)">{{datas.ibrand_name}} {{datas.pers_desc}}</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="value1==3 && items?.length != 0" >	
+          <tr *ngFor="let datas of items;let i = index;" >
+            <td align="center" (click)="onClickListData(i,3)">{{i+1}}</td>
+            <td align="center" (click)="onClickListData(i,3)">{{datas.court_type_name}}</td>
+            <td align="center" (click)="onClickListData(i,3)">{{datas.jbrand_name}} {{datas.pers_desc}}</td>
+          </tr>
+        </tbody>
+
+        <tbody *ngIf="items?.length == 0">
+          <tr *ngIf="value1==1"><td colspan="5" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+          <tr *ngIf="value1==2"><td colspan="4" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+          <tr *ngIf="value1==3"><td colspan="3" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" (click)="activeModal.close()">ปิดหน้าจอ</button>
+  </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner> 
+</form>

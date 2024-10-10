@@ -1,0 +1,29 @@
+.modal-content {
+padding: 10px !important;
+}
+/* .my-class.modal {
+    
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+  } */
+  
+  .my-class .modal-dialog {
+    /* position: fixed; */
+    margin: 0;
+    width: 1000px;
+    height:200px;
+    max-width: 1000px !important;
+    max-height: 200px !important;
+    padding: 0;
+  }
+  .my-class .modal-content {
+    /*max-height: 100% !important;
+    height: 100% !important; */
+    min-height: 200px !important;
+    height: 200px !important;
+    margin: 0px !important;
+  }

@@ -1,0 +1,14 @@
+table.appTable tr td{border:1px solid #000000;}
+.numAppHead {height: 30px !important;background-color:#94B4B9;font-weight:bold;}
+.judgeHead {height: 30px !important;background-color:#629196;}
+.dataRow {height: 30px !important;background-color:#D4F1D4;}
+.judgeData {background-color:#72a7ad;}
+.sunDay {background-color:#FF0000;}
+.disbDay {background-color:#FF6600;}
+.judgeAssign {background-color:#0099cc;}
+.judgeAbsent {background-color:#fdaaa6;}
+.appData {background-color:#97D7B3;}
+body{height: auto !important;transform:rotate(90deg) !important; padding-left:200px !important;}
+hr{margin:3px !important;}
+
+@page { size: landscape; }

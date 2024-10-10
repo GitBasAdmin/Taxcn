@@ -1,0 +1,176 @@
+<style></style>
+<div style="width:100%;height:100%;" id="div-wraper">
+  <div class="content" style="padding:10px;">
+    <div class="card card-info">
+      <div class="card-body">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td style="height: 34px !important;">
+              <div style="float: left;margin-left:3px;margin-top:3px;"><b>> ระหว่าง</b></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <fieldset style="width:99%;border-radius:4px;border:1px solid #333333;padding:1px;margin-top:8px;;margin-left: 10px;">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0"> 
+                  <tr>
+                    <td width="40%" align="right">หมายเลขคดีที่</td>
+                    <td width="60%" style="float:left;margin-left:3px;">{{result.guar_running}}</td>
+                  </tr>
+                  <tr>
+                    <td align="right">แบบสัญญาประกัน	 :&nbsp;</td>
+                    <td align="left">
+                      <div style="float:left;margin-left:3px;">
+                        <ng-select [(ngModel)]="result.form_running" [clearable]="false" style="width:250px;">
+                          <ng-option *ngFor="let getData of getFormRunning" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+                          </ng-option>
+                        </ng-select>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="right">วันที่:&nbsp;</td>
+                    <td align="left">
+                      <div style="float:left;margin-left:3px;">
+                        <input [(ngModel)]="result.cday" type="text"class="form-control" readonly style="width:40px;height:28px;text-align:center;">
+                      </div>
+                      <div style="float: left;margin-left:10px;margin-top:3px;">เดือน </div>
+                      <div style="float:left;margin-left:3px;">
+                        <input [(ngModel)]="result.month" type="text"class="form-control" readonly style="width:80px;height:28px;text-align:center;">
+                      </div>
+                      <div style="float: left;margin-left:10px;margin-top:3px;">พุทธศักราช </div>
+                      <div style="float:left;margin-left:3px;">
+                        <input [(ngModel)]="result.guar_yy" type="text"class="form-control" readonly style="width:60px;height:28px;text-align:center;">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="right">ผู้ร้อง/โจทก์ :&nbsp;</td>
+                    <td align="left">
+                      <div style="float:left;margin-left:3px;">
+                        <input [(ngModel)]="result.pros_name" type="text" class="form-control" readonly style="width:450px;height:28px;text-align:center;">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="right">ผู้ต้องหา/จำเลย :&nbsp;</td>
+                    <td align="left">
+                      <div style="float:left;margin-left:3px;">
+                        <input [(ngModel)]="result.def_name" type="text" class="form-control" readonly style="width:450px;height:28px;text-align:center;">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="right">ผู้ต้องหา/จำเลยที่ถูกขอประกัน :&nbsp;</td>
+                    <td align="left">
+                      <div style="float:left;margin-left:3px;">
+                        <input [(ngModel)]="result.guar_def_name" type="text" class="form-control" readonly style="width:450px;height:28px;text-align:center;">
+                      </div>
+                    </td>                    
+                  </tr>
+                  <tr>
+                    <td align="right">นายประกัน :&nbsp;</td>
+                    <td align="left">
+                      <div style="float:left;margin-left:3px;">
+                        <input [(ngModel)]="result.guar_name" type="text" class="form-control" readonly style="width:450px;height:28px;text-align:center;">
+                      </div>
+                    </td>
+                  </tr> 
+                  <tr>
+                    <td align="right">หมายเลขบตรประชาชนนายประกัน :&nbsp;</td>
+                    <td align="left">
+                      <div style="float:left;margin-left:3px;">
+                        <input [(ngModel)]="result.guar_id" type="text" class="form-control" readonly style="width:450px;height:28px;text-align:center;">
+                      </div>
+                    </td>
+                  </tr> 
+                  <tr>
+                    <td align="center" colspan="2">ในระหว่างประกันนี้จะต้องปฏิบัติตามนัด หรือ หมายเรียกของเจ้าพนักงาน หรือ ศาล มิฉนั้นจะต้อง</td>
+                  </tr> 
+                  <tr>
+                    <td align="right">ใช้เงินเป็นจำนวน :&nbsp;</td>
+                    <td align="left">
+                      <div style="float:left;margin-left:3px;">
+                        <input [(ngModel)]="result.guar_cost" type="text" class="form-control" readonly style="width:100px;height:28px;text-align:center;">
+                      </div>
+                      <div style="float:left;margin-left:3px;">บาท&nbsp;( </div>
+                      <div style="float:left;margin-left:3px;">
+                        <input [(ngModel)]="result.guar_cost_text" type="text" class="form-control" readonly style="width:400px;height:28px;text-align:center;">
+                      </div>
+                      <div style="float:left;margin-left:3px;">) </div>
+                    </td>
+                  </tr> 
+                  <tr>
+                    <td align="right">ผู้ขอประกันขอวาง :&nbsp;</td>
+                    <td align="left">
+                      <div style="float:left;margin-left:3px;">
+                        <textarea [(ngModel)]="result.asset_detail" type="text" class="form-control" readonly style="width:450px;"  rows="4"></textarea>
+                      </div>
+                    </td>
+                  </tr> 
+                  <tr>
+                    <td align="right">และเงินสดจำนวน :&nbsp;</td>
+                    <td align="left">
+                      <div style="float:left;margin-left:3px;">
+                        <input [(ngModel)]="result.asset_amt" type="text" class="form-control" readonly style="width:100px;height:28px;text-align:center;">
+                      </div>
+                      <div style="float:left;margin-left:3px;">บาท&nbsp;( </div>
+                      <div style="float:left;margin-left:3px;">
+                        <input [(ngModel)]="result.asset_amt_text" type="text" class="form-control" readonly style="width:400px;height:28px;text-align:center;">
+                      </div>
+                      <div style="float:left;margin-left:3px;">) </div>
+                    </td>
+                  </tr> 
+                  <tr>
+                    <td align="right">ซึ่งทรัพย์สินนี้ผู้ขอประกันมีสิทธิ์ร่วมกัน :&nbsp;</td>
+                    <td align="left">
+                      <div style="float:left;margin-left:3px;">
+                        <textarea [(ngModel)]="result.plist1" type="text" class="form-control" style="width:450px;"  rows="4"></textarea>
+                      </div>
+                    </td>
+                  </tr> 
+                </table>
+              </fieldset>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="card-footer" align="center">
+        <button type="button" class="btn btn-success" (click)="openWord()">พิมพ์คำร้อง MS Word</button>
+        <button type="button" class="btn btn-danger" style="margin-left:5px;" *ngIf="result.file_data"  (click)="deleteWord()">ลบสัญญาประกัน MS Word</button>
+        <!-- <button type="button" class="btn btn-success" style="margin-left:5px;"(click)="printReport(1)">พิมพ์สัญญาประกัน PDF</button> --><!--พี่จูบอกว่าพิมพ์แต่ word-->
+        <!-- <button type="button" class="btn btn-success" style="margin-left:5px;"(click)="printReport(2)">พิมพ์สัญญาประกันชั้นสอบสวน PDF</button> --><!--พี่จูบอกว่าพิมพ์แต่ word-->
+        <button type="reset" class="btn btn-danger" style="margin-left:5px;color:white;"(click)="closeWin()">ปิดหน้าจอ</button>
+        <input type="hidden" name="delValue" id="delValue">
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" data-refresh="true" role="dialog" id="exampleModal" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+          <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+          <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="table_name" id="table_name">
+          <input type="hidden" name="field_id" id="field_id">
+          <input type="hidden" name="field_name" id="field_name">
+          <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+            <app-datalist-return *ngIf="loadComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+            <app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+          <button type="button" class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: gray">Please Wait. </p>
+</ngx-spinner>

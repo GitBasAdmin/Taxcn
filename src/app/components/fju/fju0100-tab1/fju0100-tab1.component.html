@@ -1,0 +1,648 @@
+
+    <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">           
+        <tr>
+            <td width="13%" align="right" >วันที่รับฟ้อง :&nbsp;</td>
+            <td width="11%" align="left" >
+                <div style="float: left;margin-left:0px;">
+                    <input  type="text" [(ngModel)]="result.case_date" readonly class="form-control" style="width:120px;" />
+                </div>
+            </td>
+            <td width="13%" align="right"  ><span style="color: red;">วันที่ออกแดง :</span>&nbsp;</td>
+            <td width="14%" align="left"  >
+                <div style="float: left;margin-left:0px;">
+                    <input  type="text" [(ngModel)]="result.judging_date" class="form-control jcalendar judging_date" #judging_date (click)="directiveDate(judging_date.value,'judging_date')" (focusout)="fillDueDate(judging_date.value)" style="width:120px;" />
+                </div>
+                <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.judging_date').focus();"></i></div>
+            </td>
+            <td width="18%" align="right"  >วันที่ครบอุทธรณ์ :&nbsp;</td>
+            <td width="13%" align="left" >
+                <div style="float: left;margin-left:0px;">
+                    <input  type="text" [(ngModel)]="result.due_date" class="form-control jcalendar due_date" #due_date (click)="directiveDate(due_date.value,'due_date')" style="width:120px;" />
+                </div>
+                <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.due_date').focus();"></i></div>
+            </td>
+            <td width="9%" align="right" >วันที่คดีถึงที่สุด :&nbsp;</td>
+            <td width="9%" align="left" >
+                <div style="float: left;margin-left:0px;">
+                    <input  type="text" [(ngModel)]="result.end_casedate" class="form-control jcalendar end_casedate" #end_casedate (click)="directiveDate(end_casedate.value,'end_casedate')" style="width:120px;" />
+                </div>
+                <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.end_casedate').focus();"></i></div>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right" ><span style="color: red;">*</span>ทุนทรัพย์ :&nbsp;</td>
+            <td  align="left" colspan="7">
+                <div style="float: left;margin-left:0px;">
+                    <input  type="text" [(ngModel)]="result.judge_deposit" class="form-control" style="width:171px;" (focusout)="changeCurency(2,'judge_deposit',$event)"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right" >ผู้ชำระค่าฤชาธรรมเนียม :&nbsp;</td>
+            <td  align="left" colspan="4">
+                <div style="float: left;">
+                    <input  type="hidden" [(ngModel)]="result.cost_payer_id" class="form-control" style="width:60px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                    <input  type="text"  [(ngModel)]="result.cost_payer"   class="form-control" style="width:255px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:2px;" >
+                    <i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(1)"></i>
+                </div>
+            </td>
+            <td  align="left" colspan="3">
+                <div style="float: left;margin-top:4px;">
+                    <input  type="checkbox" [(ngModel)]="result.print_judge_flag" [value]="1" style="width:15px;height: 15px;"/>
+                </div>
+                <div style="float: left;margin-left:5px;margin-top:4px;">พิมพ์คำพิพากษาแล้ว</div>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right" ><span style="color: red;">*</span>ผลคำพิพากษา :&nbsp;</td>
+            <td  align="left" colspan="7">
+                <div style="float: left;">
+                    <input  type="text" [(ngModel)]="result.result_id" (change)="tabChangeInput('result_id',$event)" class="form-control" style="width:60px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                    <input  type="text"  [(ngModel)]="result.result_desc" readonly  class="form-control" style="width:255px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:2px;" >
+                    <i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(2)"></i>
+                </div>
+                <div style="float: left;margin-left:8px;margin-top:4px;" [ngStyle]="caseDataObj.case_flag==1 ?  {'display': ''} : {'display': 'none'}"><span style="color: red;">*</span>สถิติไกล่เกลี่ยข้อ :&nbsp;</div>
+                <div style="float: left;" [ngStyle]="caseDataObj.case_flag==1 ?  {'display': ''} : {'display': 'none'}">
+                    <ng-select  [(ngModel)]="result.con_result" (change)="changeDeposit($event)" style="width:160px;">
+                        <ng-option [value]="0" >&nbsp;</ng-option>
+                        <ng-option [value]="1" >จำหน่ายคดี</ng-option>
+                        <ng-option [value]="2" >สำเร็จ</ng-option>
+                        <ng-option [value]="3" >ไม่สำเร็จ</ng-option>
+                      </ng-select >
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right" >จำนวนคำพิพากษา :&nbsp;</td>
+            <td  align="left" colspan="3">
+                <div style="float: left;">
+                    <input  type="text"  [(ngModel)]="result.judge_pages"    class="form-control" style="width:100px;"/>
+                </div>
+                <div style="float: left;margin-left:5px;margin-top:4px;">หน้า</div>
+            </td>
+            <td  align="right" >จำนวนแก้ไขเพิ่มเติม :&nbsp;</td>
+            <td  align="left" colspan="3">
+                <div style="float: left;">
+                    <input  type="text"   [(ngModel)]="result.edit_pages"   class="form-control" style="width:100px;"/>
+                </div>
+                <div style="float: left;margin-left:5px;margin-top:4px;">หน้า</div>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right" >วันที่ครบกำหนดส่งร่างคำพิพากษา :&nbsp;</td>
+            <td  align="left" colspan="3">
+                <div style="float: left;margin-left:0px;">
+                    <input  type="text" [(ngModel)]="result.due_send_draft" class="form-control jcalendar due_send_draft" #due_send_draft (click)="directiveDate(due_send_draft.value,'due_send_draft')" style="width:120px;" />
+                </div>
+                <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.due_send_draft').focus();"></i></div>
+            </td>
+            <td  align="right" >วันที่ครบกำหนดพิมพ์คำพิพากษา :&nbsp;</td>
+            <td  align="left" colspan="3">
+                <div style="float: left;margin-left:0px;">
+                    <input  type="text" [(ngModel)]="result.due_print_judge" class="form-control jcalendar due_print_judge" #due_print_judge (click)="directiveDate(due_print_judge.value,'due_print_judge')" style="width:120px;" />
+                </div>
+                <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.due_print_judge').focus();"></i></div>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right" >เหตุที่คดีถึงที่สุด :&nbsp;</td>
+            <td  align="left" colspan="3">
+                <div style="float: left;">
+                    <input  type="text" [(ngModel)]="result.finish_id" (change)="tabChangeInput('finish_id',$event)" class="form-control" style="width:60px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                    <input  type="text"  [(ngModel)]="result.finish_desc" readonly  class="form-control" style="width:255px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:2px;" >
+                    <i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(3)"></i>
+                </div>
+            </td>
+            <td  align="right" >วันที่เก็บสำเนาคำพิพากษา :&nbsp;</td>
+            <td  align="left" colspan="3">
+                <div style="float: left;margin-left:0px;">
+                    <input  type="text" [(ngModel)]="result.copy_date" class="form-control jcalendar copy_date" #copy_date (click)="directiveDate(copy_date.value,'copy_date')" style="width:120px;" />
+                </div>
+                <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.copy_date').focus();"></i></div>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right" ><span style="color: red;">*</span>ผู้พิพากษารับฟ้อง :&nbsp;</td>
+            <td  align="left" colspan="3">
+                <div style="float: left;">
+                    <input  type="text"   [(ngModel)]="result.order_judge_id"  (change)="tabChangeInput('order_judge_id',$event)" class="form-control" style="width:60px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                    <input  type="text"  [(ngModel)]="result.order_judge_name"  readonly class="form-control" style="width:255px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:2px;" >
+                    <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;"  (click)="clickOpenMyModalComponent(4)"></i>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:2px;" >
+                    <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;"  (click)="clickOpenMyModalComponent(5)"></i>
+                </div>
+            </td>
+            <td  align="right" ><span style="color: red;">*</span>วันที่สั่งฟ้อง :&nbsp;</td>
+            <td  align="left" colspan="3">
+                <div style="float: left;margin-left:0px;">
+                    <input  type="text" [(ngModel)]="result.order_judge_date" class="form-control jcalendar order_judge_date" #order_judge_date (click)="directiveDate(order_judge_date.value,'order_judge_date')" style="width:120px;" />
+                </div>
+                <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.order_judge_date').focus();"></i></div>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right" ><span style="color: red;">*</span>เจ้าของสำนวน :&nbsp;</td>
+            <td  align="left" colspan="3">
+                <div style="float: left;">
+                    <input  type="text" [(ngModel)]="result.case_judge_id" readonly    class="form-control" style="width:60px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                    <input  type="text"  [(ngModel)]="result.case_judge_name"  readonly class="form-control" style="width:255px;"/>
+                </div>
+             </td>
+            <td  align="right" >
+                <div style="float: right;margin-left:5px;margin-top:4px;">วันที่ Upload ไฟล์คำพิพากษาเพื่อคัดถ่าย :&nbsp;</div>
+                <div style="float: right;margin-top:4px;">
+                    <input  type="checkbox" [(ngModel)]="result.chk_update_dss_date" [value]="1"  #chk_update_dss_date (click)="checkDssDate(chk_update_dss_date.checked)" style="width:15px;height: 15px;"/>
+                </div>
+            </td>
+            <td  align="left" colspan="3">
+                <div style="float: left;margin-left:0px;">
+                    <input  type="text" [(ngModel)]="result.update_dss_date" class="form-control jcalendar update_dss_date" #update_dss_date (click)="directiveDate(update_dss_date.value,'update_dss_date')" style="width:120px;" />
+                </div>
+                <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.update_dss_date').focus();"></i></div>
+            
+            </td>
+        </tr>
+        <!--
+        <tr>
+            <td  align="right" >ผู้พิพากษาสมทบ :&nbsp;</td>
+            <td  align="left" colspan="7">
+                <div style="float: left;">
+                    <input  type="text"   [(ngModel)]="result.case_judge_aid" (change)="tabChangeInput('case_judge_aid',$event)"  class="form-control" style="width:60px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                    <input  type="text"  [(ngModel)]="result.case_judge_aname"  readonly class="form-control" style="width:255px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:2px;" >
+                    <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;"  (click)="clickOpenMyModalComponent(6)"></i>
+                </div>
+                
+                <div style="float: left;margin-top:4px;margin-left:5px;">
+                    <input  type="checkbox" [(ngModel)]="result.imprison_id" [value]="1"  style="width:15px;height: 15px;"/>
+                </div>
+                <div style="float: left;margin-left:5px;margin-top:4px;"><span style="color: red;">*</span>โทษเกิน 10 ปี</div>
+            </td>
+        </tr>
+        -->
+        <tr>
+            <td  align="right" >องค์คณะ :&nbsp;</td>
+            <td  align="left" colspan="7">
+                <div style="float: left;">
+                    <input  type="text"  [(ngModel)]="result.case_judge_gid" readonly   class="form-control" style="width:60px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                    <input  type="text"  [(ngModel)]="result.case_judge_gname"  readonly class="form-control" style="width:255px;"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right" >องค์คณะ2 :&nbsp;</td>
+            <td  align="left" colspan="3">
+                <div style="float: left;">
+                    <input  type="text"  [(ngModel)]="result.case_judge_gid2" readonly   class="form-control" style="width:60px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                    <input  type="text"  [(ngModel)]="result.case_judge_gname2"  readonly class="form-control" style="width:255px;"/>
+                </div>
+            </td>
+            <td  align="right" >องค์คณะ3 :&nbsp;</td>
+            <td  align="left" colspan="3">
+                <div style="float: left;">
+                    <input  type="text"  [(ngModel)]="result.case_judge_gid3" readonly   class="form-control" style="width:60px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                    <input  type="text"  [(ngModel)]="result.case_judge_gname3"  readonly class="form-control" style="width:255px;"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right" ><span style="color: red;">*</span>ผู้พิพากษาที่ตัดสิน :&nbsp;</td>
+            <td  align="left" colspan="7">
+                <div style="float: left;">
+                    <input  type="text"   [(ngModel)]="result.judge_id1" (change)="tabChangeInput('judge_id1',$event)"  class="form-control" style="width:60px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                    <input  type="text"  [(ngModel)]="result.judge_name1"  readonly class="form-control" style="width:255px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:2px;" >
+                    <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;"  (click)="clickOpenMyModalComponent(7)"></i>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:2px;" >
+                    <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;"  (click)="clickOpenMyModalComponent(8)"></i>
+                </div>
+                <!--
+                <div style="float: left;margin-left:8px;margin-top:4px;">ผู้พิพากษาสมทบ :&nbsp;</div>
+                <div style="float: left;">
+                    <input  type="text"      class="form-control" style="width:60px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                    <input  type="text"     readonly class="form-control" style="width:255px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:2px;" >
+                    <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;"></i>
+                </div>
+                -->
+            </td>
+        </tr>
+        <tr>
+            <td  align="right" >องค์คณะ :&nbsp;</td>
+            <td  align="left" colspan="7">
+                <div style="float: left;">
+                    <input  type="text"   [(ngModel)]="result.judge_id2" (change)="tabChangeInput('judge_id2',$event)"  class="form-control" style="width:60px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                    <input  type="text"  [(ngModel)]="result.judge_name2"  readonly class="form-control" style="width:255px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:2px;" >
+                    <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;"  (click)="clickOpenMyModalComponent(9)"></i>
+                </div>
+
+            </td>
+        </tr>
+        <tr>
+            <td  align="right" >องค์คณะ2 :&nbsp;</td>
+            <td  align="left" colspan="3">
+                <div style="float: left;">
+                    <input  type="text"   [(ngModel)]="result.judge_id3" (change)="tabChangeInput('judge_id3',$event)"  class="form-control" style="width:60px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                    <input  type="text"  [(ngModel)]="result.judge_name3"  readonly class="form-control" style="width:255px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:2px;" >
+                    <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;"  (click)="clickOpenMyModalComponent(10)"></i>
+                </div>
+            </td>
+            <td  align="right" >องค์คณะ3 :&nbsp;</td>
+            <td  align="left" colspan="3">
+                <div style="float: left;">
+                    <input  type="text"   [(ngModel)]="result.judge_id4" (change)="tabChangeInput('judge_id4',$event)"  class="form-control" style="width:60px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                    <input  type="text"  [(ngModel)]="result.judge_name4"  readonly class="form-control" style="width:255px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:2px;" >
+                    <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;"  (click)="clickOpenMyModalComponent(17)"></i>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right" >หมายเหตุ :&nbsp;</td>
+            <td  align="left" colspan="7">
+                <div style="float: left;margin-left:2px;">
+                    <input  type="text"  [(ngModel)]="result.remark"  class="form-control" style="width:625px;"/>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="card-footer" style="margin-top: 5px;text-align:center;">
+        <button type="button" class="btn btn-success" (click)="callDataHead()">จัดเก็บ</button>
+        <button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="clickOpenMyModalComponent(15)">login เพื่อเปลี่ยนเลขคดีแดง</button>
+        <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="buttonNew()" >เพิ่ม</button>
+        <button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="clickOpenMyModalComponent(16)">ลบข้อมูลเลขแดง</button>
+        <button type="button" class="btn btn-warning" style="margin-left:5px;" (click)="resetPage()">ยกเลิก</button>
+        <!--<button type="button" class="btn btn-primary" style="margin-left:5px;"  >บันทึกคำพิพากษาศาลสูง</button>
+        <button type="button" class="btn btn-primary" style="margin-left:5px;"  >พิมพ์สำนวนคดี(ย่อ)</button>-->
+    </div>
+    <div style="color: red;margin:0 auto;text-align: center;font-weight: bold;">* เป็นข้อมูลเก็บสถิติ โปรดบันทึกให้ถูกต้อง ครบถ้วน</div>
+    <div style="height: 2px;border-top:1px solid #cccccc;width: 100%;">&nbsp;</div>
+
+
+    <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table" style="margin-top:4px;">           
+        <tr>
+            <td width="13%" align="right" >ข้อหาขึ้นปก :&nbsp;</td>
+            <td width="87%" align="left" >
+                <div style="float: left;margin-left:0px;">
+                    <input  type="text" [(ngModel)]="result.alle_descx"  readonly class="form-control" style="width:661px;" />
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right" >&nbsp;</td>
+            <td  align="left" >
+                <div style="float: left;margin-left:0px;color: red;">
+                    เมื่อคลิก popup เลือกฐานความผิดแล้วระบบจะจัดเก็บให้อัตโนมัติ
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right" valign="top" style="padding-top:4px;"><span style="color: red;">*</span>ข้อหา :&nbsp;</td>
+            <td  align="left" >
+                <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">    
+                    <tr>
+                        <td>
+                            <div style="float: left;margin-left:5px;margin-top:4px;">ลำดับที่ :&nbsp;</div>
+                            <div style="float: left;">
+                                <input  type="text" [(ngModel)]="result.alle_seq"  [readonly]="!result.red_running"   class="form-control" style="width:60px;text-align: center;"/>
+                            </div>
+                            <div style="float: left;margin-left:8px;margin-top:4px;">รหัส :&nbsp;</div>
+                            <div style="float: left;">
+                                <input  type="text" [(ngModel)]="result.alle_id1"  [readonly]="!result.red_running" (change)="tabChangeInput('alle_id1',$event)"  class="form-control" style="width:60px;text-align: center;"/>
+                            </div>
+                            <div style="float: left;margin-left:8px;margin-top:4px;">ฐานความผิด :&nbsp;</div>
+                            <div style="float: left;">
+                                <input  type="text" [(ngModel)]="result.alle_name1" readonly   class="form-control" style="width:260px;"/>
+                            </div>
+                            <div style="float: left;margin-left:2px;margin-top:2px;" *ngIf="result.red_running">
+                                <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;"  (click)="clickOpenMyModalComponent(11)"></i>
+                            </div>
+                        </td>
+                    </tr>       
+                    <tr>
+                        <td align="left">
+                            <div style="float: left;width: 80%;margin-top: 4px;">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+                                    <thead>
+                                        <tr>
+                                            <th width="5%" align="center" class="no-sort">&nbsp;</th>
+                                            <th align="center" width="12%" class="no-sort">ลำดับที่</th>
+                                            <th align="center" width="13%" class="no-sort">รหัส</th>
+                                            <th width="70%" align="left" class="no-sort">&nbsp;&nbsp;&nbsp;รายละเอียดฐานความผิด</th>
+                                        
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody *ngIf="dataAlleObj?.length != 0">
+                                        <tr *ngFor="let datas of dataAlleObj;let i = index;">
+                                            <td align="center"><i class="fa fa-close" style="font-size:18px;color:#d50000d1;cursor: pointer;" *ngIf="datas.jRunning || this.result.red_running" (click)="delAlleData(i)"></i></td>
+                                            <td align="center">{{datas.alle_seq}}</td>
+                                            <td align="center">{{datas.alle_id}}</td>
+                                            <td align="center">{{datas.alle_name}}</td>		
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="dataAlleObj?.length == 0">
+                                        <tr >
+                                            <td colspan="4" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+                                            <td style="display:none;"></td>
+                                            <td style="display:none;"></td>
+                                            <td style="display:none;"></td>				
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                   
+                </table>	
+            </td>
+        </tr>
+        <tr [ngStyle]="caseDataObj.case_type==1 ?  {'display': ''} : {'display': 'none'}">
+            <td height="25"  height="34" align="center" colspan="2">
+                <fieldset style="width:98%;border-radius:4px;border:1px solid #333333;padding:2px 5px 2px 5px;">
+                    <legend  style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;cursor:pointer;margin-bottom: 6px;" >ข้อมูลจำเลย</legend>
+                    <table width="100%">
+                        <tr>
+                            <td align="left" width="100%">
+                                <button type="button" class="btn btn-success" style="margin-top:0px;" (click)="saveAccu()">จัดเก็บข้อมูลจำเลย</button>
+                                <button type="button" class="btn btn-warning" style="margin-top:0px;margin-left:2px;" (click)="accuReset()">ยกเลิก</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;margin-top:3px;">
+                        <thead>
+                        <tr>
+                            <th width="8%" align="center" class="no-sort">ประเภทคู่ความ</th>
+                            <th width="5%" align="center" class="no-sort">ที่</th>
+                            <th width="14%" align="center" class="no-sort">ชื่อ/ชื่อสกุลจำเลย</th>
+                            <th width="20%" align="center" class="no-sort"></th>
+                            <th  width="38%" align="center" class="no-sort">โทษของจำเลย</th>
+                            <th  width="15%" align="center" class="no-sort">หมายเหตุผลการตัดสิน</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="caseDataObj.accuObj?.length != 0">
+                        <tr *ngFor="let datas of caseDataObj.accuObj;let i = index;">
+                            <td align="center" valign="top" style="padding-top: 4px;">จำเลย</td>	
+                            <td align="center" valign="top" style="padding-top: 4px;">{{datas.seq}}</td>
+                            <td align="center" valign="top" style="padding-top: 4px;">{{datas.title}}{{datas.name}}</td>
+                            <td align="center">
+                                <table boder="0">
+                                    <tr style="background-color: transparent !important;">
+                                        <td width="20%" align="right" style="border: 0px !important;">อายุ :&nbsp;</td>
+                                        <td width="80%" style="border: 0px !important;">
+                                            <div style="float: left;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].age"   class="form-control" style="width:50px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">ปี</div>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: transparent !important;">
+                                        <td align="right" style="border: 0px !important;">สัญชาติ :&nbsp;</td>
+                                        <td style="border: 0px !important;">
+                                            <div style="float: left;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].inter_id" (change)="tabChangeInput('inter_id',$event)"  class="form-control" style="width:50px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:1px;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].inter_name" readonly   class="form-control" style="width:120px;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:2px;margin-top:2px;" >
+                                                <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;"  (click)="clickOpenMyModalComponentIndex(13,i)"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: transparent !important;">
+                                        <td align="right" style="border: 0px !important;">อาชีพ :&nbsp;</td>
+                                        <td style="border: 0px !important;">
+                                            <div style="float: left;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].occ_id" (change)="tabChangeInput('occu_id',$event)"  class="form-control" style="width:50px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:1px;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].occ_desc" readonly   class="form-control" style="width:120px;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:2px;margin-top:2px;" >
+                                                <i class='far fa-list-alt' style="font-size: 20px; margin-left: 2px;cursor: pointer;"  (click)="clickOpenMyModalComponentIndex(14,i)"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>	
+                            <td align="center">
+                                <table boder="0">
+                                    <tr style="background-color: transparent !important;">
+                                        <td width="20%" align="right" style="border: 0px !important;">โทษ<span style="color: red;">*</span> :&nbsp;</td>
+                                        <td width="80%" style="border: 0px !important;">
+                                            <ng-select [(ngModel)]="caseDataObj.accuObj[i].penalty_id"  style="width:365px;" [clearable]="false"   >
+                                                <ng-option *ngFor="let getData of getPenalty" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                                            </ng-select>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: transparent !important;">
+                                        <td align="right" style="border: 0px !important;">ค่าปรับ :&nbsp;</td>
+                                        <td style="border: 0px !important;">
+                                            <div style="float: left;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].fine"   class="form-control" style="width:101px;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">บาท</div>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: transparent !important;">
+                                        <td align="right" style="border: 0px !important;">จำคุก :&nbsp;</td>
+                                        <td style="border: 0px !important;">
+                                            <div style="float: left;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].jail_year"   class="form-control" style="width:52px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">ปี</div>
+                                            <div style="float: left;margin-left: 4px;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].jail_month"   class="form-control" style="width:52px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">เดือน</div>
+                                            <div style="float: left;margin-left: 4px;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].jail_day"   class="form-control" style="width:52px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">วัน</div>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: transparent !important;">
+                                        <td align="right" style="border: 0px !important;">รอไว้ :&nbsp;</td>
+                                        <td style="border: 0px !important;">
+                                            <div style="float: left;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].punish_wait"   class="form-control" style="width:52px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">ปี</div>
+                                            <div style="float: left;margin-left: 4px;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].punish_wait_mm"   class="form-control" style="width:52px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">เดือน</div>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: transparent !important;">
+                                        <td align="right" style="border: 0px !important;">คุมความประพฤติ :&nbsp;</td>
+                                        <td style="border: 0px !important;">
+                                            <div style="float: left;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].ctrl_year"   class="form-control" style="width:52px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">ปี</div>
+                                            <div style="float: left;margin-left: 4px;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].ctrl_month"   class="form-control" style="width:52px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">เดือน</div>
+                                            <div style="float: left;margin-left: 4px;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].ctrl_day"   class="form-control" style="width:52px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">วัน</div>
+                                            <div style="float: left;margin-left: 4px;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].ctrl_hour"   class="form-control" style="width:52px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">ชั่วโมง</div>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: transparent !important;">
+                                        <td align="right" style="border: 0px !important;">รายงานตัว :&nbsp;</td>
+                                        <td style="border: 0px !important;">
+                                            <div style="float: left;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].report_per_month"   class="form-control" style="width:52px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">เดือน/ครั้ง</div>
+                                            <div style="float: left;margin-left:15px;margin-top:4px;">รวม :&nbsp;</div>
+                                            <div style="float: left;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].report_total"   class="form-control" style="width:52px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">ครั้ง</div>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: transparent !important;">
+                                        <td align="right" style="border: 0px !important;">ทำงานบริการสังคม :&nbsp;</td>
+                                        <td style="border: 0px !important;">
+                                            <div style="float: left;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].social_year"   class="form-control" style="width:52px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">ปี</div>
+                                            <div style="float: left;margin-left: 4px;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].social_month"   class="form-control" style="width:52px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">เดือน</div>
+                                            <div style="float: left;margin-left: 4px;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].social_day"   class="form-control" style="width:52px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">วัน</div>
+                                            <div style="float: left;margin-left: 4px;">
+                                                <input  type="text" [(ngModel)]="caseDataObj.accuObj[i].social_hour"   class="form-control" style="width:52px;text-align: center;"/>
+                                            </div>
+                                            <div style="float: left;margin-left:6px;margin-top:4px;">ชั่วโมง</div>
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+                            </td>	
+                            <td align="center">
+                                <div style="margin:0 auto;">
+                                    <textarea [(ngModel)]="caseDataObj.accuObj[i].judge_remark" name="judge_remark" #judge_remark='ngModel' class="form-control" style="width: 196px; height: 106px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="caseDataObj.accuObj?.length == 0">
+                        <tr >
+                            <td colspan="6" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>
+                            <td style="display:none;"></td>			
+                            <td style="display:none;"></td>	
+                            <td style="display:none;"></td>			
+                        </tr>
+                    </tbody>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td  height="34" align="center" colspan="2" style="padding:5px 0px 5px 0px;">
+                <div style="margin-left:78px;" *ngIf="caseDataObj?.length != 0 && caseDataObj.judgeObj?.length != 0">
+                    หน่วยงานที่บันทึก : <u *ngIf="caseDataObj.judgeObj[0].create_dep_name">{{caseDataObj.judgeObj[0].create_dep_name}}</u><u *ngIf="!caseDataObj.judgeObj[0].create_dep_name">&nbsp;&nbsp;&nbsp;</u> &nbsp;
+                    ผู้บันทึก : <u *ngIf="caseDataObj.judgeObj[0].create_user">{{caseDataObj.judgeObj[0].create_user}}</u><u *ngIf="!caseDataObj.judgeObj[0].create_user">&nbsp;&nbsp;&nbsp;</u> &nbsp;
+                    วันที่บันทึก : <u *ngIf="caseDataObj.judgeObj[0].create_date">{{caseDataObj.judgeObj[0].create_date}}</u><u *ngIf="!caseDataObj.judgeObj[0].create_date">&nbsp;&nbsp;&nbsp;</u> &nbsp;
+                    หน่วยงานที่แก้ไข : <u *ngIf="caseDataObj.judgeObj[0].update_dep_name">{{caseDataObj.judgeObj[0].update_dep_name}}</u><u *ngIf="!caseDataObj.judgeObj[0].update_dep_name">&nbsp;&nbsp;&nbsp;</u> &nbsp;
+                    แก้ไขล่าสุด : <u *ngIf="caseDataObj.judgeObj[0].update_user">{{caseDataObj.judgeObj[0].update_user}}</u><u *ngIf="!caseDataObj.judgeObj[0].update_user">&nbsp;&nbsp;&nbsp;</u> &nbsp;
+                    วันที่แก้ไขล่าสุด : <u *ngIf="caseDataObj.judgeObj[0].update_date">{{caseDataObj.judgeObj[0].update_date}}</u><u *ngIf="!caseDataObj.judgeObj[0].update_date">&nbsp;&nbsp;&nbsp;</u> &nbsp;
+                </div>
+                <div style="margin-left:78px;" *ngIf="caseDataObj?.length == 0 || caseDataObj.judgeObj?.length == 0">
+                    หน่วยงานที่บันทึก :____________ ผู้บันทึก :____________ วันที่บันทึก :____________ หน่วยงานที่แก้ไข :____________ แก้ไขล่าสุด :____________ วันที่แก้ไขล่าสุด :____________ 
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+			  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+			  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+			</div>
+			<div class="modal-body" >
+				<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+					<app-datalist-return-multiple *ngIf="loadModalListMultiComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value7]=listFieldCond (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return-multiple>
+					<app-datalist-return *ngIf="loadModalListComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value7]=listFieldCond (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+                    <app-modal-confirm *ngIf="loadModalConfComponent" class="modal_app"></app-modal-confirm>
+                    <app-modal-judge *ngIf="loadModalJudgeComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType (onClickList)="receiveJudgeListData($event)" class="modal_app"></app-modal-judge>
+                    <app-modal-judge-group *ngIf="loadModalJudgeGroupComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType (onClickList)="receiveJudgeGroupListData($event)" class="modal_app"></app-modal-judge-group>
+                </div>
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalConfComponent">ตกลง</button>
+				  <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+			</div>
+		  </div>
+		</div>
+	</div>
+
+    
+
+

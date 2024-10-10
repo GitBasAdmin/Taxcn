@@ -1,0 +1,178 @@
+
+<div class="card card-info" style="box-shadow: none !important;background-color: #f0f0f0;">
+    <div class="card-header">
+        <h3 class="card-title">ข้อมูลเลขคดี</h3>
+    </div>
+    <div class="card-body" >
+        <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">           
+            <tr>
+                <td  width="120"  align="right" width="8%">คดีของศาล :&nbsp;</td>
+                <td width="40%">
+                    <ng-select [(ngModel)]="hResult.court_id" style="width:300px;" #sCourt>
+                        <ng-option *ngFor="let getData of getCourt" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+                     </ng-select>
+                </td>
+                <td  width="120" align="right" width="9%">Barcode :&nbsp;</td>
+                <td width="42%">
+                    <div style="float:left;"><input  type="text" [(ngModel)]="hResult.barcode"  class="form-control" style="width:140px;"></div>
+                    <div style="float:left;margin-left:8px;margin-top:5px;">คดีพิเศษ :&nbsp;</div>
+                    <div style="float:left;">
+                        <ng-select [(ngModel)]="hResult.special_id" class="disabled" style="width:200px;" #sCaseSpecial>
+                            <ng-option *ngFor="let getData of getCaseSpecial" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+                         </ng-select>
+                    </div>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td  width="120"  align="right" >ความ :&nbsp;</td>
+                <td >
+                    <div style="float:left;margin-left:0px;">
+                        <ng-select [(ngModel)]="hResult.case_type" style="width:100px;"  [ngModelOptions]="{standalone: true}" [clearable]="false" (change)="changeCaseType($event,2)" #sCaseType>
+                            <ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+                         </ng-select>
+                    </div>
+                </td>
+                <td  width="120"  align="right" >ประเภทคดี :&nbsp;</td>
+                <td >
+                    <div style="float:left;">
+                        <ng-select [(ngModel)]="hResult.case_cate_id" style="width:280px;" #sCaseCate>
+                            <ng-option *ngFor="let getData of getCaseCate" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+                         </ng-select>
+                    </div>
+                    <div style="float:left;margin-left:8px;margin-top:5px;">ชั้นพิจารณา :&nbsp;</div>
+                    <div style="float:left;">
+                        <ng-select [(ngModel)]="hResult.case_status" class="disabled" style="width:200px;" #sCaseStatus>
+                            <ng-option *ngFor="let getData of getCaseStatus" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+                         </ng-select>
+                    </div>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td  width="120"  align="right" >หมายเลขคดีดำ :&nbsp;</td>
+                <td >
+                    <div style="float:left;">
+                        <ng-select [(ngModel)]="hResult.title" style="width:100px;" [ngModelOptions]="{standalone: true}" [clearable]="false" (change)="changeTitle($event,hResult.case_type,1)"  #sTitle>
+                            <ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+                         </ng-select>
+                    </div>
+                    <div style="float:left;margin-left:3px;"><input  type="text" [(ngModel)]="hResult.id"  class="form-control" style="width:60px;"></div>
+                    <div style="float:left;margin-left:3px;"><input  type="text" [(ngModel)]="hResult.yy"  class="form-control" style="width:100px;"></div>
+                    <div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" (click)="searchCaseNo(1)">ค้นหา</button></div>
+                </td>
+                <td  width="120"  align="right" >คดีเกี่ยวเนื่อง :&nbsp;</td>
+                <td >
+                    <div style="float:left;"><input  type="text"   class="form-control" style="width:206px;" readonly></div>
+                    <div style="float:left;margin-left:8px;margin-top:5px;">ฝากขัง :&nbsp;</div>
+                    <div style="float:left;margin-left: 2px;"><input  type="text"  readonly class="form-control" style="width:206px;"></div>
+                </td>
+            </tr>
+            <tr>
+                <td  width="120"  align="right" style="color:red;">หมายเลขคดีแดง :&nbsp;</td>
+                <td >
+                    <div style="float:left;">
+                        <ng-select [(ngModel)]="hResult.red_title" style="width:100px;" [ngModelOptions]="{standalone: true}" [clearable]="false"  #sRedTitle>
+                            <ng-option *ngFor="let getData of getRedTitle" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+                         </ng-select>
+                    </div>
+                    <div style="float:left;margin-left:3px;"><input  type="text"  [(ngModel)]="hResult.red_id" class="form-control" style="width:60px;" (click)="runRedNo()"></div>
+                    <div style="float:left;margin-left:3px;"><input  type="text" [(ngModel)]="hResult.red_yy"  class="form-control" style="width:100px;" ></div>
+                    <div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" (click)="searchCaseNo(2)">ค้นหา</button></div>
+                </td>
+                <td  width="120"  align="right" >เอกสารแยกเก็บ :&nbsp;</td>
+                <td >
+                    <div style="float:left;"><input  [(ngModel)]="hResult.material_desc" name="" type="text"   value=""  class="form-control" style="width:318px;" disabled></div>
+                    <div style="float:left;margin-left:8px;">วันที่ปลดเผา :&nbsp;</div>
+                    <div style="float:left;"><input  [(ngModel)]="hResult.burn_date" type="text"   value=""  class="form-control jcalendar burn_date" readonly style="width:120px;"></div>
+                </td>
+            </tr>
+            
+            <tr>
+                <td  width="120"  align="right" >โจทก์ :&nbsp;</td>
+                <td >
+                    <div style="float:left;;"><input  type="text"  [(ngModel)]="hResult.pros_desc" class="form-control" placement="bottom"  [ngbPopover]="pop_pros_desc" style="width:380px;" readonly></div>
+                </td>
+                <td  width="120"  align="right" >จำเลย :&nbsp;</td>
+                <td >
+                    <div style="float:left;"><input  type="text"  [(ngModel)]="hResult.accu_desc" class="form-control" placement="bottom"  [ngbPopover]="pop_accu_desc" style="width:380px;" readonly></div>
+                    <div style="float:left;margin-left:4px;margin-top:4px;"><input  type="checkbox" [(ngModel)]="hResult.judge_stat_flag" [value]="1"  style="width:15px;height:15px;" readonly></div>
+                    <div style="float:left;margin-left:4px;margin-top:4px;color: red;">ไม่เก็บสถิติคดีเสร็จ</div>
+                </td>
+            </tr>
+           
+            <tr>
+                <td  width="120"  align="right" >สำนวนอยู่ที่งาน :&nbsp;</td>
+                <td >
+                    <div style="float:left;"><input  type="text" [(ngModel)]="hResult.case_location"  class="form-control" style="width:380px;" readonly></div>
+                </td>
+                <td  width="120"  align="right" >เมื่อวันที่ :&nbsp;</td>
+                <td >
+                    <div style="float:left;"><input  type="text" [(ngModel)]="hResult.location_date"  class="form-control" style="width:150px;" readonly></div>
+                    <div style="float:left;margin-left:13px;margin-top:4px;">หมายเหตุ :&nbsp;</div>
+                    <div style="float:left;margin-left:2px;"><input  type="text" [(ngModel)]="hResult.remark"  class="form-control" style="width:250px;" readonly></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<ng-template #pop_pros_desc popover-class="increase-popover-width">
+    <table>
+        <tr><td style="padding-left:5px;color: red;">* คลิกเพื่อแสดงข้อมูล</td></tr>
+    </table>
+    <table class="myTable1" cellspacing="2" cellpadding="0" class="bordered">
+        <thead>
+          <tr >
+            <th width="180"  align="center"  >ประเภทคู่ความ</th>
+            <th width="120"  align="center"  >ลำดับที่</th>
+            <th width="250"  align="center"  >ชื่อ/ชื่อสกุล</th>
+            <th width="120"  align="center"  >สถานะ</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="hResult.prosObj.length != 0">
+            <tr *ngFor="let datas of hResult.prosObj;let i = index;">
+                <td align="center">{{datas.lit_type_desc}}
+                <td align="center">{{datas.seq}}</td>
+                <td align="center">{{datas.title}}{{datas.name}}</td>
+                <td align="center">{{datas.status_desc}}</td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="hResult.prosObj.length == 0">
+            <tr>
+                <td colspan="4" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+            </tr>
+        </tbody>
+        </table>
+</ng-template>
+
+<ng-template #pop_accu_desc popover-class="increase-popover-width">
+    <table>
+        <tr><td style="padding-left:5px;color: red;">* คลิกเพื่อแสดงข้อมูล</td></tr>
+    </table>
+    <table class="myTable1" cellspacing="2" cellpadding="0" class="bordered">
+        <thead>
+          <tr >
+            <th width="180"  align="center"  >ประเภทคู่ความ</th>
+            <th width="120"  align="center"  >ลำดับที่</th>
+            <th width="250"  align="center"  >ชื่อ/ชื่อสกุล</th>
+            <th width="120"  align="center"  >สถานะ</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="hResult.accuObj.length != 0">
+            <tr *ngFor="let datas of hResult.accuObj;let i = index;">
+                <td align="center">{{datas.lit_type_desc}}
+                <td align="center">{{datas.seq}}</td>
+                <td align="center">{{datas.title}}{{datas.name}}</td>
+                <td align="center">{{datas.status_desc}}</td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="hResult.accuObj.length == 0">
+            <tr>
+                <td colspan="4" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+            </tr>
+        </tbody>
+        </table>
+</ng-template>
+    <!-- /.card-footer -->
+

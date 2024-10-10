@@ -1,0 +1,330 @@
+<style>
+	
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName"></app-case-header>
+			</div>				
+		</div>
+		<div style="box-shadow: none !important;margin-top:-4px;">
+			<app-case-head *ngIf="defaultCaseType"></app-case-head>
+		</div>	
+		<div class="card " style="box-shadow: none !important;padding:5px;background-color: #f0f0f0;">
+			<fieldset style="width:100%;border-radius:4px;border:1px solid #333333;padding:1px;padding:5px;margin-top:8px;">
+				<legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;cursor:pointer;margin-bottom: 6px;" class="lClick">ข้อมูลหนังสือส่ง</legend>
+				<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">               
+					<tr>
+						<td align="right" width="15%">เจ้าของสำนวน :&nbsp;</td>
+						<td width="45%">
+							<div style="float: left;">
+								<input  name="" type="text" id="" class="form-control" style="width:60px;"/>
+							</div>
+							<div style="float: left;margin-left: 2px;">
+								<input  name="" type="text" id="" readonly class="form-control" style="width:260px;"/>
+							</div>
+							<div style="float: left;margin-left:2px;margin-top:4px;" >
+								<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px; margin-top: 0px;"></i>
+							</div>
+						</td>
+						<td align="right" width="15%">เอกสารแยกเก็บศาลเดิม :&nbsp;</td>
+						<td width="45%">
+							<div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:60px;height:28px;"></div>
+							<div style="float:left;margin-left:4px;margin-top:3px;font-size: 20px;">/</div>
+							<div style="float:left;margin-left:3px;"><input  name="" type="text"   value=""  class="form-control" style="width:100px;height:28px;"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" >ประเภทการส่ง :&nbsp;</td>
+						<td colspan="3">
+							<div style="float: left;margin-top:4px;margin-left: 0px;">
+								<input  name="xs" type="radio" id=""  style="width:15px;height: 15px;" checked/>
+							</div>
+							<div style="float: left;margin-left:5px;margin-top:4px;">ส่งสำนวน</div>
+							<div style="float: left;margin-top:4px;margin-left: 10px;">
+								<input  name="xs" type="radio" id=""  style="width:15px;height: 15px;" />
+							</div>
+							<div style="float: left;margin-left:5px;margin-top:4px;">ส่งสำเนา</div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" >ทุนทรัพย์ :&nbsp;</td>
+						<td colspan="3">
+							<div style="float: left;">
+								<input  name="" type="text" id="" value="0.00" class="form-control" style="width:171px;"/>
+							</div>
+							<div style="float: left;margin-left:5px;margin-top:4px;">บาท</div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" >สิ่งที่ส่งมาด้วย :&nbsp;</td>
+						<td colspan="3">
+							<div style="float: left;">
+								<input  name="" type="text" id="" value="0.00" class="form-control" style="width:661px;"/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" >คดีประเด็นเสร็จ :&nbsp;</td>
+						<td colspan="3">
+							<div style="float:left;">
+								<ng-select  style="width:100px;" >
+									<ng-option ></ng-option>
+								 </ng-select>
+							</div>
+							<div style="float: left;margin-left:5px;margin-top:4px;"> วันที่ส่ง :&nbsp;</div>
+							<div style="float: left;">
+								<input  name="" type="text" id="" class="form-control" style="width:120px;"/>
+							</div>
+							<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;"></i></div>
+							<div style="float: left;margin-left:5px;margin-top:4px;"> ศาลที่ส่งไป :&nbsp;</div>
+							<div style="float: left;">
+								<input  name="" type="text" id="" class="form-control" style="width:60px;"/>
+							</div>
+							<div style="float: left;margin-left: 2px;">
+								<input  name="" type="text" id="" readonly class="form-control" style="width:260px;"/>
+							</div>
+							<div style="float: left;margin-left:2px;margin-top:4px;" >
+								<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px; margin-top: 0px;"></i>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" >ฐานความผิดขึ้นปก :&nbsp;</td>
+						<td colspan="3">
+
+							<div style="padding:4px;border:2px solid #FFFFFF;display:table;width: 99%;border-radius: 4px;">
+								<div style="float: left;">
+									<input  name="" type="text" id="" class="form-control" style="width:80px;"/>
+								</div>
+								<div style="float: left;margin-left: 2px;">
+									<input  name="" type="text" id="" readonly class="form-control" style="width:660px;"/>
+								</div>
+								<div style="float: left;margin-left:2px;margin-top:4px;" >
+									<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px; margin-top: 0px;"></i>
+								</div>
+							</div>
+
+						</td>
+					</tr>
+					<tr>
+						<td align="right" >หมายเหตุ :&nbsp;</td>
+						<td colspan="3">
+							<div style="float: left;padding-bottom: 4px;">
+								<textarea name="fact1" class="form-control" id="" style="width: 790px; height: 38px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<div class="card-footer" style="text-align: center;">
+								<button type="button" class="btn btn-primary" style="margin-left:5px;" >เพิ่ม</button>
+								<button type="button" class="btn btn-success" style="margin-left:5px;"  >จัดเก็บ</button>
+								<button type="button" class="btn btn-danger" style="margin-left:5px;"  > ลบข้อมูลที่เลือก </button>
+								<button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" >ยกเลิก</button>
+								<button type="button" class="btn btn-primary" style="margin-left:5px;" >ปกนอก</button>
+								<button type="button" class="btn btn-primary" style="margin-left:5px;" >ปกใน</button>
+								<button type="button" class="btn btn-primary" style="margin-left:5px;" > ปลิว </button>
+								
+							</div>
+						</td>
+					</tr>
+					
+				</table>
+			</fieldset>
+
+			<fieldset style="width:100%;border-radius:4px;border:1px solid #333333;padding:1px;padding:5px;margin-top:8px;">
+				<legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;cursor:pointer;margin-bottom: 6px;" class="lClick">ข้อมูลคู่ความ</legend>
+				<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table" >  
+					<!--------เพิ่มข้อมูลโจทก์---------->         
+					<tr>
+						<td height="25" height="34" align="left" ><button type="button" class="btn btn-primary" style="margin-left:5px;margin-top:5px;" >โจทก์</button></td>
+					</tr>
+					<tr>
+						<td height="25" height="34" align="left" style="padding:5px;">
+							<table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger"  class="table table-striped table-bordered table-sm row-border hover" style="border:1px solid #ced4da !important;border-radius: 6px 6px 0px 0px;">
+								<thead>
+									<tr>
+									<th width="3%" class="no-sort" style="border-left:1px solid #ced4da !important;"><input  name="chk_5" type="checkbox" id="chk_5_1"  value=""   style="height:16px;width:16px;margin-top:2px;"></th>
+									<th width="4%" class="no-sort"></th>
+									<th width="5%">ลำดับ</th>
+									<th width="8%">ชื่อ/ชื่อสกุล</th>
+									<th width="12%">ประเภทบัตร</th>
+									<th width="12%">เลขที่บัตร</th>
+									<th width="10%">สถานะ</th>
+									<th width="6%">รูป</th>
+									<th width="10%">ผู้บันทึก</th>
+									<th width="10%" style="border-right:1px solid #ced4da !important;">ผู้แก้ไข</th>
+									</tr>
+								</thead>
+								<tbody >
+									
+								 <tr >
+									<td colspan="10" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+									<td style="display:none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									
+										
+									</tr>
+								</tbody>
+								
+							</table> 
+						</td>
+					</tr>
+			
+					<!--------เพิ่มข้อมูลจำเลย---------->
+					<tr>
+						<td height="25" height="34" align="left" ><button type="button" class="btn btn-primary" style="margin-left:5px;margin-top:5px;" >จำเลย</button></td>
+					</tr>
+					<tr>
+						<td height="25" height="34" align="left" style="padding:5px;">
+							<table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger"  class="table table-striped table-bordered table-sm row-border hover" style="border:1px solid #ced4da !important;border-radius: 6px 6px 0px 0px;">
+								<thead>
+									<tr>
+									<th width="3%" class="no-sort" style="border-left:1px solid #ced4da !important;"><input  name="chk_5" type="checkbox" id="chk_5_1"  value=""   style="height:16px;width:16px;margin-top:2px;"></th>
+									<th width="4%" class="no-sort"></th>
+									<th width="5%">ลำดับ</th>
+									<th width="8%">ชื่อ/ชื่อสกุล</th>
+									<th width="12%">ประเภทบัตร</th>
+									<th width="12%">เลขที่บัตร</th>
+									<th width="10%">สถานะ</th>
+									<th width="6%">รูป</th>
+									<th width="6%">พิมพ์คำให้การ</th>
+									<th width="6%">ลบคำให้การ</th>
+									<th width="10%">ผู้บันทึก</th>
+									<th width="10%" style="border-right:1px solid #ced4da !important;">ผู้แก้ไข</th>
+									</tr>
+								</thead>
+								<tbody >
+									
+								 <tr >
+									<td colspan="12" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										
+									</tr>
+								</tbody>
+							</table> 
+						</td>
+					</tr>
+			
+					<!--------เพิ่มข้อมูลคู่ความอื่น---------->
+					<tr>
+						<td height="25" height="34" align="left" ><button type="button" class="btn btn-primary" style="margin-left:5px;margin-top:5px;" >คู่ความอื่น</button></td>
+					</tr>
+					<tr>
+						<td height="25" height="34" align="left" style="padding:5px;">
+							<table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger"  class="table table-striped table-bordered table-sm row-border hover" style="border:1px solid #ced4da !important;border-radius: 6px 6px 0px 0px;">
+								<thead>
+									<tr>
+									<th width="3%" class="no-sort" style="border-left:1px solid #ced4da !important;"><input  name="chk_5" type="checkbox" id="chk_5_1"  value=""   style="height:16px;width:16px;margin-top:2px;"></th>
+									<th width="4%" class="no-sort"></th>
+									<th width="12%">ประเภทคู่ความ</th>
+									<th width="5%">ลำดับ</th>
+									<th width="8%">ชื่อ/ชื่อสกุล</th>
+									<th width="12%">ประเภทบัตร</th>
+									<th width="12%">เลขที่บัตร</th>
+									<th width="10%">สถานะ</th>
+									<th width="6%">รูป</th>
+									<th width="10%">ผู้บันทึก</th>
+									<th width="10%" style="border-right:1px solid #ced4da !important;">ผู้แก้ไข</th>
+									</tr>
+								</thead>
+								<tbody >
+									
+								 <tr >
+									<td colspan="11" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										
+									</tr>
+								</tbody>
+							</table> 
+						</td>
+					</tr>
+			
+					<!--------เพิ่มข้อมูลผู้เกี่ยวข้อง---------->
+					<tr>
+						<td height="25" height="34" align="left" ><button type="button" class="btn btn-primary" style="margin-left:5px;margin-top:5px;" >ผู้เกี่ยวข้อง</button></td>
+					</tr>
+					<tr>
+						<td height="25" height="34" align="left" style="padding:5px;">
+							<table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger"  class="table table-striped table-bordered table-sm row-border hover" style="border:1px solid #ced4da !important;border-radius: 6px 6px 0px 0px;">
+								<thead>
+									<tr>
+									<th width="3%" class="no-sort" style="border-left:1px solid #ced4da !important;"><input  name="chk_5" type="checkbox" id="chk_5_1"  value=""   style="height:16px;width:16px;margin-top:2px;"></th>
+									<th width="4%" class="no-sort"></th>
+									<th width="12%">ความเกี่ยวข้อง</th>
+									<th width="5%">ลำดับ</th>
+									<th width="8%">ชื่อ/ชื่อสกุล</th>
+									<th width="12%">ประเภทบัตร</th>
+									<th width="12%">เลขที่บัตร</th>
+									<th width="10%">สถานะ</th>
+									<th width="6%">รูป</th>
+									
+			
+									<th width="10%">ผู้บันทึก</th>
+									<th width="10%" style="border-right:1px solid #ced4da !important;">ผู้แก้ไข</th>
+									</tr>
+								</thead>
+								<tbody >
+									
+								 <tr >
+									<td colspan="9" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+										<td style="display: none;"></td>
+
+										
+									</tr>
+								</tbody>
+							</table> 
+						</td>
+					</tr>
+					<tr><td height="25" height="34" align="left" style="padding:5px;color:red;">	* เป็นข้อมูลเก็บสถิติ โปรดบันทึกให้ถูกต้อง ครบถ้วน</td></tr>
+			
+				</table>
+			</fieldset>
+			
+		</div>	
+	</div>
+
+	
+
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner>
+

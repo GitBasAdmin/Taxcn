@@ -1,0 +1,143 @@
+<div *ngIf="!this.types">
+  <form class="form-horizontal" [formGroup]="formList">
+  <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+    <tr>
+      <td height="30" align="center" class="blackb">
+        <div style="float: left;margin-top:2px;">ค้นหา :&nbsp;</div>
+        <div style="float: left;margin-left:2px;"><input formControlName="word_id" name="word_id" type="text" class="form-control" style="width:70px;height:28px;" value={{value4}}></div>
+        <div style="float: left;margin-left:2px;"><input formControlName="word_desc" name="word_desc" type="text" class="form-control" style="width:250px;height:28px;" value={{value4}}>    </div>
+        <div style="float: left;margin-left:4px;"><input name="Submit" type="submit" class="btn btn-success" value="ค้นหา" (click)="searchDataList()"></div>
+        <div style="float: left;margin-left:4px;"><input name="showAll" type="submit" class="btn btn-success" id="showAll" value="แสดงทั้งหมด" (click)="showDataList()"></div>
+        <div style="float: left;margin-left:4px;"><input name="list_table_name" type="hidden" id="list_table_name" value={{value1}}></div>
+      </td>
+    </tr>
+  </table>
+
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+    <thead>
+      <tr align="center" *ngIf="!value5 && !value6">
+        <th width="150" height="25" ><strong>รหัส</strong></th>
+        <th ><strong >รายละเอียด</strong></th>
+      </tr>
+      
+      <tr align="center" *ngIf="value6">
+        <th width="150" height="25" ><strong>รหัส</strong></th>
+        <th ><strong >รายละเอียด</strong></th>
+        <th ><strong >รายละเอียดเพิ่มเติม</strong></th>
+      </tr>
+
+      <tr align="center" *ngIf="value5">
+        <th width="150" height="25" ><strong>รหัส</strong></th>
+        <th width="150" height="25" ><strong>รหัสมาตราฐาน</strong></th>
+        <th ><strong>รายละเอียด</strong></th>
+      </tr>
+      
+    </thead>
+    <tbody *ngIf="items?.length != 0" >
+      <tr *ngFor="let datas of items;let i = index;" >
+        <td align="center" (click)="onClickListData(i)">{{datas.fieldIdValue}}</td>
+        <td align="center" (click)="onClickListData(i)">
+          {{datas.fieldNameValue}}
+          <span *ngIf="(value1 === 'pword_form' && datas.fieldNameValue2) || (value1 === 'pcontent_form' && datas.fieldNameValue2)">
+            {{datas.fieldNameValue2}}
+          </span>
+          <span *ngIf="value1 === 'pnotice_type'">
+            {{datas.fieldNameValue2}}
+          </span>
+          <span *ngIf="value1 === 'pcase_litigant' && datas.fieldNameValue2">
+            {{datas.fieldNameValue2}}
+          </span>
+
+        </td>
+        <td align="center" (click)="onClickListData(i)" *ngIf="value5 || value6">{{datas.fieldNameValue2}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="items?.length == 0">
+      <tr *ngIf="!value5 && !value6"><td colspan="2" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+      <tr *ngIf="value5 || value6"><td colspan="3" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+    </tbody>
+
+  </table>
+
+
+  </form>
+</div>
+
+<div *ngIf="this.types">
+  <form class="form-horizontal" [formGroup]="formList">
+    <div class="modal-header">
+      <a>datalist-return</a>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.close()"></button>
+    </div>
+    <div class="modal-body" >
+      <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+        <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+          <tr>
+            <td height="30" align="center" class="blackb">
+              <div style="float: left;margin-top:2px;">ค้นหา :&nbsp;</div>
+              <div style="float: left;margin-left:2px;"><input formControlName="word_id" name="word_id" type="text" class="form-control" style="width:70px;height:28px;" value={{value4}}></div>
+              <div style="float: left;margin-left:2px;"><input formControlName="word_desc" name="word_desc" type="text" class="form-control" style="width:250px;height:28px;" value={{value4}}>    </div>
+              <div style="float: left;margin-left:4px;"><input name="Submit" type="submit" class="btn btn-success" value="ค้นหา" (click)="searchDataList()"></div>
+              <div style="float: left;margin-left:4px;"><input name="showAll" type="submit" class="btn btn-success" id="showAll" value="แสดงทั้งหมด" (click)="showDataList()"></div>
+              <div style="float: left;margin-left:4px;"><input name="list_table_name" type="hidden" id="list_table_name" value={{value1}}></div>
+            </td>
+          </tr>
+        </table>
+
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+          <thead>
+            <tr align="center" *ngIf="!value5 && !value6">
+              <th width="150" height="25" ><strong>รหัส</strong></th>
+              <th ><strong >รายละเอียด</strong></th>
+            </tr>
+            
+            <tr align="center" *ngIf="value6">
+              <th width="150" height="25" ><strong>รหัส</strong></th>
+              <th ><strong >รายละเอียด</strong></th>
+              <th ><strong >รายละเอียดเพิ่มเติม</strong></th>
+            </tr>
+
+            <tr align="center" *ngIf="value5">
+              <th width="150" height="25" ><strong>รหัส</strong></th>
+              <th width="150" height="25" ><strong>รหัสมาตราฐาน</strong></th>
+              <th ><strong>รายละเอียด</strong></th>
+            </tr>
+            
+          </thead>
+          <tbody *ngIf="items?.length != 0" >
+            <tr *ngFor="let datas of items;let i = index;" >
+              <td align="center" (click)="onClickListData(i)">{{datas.fieldIdValue}}</td>
+              <td align="center" (click)="onClickListData(i)">
+                {{datas.fieldNameValue}}
+                <span *ngIf="(value1 === 'pword_form' && datas.fieldNameValue2) || (value1 === 'pcontent_form' && datas.fieldNameValue2)">
+                  {{datas.fieldNameValue2}}
+                </span>
+                <span *ngIf="value1 === 'pnotice_type'">
+                  {{datas.fieldNameValue2}}
+                </span>
+                <span *ngIf="value1 === 'pcase_litigant' && datas.fieldNameValue2">
+                  {{datas.fieldNameValue2}}
+                </span>
+
+              </td>
+              <td align="center" (click)="onClickListData(i)" *ngIf="value5 || value6">{{datas.fieldNameValue2}}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="items?.length == 0">
+            <tr *ngIf="!value5 && !value6"><td colspan="2" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+            <tr *ngIf="value5 || value6"><td colspan="3" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+          </tbody>
+
+        </table>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" (click)="activeModal.close()">ปิดหน้าจอ</button>
+  </div>
+
+  </form>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner> 

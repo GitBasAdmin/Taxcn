@@ -1,0 +1,234 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper">
+  <div class="content" style="padding:10px;">
+    <div class="card card-info" style="box-shadow: none !important;">
+      <div class=""
+        style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+        <app-case-header *ngIf="programName"></app-case-header>
+      </div>
+    </div>
+    <div class="card-body" style="box-shadow: none !important;padding:10px 5px;background-color: #f0f0f0;margin-top:-18px;">
+      <table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+        <tr>
+          <td align="right" style="width: 15%;">Barcode :&nbsp;</td>
+          <td align="left" style="width: 85%">
+            <div style="float: left;">
+              <input type="text" [(ngModel)]="result.barcode" (keyup.enter)="submitForm()" class="form-control"style="width:220px;" />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">ประเภทซอง :&nbsp;</td>
+          <td align="left">
+            <div style="float:left;">
+              <ng-select [(ngModel)]="result.judge_type" style="width:220px;" [ngModelOptions]="{standalone: true}" (change)="changeJudgeType($event)" >
+                <ng-option *ngFor="let getData of getJudgeType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}} </ng-option>
+              </ng-select>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">ลำดับที่ซอง :&nbsp;</td>
+          <td align="left">
+            <div style="float:left;"><input [(ngModel)]="result.case_title" type="text" readonly class="form-control" style="width:60px;"></div>
+            <div style="float: left; margin-left:4px;">
+              <input type="text" [(ngModel)]="result.case_no" maxlength="5" class="form-control" style="width:60px;" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46" />
+            </div>
+            <div style="float: left;">&nbsp;-&nbsp;</div>
+            <div style="float: left;">
+              <input type="text" [(ngModel)]="result.case_no2" maxlength="5" class="form-control" style="width:60px;" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46" />
+            </div>
+            <div style="float: left;">&nbsp;/&nbsp;</div>
+            <div style="float: left; margin-left:4px;">
+              <input type="text" [(ngModel)]="result.case_yy" maxlength="4" class="form-control" style="width:80px;" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46" />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right" style="width: 700px;">วันที่ส่ง :&nbsp;</td>
+          <td align="left">
+            <div style="float: left;">
+              <input type="text" class="blackd" [(ngModel)]="result.event_date" class="form-control" style="width:120px;" readonly>
+            </div>
+            <div style="float:left;margin-left:8px;margin-top:5px;">&nbsp;เวลาที่ส่ง :&nbsp;</div>
+            <div style="float: left;margin-left:2px;">
+              <input type="text" class="blackd" [(ngModel)]="result.event_time" class="form-control" style="width:80px;" readonly>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">ส่งให้ :&nbsp;</td>
+          <td align="left">
+            <div style="float:left;">
+              <ng-select [(ngModel)]="result.send_to" style="width:120px;" [ngModelOptions]="{standalone: true}" [clearable]="false" #sCaseType>
+                <ng-option *ngFor="let getData of getSendTo" [value]=getData.fieldIdValue>{{getData.fieldNameValue}} </ng-option>
+              </ng-select>
+            </div>
+            <div style="float: left;margin-left:2px;">
+              <input type="text" class="blackd" [(ngModel)]="result.dep_id" value="" class="form-control" style="width:60px;" (change)="tabChangeSelect('dep_id','dep_name',$event)">
+            </div>
+            <div style="float: left;margin-left:2px;">
+              <input type="text" class="blackd" [(ngModel)]="result.dep_name" value="" class="form-control"  style="width:200px;" readonly>
+            </div>
+            <div style="float: left;margin-left:2px;margin-top:2px;">
+              <i class="far fa-list-alt" style="font-size: 20px;cursor:pointer;" (click)="clickOpenMyModalComponent(1);"></i>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">หมายเหตุ :&nbsp;</td>
+          <td align="left">
+            <div style="float: left;">
+              <input type="text" class="blackd" [(ngModel)]="result.reason_id" value="" class="form-control" style="width:80px;">
+            </div>
+            <div style="float: left;margin-left:2px;">
+              <input type="text" class="blackd" [(ngModel)]="result.reason" value="" class="form-control" style="width:450px;">
+            </div>
+            <div style="float: left;margin-left:2px;margin-top:2px;">
+              <i class="far fa-list-alt" style="font-size: 20px;cursor:pointer;" (click)="clickOpenMyModalComponent(2);"></i>
+            </div>
+            <!-- <div style="float: left;margin-left:8px;margin-top:2px;">
+              <i class='fas fa-book-medical' style="font-size: 17px;cursor:pointer;" (click)="openSendjudgeCase();"></i>
+            </div> -->
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><hr></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left">
+            <div style="float:left;margin-left:8px;margin-top:5px;">แสดงข้อมูลตามหน่วยงานที่ส่ง ....&nbsp;</div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div>
+              <div style="float:left; margin-top:4px; margin-left:200px;">&nbsp;หน่วยงานที่ส่ง &nbsp;</div>
+              <div style="float: left;margin-left:2px;">
+                <input type="text" class="blackd" [(ngModel)]="result.send_dep_id" value="" class="form-control"style="width:60px;" (change)="tabChangeSelect('send_dep_id','sdep_name',$event)">
+              </div>
+              <div style="float: left;margin-left:2px;">
+                <input type="text" class="blackd" [(ngModel)]="result.sdep_name" value="" class="form-control" style="width:200px;" readonly>
+              </div>
+              <div style="float: left;margin-left:2px;">
+                <i class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:2px;cursor:pointer;" (click)="clickOpenMyModalComponent(3);"></i>
+              </div>
+              <div style="float:left; margin-top:4px;">&nbsp;ส่งให้ &nbsp;</div>
+              <div style="float:left;">
+                <ng-select [(ngModel)]="result.ssend_to" style="width:120px;" [ngModelOptions]="{standalone: true}" >
+                  <ng-option *ngFor="let getData of getSsendTo" [value]=getData.fieldIdValue>{{getData.fieldNameValue}} </ng-option>
+                </ng-select>
+              </div>
+              <div style="float: left;margin-left:2px;">
+                <input type="text" class="blackd" [(ngModel)]="result.ssend_id" value="" class="form-control" style="width:60px;" (change)="tabChangeSelect('ssend_id','ssend_name',$event)">
+              </div>
+              <div style="float: left;margin-left:2px;">
+                <input type="text" class="blackd" [(ngModel)]="result.ssend_name" value="" class="form-control" style="width:200px;" readonly>
+              </div>
+              <div style="float: left;margin-left:2px;">
+                <i class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:4px;cursor:pointer;" (click)="clickOpenMyModalComponent(4);"></i>
+              </div>
+              <div style="float:left; margin-left: 4px; margin-top: 4px;">&nbsp;วันที่ส่ง &nbsp;</div>
+              <div style="float: left;margin-left:4px;">
+                <input style="width:100px;height:28px;" [(ngModel)]="result.s_date1" #sDate1 type="text" class="form-control jcalendar s_date1" (click)="directiveDate(sDate1.value,'s_date1')">
+              </div>
+              <div style="float:left;margin-left:4px;margin-top: 4px;">
+                <i class="fa fa-calendar" style="font-size: 16px;"  onClick="$('.s_date1').focus();"></i>
+              </div>
+              <div style="float:left;margin-left:8px;margin-top:4px;">&nbsp;ถึง &nbsp;</div>
+              <div style="float: left;margin-left:4px;">
+                <input style="width:100px;height:28px;" [(ngModel)]="result.s_date2" #sDate2 type="text" class="form-control jcalendar s_date2" (click)="directiveDate(sDate2.value,'s_date2')">
+              </div>
+              <div style="float:left;margin-left:4px;margin-top: 4px;">
+                <i class="fa fa-calendar" style="font-size: 16px;"  onClick="$('.s_date2').focus();"></i>
+              </div>
+              <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="searchData()" >ค้นหา</button>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <div class="card-footer" style="text-align:center; margin-top: 8px; ">
+        <button type="button" class="btn btn-success" style="margin-left:5px;" (click)="submitForm()">จัดเก็บ</button>
+        <button type="button" class="btn btn-warning" style="margin-left:5px;" (click)="ClearAll()" >ยกเลิก</button>
+        <button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="confirmBox()">ยกเลิกการส่งซองคำพิพากษา</button>
+        <button type="button" class="btn btn-warning" style="margin-left:5px;" (click)="closeWindow()" >ปิดหน้าจอ</button> 
+        <button type="button" class="btn btn-info" style="margin-left:5px;" (click)="printReport(1)">พิมพ์รายงาน</button>
+        <button type="button" class="btn btn-info" style="margin-left:5px;" (click)="printReport(2)" >พิมพ์รายงาน (รวม)</button>
+      </div>
+      <div class="card " style="box-shadow: none !important;padding:5px;">
+        <table width="100%" border="0" cellspacing="2" cellpadding="0" class="form_table">
+          <tr>
+            <td width="40%" align="left">
+              <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+                <thead>
+                  <tr>
+                    <th width="3%" class="no-sort"><input type="checkbox" name="all" [(ngModel)]="masterSelected" value="m1" (change)="checkUncheckAll()"/></th>
+                    <th width="5%">ลำดับที่</th>
+                    <th width="5%">ลำดับที่ซอง</th>
+                    <th width="10%">ส่งให้</th>
+                    <th width="10%">ชื่อ</th>
+                    <th width="10%">ส่งเพื่อ</th>
+                    <th width="8%">วันที่ส่ง</th>
+                    <th width="8%">เวลาที่ส่ง</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="posts?.length != 0" >
+                  <tr *ngFor="let post of posts;let i = index;" [ngClass]="{'red': (post.cancel_flag == 1)}" >
+                    <td align="center"><input *ngIf="post.cancel_flag != 1" type="checkbox"  [(ngModel)]="posts[i].edit0610" (change)="isAllSelected()" ></td>
+                    <td align="center">{{posts.length-i}}</td>
+                    <td align="center">{{post.case_title}}{{post.case_no}}/{{post.case_yy}}</td>
+                    <td align="center">{{post.send_to_desc}}</td>
+                    <td align="center">{{post.send_to_name}}</td>
+                    <td align="center">{{post.reason}}</td>
+                    <td align="center">{{post.event_date}}</td>
+                    <td align="center">{{post.event_time}}</td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="posts?.length == 0">
+                  <tr>
+                    <td colspan="8" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+                    <td style="display:none;"></td>
+                    <td style="display:none;"></td>
+                    <td style="display:none;"></td>
+                    <td style="display:none;"></td>
+                    <td style="display:none;"></td>
+                    <td style="display:none;"></td>
+                    <td style="display:none;"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+            <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+            <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+          </div>
+          <div class="modal-body" >
+            <input type="hidden" name="table_name" id="table_name">
+            <input type="hidden" name="field_id" id="field_id">
+            <input type="hidden" name="field_name" id="field_name">
+            <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+            <app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+            <app-datalist-return  *ngIf="loadComponent"  [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType [value7]="listFieldCond" (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+            <app-modal-judge *ngIf="loadJudgeComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType (onClickList)="receiveFuncJudgeListData($event)" class="modal_app"></app-modal-judge>	
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+          <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+        </div>
+        </div>
+      </div>
+    </div>
+    <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+      <p style="color: gray">Please Wait. </p>
+    </ngx-spinner>

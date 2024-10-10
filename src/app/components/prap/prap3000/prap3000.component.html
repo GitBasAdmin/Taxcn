@@ -1,0 +1,77 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<div style="float:left;margin-top:6px;"><i class="fa fa-folder-open-o" style="font-size:24px;margin-left:8px;"></i><span style="font-size: 16px;margin-left:5px;">{{programName}}</span></div>
+			</div>
+		</div>
+    	<!-- form start -->
+		<!-- <form class="form-horizontal" id="myForm"  #prap3000> -->
+		<div class="card-body">
+			<div class="card"  align="center" style="box-shadow: none !important;padding:5px;">
+				<table width="100%"  border="0"  cellspacing="2" cellpadding="2" class="form_table">
+					
+					<tr>
+						<td  align="right" width="20%">ความ :&nbsp;</td>
+					  <td  align="left" >
+						<div style="float: left;">
+						  <ng-select [(ngModel)]="result.case_type" style="width:100px;"  [ngModelOptions]="{standalone: true}" (change)="changeCaseType($event)"  #sCaseType>
+							<ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+						  </ng-select>
+						</div>
+					  </td>
+					</tr>
+
+					<tr>
+						<td  align="right" width="44%"  >ประเภทนัด :&nbsp;</td>
+						<div style="float: left;margin-left:3px;">
+							<!-- <ng-select [(ngModel)]="result.ptable_type" style="width:150px;" [ngModelOptions]="{standalone: true}" (change)="changeContentType($event)" #sType>
+								<ng-option *ngFor="let getData of getContentType" [value]=getData.id >{{getData.text}}</ng-option>
+							</ng-select> -->
+							<input type="radio" name="ptable_type" [(ngModel)]="result.ptable_type" [value]="1" #table_type1 (click)="assignTable(1)" style="margin-right:5px;">&nbsp; นัดต่อเนื่อง&nbsp;
+                  			<input type="radio" name="ptable_type" [(ngModel)]="result.ptable_type" [value]="2" #table_type2 (click)="assignTable(2)" style="margin-right:5px;">&nbsp; นัดปฏิทิน&nbsp;
+						</div>
+					</tr>
+
+					<tr >
+						<td align="right">ประเภทราง :&nbsp;</td>
+						<td>
+							<ng-select  [(ngModel)]="result.ptable_id" style="width:250px;"   #sTableId>
+								<ng-option *ngFor="let getData of getTableId" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select></td>
+					</tr>
+
+					
+					<tr>
+						<td align="right">ประจำเดือน :&nbsp;</td>
+						<td align="left" >
+							<div style="float:left">
+								<ng-select [(ngModel)]="result.pmonth" style="width:150px;"  [ngModelOptions]="{standalone: true}"  #sType>
+								<ng-option *ngFor="let getData of getMonth" [value]=getData.id >{{getData.text}}</ng-option>
+								</ng-select>
+							</div>
+							<div style="float:left;margin-left:15px;">&nbsp;ปี&nbsp;&nbsp;</div>
+							<div style="float:left;margin-left:8px;">
+								<input  name="pyear" type="text"  id="pyear"  [(ngModel)]="result.pyear" value=""  class="form-control" style="width:80px;height:28px;" >
+							 </div>
+						</td>
+					</tr>
+
+
+					<div>&nbsp;</div>
+				</table>
+			</div>
+      		<!-- /.card-body -->
+			<div class="card-footer" align="center">
+				<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printReport()">พิมพ์รายงาน</button>
+				<button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+			</div>
+			<!-- /.card-footer -->
+		</div>
+        <!-- </form> -->
+	</div>
+</div>

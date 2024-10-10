@@ -1,0 +1,40 @@
+
+table.appTable tr td{border:1px solid #000000;}
+.numAppHead { height: 25px !important;background-color:#ECE3CE;}
+.dayAppHead { height: 25px !important;background-color:#94B4B9;}
+.rowOdd { height: 25px !important;background-color:#FFFFEE;}
+.rowEven { height: 25px !important;background-color:#D4F1D4;}
+.disbDay { background-color:#FF6600;}
+.sunDay { background-color:#FF0000;}
+.backgroundGreen { background-color:#1b7814;}
+.backgroundWhite { background-color:#FFFFFF;border:1px solid #000000 !important;}
+
+.background_1 { background-color:#00FFFF}
+.background_2 { background-color:#33CCFF}
+.background_3 { background-color:#00CC33}
+.background_4 { background-color:#FF99FF}
+.background_5 { background-color:#FFCC33}
+.background_6 { background-color:#9933FF}
+.background_7 { background-color:#9999CC}
+.background_8 { background-color:#FFFF66}
+.background_9 { background-color:#CC9966}
+.background_10 { background-color:#FF6600}
+.background_11 { background-color:#0099FF}
+.background_12 { background-color:#33FF66}
+.background_13 { background-color:#CCCCFF}
+.background_14 { background-color:#CC00CC}
+.background_15 { background-color:#6666CC}
+.background_16 { background-color:#999999}
+.background_17 { background-color:#489100}
+.background_18 { background-color:#FF3399}
+.background_19 { background-color:#00CECE}
+.background_120 { background-color:#3399CC}
+.background_21 { background-color:#EA004D}
+.background_22 { background-color:#93DCFF}
+.background_23 { background-color:#FFCC99}
+.background_24 { background-color:#FF51FF}
+
+.appAlert0 {font-weight:bold;color:#009900;}
+.appAlert1 {font-weight:bold;color: #FF9900;}
+.appAlert2 {font-weight:bold;color: #FF0000;}
+.appAlert3 {font-weight:bold;}

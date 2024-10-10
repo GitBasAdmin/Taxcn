@@ -1,0 +1,53 @@
+.btn-info {
+    color: white !important;
+}
+
+.modal-content {
+    width: 600px;
+    min-height: 200px !important;
+    max-height: 600px !important;
+    height: auto !important;
+}
+
+.mat-input-element {
+    background: #FFFFFF !important;
+    border: 1px solid #ced4da !important;
+    box-sizing: unset !important
+}
+
+input.mat-input-element {
+    margin-top: -6px !important;
+    margin-bottom: -5.5px !important;
+    height: auto !important;
+}
+
+.mat-form-field-infix {
+    width: auto !important;
+    border-top: 0px !important;
+}
+
+.mat-option {
+    height: 24px !important;
+    opacity: 1;
+    z-index: 1;
+}
+
+.mat-form-field-wrapper {
+    padding-bottom: 0px !important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+    background-color: transparent !important;
+}
+
+.mat-form-field-ripple {
+    display: none !important;
+}
+
+.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    display: none !important;
+}
+
+.mat-form-field-empty.mat-form-field-label { 
+    color: #e3e1e1 !important;
+}

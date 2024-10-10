@@ -1,0 +1,11 @@
+.btn-info{color:white !important;}
+/* .modal-content{width:600px !important;min-height:200px !important;max-height: 600px !important;height: auto !important;} */
+table.table tr.cancel{
+  /*background-color: #de8397 !important;*/
+  background-color: #F9A3A3 !important;
+}
+
+table.table tr.remark{
+  /*background-color: #de8397 !important;*/
+  background-color: #F7C28C !important;
+}

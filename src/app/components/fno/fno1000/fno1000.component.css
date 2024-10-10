@@ -1,0 +1,26 @@
+.btn-info{color:white !important;}
+.modal-content{width:600px !important;min-height:200px !important;max-height: 600px !important;height: auto !important;}
+.highlight { height:24px !important;border-radius: 4px !important;background-color:#33cc33 !important;}
+.highlight2 { height:24px !important;border-radius: 4px !important;background-color:#e6e600 !important;}
+.highlight3 { height:24px !important;border-radius: 4px !important;background-color:#ff3399 !important;}
+.highlight4 { height:24px !important;border-radius: 4px !important;background-color:white !important;}
+.selSel{height:24px !important;border-radius: 4px !important;background-color:white !important;}
+
+.modal-content {
+    padding: 12px !important;
+}
+
+.fno1000-conf .modal-dialog {
+    max-width:650px !important;
+}
+
+.xxxxx .modal-dialog {
+    max-width:1000px !important;
+    width:1000px !important;
+}
+
+.xxxxx .modal-content {
+    max-width:1000px !important;
+    width:1000px !important;
+}
+

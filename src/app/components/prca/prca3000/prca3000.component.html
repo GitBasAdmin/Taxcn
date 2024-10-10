@@ -1,0 +1,159 @@
+<style></style>
+<!-- <app-menu></app-menu> -->
+<div style="width:100%;height:100%;" id="div-wraper">
+  <div class="content" style="padding:10px;">
+    <!-- <div class="card card-info" style="box-shadow: none !important;">
+      <div class="programName" style="float:left;margin-top:6px;"><i class="fa fa-folder-open-o"
+          style="font-size:24px;margin-left:8px;"></i><span
+          style="font-size: 16px;margin-left:5px;">{{programName}}</span></div>
+    </div> -->
+
+    <div class="card " style="box-shadow: none !important;padding:5px;">
+
+      <fieldset style="width:100%;border-radius:4px;border:1px solid #333333;padding:1px;padding:5px;">
+        <legend
+          style="line-height: 10px;float:none;margin-left:18px; font-weight:bold;color:#2d2ff9;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;cursor:pointer;margin-bottom: 6px;"
+          class="lClick">ข้อมูลเลขคดี </legend>
+        <table width="100%" border="0" cellspacing="2" cellpadding="2" class="form_table">
+          <tr>
+            <td colspan="4" align="center" style="height:40px;">
+              <div style="margin-left:8px;margin-top:5px;color: red;font-weight: bold;font-size: 18px;">*ตรวจสอบจากชื่อคู่ความ &nbsp;</div>
+              <!-- <div style="margin-left:8px;margin-top:5px;color: red;font-weight: bold;font-size: 18px;">*ตรวจสอบจากเลขบัตรประชาชน &nbsp;</div> -->
+            </td>
+          </tr>
+
+          <tr>
+            <td align="right" width="15%">ความ :&nbsp;</td>
+            <td align="left">
+              <div style="float: left;">
+                <ng-select [(ngModel)]="result.case_type" style="width:110%;min-width:90px ;"
+                  [ngModelOptions]="{standalone: true}" (change)="changeCaseType($event)" [clearable]="false" #sCaseType>
+                  <ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+                  </ng-option>
+                </ng-select>
+              </div>
+
+            </td>
+          </tr>
+          <tr>
+            <td align="right">หมายเลขคดีดำ :&nbsp;</td>
+            <td align="left">
+              <div style="float:left;">
+                <ng-select [(ngModel)]="result.title" style="width:110%;min-width:60px;" #sTitle>
+                  <ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+                  </ng-option>
+                </ng-select>
+              </div>
+
+              <div style="float:left;margin-left:12px;"><input type="text" [(ngModel)]="result.id" class="form-control"
+                  style="width:70px;height:28px;text-align: center;"></div>
+              <div style="float:left;margin-left:8px;margin-top:3px;">/</div>
+              <div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="result.yy" class="form-control"
+                  style="width:70px;height:28px;text-align: center;"></div>
+              <div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary"
+                  style="margin-left:15%;" (click)="searchData(1)">ค้นหา</button></div>
+
+            </td>
+            <td align="right" style="color:red;">หมายเลขคดีแดง</td>
+            <td>
+              <div style="float:left;">
+                <ng-select [(ngModel)]="result.red_title" style="width:110%;min-width:60px;" #sRtitle>
+                  <ng-option *ngFor="let getData of getRedTitle" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+                  </ng-option>
+                </ng-select>
+              </div>
+              <div style="float:left;margin-left:12px;"><input type="text" [(ngModel)]="result.red_id"
+                  class="form-control" style="width:70px;height:28px;text-align: center;"></div>
+              <div style="float:left;margin-left:8px;margin-top:3px;">/</div>
+              <div style="float:left;margin-left:3px;"><input type="text" [(ngModel)]="result.red_yy"
+                  class="form-control" style="width:70px;height:28px;text-align: center;"></div>
+              <div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary"
+                  style="margin-left:15%;" (click)="searchData(2)">ค้นหา</button></div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">โจทก์ :&nbsp;</td>
+            <td>
+              <div style="float: left;">
+                <input name="strProsName" type="text" id="strProsName" [(ngModel)]="result.strProsName"
+                  class="form-control" style="width:400px;height:28px;" readonly>
+              </div>
+            </td>
+            <td align="right">จำเลย :&nbsp;</td>
+            <td>
+              <div style="float: left;">
+                <input name="strAccuName" type="text" id="strAccuName" [(ngModel)]="result.strAccuName"
+                  class="form-control" style="width:400px;height:28px;" readonly>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" align="center" style="height:40px;">
+              <div style="float: left;margin-left: 42%; color: red; font-size: 18px;">นำ &nbsp;
+                <input type="radio" name="plit_type" [(ngModel)]="result.plit_type" value="1"
+                  style="width:15px;height:15px;margin-top:5px;">
+              </div>
+              <div style="float: left;margin-left:5px;margin-top:4px;">โจทก์</div>
+              <div style="float: left;margin-left:8px;">
+                <input type="radio" name="plit_type" [(ngModel)]="result.plit_type" value="2"
+                  style="width:15px;height:15px;margin-top:5px;" />
+              </div>
+              <div style="float: left;margin-left:5px;margin-top:4px;">จำเลย</div>
+              <div style="float: left;margin-left:8px;">
+                <input type="radio" name="plit_type" [(ngModel)]="result.plit_type" value="0"
+                  style="width:15px;height:15px;margin-top:5px;" />
+              </div>
+              <div style="float: left;margin-left:5px;margin-top:4px;">&nbsp;คู่ความทั้งหมด</div>
+              <div style="float: left;margin-left:5px;margin-top:4px; color: red; font-size: 18px;">
+                &nbsp;&nbsp;ของคดีนี้ไปตรวจสอบ</div>
+            </td>
+          </tr>
+          <tr></tr>
+        </table>
+        <div class="card-footer" align="center">
+          <button type="button" class="btn btn-info" style="margin-left:5px;"
+            (click)="printReport(1)">พิมพ์รายงาน</button>
+          <button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;"
+            onclick="location.reload()">ล้างหน้าจอ</button>
+        </div>
+      </fieldset>
+    </div>
+
+    <!-- Modal -->
+
+    <!-- <div class="modal fade" data-refresh="true" role="dialog" id="exampleModal" tabindex="-1"
+      aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+            <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+              (click)="closeModal()"></button>
+            <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal"
+              data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+          </div>
+          <div class="modal-body">
+
+            <input type="hidden" name="table_name" id="table_name">
+            <input type="hidden" name="field_id" id="field_id">
+            <input type="hidden" name="field_name" id="field_name">
+            <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+              <app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-bs-dismiss="modal"
+              (click)="closeModal()">ปิดหน้าจอ</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+
+
+  <!--<script src="case-type.component.js"></script>-->
+  <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+    <p style="color: gray">Please Wait. </p>
+  </ngx-spinner>

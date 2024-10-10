@@ -1,0 +1,173 @@
+.navbar {padding: 20px !important;}
+.list-header {
+	margin: 0;
+	padding: 0 0 18px 0;
+    background-image: url("../../../assets/images/main.png"); 
+	background-repeat: no-repeat;
+	background-size: 100%;
+	min-width: 980px; 
+    height:214px;
+}
+#main-list {
+	clear: both;
+	width: 100%;
+	margin: 0 auto;
+	padding-left:40px;
+	margin-top:5px;
+}
+
+.var_nav ul {
+	margin:0;
+	padding:0px;
+	list-style-type:none;
+	-webkit-backface-visibility: hidden; 
+	backface-visibility: hidden;  
+}
+
+.var_nav {
+	position:relative;
+	/*background:#777777; */
+	background: #17a2b8;
+	background-image: -webkit-linear-gradient(top, #17a2b8, #09869a);
+	background-image: -moz-linear-gradient(top, #17a2b8, #09869a);
+	background-image: -ms-linear-gradient(top, #17a2b8, #09869a);
+	background-image: -o-linear-gradient(top, #17a2b8, #09869a);
+	background-image: linear-gradient(to bottom, #17a2b8, #09869a);
+	width: 21%;
+	height:40px;
+	margin-bottom:15px;
+	margin-right: 1%;
+	margin-left: 1.5%;
+	float:left;
+	display:inline;
+  border: 1px solid #09869a;
+  border-radius: 50px;  
+    box-shadow: 
+		0px -5px 0px 0px #458a8c, 
+		0 1px 1px #d5d5d5, 
+		0 1px 0 rgba(255,255,255,0.8) inset;  
+    transition: all 0.2s linear;
+}
+
+.link_bg {
+	width:40px;
+	height:40px;
+	position:absolute;
+  top: -1px;
+  left: -1px;
+  
+  background: #FFA370;
+  background-image: -webkit-linear-gradient(top, #FFA370, #FF8540);
+  background-image: -moz-linear-gradient(top, #FFA370, #FF8540);
+  background-image: -ms-linear-gradient(top, #FFA370, #FF8540);
+  background-image: -o-linear-gradient(top, #FFA370, #FF8540);
+  background-image: linear-gradient(to bottom, #FFA370, #FF8540);
+	color:#fff;
+	z-index:2;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top: 1px solid #115D8E;
+  border-bottom: 1px solid #115D8E;
+  border-left: 1px solid #115D8E;
+}
+
+.link_bg i {
+	position:relative;
+}
+
+.link_title {
+	position:absolute;
+	width:100%;
+	z-index:3;
+	color:#fff;
+}
+
+.link_title:hover .icon {
+  -webkit-transform:rotate(360deg);
+  -moz-transform:rotate(360deg);
+  -o-transform:rotate(360deg);
+  -ms-transform:rotate(360deg);
+  margin-top: -20px;
+  text-align:center;
+  /*color: #D2691E;*/
+  color: #458a8c;
+  transform: rotate(360deg);
+  opacity: 0.5;
+  transform: scale(1.5);
+  text-shadow: 0px 1px 1px rgba(255,255,255,0.4);
+  transition:all .3s linear;
+}
+
+.var_nav:hover .link_bg {
+  margin-left: -1px;
+	width:105%;
+	background:#FF5B00;
+  background-image: -webkit-linear-gradient(top, #FF8540, #FF5B00);
+  background-image: -moz-linear-gradient(top, #FF8540, #FF5B00);
+  background-image: -ms-linear-gradient(top, #FF8540, #FF5B00);
+  background-image: -o-linear-gradient(top, #FF8540, #FF5B00);
+  background-image: linear-gradient(to bottom, #FF8540, #FF5B00);
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	-ms-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;  
+  border: 1px solid #115D8E;
+  border-radius: 20px;
+  transform: scale(1.05);
+    box-shadow: 
+		0px -5px 0px 0px #458a8c, 
+		0 1px 1px #d5d5d5, 
+		0 1px 0 rgba(255,255,255,0.8) inset;  
+    transition: all 0.2s ease-in-out;
+}
+
+.var_nav:hover a {
+	font-weight: 500;
+	-webkit-transition:all .3s ease-in-out;
+	-moz-transition:all .3s ease-in-out; 
+	-o-transition:all .3s ease-in-out; 
+	-ms-transition:all .3s ease-in-out;
+	transition:all .3s ease-in-out;
+	margin-left: 30px;
+	transform: scale(1.1);
+}
+
+.icon {
+	position:relative;
+	width:40px;
+	height:40px;
+	text-align:center;
+	color:#fff;
+	-webkit-transition:all .5s ease-in-out;
+	-moz-transition:all .5s ease-in-out; 
+	-o-transition:all .5s ease-in-out; 
+	-ms-transition:all .5s ease-in-out;   
+	transition:all .5s ease-in-out;   
+	float:left; 
+	font-size: 1.5em; 
+	margin-top: -12px;
+}
+
+.icon i {
+	top:22px;
+	position:relative;
+}
+
+.var_nav a {
+	position:absolute;
+	float:left;
+	color:#fff;
+	text-decoration:none;
+	width:100%;
+	height:40px;
+	margin-left: 10px;
+	font-size: 1.2em;
+	margin-top: -8px;
+}
+
+.var_nav span {
+	margin-top:18px;
+	display:block;
+}
+

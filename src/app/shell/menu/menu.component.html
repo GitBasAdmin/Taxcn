@@ -1,0 +1,257 @@
+<!--<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e7e8e9;" >
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/main" routerLinkActive="active"><i  class="fas fa-home" style="cursor: pointer; font-size: 22px;"></i></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              หน้าจอ
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" routerLink="/fct0218" routerLinkActive="active"><i class='fas fa-angle-right' style='font-size:16px'></i>&nbsp;ประเภทความ</a></li>
+              <li><a class="dropdown-item" routerLink="/officer" routerLinkActive="active"><i class='fas fa-angle-right' style='font-size:16px'></i>&nbsp;ข้อมูลเจ้าหน้าที่</a></li>
+              <li><a class="dropdown-item" routerLink="/program" routerLinkActive="active"><i class='fas fa-angle-right' style='font-size:16px'></i>&nbsp;รายชื่อโปรแกรม</a></li>
+              <li><a class="dropdown-item" routerLink="/fct9993" routerLinkActive="active"><i class='fas fa-angle-right' style='font-size:16px'></i>&nbsp;สิทธิการใช้โปรแกรม</a></li>
+              <li><a class="dropdown-item" routerLink="/fct9994" routerLinkActive="active"><i class='fas fa-angle-right' style='font-size:16px'></i>&nbsp;โมดูลโปรแกรม</a></li>
+
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown" id="myDropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">  Treeview menu  </a>
+            <ul class="dropdown-menu">
+              <li> <a class="dropdown-item" href="#"> Dropdown item 1 </a></li>
+              <li> <a class="dropdown-item" href="#"> Dropdown item 2 &raquo; </a>
+                <ul class="submenu dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Submenu item 1</a></li>
+                  <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
+                  <li><a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                    <ul class="submenu dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                      <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                    </ul>
+                  </li>
+                  <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                  <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                </ul>
+              </li>
+              <li><a class="dropdown-item" href="#"> Dropdown item 3 </a></li>
+              <li><a class="dropdown-item" href="#"> Dropdown item 4 </a></li>
+            </ul>
+          </li>
+
+
+          
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" *ngIf="sessData" style="color:green;font-size: 15px;">[ {{userData.offName}} ]</a>
+          </li>
+            
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="height:28px;">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+-->
+<!--
+(c) 2020-2021 Written by Simon Köhler in Panama
+github.com/koehlersimon
+simon-koehler.com
+Last Update: July 30 2021 12:29pm, Panama
+-->
+<nav class="navbar navbar-expand-lg navbar-light  shadow">
+  <div class="container-fluid">
+    
+    <div class="collapse navbar-collapse" id="navbar-content">
+      <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+        <!--ก่อนปรับเปลี่ยนแยก project
+        <li class="nav-item">
+          <a class="navbar-brand" *ngIf="userData.userLevel=='A'" (click)="redirectUrl('main','')" routerLinkActive="active"><i  class="fas fa-home" style="cursor: pointer; font-size: 22px;margin-left:18px;"></i></a>
+          <a class="navbar-brand" *ngIf="userData.userLevel!='A'" (click)="redirectUrl('menu_center',userData.depCode)" routerLinkActive="active" style="cursor:pointer;"><i  class="fas fa-home" style="cursor: pointer; font-size: 22px;margin-left:18px;"></i></a>
+        </li>
+        
+        <li class="nav-item dropdown" *ngFor="let mMenu of objMenu;let i = index;">
+          <a class="nav-link dropdown-toggle"  *ngIf="mMenu.sub_menu?.length!=0" data-bs-toggle="dropdown" data-bs-auto-close="outside" style="cursor:pointer;">{{mMenu.program_name}}</a>
+          <a class="nav-link"  (click)="redirectUrl(mMenu.url_name,'')"  *ngIf="mMenu.sub_menu?.length==0" style="cursor:pointer;">{{mMenu.program_name}}</a>
+          <ul class="dropdown-menu shadow" *ngIf="mMenu.sub_menu">
+            <li class="dropend" *ngFor="let sMenu of mMenu.sub_menu;">
+              <a  *ngIf="sMenu.sub_menu?.length!=0" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" style="cursor:pointer;">{{sMenu.program_name}}</a>
+              <a  (click)="redirectUrl(sMenu.url_name,'')" *ngIf="sMenu.sub_menu?.length==0" class="dropdown-item" style="cursor:pointer;">{{sMenu.program_name}}</a>
+              <ul class="dropdown-menu shadow" *ngIf="sMenu.sub_menu">
+                <li *ngFor="let ssMenu of sMenu.sub_menu;"><a  class="dropdown-item" (click)="redirectUrl(ssMenu.url_name,'')" style="cursor:pointer;">{{ssMenu.program_name}}</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        -->
+        <li class="nav-item">
+          <a class="navbar-brand" *ngIf="userData.userLevel=='A'" (click)="redirectUrl('main','','')" routerLinkActive="active"><i  class="fas fa-home" style="cursor: pointer; font-size: 22px;margin-left:18px;color: #FFFFFF !important;"></i></a>
+          <a class="navbar-brand" *ngIf="userData.userLevel!='A'" (click)="redirectUrl('menu_center',userData.depCode,'')" routerLinkActive="active" style="cursor:pointer;"><i  class="fas fa-home" style="cursor: pointer; font-size: 22px;margin-left:18px;color: #FFFFFF !important;"></i></a>
+        </li>
+        
+        <li class="nav-item dropdown" *ngFor="let mMenu of objMenu;let i = index;">
+          <a class="nav-link dropdown-toggle"  *ngIf="mMenu.sub_menu?.length!=0" data-bs-toggle="dropdown" data-bs-auto-close="outside" style="cursor:pointer;">{{mMenu.program_name}}</a>
+          <a   class="nav-link" routerLink="/{{mMenu.url_name}}"  (click)="redirectUrl(mMenu.url_name,'',mMenu.module_path)"  *ngIf="mMenu.sub_menu?.length==0 && mMenu.url_name!='logout'" style="cursor:pointer;">{{mMenu.program_name}}</a>
+          <a  class="nav-link"  (click)="redirectUrl(mMenu.url_name,'',mMenu.module_path)"  *ngIf="mMenu.sub_menu?.length==0 && mMenu.url_name=='logout'" style="cursor:pointer;">{{mMenu.program_name}}</a>
+          <ul class="dropdown-menu shadow" *ngIf="mMenu.sub_menu">
+            <li class="dropend" *ngFor="let sMenu of mMenu.sub_menu;">
+              <a  *ngIf="sMenu.sub_menu?.length!=0" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" style="cursor:pointer;">{{sMenu.program_name}}</a>
+              <a  routerLink="/{{sMenu.url_name}}" (click)="redirectUrl(sMenu.url_name,'',sMenu.module_path)" *ngIf="sMenu.sub_menu?.length==0" class="dropdown-item" style="cursor:pointer;">{{sMenu.program_name}}</a>
+              <ul class="dropdown-menu shadow" *ngIf="sMenu.sub_menu">
+                <li *ngFor="let ssMenu of sMenu.sub_menu;"><a   class="dropdown-item" routerLink="/{{ssMenu.url_name}}" (click)="redirectUrl(ssMenu.url_name,'',ssMenu.module_path)" style="cursor:pointer;">{{ssMenu.program_name}}</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link disabled"  tabindex="-1" aria-disabled="true" *ngIf="sessData" style="font-size: 15px;">[ {{userData.offName}} ]</a>
+        </li>
+      
+        <!--
+        <li class="nav-item">
+          <a class="navbar-brand" *ngIf="userData.userLevel=='A'" routerLink="/main" routerLinkActive="active"><i  class="fas fa-home" style="cursor: pointer; font-size: 22px;margin-left:18px;"></i></a>
+          <a class="navbar-brand" *ngIf="userData.userLevel!='A'" [routerLink]="['/menu_center',userData.depCode]" routerLinkActive="active"><i  class="fas fa-home" style="cursor: pointer; font-size: 22px;margin-left:18px;"></i></a>
+        </li>
+        
+        <li class="nav-item dropdown" *ngFor="let mMenu of objMenu;let i = index;">
+          <a class="nav-link dropdown-toggle" href="#" *ngIf="mMenu.sub_menu?.length!=0" data-bs-toggle="dropdown" data-bs-auto-close="outside">{{mMenu.program_name}}</a>
+          <a class="nav-link" routerLink="/{{mMenu.url_name}}" *ngIf="mMenu.sub_menu?.length==0" >{{mMenu.program_name}}</a>
+          <ul class="dropdown-menu shadow" *ngIf="mMenu.sub_menu">
+            <li class="dropend" *ngFor="let sMenu of mMenu.sub_menu;">
+              <a href="#" *ngIf="sMenu.sub_menu?.length!=0" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside">{{sMenu.program_name}}</a>
+              <a routerLink="/{{sMenu.url_name}}" *ngIf="sMenu.sub_menu?.length==0" class="dropdown-item" >{{sMenu.program_name}}</a>
+              <ul class="dropdown-menu shadow" *ngIf="sMenu.sub_menu">
+                <li *ngFor="let ssMenu of sMenu.sub_menu;"><a class="dropdown-item" routerLink="/{{ssMenu.url_name}}" >{{ssMenu.program_name}}</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        -->
+        <!--
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Multilevel</a>
+          <ul class="dropdown-menu shadow">
+            <li><a class="dropdown-item" href="#">Gallery</a></li>
+            <li><a class="dropdown-item" href="blog.html">Blog</a></li>
+            <li class="dropstart">
+              <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">Submenu Left</a>
+              <ul class="dropdown-menu shadow">
+                <li><a class="dropdown-item" href=""> Third level 1</a></li>
+                <li><a class="dropdown-item" href=""> Third level 2</a></li>
+                <li><a class="dropdown-item" href=""> Third level 3</a></li>
+                <li><a class="dropdown-item" href=""> Third level 4</a></li>
+                <li><a class="dropdown-item" href=""> Third level 5</a></li>
+              </ul>
+            </li>
+            <li class="dropend">
+              <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside">Submenu Right</a>
+              <ul class="dropdown-menu shadow">
+                <li><a class="dropdown-item" href=""> Second level 1</a></li>
+                <li><a class="dropdown-item" href=""> Second level 2</a></li>
+                <li><a class="dropdown-item" href=""> Second level 3</a></li>
+                <li class="dropend">
+                  <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">Let's go deeper!</a>
+                  <ul class="dropdown-menu dropdown-submenu shadow">
+                    <li><a class="dropdown-item" href=""> Third level 1</a></li>
+                    <li><a class="dropdown-item" href=""> Third level 2</a></li>
+                    <li><a class="dropdown-item" href=""> Third level 3</a></li>
+                    <li><a class="dropdown-item" href=""> Third level 4</a></li>
+                    <li><a class="dropdown-item" href=""> Third level 5</a></li>
+                  </ul>
+                </li>
+                <li><a class="dropdown-item" href=""> Third level 5</a></li>
+              </ul>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown dropdown-mega position-static">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Megamenu</a>
+          <div class="dropdown-menu shadow">
+            <div class="mega-content px-4">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-12 col-sm-4 col-md-3 py-4">
+                    <h5>Pages</h5>
+                    <div class="list-group">
+                      <a class="list-group-item" href="#">Accomodations</a>
+                      <a class="list-group-item" href="#">Terms & Conditions</a>
+                      <a class="list-group-item" href="#">Privacy</a>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4 col-md-3 py-4">
+                    <h5>Card</h5>
+                    <div class="card">
+                <img src="https://via.placeholder.com/320x180" class="img-fluid" alt="image">
+                <div class="card-body">
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+                  </div>
+                  <div class="col-12 col-sm-4 col-md-3 py-4">
+                    <h5>Lot of Pages</h5>
+                    <p>Lorem ipsum dolo sit achmet muhamed borlan de irtka.
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-3 py-4">
+                    <h5>Damn, so many</h5>
+                    <div class="list-group">
+                      <a class="list-group-item" href="#">Accomodations</a>
+                      <a class="list-group-item" href="#">Terms & Conditions</a>
+                      <a class="list-group-item" href="#">Privacy</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+        -->
+      </ul>
+      <!--
+      <form class="d-flex ms-auto">
+          <div class="input-group">
+              <input class="form-control border-0 mr-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-primary border-0" type="submit">Search</button>
+          </div>
+      </form>
+      -->
+    </div>
+    
+    <div style="margin-top:5px;float:right;color:#FFFFFF;margin-right:6px;" *ngIf="getMail.length"><i class="fa fa-envelope-o mail" style="font-size:22px;cursor: pointer;" (click)="openMail()" matTooltip="คุณมีข้อความที่ยังไม่ได้เปิดอ่าน!"  ></i></div>
+    <div style="margin-top:5px;float:right;color:#FFFFFF;margin-right:6px;" *ngIf="this.video"><i class='fa fa-film' style='font-size:19px;cursor: pointer;' matTooltip="Video การใช้งาน" (click)="openMedia()"></i></div>
+    <div style="margin-top:5px;float:right;color:#FFFFFF;margin-right:6px;" *ngIf="this.fevorite"><i class='far fa-star' style='font-size:21px;cursor: pointer;' (click)="saveFevorite()" matTooltip="เพิ่มเป็นหน้าจอโปรด" ></i></div>
+    <div style="margin-top:5px;float:right;color:#FFFFFF;margin-right:6px;" ><i class='far fa-newspaper' style='font-size:22px;cursor: pointer;' matTooltip="กำหนดการแจ้งเตือน" (click)="fkb0700Page()"></i></div>
+    <div style="margin-top:5px;float:right;color:#FFFFFF;margin-right:6px;" ><i class='fa fa-file-pdf-o' style='font-size:20px;cursor: pointer;color:white;' matTooltip="คู่มือทุกระบบ" (click)="manualIndex()"></i></div>
+    <div style="margin-top:5px;float:right;color:#FFFFFF;margin-right:6px;" ><i class='fa fa-th' style='font-size:20px;cursor: pointer;color:white;' matTooltip="ลิงค์ไปยังระบบอื่น" [ngbPopover]="pop_link" popoverClass="my-custom-class"></i></div>
+    <div style="float:right;" class="line_space">&nbsp;</div>
+    <div style="margin-top:5px;float:right;color:#FFFFFF;">crim&nbsp;</div> 
+    <div style="margin-top:5px;float:right;color:#FFFFFF;"><span class="badge bg-primary">v1.0.0</span></div>
+  </div>
+</nav>
+<ng-template #pop_link popover-class="increase-popover-width">
+  <div style="width:300px;" class="link" >
+    <span class="link-span" *ngFor="let datas of objLink;let i = index;">
+      <a style="color: black;" href={{datas.system_url}} target="_blank" title={{datas.system_name}}>
+        <i class={{datas.system_icon}} style="font-size:28px;cursor: pointer;padding-top: 20px;color: #ff6c1a;"></i><br>
+        <a style="font-size: 14px;font-family: THSarabunNew;color: #212529;">{{datas.system_short_name}}</a>
+      </a>
+    </span>
+  </div>
+</ng-template>
+
+
+
+  

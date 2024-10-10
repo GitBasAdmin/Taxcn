@@ -1,0 +1,175 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info">
+			<div class="card-header">
+			<h3 class="card-title">{{programName}}</h3>
+			</div>
+			<!-- /.card-header -->
+			<!-- form start -->
+				<form class="form-horizontal" id="myForm"  #add_order_id>
+				<div class="card-body">
+					<!--
+					<div class="form-group row">
+					<label for="inputEmail3" class="col-sm-2 col-form-label">รหัส :</label>
+					<div class="col-sm-10">
+						<input type="text"  name="add_order_id" id="add_order_id"  class="form-control" placeholder="" >
+						<input type="hidden"  name="hid_add_order_id" id="hid_add_order_id" >
+					</div>
+					</div>
+
+					<div class="form-group row">
+					<label for="inputPassword3" class="col-sm-2 col-form-label">ประเภทคดี :</label>
+					<div class="col-sm-10">
+						<input type="text"  name="add_order_desc" id="add_order_desc" class="form-control" placeholder="" >
+					</div>
+					</div>
+					-->
+					<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+						<tr>
+              <td height="25" width="200" height="34" align="right">ประเภทความ :&nbsp;</td>
+              <td >
+                <div style="float:left;" >
+                  <ng-select [(ngModel)]="selCaseType" style="width:180px;" [ngModelOptions]="{standalone: true}"  #sCaseTypeId>
+                    <ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+                  </ng-select>
+                </div>
+              </td>
+              </tr>
+          	<tr>
+							<td  align="right" >รหัสข้อความเพิ่มเติมหมายนัด :&nbsp;</td>
+							<td ><input type="text"  name="add_order_id" id="add_order_id" class="form-control"  style="width:80px;" title="กรอกตัวเลขเท่านั้น" onKeyUp="if(isNaN(this.value)){ alert('กรุณากรอกตัวเลข'); this.value='';}" ></td>
+              <input type="hidden"  name="hid_add_order_id" id="hid_add_order_id" >
+              <input type="hidden"  name="hid_case_type" id="hid_case_type" >
+						</tr>
+            <tr>
+							<td  align="right" >ข้อความเพิ่มเติมหมายนัด :&nbsp;</td>
+							<td ><textarea  name="add_order_desc" id="add_order_desc" class="form-control" style="width:500px;height:200px;"></textarea> </td>
+						</tr>
+					</table>
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer">
+					<button type="button" class="btn btn-success" style="margin-left:200px;" (click)="submitForm()">จัดเก็บข้อมูล</button>
+					<button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="confirmBox()" >ลบข้อมูลที่เลือก</button>
+                    <button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+          <!-- <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="searchData()">ค้นหา</button> -->
+					<!--<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="goToLink('http://bizascorp.thddns.net:8848/taxcRpt56/rct0226.jsp')">พิมพ์</button>-->
+					<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printReport()">พิมพ์</button>
+          <input type="hidden" name="delValue" id="delValue">
+          <input type="hidden" name="delValue2" id="delValue2">
+
+				</div>
+				<!-- /.card-footer -->
+				</form>
+		</div>
+	</div>
+
+	<div class="content" style="padding:10px;margin-top:-25px;">
+		<section class="content" style="width: 100%px;">
+		<div class="card card-info">
+			<div class="card-header" style="display:none;">
+			<h3 class="card-title">ข้อมูล</h3>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover myTable1">
+					<thead>
+						<tr>
+						<th width="3%" class="no-sort">
+							<input type="checkbox" name="all" [(ngModel)]="masterSelected" value="m1" (change)="checkUncheckAll()"/>
+						</th>
+						<th width="3%" class="no-sort">แก้ไข</th>
+						<th width="5%">ประเภทความ</th>
+					  <th width="5%">รหัสความเพิ่มเติมหมายนัด</th>
+            <th width="20%">ข้อความเพิ่มเติมหมายนัด</th>
+            <th width="10%" >หน่วยงานที่บันทึก</th>
+						<th width="10%" >ผู้บันทึก</th>
+						<th width="10%" >วัน/เวลาที่บันทึก</th>
+						<th width="10%" >หน่วยงานที่แก้ไข</th>
+						<th width="10%" >ผู้แก้ไข</th>
+						<th width="10%"  >วัน/เวลาที่แก้ไข</th>
+						<!--<th width="15%">&nbsp;</th>-->
+						</tr>
+					</thead>
+					<tbody *ngIf="posts?.length != 0">
+
+					<tr *ngFor="let post of posts;let i = index;">
+							<td align="center">
+								<input type="checkbox" name="listName[]" value="{{post.add_order_id}}" [(ngModel)]="post.editAddOrderId" (change)="isAllSelected()" >
+                <input type="hidden" name="hid_case_type[]" id="hid_case_type[]" value="{{post.case_type}}">
+              </td>
+							<td align="center"><i class='fas fa-pencil-alt' style='cursor:pointer;font-size:20px' (click)="editData(post.edit_add_order_id,post.edit_case_type)"></i></td>
+              <td align="center">{{post.case_type_desc}}</td>
+              <td align="center">{{post.add_order_id}}</td>
+              <td align="center">{{post.add_order_desc}}</td>
+
+
+							<td align="center">{{post.create_dep_name}}</td>
+							<td align="center">{{post.create_user}}</td>
+							<td align="center">{{post.create_date}}</td>
+							<td align="center">{{post.update_dep_name}}</td>
+							<td align="center">{{post.update_user}}</td>
+							<td align="center">{{post.update_date}}</td>
+							<!---<td align="center">
+								<ng-template #popContent>
+									หน่วยงานที่จัดเก็บ = {{post.createDepName}}<br>
+									ผู้จัดเก็บ = {{post.createUser}}<br>
+									วันที่จัดเก็บ = {{post.createDate}}<br>
+									หน่วยงานที่แก้ไข = {{post.updateDepName}}<br>
+									ผู้แก้ไข = {{post.updateUser}}<br>
+									วันที่แก้ไข = {{post.updateDate}}<br>
+								</ng-template>
+								<i class="fa fa-eye" placement="left" popoverTitle="รายละเอียดการจัดเก็บข้อมูล" [ngbPopover]="popContent" style="cursor:pointer;font-size:22px"></i>
+							</td>-->
+						</tr>
+					</tbody>
+					<tbody *ngIf="posts?.length == 0">
+						<tr>
+							<td colspan="11" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+		</section>
+	</div>
+
+<!-- Modal -->
+
+	<div class="modal fade" data-refresh="true"  role="dialog" #crudModal id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+			<button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+			<button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyChildComponent();" #openbutton></button>
+			</div>
+			<div class="modal-body" >
+
+					<input type="hidden" name="table_name" id="table_name">
+					<input type="hidden" name="field_id" id="field_id">
+					<input type="hidden" name="field_name" id="field_name">
+					<div >
+					<app-modal-confirm *ngIf="loadComponent" class="modal_app"></app-modal-confirm>
+					</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()">ตกลง</button>
+				<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

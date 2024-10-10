@@ -1,0 +1,126 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<!-- <div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName" ></app-case-header>
+			</div> -->
+      <div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+        <div style="float:left;margin-top:6px;"><i class="fa fa-folder-open-o" style="font-size:24px;margin-left:8px;"></i><span style="font-size: 16px;margin-left:5px;">{{programName}}</span></div>
+      </div>
+		</div>
+    	<!-- form start -->
+		<div class="card-body">
+
+		<div class="card"  align="center" style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0"  cellspacing="2" cellpadding="2" class="form_table">
+
+        <tr >
+					<td  align="right" width="40%" >จ่ายเงิน วันที่ :&nbsp;</td>
+            <td  align="left">
+            <div style="float:left;"><input  name="txt_date_start" id="txt_date_start" type="text"  placeholder="่วว/ดด/ปปปป" value=""  class="form-control jcalendar date_start" style="width:120px;height: 28px;" ></div>
+            <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.date_start').focus();"></i></div>
+						<div style="float:left;margin-left:8px;margin-top:5px;">&nbsp;ถึง&nbsp;&nbsp;</div>
+		        <div style="float:left;"><input  name = "txt_date_end" id="txt_date_end" type="text" placeholder="วว/ดด/ปปปป" value=""  class="form-control jcalendar date_end" style="width:120px;height: 28px;" ></div>
+            <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.date_end').focus();"></i></div>
+          </td>
+				</tr>
+
+        <tr>
+          <td align="right">ประเภทใบเสร็จ :&nbsp;</td>
+          <td align="left" colspan="4">
+            <div style="float: left;">
+              <ng-select [(ngModel)]="result.rcv_flag" name="rcv_flag" style="width:150px;"
+                [ngModelOptions]="{standalone: true}" (change)="changeRcvFlag($event)" #sRcvType>
+                <ng-option [value]=0>ทั้งหมด</ng-option>
+                <ng-option *ngFor="let getData of getRcvFlag" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+                </ng-option>
+              </ng-select>
+            </div>
+            <div style="float: left; margin-left: 5px;margin-top:3px;">กลุ่มการพิมพ์ :&nbsp;</div>
+            <div style="float:left; margin-left:2px;">
+              <ng-select [(ngModel)]="result.pgroup_id" style="width:110%;" [ngModelOptions]="{standalone: true}"
+                #sPgroupId>
+                <ng-option [value]=0 *ngIf="result.rcv_flag ==0">ทั้งหมด</ng-option>
+                <ng-option [value]=76 *ngIf="result.rcv_flag ==0">ทั้งหมด ไม่รวมเบ็ดเตล็ด</ng-option>
+                <span *ngIf="result.rcv_flag >= 1">
+                  <ng-option *ngFor="let getData of getPgroupId" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+                  </ng-option>
+                </span>
+              </ng-select>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td align="right">หน่วยงานที่รับ :&nbsp;</td>
+          <td align="left">
+            <div style="float:left;">
+              <input type="text" [(ngModel)]="dep_id" (change)="tabChangeSelect('dep_id',getDep,$event,1)"
+                class="form-control" style="width:80px;text-align:center;float:left;"
+                onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46">
+            </div>
+            <div style="float:left;margin-left:2px;">
+              <ng-select [(ngModel)]="result.dep_id" style="width:300px;" (change)="tabChangeSelect('dep_id',getDep,$event,2)" #sDep>
+                <ng-option [value] = ""></ng-option>
+                <ng-option *ngFor="let getData of getDep" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}
+                </ng-option>
+              </ng-select>
+            </div>
+          </td>
+        </tr>
+        
+        <tr >
+          <td  align="right" width="44%" >จ่ายเงินถึง ณ วันที่ :&nbsp;</td>
+          <div style="float:left;">
+            <input  type="text" [(ngModel)]="result.ptoday" placeholder="่วว/ดด/ปปปป" class="form-control jcalendar ptoday" #ptoday (click)="directiveDate(ptoday.value,'ptoday')" style="width:120px;" />
+          </div>
+          <div style="float:left; margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.ptoday').focus();"></i></div>
+        </tr>
+
+        <tr >
+          <td  align="right" width="44%" >เว้นระยะ :&nbsp;</td>
+          <td  align="left">
+            <div style="float:left;">
+            <ng-select [(ngModel)]="pprint_line" style="width:120px;" [ngModelOptions]="{standalone: true}" #sType>
+              <ng-option *ngFor="let getData of getPrintLine" [value]=getData.id >{{getData.text}}</ng-option>
+            </ng-select>
+            </div>
+            <div style="float:left;">&nbsp;บรรทัด</div>
+          </td>
+        </tr>
+        <tr >
+          <td  align="left" colspan="2">
+            <span style="color: blue;">
+              กรณีที่ต้องการพิมพ์รายงานที่ระบุช่วงวันที่รับเงินหลายๆ ปี ให้แยกการพิมพ์รายงานระบุช่วงวันที่การรับเงิน หลายๆ ช่วง<br>
+            </span>
+            <span style="color: red;">
+              แต่ให้ใส่ ณ.วันที่ เป็นวันเดียวกันทั้งหมด คือณ.วันที่ ที่ต้องการดูยอดคงเหลือ<br><br>
+            </span>
+            <span style="color: blue;">
+              ตัวอย่าง เช่น ต้องการดูยอดคงเหลือ ณ.วันที่ 31/5/2567 ของ ใบเสร็จที่รับเงินตั้งแต่วันที่ 1/10/2562-31/5/2567<br>
+              ให้สั่งพิมพ์รายงาน 2 - 3 รายงาน แล้วเอายอดคงเหลือมารวมกันดังนี้<br>
+            </span>
+            <span style="color: blue;">รายงานที่ 1. ระบุรับเงินตั้งแต่ 1/10/2562 - 31/12/2566 </span><span style="color: red; padding-left: 3px;">ณ.วันที่ 31/5/2567<br></span>
+            <span style="color: blue;">รายงานที่ 2. ระบุรับเงินตั้งแต่ 1/1/2567&nbsp;&nbsp; - 31/5/2567</span><span style="color: red;padding-left: 15px;">ณ.วันที่ 31/5/2567<br></span>             
+          </td>
+        </tr>
+        <div>&nbsp;</div>
+      </table> </div>
+<!-- /.card-body -->
+				<div class="card-footer" align="center">
+          <span style="float:left;border:2px solid gray; padding:8px;border-radius:4px; margin-left:40%;">
+            <div style="float: left;"><button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printReport()">พิมพ์รายงาน</button></div>
+            <div style="float: left;margin-left: 3px;"> <ng-select [(ngModel)]="result.pprint_by" style="width:90px;" [ngModelOptions]="{standalone: true}" #sPrintBy>
+            <ng-option *ngFor="let getData of getPprint_by" [value]=getData.id >{{getData.text}}</ng-option>
+            </ng-select></div>
+          </span>
+          <span style="float:left;margin-top: 10px;"> <button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button></span>
+
+				</div>
+<!-- /.card-footer -->
+</div>
+

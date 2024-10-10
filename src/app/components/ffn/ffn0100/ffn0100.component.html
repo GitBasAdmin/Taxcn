@@ -1,0 +1,169 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper">
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info">
+			<div class="card-header">
+			<h3 class="card-title">{{programName}}</h3>
+			</div>
+			<!-- /.card-header -->
+			<!-- form start -->
+				<!-- <form class="form-horizontal" id="myForm"  #bank_id> -->
+				<div class="card-body">
+					<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+						<tr>
+							<td  width="150"  align="right">รหัส :&nbsp;</td>
+							<td >
+								<input type="text"  name="bank_id" [(ngModel)]="result.bank_id"  class="form-control" style="width:80px;" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+								<input type="hidden"  name="edit_bank_id" id="edit_bank_id" >
+							</td>
+						</tr>
+						<!-- พี่ต้อมบอกให้ซ่อนไปก่อนนะจ๊ะ -->
+						<!-- <tr>
+							<td align="right" >รหัสมาตราฐาน :&nbsp;</td>
+							<td align="left">
+								<div style="float: left;">
+								<input  name="std_id" type="text" [(ngModel)]="result.std_id"  maxlength="5" (change)="tabChange(1)"  class="form-control" style="width:90px;height:28px;"/>
+								</div>
+								<div style="float: left;margin-left:2px;">
+								<input  name="std_name" type="text"  [(ngModel)]="result.std_name" value=""  class="form-control" style="width:220px;height:28px;"/>
+								</div>
+								<div style="float: left;margin-left:2px;margin-top:4px;">
+								<i class='far fa-list-alt iDep' style="font-size: 20px;cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadTableComponent(1);"></i>
+								</div>
+							</td>
+						</tr> -->
+						<tr>
+							<td  width="120"  align="right" >ธนาคาร :&nbsp;</td>
+							<td ><input type="text"  name="bank_name" [(ngModel)]="result.bank_name" class="form-control" style="width:350px;" ></td>
+						</tr>
+						<tr>
+							<td  width="150"  align="right">รหัสธนาคาร :&nbsp;</td>
+							<td >
+								<input type="text"  name="bank_code" [(ngModel)]="result.bank_code"  class="form-control" style="width:80px;" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+								<input type="hidden"  name="hid_bank_code" id="hid_bank_code" >
+							</td>
+						</tr>
+						<tr>
+							<td  width="120"  align="right" >Logo :&nbsp;</td>
+							<td >
+								<div class="custom-file" style="float:left;width:370px;margin-top:3px;">
+									<input type="file" class="custom-file-input" id="files" (change)="onFileChange($event,1)" style="width:360px;height:24px;">
+									<label class="custom-file-label" #labelImport for="importFile" style="width:360px;height:24px;"></label>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer">
+					<button type="button" class="btn btn-success" style="margin-left:150px;" (click)="submitForm()">จัดเก็บข้อมูล</button>
+					<button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="confirmBox()" >ลบข้อมูลที่เลือก</button>
+          			<button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" (click)="ClearAll()">ล้างหน้าจอ</button>
+          			<button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="searchData()">ค้นหา</button>
+					<!--<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="goToLink('http://bizascorp.thddns.net:8848/taxcRpt56/rct0226.jsp')">พิมพ์</button>-->
+					<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printReport()">พิมพ์</button>
+          <input type="hidden" name="delValue" id="delValue">
+				</div>
+				<!-- /.card-footer -->
+				<!-- </form> -->
+		</div>
+	</div>
+
+	<div class="content" style="padding:10px;margin-top:-25px;">
+		<section class="content" style="width: 100%px;">
+		<div class="card card-info">
+			<div class="card-header" style="display:none;">
+			<h3 class="card-title">ข้อมูล</h3>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover myTable1">
+					<thead>
+						<tr>
+						<th width="3%" class="no-sort">
+							<input type="checkbox" name="all" [(ngModel)]="masterSelected" value="m1" (change)="checkUncheckAll()"/>
+						</th>
+						<th width="3%" class="no-sort">แก้ไข</th>
+						<th width="5%">รหัส</th>
+						<!-- <th width="5%">รหัสมาตราฐาน</th> -->
+						<th width="17%">ธนาคาร</th>
+						<th width="5%">รหัสธนาคาร</th>
+						<th width="5%">Logo</th>
+            			<th width="10%" >หน่วยงานที่บันทึก</th>
+						<th width="10%" >ผู้บันทึก</th>
+						<th width="10%" >วัน/เวลาที่บันทึก</th>
+						<th width="10%" >หน่วยงานที่แก้ไข</th>
+						<th width="10%" >ผู้แก้ไข</th>
+						<th width="10%"  >วัน/เวลาที่แก้ไข</th>
+						</tr>
+					</thead>
+					<tbody *ngIf="posts?.length != 0">
+						<tr *ngFor="let post of posts;let i = index;">
+							<td align="center">
+								<input type="checkbox" name="listName[]" value="{{post.bank_id}}" [(ngModel)]="post.edit0100" (change)="isAllSelected()" >
+							</td>
+							<td align="center"><i class='fas fa-pencil-alt' style='cursor:pointer;font-size:18px' (click)="editData(post.edit_bank_id)"></i></td>
+							<td align="center">{{post.bank_id}}</td>
+              				<!-- <td align="center">{{post.std_id}}</td> -->
+							<td align="left">{{post.bank_name}}</td>
+							<td align="center">{{post.bank_code}}</td>
+							<!-- <td align="center">{{post.logo}}</td> -->
+							<td align="center"><i class="fa fa-picture-o" style='font-size:20px;color:#446db8;' *ngIf="post.logo" (click)="clickOpenFile(i)"></i></td>
+							<td align="center">{{post.create_dep_name}}</td>
+							<td align="center">{{post.create_user}}</td>
+							<td align="center">{{post.create_date}}</td>
+							<td align="center">{{post.update_dep_name}}</td>
+							<td align="center">{{post.update_user}}</td>
+							<td align="center">{{post.update_date}}</td>
+						</tr>
+					</tbody>
+					<tbody *ngIf="posts?.length == 0">
+						<tr>
+							<td colspan="10" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+		</section>
+	</div>
+
+  <!-- Modal -->
+
+<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+		  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+		</div>
+		<div class="modal-body" >
+
+				<input type="hidden" name="table_name" id="table_name">
+				<input type="hidden" name="field_id" id="field_id">
+				<input type="hidden" name="field_name" id="field_name">
+				<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+				<app-datalist-return *ngIf="loadComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listStd_name (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+				<app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+			</div>
+
+		</div>
+		<div class="modal-footer">
+			<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+		  	<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

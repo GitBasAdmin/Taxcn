@@ -1,0 +1,36 @@
+
+
+<table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+  <tr>
+    <td height="30" align="center" class="blackb">
+      <div style="float: left;margin-left:4px;"><input name="useAll" type="submit" class="btn btn-success" id="useAll" value="ใช้ข้อมูลที่เลือก" (click)="useDataList()"></div>
+    </td>
+  </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+  <thead>
+    <tr align="center" >
+      <th width="50" height="25" ><input type="checkbox"  [(ngModel)]="masterSelect" style="height:15px;width:15px;margin-top:2px;cursor:pointer;"  (change)="checkUncheckAll(this.items,'masterSelect','index')"></th>
+      <th width="100" height="25" ><strong>เลขที่ซอง</strong></th>
+      <th width="130"><strong>เลขที่ซองศาลสูง</strong></th>
+      <th ><strong>ศาลสูง</strong></th>
+    </tr>
+  </thead>
+  <tbody *ngIf="items?.length != 0" >
+    <tr *ngFor="let datas of items;let i = index;" >
+      <td align="center" ><input type="checkbox" [(ngModel)]="this.items[i].index" style="height:15px;width:15px;margin-top:2px;cursor:pointer;" (change)="isAllSelected(this.items,'masterSelect','index')"></td>
+      <td align="center" (click)="onClickListData(i)">{{datas.fieldIdValue}}</td>
+      <td align="center" (click)="onClickListData(i)">{{datas.fieldNameValue}}</td>
+      <td align="center" (click)="onClickListData(i)">{{datas.fieldNameValue}}</td>
+    </tr>
+   </tbody>
+   <tbody *ngIf="items?.length == 0">
+    <tr ><td colspan="4" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+  </tbody>
+
+</table>
+
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner> 

@@ -1,0 +1,295 @@
+<div class="modal-header">
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+</div>
+<div class="modal-body" >
+<div style="width:98vw !important;height:90vh !important;position:relative;overflow-y: scroll !important;overflow-x: scroll !important;"  id="style-1">
+	<div class="content" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<!-- <div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName"></app-case-header>
+			</div> -->
+      <div class="programName" style="float:left;margin-top:6px;"><i class="fa fa-folder-open-o" style="font-size:24px;margin-left:8px;"></i><span style="font-size: 16px;margin-left:5px;">{{programName}}</span></div>
+		</div>
+
+		<div class="card " style="box-shadow: none !important;padding:5px;margin-top:-5px;">
+      <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+        <tr>
+					<td colspan="2" align="left" ><i class="fa fa-angle-double-right" style="font-size:20px"></i> ผลหมาย &nbsp;</td>
+				</tr>
+        <tr>
+					<td  width="15%" align="right" >ประเภทหมาย :&nbsp;</td>
+					<td  width="85%" align="left">
+            <div style="float:left;">
+              <input   type="text" [(ngModel)]="notice.notice_type_id"  readonly class="form-control" style="width:66px;text-align: center;"/>
+            </div>
+            <div style="float:left;margin-left:2px;">
+              <input   type="text" [(ngModel)]="notice.notice_type_name"  readonly class="form-control" style="width:311px;"/>
+            </div>
+          </td>
+				</tr>
+        <tr>
+					<td  align="right" >แบบหมาย :&nbsp;</td>
+					<td  align="left">
+            <div style="float:left;">
+              <input   type="text" [(ngModel)]="notice.form_id"  readonly class="form-control" style="width:66px;text-align: center;"/>
+            </div>
+            <div style="float:left;margin-left:2px;">
+              <input   type="text" [(ngModel)]="notice.form_name"  readonly class="form-control" style="width:311px;"/>
+            </div>
+          </td>
+				</tr>
+        <tr>
+					<td  align="right" >เลขที่หมายรหัสหมาย :&nbsp;</td>
+					<td  align="left">
+            <div style="float:left;">
+              <input   type="text" [(ngModel)]="notice.notice_no"  readonly class="form-control" style="width:66px;text-align: center;"/>
+            </div>
+            <div style="float:left;margin-left:3px;">/</div>
+            <div style="float:left;margin-left:3px;">
+              <input   type="text" [(ngModel)]="notice.notice_yy"  readonly class="form-control" style="width:66px;text-align: center;"/>
+            </div>
+            <div style="float:left;margin-left:6px;margin-top:2px;">วันที่ออกหมาย :&nbsp;</div>
+            <div style="float:left;margin-left:3px;">
+              <input   type="text" [(ngModel)]="notice.notice_date"  readonly class="form-control" style="width:110px;text-align: center;"/>
+            </div>
+          </td>
+				</tr>
+        <tr>
+					<td  align="right" >หมายถึง :&nbsp;</td>
+					<td  align="left">
+            <div style="float:left;">
+              <ng-select  [(ngModel)]="result.lit_type" [clearable]="false" style="width:185px;" [disabled]="true">
+                <ng-option *ngFor="let getData of getLitType"  [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+              </ng-select>
+            </div>
+            <div style="float:left;margin-left:6px;margin-top:2px;">ที่ :&nbsp;</div>
+            <div style="float:left;">
+              <input   type="text" [(ngModel)]="notice.item"  readonly class="form-control" style="width:66px;text-align: center;"/>
+            </div>
+            <div style="float:left;margin-left:2px;">
+              <input   type="text" [(ngModel)]="notice.noticeto_name"  readonly class="form-control" style="width:311px;"/>
+            </div>
+          </td>
+				</tr>
+        <tr>
+					<td  align="right" >วันนัด :&nbsp;</td>
+					<td  align="left">
+            <div style="float:left;">
+              <input   type="text" [(ngModel)]="notice.appoint_date"  readonly class="form-control" style="width:110px;text-align: center;"/>
+            </div>
+            <div style="float:left;margin-left:6px;margin-top:2px;">เวลา :&nbsp;</div>
+            <div style="float:left;margin-left:2px;">
+              <input   type="text" [(ngModel)]="notice.appoint_time"  readonly class="form-control" style="width:100px;text-align: center;"/>
+            </div>
+          </td>
+				</tr>
+      </table>
+      <div style="width:95%;display:table;margin:0 auto;padding:5px 0px 5px 0px;">
+          <div style="height:5px;border-bottom:1px solid #222222;"></div>
+      </div>
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table" style="margin-top:5px;">
+        <tr>
+					<td  width="244" align="right" >ผลการส่งหมาย :&nbsp;</td>
+					<td  width="516" align="left">
+            <div style="float:left;">
+              <ng-select  [(ngModel)]="result.notice_result_by" [clearable]="false"  style="width:140px;" (change)="assignDate()">
+                <ng-option  [value]=1 >1 รับหมาย</ng-option>
+                <ng-option  [value]=2 >2 ปิดหมาย</ng-option>
+                <ng-option  [value]=3 >3 ประกาศหน้าศาล</ng-option>
+              </ng-select>
+            </div>
+            <div style="float:left;margin-left:6px;">
+              <ng-select  [(ngModel)]="notice.copy_type" [clearable]="false" style="width:180px;">
+                <ng-option  [value]=1 >สำเนาอุทธรณ์/ฎีกา</ng-option>
+                <ng-option  [value]=2 >สำเนาคำแก้</ng-option>
+                <ng-option  [value]=3 >คำแถลงฯ</ng-option>
+                <ng-option  [value]=4 >คำสั่งศาล</ng-option>
+                <ng-option  [value]=5 >หมายนัดส่งตัวจำเลย</ng-option>
+              </ng-select>
+            </div>
+          </td>
+          <td  width="200" align="right" >วันที่ส่งหมาย :&nbsp;</td>
+					<td  align="left">
+            <div style="float:left;"><input  type="text" [(ngModel)]="result.rcvnotice_date" style="width:110px;" class="form-control jcalendar rcvnotice_date" #rcvnotice_date (click)="directiveDate(rcvnotice_date.value,'rcvnotice_date')"></div>
+            <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.rcvnotice_date').focus();"></i></div>
+					</td>
+				</tr>
+        <tr>
+					<td   align="right" >วันครบแก้ :&nbsp;</td>
+					<td  colspan="3" align="left">
+            <div style="float:left;"><input  type="text" [(ngModel)]="notice.revise_send_date" style="width:110px;" class="form-control jcalendar revise_send_date" #revise_send_date (click)="directiveNoticeDate(revise_send_date.value,'revise_send_date')"></div>
+            <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.revise_send_date').focus();"></i></div>
+          </td>
+				</tr>
+        <tr>
+					<td align="right" valign="top" style="padding-top:4px;">ขยายแก้ :&nbsp;</td>
+					<td  colspan="3" align="left">
+            <table width="50%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;float:left;">
+              <thead>
+                  <tr>
+                      <th width="10%" style="background-color: #94b4b9 !important;">ลบ</th>
+                      <th width="20%" style="background-color: #94b4b9 !important;">ครั้งที่</th>
+                      <th width="35%" style="background-color: #94b4b9 !important;">ยื่นวันที่</th>
+                      <th width="35%" style="background-color: #94b4b9 !important;">ศาลอนุญาตถึงวันที่</th>
+                  </tr>
+              </thead>
+              <tbody *ngIf="dData?.length != 0">
+                <tr *ngFor="let post of dData;let i = index;" >
+                  <td align="center"><i class='fas fa-times' style='font-size:18px;color:rgba(255, 0, 0, 0.7);cursor: pointer;' (click)="deldData(i)" *ngIf="post.dRunning==true"></i></td>
+                  <td align="center">{{post.item}}</td>
+                  <td align="center">
+                    <div style="display:table;margin:0 auto;width:fit-content;">
+                      <div style="float:left;"><input  type="text" [(ngModel)]="dData[i].send_date" style="width:110px;" class="form-control jcalendar send_date" #send_date (click)="directiveDateObj(i,'send_date')"></div>
+                      <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$(this).closest('td').find('input').focus();"></i></div>
+                    </div>
+                  </td>
+                  <td align="center">
+                    <div style="display:table;margin:0 auto;width:fit-content;">
+                      <div style="float:left;"><input  type="text" [(ngModel)]="dData[i].permit_to" style="width:110px;" class="form-control jcalendar permit_to" #permit_to (click)="directiveDateObj(i,'permit_to')" (change)="adddData(i)" (focusout)="adddData(i)"></div>
+                      <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$(this).closest('td').find('input').focus();"></i></div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="dData?.length == 0">
+                <tr >
+                  <td colspan="3" style="color:red;text-align: center;background-color: #FFFFFF !important;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+                  <td style="display:none;"></td>
+                  <td style="display:none;"></td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+				</tr>
+        <tr>
+					<td   align="right" >&nbsp;</td>
+					<td  align="left" style="padding-top:5px;">
+            <div style="float:left;margin-top:2px;"><input type="radio" name="cond_flag" [(ngModel)]="notice.cond_flag" [value]="1"  style="width:15px;height:15px;"></div>
+            <div style="float:left;margin-left:3px;margin-top:2px;">ทำรายงาน</div>
+            <div style="float:left;margin-left:10px;margin-top:2px;"><input type="radio" name="cond_flag" [(ngModel)]="notice.cond_flag" [value]="2"  style="width:15px;height:15px;"></div>
+            <div style="float:left;margin-left:3px;margin-top:2px;">คู่ความยื่นคำแก้</div>
+            <div style="float:left;margin-left:4px;margin-top:2px;">วันที่ :&nbsp;</div>
+            <div style="float:left;"><input  type="text" [(ngModel)]="notice.report_date" style="width:110px;" class="form-control jcalendar report_date" #report_date (click)="directiveNoticeDate(report_date.value,'report_date')"></div>
+            <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.report_date').focus();"></i></div>
+          </td>
+          <td  align="right" >วันที่ศาลสั่งคำแก้ :&nbsp;</td>
+					<td  align="left">
+            <div style="float:left;"><input  type="text" [(ngModel)]="result.judge_order_date" style="width:110px;" class="form-control jcalendar judge_order_date" #judge_order_date (click)="directiveDate(judge_order_date.value,'judge_order_date')"></div>
+            <div style="float:left;margin-left:4px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$(this).closest('td').find('input').focus();"></i></div>
+					</td>
+				</tr>
+        <tr>
+					<td   align="right" >คำสั่งศาล :&nbsp;</td>
+					<td  colspan="3" align="left">
+            <div style="float: left;margin-left: 2px;">
+              <textarea [(ngModel)]="notice.appeal_order"  #appeal_order='ngModel' class="form-control" style="width: 616px; height: 72px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+          </div>
+          </td>
+				</tr>
+        <tr>
+					<td   align="right" >&nbsp;</td>
+					<td  colspan="3" align="left" style="padding-top:3px;">
+            <div style="float: left;margin-left: 0px;">
+              <button type="button" class="btn btn-success" (click)="saveData()">จัดเก็บ</button>
+							<button type="reset" class="btn btn-primary" style="margin-left:3px;" (click)="getDataForm('')">ยกเลิก</button>
+							<!--<button type="button" class="btn btn-danger" style="margin-left:3px;" (click)="closeModal()">ปิดหน้าจอ</button>-->
+            </div>
+          </td>
+				</tr>
+			</table>
+    </div>
+      <div style="display:table;width:3000px;"></div>
+    <div class="card " style="box-shadow: none !important;padding:5px;background-color: #f0f0f0;width: 2800px;">	
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+            <thead>
+              <tr>
+                <th width="40" height="20" >&nbsp;</th>
+                <th width="150" >ประเภทหมาย</th>
+                <th width="100" >รหัสหมาย</th>
+                <th width="155" >หมายถึง</th>
+                <th width="164" >หมายของศาล</th>
+                <!--<th width="320" >ที่อยู่ผู้รับหมาย</th>-->
+                <th width="102"  >วันที่นัด</th>
+                <th width="72"  >ผลหมาย</th>
+                <th width="75"  >ผลการส่งหมายโดย</th>
+                <th width="142"  >ประเภท</th>
+                <th width="140"  >วันส่งหมาย</th>
+                <th width="105"  >วันครบแก้</th>
+                <th width="138"   >วันที่ศาลสั่งคำแก้</th>
+                <th width="198"  >ทำรายงาน/คู่ความยื่นคำแก้</th>
+                <th width="97"  >วันที่</th>
+                <th width="188" >คำสั่งศาล</th>
+                <th width="130"  >หน่วยงานที่บันทึก</th>
+                <th width="130" >ผู้บันทึก</th>
+                <th width="100" >วันที่บันทึก</th>
+                <th width="130" >หน่วยงานที่แก้ไข</th>
+                <th >ผู้แก้ไข</th>
+                <th >วันที่แก้ไข</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="appealData?.length != 0">
+              <tr *ngFor="let post of appealData;let i = index;" [ngClass]="{'red': post.cancel_flag}">
+              <td align="center"><i class="fa fa-pencil" style="font-size:18px;cursor: pointer;" (click)="editData(i)"></i></td>
+              <td align="center">{{post.notice_type_name}}</td>
+              <td>({{post.notice_court_running}})-{{post.notice_no}}/{{post.notice_yy}}</td>
+              <td align="center">{{post.noticeto_name}}</td>
+              <td align="center">{{post.court_name}}</td>
+              <!--<td align="center">{{post.notice_address}}</td>-->
+              <td align="center">{{post.appoint_date}}</td>
+              <td align="center">{{post.notice_result_desc}}</td>
+              <td align="center">{{post.notice_result_by_desc}}</td>
+              <td align="center">{{post.copy_type_desc}}</td>
+              <td align="center">{{post.rcvnotice_date}}</td>
+              <td align="center">{{post.revise_send_date}}</td>
+              <td align="center">{{post.judge_order_date}}</td>
+              <td align="center">{{post.cond_flag_name}}</td>
+              <td align="center">{{post.report_date}}</td>
+              <td style="padding-left:15px;">{{post.appeal_order}}</td>
+              <td align="center">{{post.create_dep_name}}</td>
+              <td align="center">{{post.create_user}}</td>
+              <td align="center">{{post.create_date}}</td>
+              <td align="center">{{post.update_dep_name}}</td>
+              <td align="center">{{post.update_user}}</td>
+              <td align="center">{{post.update_date}}</td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="appealData?.length == 0">
+              <tr>
+                <td colspan="21" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+                <td style="display:none;"></td>
+                <td style="display:none;"></td>
+                <td style="display:none;"></td>
+                <td style="display:none;"></td>
+
+                <td style="display:none;"></td>
+                <td style="display:none;"></td>
+                <td style="display:none;"></td>
+                <td style="display:none;"></td>
+                <td style="display:none;"></td>
+
+                <td style="display:none;"></td>
+                <td style="display:none;"></td>
+                <td style="display:none;"></td>
+                <td style="display:none;"></td>
+                <td style="display:none;"></td>
+
+                <td style="display:none;"></td>
+                <td style="display:none;"></td>
+                <td style="display:none;"></td>
+                <td style="display:none;"></td>
+                <td style="display:none;"></td>
+
+                <td style="display:none;"></td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+    
+
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+	<title>My Awesome Login Page</title>
+<style>
+    /* Coded with love by Mutiullah Samim */
+	@font-face {
+		font-family: THSarabun;
+		src: url('assets/fonts/THSarabun.ttf');
+	}
+	@font-face {
+		font-family: THSarabun-Bold;
+		src: url('assets/fonts/THSarabun-Bold.ttf');
+	}
+		body,
+		html {
+			margin: 0;
+			padding: 0px 0 0 0px;
+			height: 100vh !important;
+			background: url(assets/images/landing-bg2.jpg) no-repeat center center fixed;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+		}
+
+    
+
+		.user_card {
+			height: 250px;
+			width: 350px;
+			background: #ffffff;
+			position: absolute;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+
+		.brand_logo_container {
+			position: absolute;
+			height: 190px;
+			width: 190px;
+			top: -75px;
+			border-radius: 50%;
+			/*background: #f8f9fa;*/
+			background: #ffffff;
+			/*padding: 10px;*/
+			text-align: center;
+		}
+		.brand_logo {
+			height: 190px;
+			width: 190px;
+            margin-top:0px;
+			/*border-radius: 50%;
+			border: 2px solid white;*/
+		}
+		.form_container {
+			margin-top: 40px;
+		}
+		.login_btn {
+			width: 100%;
+			background: #17a2b8 !important;
+			color: white !important;
+		}
+		.login_btn:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.login_container {
+			padding: 0 2rem;
+		}
+		.input-group-text {
+			background: #17a2b8 !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		.input_user,
+		.input_pass:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+			background-color: #17a2b8 !important;
+		}
+
+		#browser-landing {
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			padding-top: 50px;
+			height:280px;
+		}
+		.welcome {
+			font-size: 8em;
+			font-weight: 400;
+			color: #0070FF;
+			text-shadow: 3px 3px #ffffff;
+			font-family: THSarabun;
+			line-height: 80px;
+		}
+		.welcome_thai {
+			/* font-size: 3.5em; */
+			font-size: 4em;
+			font-weight: 200;
+			line-height: .8em;
+			text-shadow: 0.5px 0.5px #ffffff;
+			color: #FF5B00;
+			font-family: THSarabun;
+		}
+		.welcome_eng {
+			/* font-size: 3.5em; */
+			font-size: 4.5em;
+			font-weight: 200;
+			line-height: .8em;
+			text-shadow: 0.5px 0.5px #ffffff;
+			color: #FF5B00;
+			font-family: THSarabun;
+		}
+		.h-100 {
+			height: auto !important;
+		}
+        
+</style>
+</head>
+<!--Coded with love by Mutiullah Samim-->
+<body >
+	<section id="browser-landing">
+		<div class="welcome">Welcome to crim </div>
+		<div class="welcome_thai">ระบบสารสนเทศสำนวนคดี</div>
+		<div class="welcome_eng" >Criminal Court Information Management System</div>
+	</section>
+	<div class="container h-100" style="max-width: none !important;">
+		<div class="d-flex justify-content-center h-100" style="padding-top:2%;">
+			<div class="user_card">
+				<div class="d-flex justify-content-center" >
+					<!--<div class="brand_logo_container">
+						<img src="assets/images/logo2.png" class="brand_logo" alt="Logo">
+					</div>-->
+					<div style="font-size: 36px;font-weight: bold;font-family: THSarabun;color:#17a2b8;letter-spacing: 3px;line-height: 10px;" >{{this.courtData.court_name}}</div>
+				</div>
+				<div class="d-flex justify-content-center form_container">
+					<form #loginFrom>
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							<input type="text" name="username" (keydown.enter)="login()" class="form-control input_user" value="" placeholder="username" style="height:38px !important;font-size:1rem !important;">
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							<input type="password" name="passwd" (keydown.enter)="login()" class="form-control input_pass" value="" placeholder="password">
+						</div>
+						<div class="form-group" style="display:none;">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input" id="customControlInline">
+								<label class="custom-control-label" for="customControlInline">Remember me</label>
+							</div>
+						</div>
+							<div class="d-flex justify-content-center mt-3 login_container">
+				 		<button type="button" name="button" class="btn login_btn" (click)="login()"  style="height:30px !important;">เข้าสู่ระบบ</button>
+                     	<button type="reset" name="button" class="btn btn-warning" style="margin-left:4px;height:30px !important;">ยกเลิก</button>
+				   </div>
+					</form>
+				</div>
+		
+				<div class="mt-4" style="display:none;">
+					<div class="d-flex justify-content-center links" style="display:none !important;">
+						Don't have an account? <a href="#" class="ml-2">Sign Up</a>
+					</div>
+					<div class="d-flex justify-content-center links">
+						<a href="#">ลืมรหัสเข้าใช้งาน?</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+<!--<script src="case-type.component.js"></script>-->
+<!-- <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" type="ball-spin-clockwise">  
+	<p style="color: gray;font-size:24px;font-family: THSarabun;">รอสักครู่.. </p>  
+</ngx-spinner>  -->

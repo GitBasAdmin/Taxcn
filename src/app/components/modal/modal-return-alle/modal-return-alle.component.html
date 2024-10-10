@@ -1,0 +1,115 @@
+<div *ngIf="!this.types">
+  <form class="form-horizontal" [formGroup]="formList">
+    <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+      <tr>
+        <td height="30" align="center" class="blackb">
+          <div style="float: left;margin-top:2px;">ค้นหา :&nbsp;</div>
+          <div style="float: left;margin-left:2px;"><input formControlName="word_id" name="word_id" type="text" class="form-control" style="width:70px;height:28px;" value={{value4}}></div>
+          <div style="float: left;margin-left:2px;"><input formControlName="word_desc" name="word_desc" type="text" class="form-control" style="width:250px;height:28px;" value={{value4}}>    </div>
+          <div style="float: left;margin-left:4px;"><input name="Submit" type="button" class="btn btn-success" value="ค้นหา" (click)="searchDataList()"></div>
+          <div style="float: left;margin-left:4px;"><input name="showAll" type="button" class="btn btn-success" id="showAll" value="แสดงทั้งหมด" (click)="showDataList()"></div>
+          <div style="float: left;margin-left:4px;"><input name="getAll" type="button" class="btn btn-success" id="getAll" value="ใช้ข้อมูลที่เลือก" (click)="getDataList()"></div>
+          <div style="float: left;margin-left:4px;"><input name="list_table_name" type="hidden" id="list_table_name" value={{value1}}></div>
+        </td>
+      </tr>
+    </table>
+
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+      <thead>
+
+        <tr align="center" >
+          <th width="100" height="25" ><strong>ลำดับ</strong></th>
+          <th width="100" height="25" ><strong>เลือก</strong></th>
+          <th width="100" height="25" ><strong>รหัส</strong></th>
+          <th ><strong>รายละเอียด</strong></th>
+        </tr>
+        
+      </thead>
+      <tbody *ngIf="items?.length != 0" >
+              
+        
+        <tr *ngFor="let datas of items;let i = index;" (click)="clickTr($event)">
+          <td align="center" ><input type="text" id="alle_seq[{{i}}]" class="form-control" style="width:70px;" (click)="clickText($event)"></td>
+          <td align="center" >
+            <input type="checkbox" style="height:15px;width:15px;margin-top:2px;" (click)="clickCheckbox($event)">
+            <input type="hidden" id="alle_id[{{i}}]" value="{{datas.fieldIdValue}}" >
+            <input type="hidden" id="alle_name[{{i}}]" value="{{datas.fieldNameValue}}" >
+            <input type="hidden" id="alle_running[{{i}}]" value="{{datas.fieldNameValue2}}" >
+          </td>
+          <td align="center" >{{datas.fieldIdValue}}</td>
+          <td align="center" >{{datas.fieldNameValue}}</td>
+        </tr>
+        
+      </tbody>
+      <tbody *ngIf="items?.length == 0">
+        <tr ><td colspan="4" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+      </tbody>
+
+    </table>
+  </form>
+</div>
+<div *ngIf="this.types">
+  <form class="form-horizontal" [formGroup]="formList">
+    <div class="modal-header">
+      <a>modal-return-alle</a>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.close()"></button>
+    </div>
+    <div class="modal-body" >
+      <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+          <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+            <tr>
+              <td height="30" align="center" class="blackb">
+                <div style="float: left;margin-top:2px;">ค้นหา :&nbsp;</div>
+                <div style="float: left;margin-left:2px;"><input formControlName="word_id" name="word_id" type="text" class="form-control" style="width:70px;height:28px;" value={{value4}}></div>
+                <div style="float: left;margin-left:2px;"><input formControlName="word_desc" name="word_desc" type="text" class="form-control" style="width:250px;height:28px;" value={{value4}}>    </div>
+                <div style="float: left;margin-left:4px;"><input name="Submit" type="button" class="btn btn-success" value="ค้นหา" (click)="searchDataList()"></div>
+                <div style="float: left;margin-left:4px;"><input name="showAll" type="button" class="btn btn-success" id="showAll" value="แสดงทั้งหมด" (click)="showDataList()"></div>
+                <div style="float: left;margin-left:4px;"><input name="getAll" type="button" class="btn btn-success" id="getAll" value="ใช้ข้อมูลที่เลือก" (click)="getDataList()"></div>
+                <div style="float: left;margin-left:4px;"><input name="list_table_name" type="hidden" id="list_table_name" value={{value1}}></div>
+              </td>
+            </tr>
+          </table>
+      
+          <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+            <thead>
+      
+              <tr align="center" >
+                <th width="100" height="25" ><strong>ลำดับ</strong></th>
+                <th width="100" height="25" ><strong>เลือก</strong></th>
+                <th width="100" height="25" ><strong>รหัส</strong></th>
+                <th ><strong>รายละเอียด</strong></th>
+              </tr>
+              
+            </thead>
+            <tbody *ngIf="items?.length != 0" >
+                    
+              
+              <tr *ngFor="let datas of items;let i = index;" (click)="clickTr($event)">
+                <td align="center" ><input type="text" id="alle_seq[{{i}}]" class="form-control" style="width:70px;" (click)="clickText($event)"></td>
+                <td align="center" >
+                  <input type="checkbox" style="height:15px;width:15px;margin-top:2px;" (click)="clickCheckbox($event)">
+                  <input type="hidden" id="alle_id[{{i}}]" value="{{datas.fieldIdValue}}" >
+                  <input type="hidden" id="alle_name[{{i}}]" value="{{datas.fieldNameValue}}" >
+                  <input type="hidden" id="alle_running[{{i}}]" value="{{datas.fieldNameValue2}}" >
+                </td>
+                <td align="center" >{{datas.fieldIdValue}}</td>
+                <td align="center" >{{datas.fieldNameValue}}</td>
+              </tr>
+              
+            </tbody>
+            <tbody *ngIf="items?.length == 0">
+              <tr ><td colspan="4" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+            </tbody>
+      
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" (click)="activeModal.close()">ปิดหน้าจอ</button>
+      </div>
+  </form>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner> 

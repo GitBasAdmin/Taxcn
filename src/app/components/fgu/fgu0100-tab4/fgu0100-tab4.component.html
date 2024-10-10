@@ -1,0 +1,67 @@
+
+                         <div style="float: left;margin-left:3px;margin-top:3px;"><b>> เอกสารที่ขอผัดส่ง</b></div>
+                         <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+                           <thead>
+                              <tr>
+                                   <th width="15%" style="background-color: #94b4b9 !important;">รายละเอียดเอกสาร</th>
+                                   <th width="5%" style="background-color: #94b4b9 !important;"> วันที่ครบกำหนดส่ง</th>
+                                   <th width="5%" style="background-color: #94b4b9 !important;">วันที่ส่งเอกสาร</th>
+                                   <th width="3%" style="background-color: #94b4b9 !important;">บันทึก</th>
+                                   <th width="3%" style="background-color: #94b4b9 !important;">ลบ</th>
+                             </tr>
+                           </thead>
+   
+                           <tbody *ngIf="sendEditData?.length != 0">
+                 <tr *ngFor="let post of sendEditData;let i = index;" >
+                                   <td align="center">{{post.appeal_type_name}}</td>
+                                   <td align="center">{{post.app_type_name}}</td>
+                                   <td align="center">{{post.appeal_item}}</td>
+                                   <td align="center">{{post.app_type_name}}</td>
+                                   <td align="center">{{post.appeal_item}}</td>
+                                </tr>
+                           </tbody>
+                           <tbody *ngIf="sendEditData?.length == 0">
+                         <tr >
+                                   <td colspan="5" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+                                   <td style="display:none;"></td>
+                                   <td style="display:none;"></td>
+                                   <td style="display:none;"></td>
+                                   <td style="display:none;"></td>
+                          </tr>
+                           </tbody>
+                       </table>
+
+                <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+                          <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+                          <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal3" (click)="loadMyModalComponent();" #openbutton></button>
+                        </div>
+                        <div class="modal-body" >
+                                <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+                                <app-modal-confirm *ngIf="loadModalConfComponent" class="modal_app"></app-modal-confirm>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalConfComponent">ตกลง</button>
+                            <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+            <!--<script src="case-type.component.js"></script>-->
+            <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+                <p style="color: gray">Please Wait. </p>
+            </ngx-spinner>
+
+
+
+
+
+
+
+
+

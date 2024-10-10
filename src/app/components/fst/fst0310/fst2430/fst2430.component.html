@@ -1,0 +1,362 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+    <div class="card card-info">
+			<div class="card-header">
+			<h3 class="card-title">{{programName}}</h3>
+			</div>
+	<div class="card-body">
+		<div class="card " style="box-shadow: none !important;padding:5px;margin-top:10px;">
+			<form class="form-horizontal" #formHtml>
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table" >
+				<tr>
+					<td width="20%" align="center" colspan="4">
+						<div style="margin:0 auto;display:inline-block;padding-right: 0px;">
+							<div style="float: left;margin-left:3px;margin-top:5px;">ประเภทความสถิติ :&nbsp;</div>
+							<div style="float: left;">
+								<ng-select [(ngModel)]="result.pcase_type" style="width:110%;height:28px;min-width: 80px;" [ngModelOptions]="{standalone: true}" (change)="changeCaseType($event)" #case_type_stat>
+									<ng-option *ngFor="let getData of caseType" [value]="getData.fieldIdValue">{{getData.fieldNameValue}}</ng-option>
+								 </ng-select>
+							</div>
+							<div style="float: left;margin-left:15px;margin-top:5px;">ประจำเดือน :&nbsp;</div>
+							<div style="float: left;">
+								<ng-select [(ngModel)]="result.pstat_month"  style="width:110%;height:28px;min-width: 100px;" [ngModelOptions]="{standalone: true}" (change)="changeMonth($event)">
+									<ng-option *ngFor="let getData of selData" [value]="getData.id">{{getData.text}}</ng-option>
+								 </ng-select>
+							</div>
+							<div style="float: left;margin-left:20px;margin-top:5px;">ปี :&nbsp;</div>
+							<div style="float:left;margin-left:3px;"><input [(ngModel)]="result.pstat_year"  name="pstat_year" id="pstat_year" type="text" class="form-control" style="width:70px;height:28px;text-align:center;"></div>
+							<div style="float:left;margin-left:5px;margin-top:1px;"><button type="button" class="btn btn-primary" style="margin-left:0px;" (click)="searchData()" >ค้นหา</button></div>
+						</div>
+					</td>
+				</tr>
+        <tr>
+					<td width="25%" align="right">ผู้เสนอ :&nbsp;</td>
+					<td width="29%">
+						<div style="float: left;margin-left:0px;">
+							<input  name="off_id" type="text" id="off_id" [(ngModel)]="result.off_id" (change)="tabChangeInput('off_id',$event)"   class="form-control" style="width:60px;height:28px;text-align:center;"/>
+						</div>
+						<div style="float: left;margin-left:2px;">
+							<input  name="off_name" type="text" class="blackd" id="off_name" [(ngModel)]="result.off_name" readonly  class="form-control"  style="width:220px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:1px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:0px;" (click)="clickOpenMyModalComponent(2)"></i>
+						</div>
+					</td>
+					<td width="6%" align="right">ตำแหน่ง :&nbsp;</td>
+					<td width="40%">
+						<div style="float: left;margin-left:2px;">
+							<input  name="off_post" type="text" class="blackd" id="off_post" [(ngModel)]="result.off_post"  class="form-control" style="width:416px;height:28px;"/>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td  align="right">ผู้เซ็นต์ :&nbsp;</td>
+					<td >
+						<div style="float: left;margin-left:0px;">
+							<input  name="sign_id" type="text" id="sign_id" [(ngModel)]="result.sign_id" (change)="tabChangeInput('sign_id',$event)"  class="form-control" style="width:60px;height:28px;text-align:center;"/>
+						</div>
+						<div style="float: left;margin-left:2px;">
+							<input  name="sign_name" type="text" class="blackd" id="sign_name" [(ngModel)]="result.sign_name" readonly  class="form-control" style="width:220px;height:28px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:1px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:0px;" (click)="clickOpenMyModalComponent(3)"></i>
+						</div>
+					</td>
+					<td align="right" valign="top" style="padding-top:4px;">ตำแหน่ง :&nbsp;</td>
+					<td >
+						<div style="float: left;margin-left:2px;">
+							<textarea name="sign_post" class="form-control" id="sign_post" [(ngModel)]="result.sign_post" style="width: 416px; height: 38px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+						</div>
+					</td>
+				</tr>
+				<tr >
+					<td  colspan="4" align="center" style="height: 36px !important;">
+            <div style="float:left;margin-left:35%;margin-top:10px;"><button type="button" class="btn btn-success" style="margin-left:0px;" (click)="buttProcess()" >ประมวลผล</button></div>
+            <div style="float:left;margin-top:10px;"><button type="button" class="btn btn-success" style="margin-left:5px;" (click)="saveData()" >จัดเก็บ</button></div>
+            <div style="float:left;margin-top:10px;"><button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="buttNew()" >เพิ่ม</button></div>
+            <div style="float:left;margin-top:10px;"><button type="button" class="btn btn-info" style="margin-left:5px;" (click)="printReport(1)" >พิมพ์</button></div>
+            <span style="float:left;border:2px solid gray; padding:6px;border-radius:4px; margin-left:3px;margin-top:3px;">
+              <div style="float:left;"><button type="button" class="btn btn-info" style="margin-left:3px;"  (click)="printReport(2)">พิมพ์แยกตามประเภทสถิติคดี</button></div>
+              <div style="float:left;margin-left: 3px;">
+              <ng-select [(ngModel)]="result.pcase_type_stat" style="width:105%;min-width: 90px;" [ngModelOptions]="{standalone: true}" [clearable]="false"   #sCaseStat>
+              <ng-option *ngFor="let getData of getCaseStat" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+              </ng-select></div>
+            </span>
+            <div style="float:left;margin-top:10px;"><button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" onclick="location.reload()">ล้างหน้าจอ</button></div>
+					</td>
+				</tr>
+				<tr >
+					<td  colspan="4" align="center" style="height: 36px !important;">
+						<div style="margin:0 auto;">
+							หน่วยงานที่บันทึก : <span style="text-decoration:underline">{{posts.create_dep_name}}</span> ผู้บันทึก : <span style="text-decoration:underline">{{posts.create_user}}</span> วันที่บันทึก : <span style="text-decoration:underline">{{posts.create_date}}</span>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</form>
+		</div>
+  </div>
+</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;margin-top:10px;width: 2600px;display: block;">
+				<div style="float: left;color: red;font-weight: bold;">* จำนวนคดีค้าง ระยะเวลาค้างนับจากวันที่เป็นเจ้าของถึงวันที่ปัจจุบัน</div>
+				<table datatable  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-striped table-bordered table-sm row-border hover form_table_data" style="width:100%;margin:0 auto;display: table;">
+					<thead>
+						<tr >
+							<th width="1%" rowspan="3" class="no-sort"><span *ngIf="this.sumClick">{{sumClick}}</span>ลบ</th>
+							<th width="1%" rowspan="3" class="no-sort">ที่</th>
+							<th width="2%" rowspan="3" class="no-sort">รหัส</th>
+							<th width="8%" rowspan="3" class="no-sort">ชื่อผู้พิพากษา</th>
+							<th width="5%" rowspan="3" class="no-sort">ประเภทคดี</th>
+							<th colspan="2" class="no-sort">ตรวจฟ้อง<br>และคำร้องขอ</th>
+							<th colspan="2" class="no-sort">เป็นเจ้าของ<br>สำนวน</th>
+							<th colspan="3" class="no-sort">สืบพยาน</th>
+							<th width="3%" rowspan="3" class="no-sort">คดีแดง<br>ที่นำมา<br>พิจารณา<br>ใหม่อีกครั้ง</th>
+							<th colspan="7" class="no-sort">คดีเสร็จไป</th>
+							<th width="8%" rowspan="3" class="no-sort">ชื่อผู้พิพากษา</th>
+							<th width="3%" rowspan="3" class="no-sort">ไม่เกิน<br>6 เดือน <span style="color:red;">*</span></th>
+							<th width="3%" rowspan="3" class="no-sort">เกิน<br>6 เดือน<br>ไม่เกิน<br>1 ปี <span style="color:red;">*</span></th>
+							<th width="3%" rowspan="3" class="no-sort">เกิน<br>1 ปี<br>ไม่เกิน<br>2 ปี <span style="color:red;">*</span></th>
+							<th width="3%" rowspan="3" class="no-sort">เกิน<br>2 ปี<br>ไม่เกิน<br>5 ปี <span style="color:red;">*</span></th>
+							<th width="3%" rowspan="3" class="no-sort">เกิน<br>5 ปี<br>ขึ้นไป <span style="color:red;">*</span></th>
+							<th width="3%" rowspan="3" class="no-sort">รวม</th>
+							<th rowspan="3" class="no-sort">หมายเหตุ<br>จำนวนคดี<br>ที่รับโอนมา<br>(คดี)</th>
+							<th rowspan="3" class="no-sort">หมายเหตุ<br>จำนวนคดี<br>ที่โอนไป<br>(คดี)</th>
+						</tr>
+
+						<tr >
+							<th width="3%" rowspan="2" >คำฟ้อง</th>
+							<th width="4%" rowspan="2" >คำร้อง</th>
+							<th width="4%" rowspan="2" >ค้างจาก<br>เดือนก่อน</th>
+							<th width="3%" rowspan="2" >รับใหม่<br>เดือนนี้</th>
+							<th width="3%" rowspan="2" >ประชุม<br>ทางไกล<br>ผ่านจอภาพ</th>
+							<th width="3%" rowspan="2" >จำนวนปาก</th>
+							<th width="3%" rowspan="2" >จำนวน<br>หน้า<br>กระดาษ</th>
+							<th width="3%" rowspan="2" >พิพากษา<br>ความเรียง</th>
+							<th width="3%" rowspan="2" >ประนี<br>ประนอม<br>พิพากษา<br>ตามยอม</th>
+							<th width="3%" rowspan="2" >ถอนฟ้อง<br>คำร้อง</th>
+							<th colspan="2" >จำหน่ายคดี</th>
+							<th width="3%" rowspan="2" >โดย<br>เหตุอื่น</th>
+							<th width="3%" rowspan="2" >รวม</th>
+						  </tr>
+						<tr>
+							<th width="3%" class="no-sort">ชั่วคราว</th>
+							<th width="3%" class="no-sort">อื่นๆ</th>
+						</tr>
+					</thead>
+          <tbody *ngIf="posts?.length != 0">
+            <tr *ngFor="let post1 of posts.data;let i = index;">
+              <td align="center"><input type="checkbox"  [(ngModel)]="dataSearch[i].edit2430" (change)="isAllSelected(this.dataSearch,'masterSelect','edit2430')" >
+              <td align="center">{{post1.item_no}}</td>
+              <td align="center">{{post1.judge_id}}</td>
+              <td align="center">{{post1.judge_name}} ({{post1.gen_no}})</td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td>{{post.case_type_stat_desc}}</td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.chk_accuse" (change)="changeData($event,i,j)"  (dblclick)="showCaseAll(post.chk_accuse_txt)" title={{post.chk_accuse_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.chk_req" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.chk_req_txt)"  title={{post.chk_req_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.owner_hold" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.owner_hold_txt)" title={{post.owner_hold_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.owner_new" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.owner_new_txt)" title={{post.owner_new_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.conference_qty" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.conference_qty_txt)" title={{post.conference_qty_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.mouth_qty" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.mouth_qty_txt)" title={{post.mouth_qty_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.page_qty" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.page_qty_txt)" title={{post.page_qty_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.red_return" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.red_return_txt)" title={{post.red_return_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.finish_order" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.finish_order_txt)" title={{post.finish_order_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.finish_compromise" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.finish_compromise_txt)" title={{post.finish_compromise_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.finish_cancel" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.finish_cancel_txt)" title={{post.finish_cancel_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.finish_dispense" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.finish_dispense_txt)" title={{post.finish_dispense_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.finish_dispense_other" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.finish_dispense_other_txt)" title={{post.finish_dispense_other_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.finish_other" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.finish_other_txt)" title={{post.finish_other_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.finish_total" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.finish_total_txt)" title={{post.finish_total_txt}} class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center">{{post1.judge_name}}</td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.nover6m" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.nover6m_txt)" title={{post.nover6m_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.over6m_nover1y" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.over6m_nover1y_txt)" title={{post.over6m_nover1y_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.over1y_nover2y" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.over1y_nover2y_txt)" title={{post.over1y_nover2y_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.over2y_nover5y" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.over2y_nover5y_txt)" title={{post.over2y_nover5y_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.morethan5y" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.morethan5y_txt)" title={{post.morethan5y_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.hold_total" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.hold_total_txt)" title={{post.hold_total_txt}} class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.case_transfer" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.case_transfer_txt)" title={{post.case_transfer_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.case_transfer_to" (change)="changeData($event,i,j)" (dblclick)="showCaseAll(post.case_transfer_to_txt)" title={{post.case_transfer_to_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <!-- <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.case_transfer_to" (change)="changeData($event,i,j)" triggers="click" [autoClose]="'outside'" ngbTooltip={{post.case_transfer_to_txt}}  title={{post.case_transfer_to_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td> -->
+             </tr>
+           </tbody>
+           <tbody *ngIf="NewData">
+            <tr>
+              <td align="center" rowspan="getCaseStat?.length"></td>
+              <td align="center" rowspan="getCaseStat?.length">{{newIdx}}</td>
+              <td align="center" rowspan="getCaseStat?.length"><div style="float: left;margin-left:0px;">
+                <input type="text" [(ngModel)]="judge_id"   (change)="tabChangeSelect('judge_id', 'judge_name', 'off_post', $event)"  class="form-control" style="width:50px;height:28px;text-align: center;"/>
+              </div></td>
+              <td align="center" rowspan="getCaseStat?.length"><div style="float: left;margin-left:2px;">
+                <input  name="off_name" type="text" class="blackd" [(ngModel)]="judge_name" value=""   class="form-control" style="width:170px;height:28px;" readonly/>
+              </div>
+              <div style="float: left;margin-left:2px;margin-top:1px;" >
+                <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:0px;" (click)="clickOpenMyModalComponent(4);"></i>
+              </div></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td>{{post.fieldNameValue}}</td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="chk_accuse[j]"  class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="chk_req[j]"  class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="owner_hold[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="owner_new[j]"  class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="conference_qty[j]"  class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="mouth_qty[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="page_qty[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="red_return[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="finish_order[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="finish_compromise[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="finish_cancel[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="finish_dispense[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="finish_dispense_other[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="finish_other[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="finish_total[j]" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center">{{judge_name}}</td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="nover6m[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="over6m_nover1y[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="over1y_nover2y[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="over2y_nover5y[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="morethan5y[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="hold_total[j]" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="case_transfer[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of getCaseStat;let j = index;"><td><input  type="text" [(ngModel)]="case_transfer_to[j]" class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td>
+              <!-- <td align="center" ><tr *ngFor="let post of post1.stat_data;let j = index;"><td><input  type="text" [(ngModel)]="post.case_transfer_to" (change)="changeData($event,i,j)" triggers="click" [autoClose]="'outside'" ngbTooltip={{post.case_transfer_to_txt}}  title={{post.case_transfer_to_txt}} class="form-control" style="width:70px;height:28px;text-align: center;"></td></tr></td> -->
+             </tr>
+           </tbody>
+           <!-- <tbody *ngIf="NewData">
+            <tr>
+              <td align="center" rowspan="cType?.length"></td>
+              <td align="center" rowspan="cType?.length"></td>
+              <td align="center" rowspan="cType?.length">
+                <div style="float: left;margin-left:0px;">
+                  <input type="text" [(ngModel)]="result2.judge_id"   (change)="tabChangeSelect('judge_id', 'judge_name', 'off_post', $event)"  class="form-control" style="width:60px;height:28px;"/>
+                </div>
+                <div style="float: left;margin-left:2px;">
+                  <input  name="off_name" type="text" class="blackd" [(ngModel)]="result2.judge_name" value=""   class="form-control" style="width:250px;height:28px;" readonly/>
+                </div>
+                <div style="float: left;margin-left:2px;margin-top:1px;" >
+                  <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;margin-top:0px;" (click)="clickOpenMyModalComponent(4);"></i>
+                </div>
+              </td>
+              <td align="center">
+                <tr *ngFor="let post of cType;let i = index;" style="background-color: transparent!important;height: 28px!important;">{{post.fieldNameValue}}</tr></td>
+              <td align="center">
+                <tr *ngFor="let post of cType;let i = index;" style="background-color: transparent!important;height: 28px!important;">
+                  <input type="text" [(ngModel)]="case_new[i]" class="form-control" style="width:60px;text-align: center;"/>
+                </tr>
+              </td>
+              <td align="center">
+                <tr *ngFor="let post of cType;let i = index;" style="background-color: transparent!important;height: 28px!important;">
+                  <input type="text" (change)="changeDataNew(i)" [(ngModel)]="judge_order[i]" class="form-control" style="width:60px;text-align: center;"/>
+                </tr>
+              </td>
+              <td align="center">
+                <tr *ngFor="let post of cType;let i = index;" style="background-color: transparent!important;height: 28px!important;">
+                  <input type="text" (change)="changeDataNew(i)" [(ngModel)]="finish_agree[i]" class="form-control" style="width:60px;text-align: center;"/>
+                </tr>
+              </td>
+              <td align="center">
+                <tr *ngFor="let post of cType;let i = index;" style="background-color: transparent!important;height: 28px!important;">
+                  <input type="text" (change)="changeDataNew(i)" [(ngModel)]="judge_cancel[i]" class="form-control" style="width:60px;text-align: center;"/>
+                </tr>
+              </td>
+              <td align="center">
+                <tr *ngFor="let post of cType;let i = index;" style="background-color: transparent!important;height: 28px!important;">
+                  <input type="text" (change)="changeDataNew(i)" [(ngModel)]="judge_dispense[i]" class="form-control" style="width:60px;text-align: center;"/>
+                </tr>
+              </td>
+              <td align="center">
+                <tr *ngFor="let post of cType;let i = index;" style="background-color: transparent!important;height: 28px!important;">
+                  <input type="text" (change)="changeDataNew(i)" [(ngModel)]="judge_dispense_other[i]" class="form-control" style="width:60px;text-align: center;"/>
+                </tr>
+              </td>
+              <td align="center">
+                <tr *ngFor="let post of cType;let i = index;" style="background-color: transparent!important;height: 28px!important;">
+                  <input type="text" (change)="changeDataNew(i)" [(ngModel)]="judge_other[i]" class="form-control" style="width:60px;text-align: center;"/>
+                </tr>
+              </td>
+              <td align="center">
+                <tr *ngFor="let post of cType;let i = index;" style="background-color: transparent!important;height: 28px!important;">
+                  <input type="text" [(ngModel)]="judge_total[i]" class="form-control"  style="width:60px;text-align: center;" readonly />
+                </tr>
+              </td>
+            </tr>
+          </tbody> -->
+           <tbody *ngIf="posts?.length != 0">
+             <tr >
+              <td align="center" colspan="4">รวมทั้งหมด</td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td>{{post.case_type_stat_desc}}</td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.chk_accuse" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.chk_req" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.owner_hold" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.owner_new" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.conference_qty" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.mouth_qty" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.page_qty" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.red_return" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.finish_order" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.finish_compromise" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.finish_cancel" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.finish_dispense" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.finish_dispense_other" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.finish_other" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.finish_total" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center">รวมทั้งหมด</td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.nover6m" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.over6m_nover1y" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.over1y_nover2y" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.over2y_nover5y" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.morethan5y" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.hold_total" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.case_transfer" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+              <td align="center" ><tr *ngFor="let post of posts.sum_data;let j = index;"><td><input  type="text" [(ngModel)]="post.case_transfer_to" class="form-control" style="width:70px;height:28px;text-align: center;" readonly></td></tr></td>
+               </tr>
+           </tbody>
+           <!-- <tr >
+            <td align="center" colspan="29">รวม</td>
+            <td align="center" *ngFor="let post of cTotal;let i = index;" style="background-color: transparent!important;">
+              <input type="text" [(ngModel)]="sum_finish[i]" class="form-control" style="width:70px;height:28px;text-align: center;" readonly/>
+            </td>
+          </tr> -->
+          <tbody *ngIf="posts?.length == 0">
+             <tr >
+              <td align="center" colspan="29" [ngStyle]="posts?.length == 0 ? {'display': ''} : {'display': 'none'}">
+                <span style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</span>
+              </td>
+            </tr>
+          </tbody>
+				</table>
+		</div>
+
+
+
+
+<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+    <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+    <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+    <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+    </div>
+    <div class="modal-body" >
+    <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+      <app-datalist-return *ngIf="loadModalListComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull  (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+      <app-datalist-return  *ngIf="loadComponent"  [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull  [value5]=listFieldName2 [value7]=listFieldCond (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+      <app-modal-judge *ngIf="loadJudgeComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType (onClickList)="receiveFuncJudgeListData($event)" class="modal_app"></app-modal-judge>
+    </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+    </div>
+    </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+<p style="color: gray">Please Wait. </p>
+</ngx-spinner>

@@ -1,0 +1,654 @@
+<div class="card card-info" style="box-shadow: none !important;margin-top:-4px;border:0px;">
+  <app-case-head *ngIf="defaultCaseType" (sendCaseData)="onSearchFromHeader($event)" [runId]="run_id"></app-case-head >
+</div>
+<div class="card" style="box-shadow: none !important;padding:5px;background-color: #f0f0f0;margin-top:-18px;">
+  <form [formGroup]="form">
+    <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+      <tr>
+        <td width="19%" align="right">&nbsp;</td>
+        <td >
+          <div style="float: left;margin-top:4px;margin-left: 0px;">
+            <input formControlName="event_type" type="radio" value="1" style="width:15px;height: 15px;"/>
+          </div>
+          <div style="float: left;margin-left:5px;margin-top:4px;">เบิก(ส่งไป)/รับเอกสารภายในศาล</div>
+          <div style="float: left;margin-top:4px;margin-left: 5px;">
+            <input formControlName="event_type" type="radio" value="2" style="width:15px;height: 15px;"/>
+          </div>
+          <div style="float: left;margin-left:5px;margin-top:4px;">ส่ง/รับคืนจากศาลสูง</div>
+          <div style="float: left;margin-top:4px;margin-left: 5px;">
+            <input formControlName="event_type" type="radio" value="3" style="width:15px;height: 15px;"/>
+          </div>
+          <div style="float: left;margin-left:5px;margin-top:4px;">ส่งไปศาลอื่น</div>
+          <div style="float: left;margin-top:4px;margin-left: 5px;">
+            <input formControlName="event_type" type="radio" value="4" style="width:15px;height: 15px;"/>
+          </div>
+          <div style="float: left;margin-left:5px;margin-top:4px;">คืนคู่ความ</div>
+        </td>
+      </tr>
+      <tr>
+        <td  align="right">Barcode เอกสาร :&nbsp;</td>
+        <td >
+          <div style="float: left;">
+            <input formControlName="mbarcode" type="text" class="form-control" style="width:160px;"/>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td  align="right">เลขที่เอกสาร :&nbsp;</td>
+        <td >
+          <div style="float:left;">
+            <ng-select style="width:80px;" [clearable]="false" formControlName="case_title">
+              <ng-option *ngFor="let item of dataCase | async" [value]="item.case_title">{{ item?.case_title_2 }}</ng-option>
+            </ng-select>
+          </div>
+          <div style="float:left;margin-left:3px;"><input  formControlName="case_id" type="text" class="form-control" style="width:60px;"></div>
+          <div style="float: left;margin-left:3px;margin-top:4px;font-size: 20px;">/</div>
+          <div style="float:left;margin-left:3px;"><input  formControlName="case_yy" type="text" class="form-control" style="width:66px;"></div>
+          <div style="float:left;margin-left:3px;"><button type="button" class="btn btn-primary" (click)="onSearch()">ค้นหา</button></div>
+          <div style="float: left;margin-left:2px;margin-top:2px;" >
+            <i  [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}" class="far fa-list-alt" style="font-size: 20px;margin-left:2px;cursor:pointer;" (click)="onOpenMaterial()"></i>
+          </div>
+          <div style="float: left;margin-top:4px;margin-left: 5px;">
+            <input [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}"  formControlName="open_total" value="1" type="checkbox" style="width:15px;height: 15px;"/>
+          </div>
+          <div style="float: left;margin-left:5px;margin-top:4px;"> เบิก(ส่งไป)ทั้งหมด <!--{{ form.controls['material_running'].value ?? "" }}--></div>
+        </td>
+      </tr>
+      <tr>
+        <td align="right">หมายเหตุเอกสาร :&nbsp;</td>
+        <td >
+          <div style="float: left;">
+            <input formControlName="material_remark" type="text" class="form-control" readonly style="width:591px;"/>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '2' || form.controls['event_type'].value == '1'">
+        <td align="right">หน่วยงาน :&nbsp;</td>
+        <td>
+          <div style="float: left;">
+            <input [readonly]="edit_flag" formControlName="dep_code" type="text" class="form-control" style="width:60px;" (change)="tabChangeInput('dep_code',$event)"/>
+          </div>
+          <div style="float: left;margin-left:2px;">
+            <input formControlName="dep_name" type="text" class="form-control" style="width:255px;"/>
+          </div>
+          <div style="float: left;margin-left:2px;margin-top:2px;" >
+            <i [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}" class="far fa-list-alt" style="font-size: 20px;margin-left:2px; cursor: pointer;" (click)="onOpenDep()"></i>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '2' || form.controls['event_type'].value == '1'">
+        <td  align="right">ผู้เบิก(ส่งไป) :&nbsp;</td>
+        <td >
+          <div style="float: left;">
+            <input [readonly]="edit_flag" formControlName="useropen_id" type="text" class="form-control" style="width:60px;" (change)="tabChangeInput('useropen_id',$event)"/>
+          </div>
+          <div style="float: left;margin-left:2px;">
+            <input formControlName="useropen_name" type="text" class="form-control" style="width:255px;"/>
+          </div>
+          <div style="float: left;margin-left:2px;margin-top:2px;" >
+            <i [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}" class="far fa-list-alt" style="font-size: 20px;margin-left:2px; cursor: pointer;" (click)="onOpenUser()"></i>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '1'">
+        <td align="right">ผู้พิพากษา :&nbsp;</td>
+        <td >
+          <div style="float: left;">
+            <input [readonly]="edit_flag" formControlName="judge_id" type="text" class="form-control" style="width:60px;" (change)="tabChangeInput('judge_id',$event)"/>
+          </div>
+          <div style="float: left;margin-left:2px;">
+            <input formControlName="judge_name" type="text" class="form-control" style="width:255px;"/>
+          </div>
+          <div style="float: left;margin-left:2px;margin-top:2px;" >
+            <i  [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}" class="far fa-list-alt" style="font-size: 20px;margin-left:2px;cursor:pointer;" (click)="onOpenJudge()"></i>
+          </div>
+          <div style="float: left;margin-left:15px;margin-top:4px;">บัลลังก์ :&nbsp;</div>
+          <div style="float: left;">
+            <input [readonly]="edit_flag" formControlName="room_id" type="text" class="form-control" style="width:60px;"/>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td align="right">วันที่เบิก(ส่งไป)เอกสาร :&nbsp;</td>
+        <td >
+          <div style="float:left;"><input [readonly]="edit_flag" type="text" formControlName="open_date" class="form-control jcalendar open_date" style="width:120px;" name="open_date" (click)="directiveDate($event)"></div>
+          <div style="float:left;margin-left:3px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.open_date').focus();"></i></div>
+          <div style="float: left;margin-left:15px;margin-top:4px;">เวลาที่เบิก :&nbsp;</div>
+          <div style="float: left;">
+            <input [readonly]="edit_flag" type="text" formControlName="open_time" class="form-control" style="width:100px;"/>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '2' || form.controls['event_type'].value == '1'">
+        <td align="right">เบิก(ส่งไป)เพื่อ :&nbsp;</td>
+        <td >
+          <div style="float: left;">
+            <input [readonly]="edit_flag" formControlName="openfor_id" type="text" class="form-control" style="width:60px;" (change)="tabChangeInput('openfor_id',$event)"/>
+          </div>
+          <div style="float: left;margin-left:2px;">
+            <input [readonly]="edit_flag" formControlName="openfor_desc" type="text" class="form-control" style="width:255px;"/>
+          </div>
+          <div style="float: left;margin-left:2px;margin-top:2px;" >
+            <i  [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}" class="far fa-list-alt" style="font-size: 20px;margin-left:2px; cursor: pointer;" (click)="onOpenFor()"></i>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '2'">
+        <td  align="right">ศาลที่ส่งไป :&nbsp;</td>
+        <td >
+          <div style="float: left;">
+            <input [readonly]="edit_flag" formControlName="court_id" type="text" class="form-control" style="width:60px;"/>
+          </div>
+          <div style="float: left;margin-left:2px;">
+            <input formControlName="to_court_name" type="text" class="form-control" style="width:255px;"/>
+          </div>
+          <div style="float: left;margin-left:2px;margin-top:2px;" >
+            <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px;cursor: pointer;" (click)="onOpenCourt()"></i>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value != '4'">
+        <td align="right" valign="top" style="padding-top: 4px;">รายละเอียดการเบิก(ส่งไป) :&nbsp;</td>
+        <td >
+          <div style="float: left;margin-top:1px;" >
+            <textarea [readonly]="edit_flag" formControlName="doc_desc" class="form-control" id="" style="width: 651px; height: 55px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '3'">
+        <td align="right" valign="top" style="padding-top: 4px;">กรณีคดีประเด็น :&nbsp;</td>
+        <td >
+          <div style="float:left;">
+            <ng-select  style="width:100px;" formControlName="p_flag">
+              <ng-option></ng-option>
+              <ng-option value="ส่งคืน">ส่งคืน</ng-option>
+              <ng-option value="ส่งต่อ">ส่งต่อ</ng-option>
+            </ng-select>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '2' || form.controls['event_type'].value == '1'">
+        <td  align="right" valign="top" style="padding-top: 4px;">หมายเหตุ :&nbsp;</td>
+        <td >
+          <div style="float: left;margin-top:2px;" >
+            <textarea [readonly]="edit_flag" formControlName="remark" class="form-control" id="" style="width: 651px; height: 55px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '2' || form.controls['event_type'].value == '1'">
+        <td align="right">จ่ายเอกสารแล้ว :&nbsp;</td>
+        <td >
+          <div style="float: left;margin-top:4px;margin-left: 0px;">
+            <input  [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}"  formControlName="take_off" type="checkbox" value="1"  style="width:15px;height: 15px;"/>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '4'">
+        <td align="right" class="blackbr">ผู้จ่าย&nbsp;</td>
+        <td >
+          <div style="float: left;">
+            <input formControlName="take_off_name" type="text" class="form-control" style="width:200px;"/>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="(form.controls['event_type'].value == '2' || form.controls['event_type'].value == '1') && form.controls['take_off'].value == true">
+        <td align="right" class="blackbr">ผู้จ่าย&nbsp;</td>
+        <td >
+          <div style="float: left;">
+            <input formControlName="take_off_name" type="text" class="form-control" style="width:200px;"/>
+          </div>
+          <div style="float: left;margin-left:15px;margin-top:4px;">วันที่จ่าย :&nbsp;</div>
+          <div style="float:left;"><input [readonly]="edit_flag" type="text" formControlName="take_off_date" class="form-control jcalendar take_off_date" style="width:120px;" name="take_off_date" (click)="directiveDate($event)"></div>
+          <div style="float:left;margin-left:3px;margin-top:5px;"><i [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}" class="fa fa-calendar" style="font-size: 16px;" onClick="$('.take_off_date').focus();"></i></div>
+          <div style="float: left;margin-left:15px;margin-top:4px;">ผู้รับเอกสาร &nbsp;</div>
+          <div style="float: left;margin-left:2px;">
+            <input formControlName="rcv_name" type="text" class="form-control" readonly style="width:255px;"/>
+          </div>
+          <div style="float: left;margin-left:2px;margin-top:2px;" >
+            <i  [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}" class="far fa-list-alt" style="font-size: 20px;margin-left:2px; cursor: pointer;" (click)="onOpenReceiveDoc()"></i>
+          </div>
+        </td>
+      </tr>
+      <!--เพิ่มเติม  -->
+      <tr style="height: 4px !important;" *ngIf="form.controls['event_type'].value == '1'">
+        <td colspan="4" style="padding-top: 5px;height: 4px !important;">
+          <div style="border-bottom: 1px solid #888888;width: 85%;height:4px;margin-top:0px;margin:0 auto;"></div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '1'">
+        <td align="right">(รายการรับไป)&nbsp;</td>
+        <td colspan="3">&nbsp;</td>
+      </tr>
+      <tr [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}" *ngIf="form.controls['event_type'].value == '1'">
+        <td></td>
+        <td colspan="3">
+          <button type="button"  class="btn btn-success" style="margin-left:0px;" (click)="onOpenConfirmFdo(1)">ป้อนรหัสผ่านผู้รับเอกสารไป</button>
+          <span style="padding-left: 4px;color: blue;">ปุ่มนี้จะเปิดให้คลิกเมื่อผู้ใช้งานเป็นหน่วยงานที่ให้เบิกเอกสารเท่านั้น</span>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '1'">
+        <td align="right">วันที่รับไป :&nbsp;</td>
+        <td >
+          <div style="float: left;margin-top:4px;margin-left: 0px;" [ngStyle]="edit_rcv_flag ?  {'display': 'none'} : {'display': ''}">
+            <input formControlName="chk2" type="checkbox" #chk2 (click)="assignRcvDate(chk2.checked)"  style="width:15px;height: 15px;"/>
+          </div>
+          <div style="float:left;margin-left:4px;"><input readonly type="text" formControlName="rcv_date" class="form-control jcalendar return_date" style="width:120px;" name="return_date" (click)="directiveDate($event)"></div>
+          <div style="float: left;margin-left:15px;margin-top:4px;">เวลารับไป :&nbsp;</div>
+          <div style="float: left;">
+            <input readonly formControlName="rcv_time" type="text" class="form-control" style="width:100px;"/>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '1'">
+        <td  align="right">ผู้รับไป :&nbsp;</td>
+        <td >
+          <div style="float: left;">
+            <input readonly  formControlName="rcv_user_id" type="text" class="form-control" style="width:60px;"/>
+          </div>
+          <div style="float: left;margin-left:2px;">
+            <input readonly formControlName="rcv_user_name" type="text" class="form-control" style="width:245px;"/>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '1'" >
+        <td  align="right" valign="top" >เอกสารที่รับไป :&nbsp;</td>
+        <td >
+          <div style="float: left;display:none;">
+            <input formControlName="return_material_item" type="text" class="form-control" style="width:60px;"/>
+          </div>
+          <div style="float: left;margin-left:0px;">
+            <textarea readonly formControlName="return_material_desc" class="form-control" style="width: 651px; height: 55px; line-height: 18px;overflow-wrap: break-word;" ></textarea>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '1'">
+        <td align="right" valign="top" style="padding-top: 4px;">หมายเหตุรับเอกสารไป :&nbsp;</td>
+        <td >
+          <div style="float: left;margin-top:2px;" >
+            <textarea  [readonly]="edit_rcv_flag" formControlName="rcv_remark" class="form-control" style="width: 651px; height: 55px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+          </div>
+        </td>
+      </tr>
+      <!--  -->
+      <tr style="height: 4px !important;" *ngIf="form.controls['event_type'].value == '1'">
+        <td colspan="4" style="padding-top: 5px;height: 4px !important;">
+          <div style="border-bottom: 1px solid #888888;width: 85%;height:4px;margin-top:0px;margin:0 auto;"></div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '1'">
+        <td align="right">(รายการส่งคืน)&nbsp;</td>
+        <td colspan="3">&nbsp;</td>
+      </tr>
+      <tr [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}" *ngIf="form.controls['event_type'].value == '1'">
+        <td></td>
+        <td colspan="3">
+          <button type="button"  class="btn btn-success" style="margin-left:0px;" (click)="onOpenConfirmFdo(2)">ป้อนรหัสผ่านผู้ส่งเอกสารคืน</button>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '1'">
+        <td align="right">วันที่ส่งคืน :&nbsp;</td>
+        <td >
+          <div style="float: left;margin-top:4px;margin-left: 0px;" [ngStyle]="edit_chk_flag ?  {'display': 'none'} : {'display': ''}" >
+            <input formControlName="chk1" type="checkbox" #chk1 (click)="assignDate(chk1.checked)"  style="width:15px;height: 15px;"/>
+          </div>
+          <div style="float:left;margin-left:4px;"><input readonly type="text" formControlName="return_material_date" name="return_material_date" class="form-control jcalendar return_material_date " style="width:120px;" (click)="directiveDate($event)"></div>
+          <!-- <div style="float:left;margin-left:3px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.return_material_date ').focus();"></i></div> -->
+          <div style="float: left;margin-left:15px;margin-top:4px;">เวลาที่ส่งคืน :&nbsp;</div>
+          <div style="float: left;">
+            <input readonly formControlName="return_material_time" type="text" class="form-control" style="width:100px;"/>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '1'">
+        <td  align="right">ผู้ที่ส่งคืน :&nbsp;</td>
+        <td >
+          <div style="float: left;">
+            <input readonly formControlName="return_material_user_id" type="text" class="form-control" (change)="tabChangeInput('return_material_user_id',$event)" style="width:60px;"/>
+          </div>
+          <div style="float: left;margin-left:2px;">
+            <input readonly formControlName="return_material_user_name" type="text" class="form-control" style="width:256px;"/>
+          </div>
+          <!-- <div style="float: left;margin-left:2px;margin-top:2px;" >
+            <i  class="far fa-list-alt" style="font-size: 20px;margin-left:2px; cursor: pointer;" (click)="onOpenMomodal(1)"></i>
+          </div> -->
+        </td>
+      </tr>
+      <!-- <tr >
+        <td  align="right" valign="top" >เอกสารที่คืน :&nbsp;</td>
+        <td >
+          <div style="float: left;display:none;">
+            <input formControlName="return_material_item" type="text" class="form-control" style="width:60px;"/>
+          </div>
+          <div style="float: left;margin-left:0px;">
+            <textarea [readonly]="edit_flag" formControlName="return_material_desc" class="form-control" style="width: 651px; height: 55px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+          </div>
+          <div style="float: left;margin-left:2px;margin-top:2px;" >
+            <i  [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}" class="far fa-list-alt" style="font-size: 20px;margin-left:2px; cursor: pointer;" (click)="onOpenMomodal(2)"></i>
+          </div>
+        </td>
+      </tr> -->
+      <!-- เพิ่มเติม -->
+      <tr *ngIf="form.controls['event_type'].value == '1'">
+        <td  align="right" valign="top">เอกสารส่งเพิ่มเติม :&nbsp;</td>
+        <td >
+          <div style="float: left;margin-left:0px;">
+            <textarea [readonly]="edit_return_flag"  formControlName="return_addition" class="form-control" style="width: 651px; height: 55px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == '1'">
+        <td  align="right" valign="top"></td>
+        <td >
+          <div style="float: left;margin-left:0px;">
+            <span style="color: blue;">(สามารถป้อนรายละเอียดเอกสารส่งเพิ่มเติม ก่อนนำเอกสารไปส่งคืนได้)</span>
+          </div>
+        </td>
+      </tr>
+      <tr style="height: 4px !important;">
+        <td colspan="4" style="padding-top: 5px;height: 4px !important;">
+          <div style="border-bottom: 1px solid #888888;width: 85%;height:4px;margin-top:0px;margin:0 auto;"></div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value != 4">
+        <td align="right">(รายการรับคืน)&nbsp;</td>
+        <td colspan="3">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="right">วันที่รับคืน :&nbsp;</td>
+        <td >
+          <div style="float: left;margin-top:4px;margin-left: 0px;">
+            <input [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}" formControlName="chk" type="checkbox"   style="width:15px;height: 15px;"/>
+          </div>
+          <div style="float:left;margin-left:4px;"><input [readonly]="edit_flag" type="text" formControlName="return_date" class="form-control jcalendar return_date" style="width:120px;" name="return_date" (click)="directiveDate($event)"></div>
+          <div style="float:left;margin-left:3px;margin-top:5px;"><i [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}" class="fa fa-calendar" style="font-size: 16px;" onClick="$('.return_date').focus();"></i></div>
+          <div style="float: left;margin-left:15px;margin-top:4px;">เวลารับคืน :&nbsp;</div>
+          <div style="float: left;">
+            <input [readonly]="edit_flag" formControlName="return_time" type="text" class="form-control" style="width:100px;"/>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value != 4">
+        <td  align="right">ผู้รับคืน :&nbsp;</td>
+        <td >
+          <div style="float: left;">
+            <input [readonly]="edit_flag" formControlName="userreturn_id" type="text" class="form-control" style="width:60px;"/>
+          </div>
+          <div style="float: left;margin-left:2px;">
+            <input formControlName="userreturn_name" type="text" class="form-control" style="width:255px;"/>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value != 4">
+        <td  align="right">รับครบ :&nbsp;</td>
+        <td >
+          <div style="float: left;margin-top:4px;margin-left: 0px;">
+            <input [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}"  formControlName="return_total" type="checkbox" style="width:15px;height: 15px;"/>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td align="right" valign="top" style="padding-top: 4px;">รายละเอียดการรับคืน :&nbsp;</td>
+        <td >
+          <div style="float: left;margin-top:2px;" >
+            <textarea [readonly]="edit_flag" formControlName="return_desc" class="form-control" style="width: 651px; height: 55px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+          </div>
+          <div style="float: left;margin-left:2px;margin-top:2px;" >
+            <i [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}" class="far fa-list-alt" style="font-size: 20px;margin-left:2px; cursor: pointer;" (click)="onOpenMomodal(3)"></i>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == 4">
+        <td align="right">คู่ความที่รับคืน :&nbsp;</td>
+        <td >
+          <div style="float:left;">
+            <ng-select style="width:220px;" formControlName="lit_type" [clearable]="false" [readonly]="edit_flag">
+              <ng-option *ngFor="let item of dataLisType | async" [value]="item.fieldIdValue">{{ item?.fieldNameValue }}</ng-option>
+            </ng-select>
+          </div>
+          <div style="float: left;margin-left:5px;margin-top:4px;">ที่ :&nbsp;</div>
+          <div style="float: left;">
+            <input [readonly]="edit_flag" formControlName="lit_item" type="text" class="form-control" style="width:40px;" (change)="tabChangeInput('lit_item',$event)"/>
+          </div>
+          <div style="float: left;margin-left:2px;">
+            <input [readonly]="edit_flag" formControlName="retuser_name" type="text" class="form-control" style="width:255px;"/>
+          </div>
+          <div style="float: left;margin-left:2px;margin-top:2px;" >
+            <i  [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}" class="far fa-list-alt" style="font-size: 20px;margin-left:2px;cursor:pointer;" (click)="onOpenLitigant()"></i>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="form.controls['event_type'].value == 4">
+        <td align="right">ประเภทบัตร :&nbsp;</td>
+        <td>
+          <div style="float:left;">
+            <ng-select style="width:220px;" formControlName="ret_card_type" [clearable]="false" [readonly]="edit_flag">
+              <ng-option *ngFor="let item of dataCardType | async" [value]="item.fieldIdValue">{{ item?.fieldNameValue }}</ng-option>
+            </ng-select>
+          </div>
+          <div style="float: left;margin-left:5px;margin-top:4px;">เลขที่บัตร :&nbsp;</div>
+          <div style="float: left;">
+            <input [readonly]="edit_flag" formControlName="ret_card_id" type="text" class="form-control" style="width:255px;"/>
+          </div>
+          <div style="float: left;margin-left:5px;margin-top:4px;"> ออกให้โดย :&nbsp;</div>
+          <div style="float: left;margin-left:2px;">
+            <input [readonly]="edit_flag" formControlName="issued_by" type="text" class="form-control" style="width:255px;"/>
+          </div>
+        </td>
+      </tr>
+      <tr [ngStyle]="{'display' : form.controls['event_type'].value != 4 ? 'none' : ''}">
+        <td align="right">วันที่ออกบัตร :&nbsp;</td>
+        <td>
+          <div style="float:left;"><input [readonly]="edit_flag" type="text" formControlName="return_card_sdate" class="form-control jcalendar return_card_sdate" style="width:120px;"  name="return_card_sdate" (click)="directiveDate($event)"></div>
+          <div style="float:left;margin-left:3px;margin-top:5px;"><i [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}" class="fa fa-calendar" style="font-size: 16px;" onClick="$('.return_card_sdate').focus();"></i></div>
+          <div style="float: left;margin-left:5px;margin-top:4px;">วันที่หมดอายุ :&nbsp;</div>
+          <div style="float:left;"><input [readonly]="edit_flag" type="text" formControlName="return_card_edate" class="form-control jcalendar return_card_edate" style="width:120px;"  name="return_card_edate" (click)="directiveDate($event)"></div>
+          <div style="float:left;margin-left:3px;margin-top:5px;"><i [ngStyle]="edit_flag ?  {'display': 'none'} : {'display': ''}" class="fa fa-calendar" style="font-size: 16px;" onClick="$('.return_card_edate').focus();"></i></div>
+        </td>
+      </tr>
+      <tr style="height: 20px !important;">
+        <td colspan="4" style="padding-top: 5px;height: 20px !important;">
+          <div style="border-top: 1px solid #888888;width: 85%;height:8px;margin-top:0px;margin:0 auto;"></div>
+        </td>
+      </tr>
+    </table>
+    <input formControlName="history_running" type="hidden" class="form-control" style="width:255px;"/>
+    <input formControlName="file_name" type="hidden" class="form-control" style="width:255px;"/>
+  </form>
+  <div class="card-footer" style="text-align: center;">
+    <button type="reset" class="btn btn-success" style="margin-left:0px;" (click)="onSave()">จัดเก็บ</button>
+    <button type="button" class="btn btn-warning" style="margin-left:5px;" (click)="onReset()">ล้างหน้าจอ</button>
+    <button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="onPrintWord()"> พิมพ์ใบรับสิ่งของคืน A4 </button>
+    <button type="button" class="btn btn-danger" style="margin-left:5px;" (click)="onDelWord()" *ngIf="form.controls['file_name'].value">ลบ WORD</button>
+    
+  </div>
+</div>
+
+<div class="card " style="box-shadow: none !important;padding:5px;background-color: #f0f0f0;margin-top:8px;width:2300px;">
+  <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+    <!-- <tr>
+      <td align="right">
+        <div style="float: left;margin-top:4px;margin-left: 0px;">
+          <input [formControl]="srdo_type" type="radio" value="2" style="width:15px;height: 15px;"/>
+        </div>
+        <div style="float: left;margin-left:5px;margin-top:4px;font-weight: bold;">รายการเบิก(ส่งไป)/รับ</div>
+        <div style="float: left;margin-top:4px;margin-left: 10px;">
+          <input [formControl]="srdo_type" type="radio" value="1" style="width:15px;height: 15px;"/>
+        </div>
+        <div style="float: left;margin-left:5px;margin-top:4px;font-weight: bold;">รายการเบิก(ส่งไป)แล้วยังไม่รับ</div>
+      </td>
+    </tr> -->
+    <!-- แก้ไข -->
+    <tr>
+      <td align="right">
+        <div style="float: left;margin-top:4px;margin-left: 0px;">
+          <input [formControl]="srdo_type" type="radio" value="1" style="width:15px;height: 15px;"/>
+        </div>
+        <div style="float: left;margin-left:5px;margin-top:4px;font-weight: bold;">รายการทั้งหมด</div>
+        <div style="float: left;margin-top:4px;margin-left: 10px;">
+          <input [formControl]="srdo_type" type="radio" value="2" style="width:15px;height: 15px;"/>
+        </div>
+        <div style="float: left;margin-left:5px;margin-top:4px;font-weight: bold;">รายการเบิกแล้วยังไม่รับไป</div>
+        <div style="float: left;margin-top:4px;margin-left: 10px;">
+          <input [formControl]="srdo_type" type="radio" value="3" style="width:15px;height: 15px;"/>
+        </div>
+        <div style="float: left;margin-left:5px;margin-top:4px;font-weight: bold;">รายการรับไปแล้วยังไม่ส่งคืน</div>
+        <div style="float: left;margin-top:4px;margin-left: 10px;">
+          <input [formControl]="srdo_type" type="radio" value="4" style="width:15px;height: 15px;"/>
+        </div>
+        <div style="float: left;margin-left:5px;margin-top:4px;font-weight: bold;">รายการส่งคืนแล้วยังไม่รับคืน</div>
+      </td>
+    </tr>
+    <tr>
+      <td align="left">
+        <table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+          <!-- <thead>
+            <tr>
+              <th width="1%" class="no-sort">&nbsp;</th>
+              <th width="1%" class="no-sort">&nbsp;</th>
+              <th width="2%" class="no-sort">&nbsp;</th>
+              <th width="3%" >วันที่เบิก<br>(ส่งไป)</th>
+              <th width="5%" >หน่วยงานที่เบิก<br>(ส่งไป)</th>
+              <th width="4%" >ผู้เบิก<br>(ส่งไป)</th>
+              <th width="6%" >รายละเอียดการเบิก<br>(ส่งไป)</th>
+              <th width="4%" >เบิก(ส่งไป)<br>ทั้งหมด</th>
+
+              <th width="3%" align="center" >วันที่ส่งคืน</th>
+              <th width="4%" >ผู้ที่ส่งคืน</th>
+              <th width="5%" >เอกสารที่คืน</th>
+
+              <th width="3%" align="center" >วันที่รับ</th>
+              <th width="4%" >ผู้รับ</th>
+              <th width="5%" >รายละเอียดการรับ</th>
+              <th width="4%" >ประเภท</th>
+              <th width="5%" align="center" >วันที่จ่าย</th>
+              <th width="5%" >เวลาที่เบิก<br>(ส่งไป)</th>
+              <th width="5%" >ผู้บันทึก</th>
+              <th width="5%" >หน่วยงานที่บันทึก</th>
+              <th width="6%" >วัน/เวลาที่บันทึก</th>
+              <th width="5%" >ผู้แก้ไข</th>
+              <th width="5%" >หน่วยงานที่แก้ไข</th>
+              <th width="5%" >วัน/เวลาที่แก้ไข</th>
+            </tr>
+          </thead> -->
+          <!-- <tbody *ngIf="(dataTable$ | async).length > 0">
+            <tr *ngFor="let item of dataTable$ | async">
+              <td><button class="btn"><i class="fas fa-times" (click)="onDelMaterial(item)"></i></button></td>
+              <td><button class="btn"><i class="fas fa-pencil-alt" (click)="onEdit(item,'')"></i></button></td>
+              <td><button class="btn btn-primary" (click)="onPrint(item)">พิมพ์</button></td>
+              <td>{{ item?.open_date }}</td>
+              <td>{{ item?.dep_name }}</td>
+              <td>{{ item?.off_name }}</td>
+              <td>{{ item?.doc_desc }} {{ item?.openfor_desc }}</td>
+              <td align="center"><i class='fas fa-check' style='font-size:20px;color:green' *ngIf="item?.open_total"></i></td>
+              <td>{{ item?.return_material_date}} {{ item?.return_material_time}}</td>
+              <td>{{ item?.return_material_user_name }}</td>
+              <td>{{ item?.return_material_desc }}</td>
+              <td>{{ item?.return_date }}</td>
+              <td>{{ item?.userreturn_name }}</td>
+              <td>{{ item?.return_desc }}</td>
+              <td>{{ item?.event_type_name }}</td>
+              <td>{{ item?.take_off_date }}</td>
+              <td>{{ item?.open_time }}</td>
+
+              <td>{{ item?.create_user }}</td>
+              <td>{{ item?.create_dep_name }}</td>
+              <td>{{ item?.create_date }}</td>
+              <td>{{ item?.update_user }}</td>
+              <td>{{ item?.update_dep_name }}</td>
+              <td>{{ item?.update_date }}</td>
+            </tr>
+          </tbody> -->
+          <thead>
+            <tr>
+              <th width="1%" class="no-sort">&nbsp;</th>
+              <th width="1%" class="no-sort">&nbsp;</th>
+              <th width="2%" class="no-sort">พิมพ์</th>
+
+              <th width="5%">วันที่/เวลาลงเบิก<br>ผู้บันทึก/ผู้ให้เบิก</th>
+              <!-- <th width="5%">วันที่/เวลาลงเบิก</th> -->
+              <th width="7%">รายละเอียดการเบิก</th>
+              <th width="2%">เบิก(ทั้งหมด)</th>
+              <th width="5%">วันที่/เวลารับไป<br>ผู้รับไป/หมายเหตุรับไป</th>
+              <!-- <th width="6%">ผู้รับไป</th>
+              <th width="7%">หมายเหตุรับไป</th> -->
+              <th width="5%">วันที่/เวลาส่งคืน<br>ผู้ส่งคืน</th>
+              <!-- <th width="6%">ผู้ส่งคืน</th> -->
+              <th width="7%">เอกสารเพิ่มเติมส่งคืน</th>
+              <th width="5%">วันที่/เวลารับคืน<br>ผู้รับคืน</th>
+              <!-- <th width="6%">ผู้รับคืน</th> -->
+              <th width="7%">รายละเอียดรับคืน</th>
+
+              <th width="4%">หน่วยงานที่บันทึก</th>
+              <th width="4%">วันที่เวลาบันทึก</th>
+              <th width="4%">ผู้แก้ไขล่าสุด</th>
+              <th width="4%">หน่วยงานที่แก้ไข</th>
+              <th width="4%">วันที่เวลาแก้ไขล่าสุด</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="(dataTable$ | async).length > 0">
+            <tr *ngFor="let item of dataTable$ | async">
+              <td style="vertical-align: top !important"><button class="btn"><i *ngIf="item?.create_dep_code==dep_code || user_level =='A'" class="fa fa-close" style="cursor:pointer;font-size:20px;color:#d50000d1;" (click)="onDelMaterial(item)"></i></button></td>
+              <!-- <td><button class="btn"><i class="fa fa-close" style="cursor:pointer;font-size:20px;color:#d50000d1;" (click)="onDelMaterial(item)"></i></button></td> -->
+              <td style="vertical-align: top !important"><button class="btn"><i class="fas fa-pencil-alt" (click)="onEdit(item,'')"></i></button></td>
+              <td align="center" style="vertical-align: top !important"><button class="btn btn-primary" (click)="onPrint(item)">พิมพ์</button></td>
+              <td align="center" style="vertical-align: top !important">{{ item?.open_date }} {{item?.open_time}}<br>{{ item?.create_user }}</td>
+              <!-- <td align="center" >{{ item?.open_date }} {{item?.open_time}}</td> -->
+              <td>{{ item?.doc_desc }} {{ item?.openfor_desc }}</td>
+              <td align="center" style="vertical-align: top !important"><i class='fas fa-check' style='font-size:20px;color:green' *ngIf="item?.open_total"></i></td>
+              <td align="center" style="vertical-align: top !important">{{ item?.rcv_date}} {{ item?.rcv_time}}<br>{{ item?.rcv_user_name }}<br>{{ item?.rcv_remark }}</td>
+              <!-- <td>{{ item?.rcv_user_name }}</td>
+              <td>{{ item?.rcv_remark }}</td> -->
+              <td align="center" style="vertical-align: top !important">{{ item?.return_material_date}} {{ item?.return_material_time}}<br>{{ item?.return_material_user_name }}</td>
+              <!-- <td>{{ item?.return_material_user_name }}</td> -->
+              <td style="vertical-align: top !important">{{ item?.return_addition }}</td>
+              <td align="center" style="vertical-align: top !important">{{ item?.return_date }} {{ item?.return_time }}<br>{{ item?.userreturn_name }}</td>
+              <!-- <td>{{ item?.userreturn_name }}</td> -->
+              <td style="vertical-align: top !important">{{ item?.return_desc }}</td>
+              <!-- <td>{{ item?.create_user }}</td> -->
+              <td style="vertical-align: top !important">{{ item?.create_dep_name }}</td>
+              <td align="center" style="vertical-align: top !important">{{ item?.create_date }}</td>
+              <td style="vertical-align: top !important">{{ item?.update_user }}</td>
+              <td style="vertical-align: top !important">{{ item?.update_dep_name }}</td>
+              <td align="center" style="vertical-align: top !important">{{ item?.update_date }}</td>
+            </tr>
+            
+          </tbody>
+          <tbody *ngIf="(dataTable$ | async).length <= 0">
+            <tr >
+              <!-- <td colspan="23" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td> -->
+              <td colspan="16" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+
+              <td style="display:none;"></td>
+              <!-- <td style="display:none;"></td> -->
+              <!-- <td style="display:none;"></td> -->
+              <!-- <td style="display:none;"></td>
+              <td style="display:none;"></td> -->
+
+              <!-- <td style="display:none;"></td> -->
+              <!-- <td style="display:none;"></td>
+              <td style="display:none;"></td> -->
+              
+            </tr>
+          <tbody>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>

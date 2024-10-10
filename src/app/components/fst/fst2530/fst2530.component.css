@@ -1,0 +1,48 @@
+.tab-content{
+    /*border-bottom: 1px solid #dee2e6;
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    
+    */
+    border:1px solid #0062cc !important;
+    margin-top: -1px;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #fff !important;
+    background-color: #0062cc !important;
+    border-color: #0062cc !important;
+}
+.nav-tabs .nav-link {
+    /*border: 1px solid #0062cc !important;*/
+    border: 1px solid rgba(0,0,0,.125);
+}
+.nav-item:not(:first-child) {
+    margin-left:1px;
+}
+.my-class.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    text-align: center !important;
+  }
+
+  .my-class .modal-dialog {
+    position: fixed;
+    margin: 0;
+    width: 200px;
+    height:auto;
+    max-width: 200px !important;
+    max-height: 100vh !important;
+    padding: 0;
+  }
+  .my-class .modal-content {
+    /*max-height: 100% !important;
+    height: 100% !important; */
+    min-height: 200px !important;
+    max-height: 100vh !important;
+    height: auto !important;
+    margin: 0px !important;
+  }

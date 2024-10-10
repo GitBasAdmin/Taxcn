@@ -1,0 +1,55 @@
+<div class="card card-info" style="box-shadow: none !important;width:100%;padding:10px;">
+  <fieldset style="width:100%;border-radius:4px;border:1px solid #888888;padding:1px;padding:5px;">
+    <legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;cursor:pointer;margin-bottom: 6px;" class="lClick">กำหนดห้องพิจารณาคดี</legend>
+    <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+      <tr >
+        <td align="right" width="180" valign="top" style="padding:8px 0 0 0px;">ศาล :&nbsp;</td>
+        <td style="padding:4px 0 0 0px;">
+          <ng-select  [(ngModel)]="result.judge_by" [clearable]="false" style="width:200px;" >
+            <ng-option *ngFor="let getData of getAppointBy"  [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+          </ng-select>
+        </td>
+      </tr>
+      <tr >
+        <td align="right" valign="top" style="padding:8px 0 0 0px;">ห้องพิจารคดี :&nbsp;</td>
+        <td style="padding:4px 0 0 0px;">
+          <div style="float: left;">
+            <input  type="text" [(ngModel)]="result.room_id" class="form-control" (change)="tabChangeInput('room_id',$event)" style="width:60px;"/>
+          </div>
+          <div style="float: left;margin-left:2px;">
+            <input  type="text" [(ngModel)]="result.room_desc" class="form-control" style="width:320px;"/>
+          </div>
+          <div style="float: left;margin-left:2px;margin-top:3px;" >
+            <i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(1)"></i>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><button type="button" class="btn btn-primary" (click)="saveRoomAppoint()">กำหนด</button></td>
+      </tr>
+    </table>
+  </fieldset>
+</div>
+
+<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+      <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+      <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+    </div>
+    <div class="modal-body" >
+        <div style="min-height: 100px;max-height: 480px;overflow: auto;">
+        <app-datalist-return *ngIf="loadModalComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull  (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+    </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,385 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="programName" style="float:left;margin-top:6px;"><i class="fa fa-folder-open-o" style="font-size:24px;margin-left:8px;"></i><span style="font-size: 16px;margin-left:5px;">{{programName}}</span></div>
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"   border="0" cellspacing="2" cellpadding="0" class="form_table">        
+				<tr>
+					<td align="right" width="29%">ข้อมูลคดี :&nbsp;</td>
+					<td  width="71%">
+						<div style="float: left;margin-top:4px;margin-left: 0px;">
+							<input type="radio" [(ngModel)]="result.data" name="data" [value]="1" style="width:15px;height: 15px;"  (click)="clearData()" />
+						</div>
+						<div style="float: left;margin-left:5px;margin-top: 3px">ทั้งหมด</div>
+						<div style="float: left;margin-top:4px;margin-left: 10px;">
+							<input type="radio" [(ngModel)]="result.data" name="data" [value]="2" style="width:15px;height: 15px;" (click)="clearData()" />
+						</div>
+						<div style="float: left;margin-left:5px;margin-top: 3px">ยังไม่จ่ายให้เจ้าของสำนวน</div>
+						<div style="float: left;margin-top:4px;margin-left: 10px;">
+							<input type="radio" [(ngModel)]="result.data" name="data" [value]="3" style="width:15px;height: 15px;" (click)="assingDate()"/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top: 3px">จ่ายสำนวนแล้ว</div>
+						<div [ngStyle]="result.data==3 ?  {'display': ''} : {'display': 'none'}">
+							<div style="float: left;margin-left:5px;margin-top: 3px">ตั้งแต่วันที่</div>
+							<div style="float: left;margin-left:5px;">
+								<input type="text" [(ngModel)]="result.sdate1" style="width:120px;" class="form-control jcalendar sdate1"  #sdate1 (click)="directiveDate(sdate1.value,'sdate1')"/>
+							</div>
+							<div style="float:left;margin-left:8px;margin-top:4px;">
+								<i class="fa fa-calendar" style="font-size: 16px;"  onClick="$('.sdate1').focus();"></i>
+							</div>
+							<div style="float: left;margin-left:3px;margin-top: 3px">&nbsp;ถึงวันที่&nbsp;</div>
+							<div style="float: left;margin-left:3px;">
+								<input type="text" [(ngModel)]="result.edate1" style="width:120px;" class="form-control jcalendar edate1" #edate1 (click)="directiveDate(edate1.value,'edate1')" />
+							</div>
+							<div style="float:left;margin-left:8px;margin-top:4px;">
+								<i class="fa fa-calendar" style="font-size: 16px;"  onClick="$('.edate1').focus();"></i>
+							</div>
+						</div>
+
+
+						<div style="float:right;padding-right: 50px;">
+							<button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="retToPage(4,'')" >วันนัดผู้พิพากษา</button>
+						</div>	
+					</td>
+				</tr>
+				<tr>
+					<td align="right" >ค้นหาตามวันที่นัด ตั้งแต่วันที่ :&nbsp;</td>
+					<td  >
+						<!-- <div style="float: left;margin-top:4px;margin-left: 0px;">
+							<input type="radio" [(ngModel)]="result.date_type" name="date_type" [value]="1" style="width:15px;height: 15px;"  (change)="assignToDate()"/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:4px;">วันที่จ่ายสำนวนให้คณะแล้ว</div>
+						<div style="float: left;margin-top:4px;margin-left:8px;">
+							<input type="radio" [(ngModel)]="result.date_type" name="date_type" [value]="2" style="width:15px;height: 15px;"  (change)="assignToDate()"/>
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:4px;">วันที่นัด</div> -->
+	
+						<div style="float: left;margin-left:4px;">
+							<input type="text" [(ngModel)]="result.sdate" style="width:120px;" class="form-control jcalendar sdate"  #sdate (click)="directiveDate(sdate.value,'sdate')"/>
+						</div>
+						<div style="float:left;margin-left:8px;margin-top:5px;">
+							<i class="fa fa-calendar" style="font-size: 16px;"  onClick="$('.sdate').focus();"></i>
+						</div>
+						<div style="float: left;margin-left:3px;margin-top:4px;padding-top: 2px">&nbsp;ถึงวันที่&nbsp;</div>
+						<div style="float: left;margin-left:3px;">
+							<input type="text" [(ngModel)]="result.edate" style="width:120px;" class="form-control jcalendar edate" #edate (click)="directiveDate(edate.value,'edate')" />
+						</div>
+						<div style="float:left;margin-left:8px;margin-top:5px;">
+							<i class="fa fa-calendar" style="font-size: 16px;"  onClick="$('.edate').focus();"></i>
+						</div>
+					</td>
+				</tr>
+				<!-- <tr>
+					<td align="right" >ตั้งแต่วันที่:&nbsp;</td>
+					<td  >
+						
+						<div style="float: left;margin-left:4px;">
+							<input type="text" [(ngModel)]="result.sdate" style="width:120px;" class="form-control jcalendar sdate"  #sdate (click)="directiveDate(sdate.value,'sdate')"/>
+						</div>
+						<div style="float:left;margin-left:8px;margin-top:5px;">
+							<i class="fa fa-calendar" style="font-size: 16px;"  onClick="$('.sdate').focus();"></i>
+						</div>
+						<div style="float: left;margin-left:3px;margin-top:4px;padding-top: 2px">ถึงวันที่&nbsp;</div>
+						<div style="float: left;margin-left:3px;">
+							<input type="text" [(ngModel)]="result.edate" style="width:120px;" class="form-control jcalendar edate" #edate (click)="directiveDate(edate.value,'edate')" />
+						</div>
+						<div style="float:left;margin-left:8px;margin-top:5px;">
+							<i class="fa fa-calendar" style="font-size: 16px;"  onClick="$('.edate').focus();"></i>
+						</div>
+					</td>
+				</tr> -->
+				
+				<tr>
+					<td colspan="2" >
+						<table border="0" cellspacing="2" cellpadding="0" class="form_assignment">       
+						</table>
+					</td>
+				</tr>
+				<!-- <tr><td colspan="4"></td></tr> -->
+				<tr>
+					<td colspan="4">
+						<div class="card-footer" style="text-align: center;">
+							<button type="button" class="btn btn-primary" style="margin-left:0px;" (click)="searchData()">ค้นหาข้อมูล</button>
+							<button type="button" class="btn btn-success" style="margin-left:5px;" (click)="saveDataSelect(1)">จัดเก็บเฉพาะที่เลือก</button>
+							<button type="button" class="btn btn-success" style="margin-left:5px;" (click)="assignAutoJudgeParty()">จ่ายสำนวนอัตโนมัติตามเลขคดี(ให้เจ้าของสำนวน)</button>
+							<button type="button" class="btn btn-info" style="margin-left:5px;" (click)="saveDataSelect(2)">แก้ไขจ่ายสำนวนผิด</button>
+							<button type="button" class="btn btn-info" style="margin-left:5px;" (click)="saveDataSelect(3)">แก้ไขโอนสำนวน</button>
+							<button type="button" class="btn btn-warning" style="margin-left:5px;" (click)="clearAll()">ยกเลิก</button>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="card " style="box-shadow: none !important;padding:5px;width:150%;" *ngIf="userData.post_id !=1">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">           
+				<tr>
+					<td>
+						<div style="float: left;margin-left:5px;margin-top:4px;">จำนวนคดีทั้งหมด :&nbsp;</div>
+						<div style="float: left;">
+							<input type="text" [(ngModel)]="order_no" class="form-control" style="width:80px;" />
+						</div>
+						<div style="float: left;margin-left:5px;margin-top:4px;">คดี</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;margin-top:4px;">
+							<thead>
+								<tr>
+									<th width="1%" align="center" class="no-sort"><input type="checkbox" name="all" [(ngModel)]="masterSelected2" name="list_name" value="m1" (change)="checkUncheckAll(0)"><br>เลือก</th>
+									<th width="3%" align="center" class="no-sort">เลขคดีดำ<br><span style="color: red;">เลขคดีแดง</span></th>
+									<th width="1%" align="center" class="no-sort">ไฟล์แนบ</th>
+									<th width="5%" align="center" class="no-sort">วันนัด/เวลา</th>
+									<th width="2%" align="center" class="no-sort">ใจความฟ้อง</th>
+									<th width="3%" align="center" class="no-sort">ทุนทรัพย์</th>
+									<!-- <th width="5%" align="center" class="no-sort" *ngIf="userData.userLevel=='A'" >จ่ายให้คณะที่</th> -->
+									<th width="5%" align="center" class="no-sort">ผู้พิพากษาเจ้าของสำนวน</th>
+									<th width="5%" align="center" class="no-sort">องค์คณะที่ 1 </th>
+									<th width="5%" align="center" class="no-sort">องค์คณะที่ 2</th>
+									<th width="5%" align="center" class="no-sort">องค์คณะที่ 3</th>
+									<th width="2%" align="center" class="no-sort">เลขคดีดำ</th>
+									<th width="4%" align="center" class="no-sort">วันที่ปฏิบัติหน้าที่</th>
+									<th width="4%" align="center" class="no-sort">วันที่จ่ายสำนวน</th>
+									<th width="4%" align="center" class="no-sort">โจทก์</th>
+									<th width="4%" align="center" class="no-sort">จำเลย</th>
+									<th width="6%" align="center" class="no-sort">ฐานความผิด</th>
+									<th width="3%" align="center" class="no-sort">จ่ายชั่วคราว/ย้าย</th>
+								</tr>
+							</thead>
+							<tbody *ngIf="dataSearch?.length != 0">
+								<tr *ngFor="let post of dataSearch;let i = index;">									
+									<td align="center"><input type="checkbox" [(ngModel)]="dataSearch[i].edit0101" (change)="isAllSelected(1, i)" ></td>
+									<td align="center" style="height: 25px;background-color: #FCF7B1; border: 1px outset #808080;">
+										<span *ngIf="post.black_no"><a href="javascript:void(0)"  (click)="retToPage(2,post.run_id)">{{post.black_no}}</a></span><br>
+										<span *ngIf="post.red_no" style="color: red;">{{post.red_no}}</span><br>
+										{{post.case_status_desc}}
+									</td>
+									<td align="center">
+										<i class="fa fa-file-text-o" style="color:blue;cursor:pointer;font-size: 16px;" (click)="onOpenAttachFile(post.run_id)"></i>
+									</td>									
+									<td align="center"><a style="color:blue;cursor:pointer;" placement="bottom"  [ngbPopover]="pop_appoint" (click)="getAppointData(post.run_id)">{{post.date_appoint}}</a><br>
+										{{post.time_appoint}}<br>
+										{{post.app_name}}
+									</td>									
+									<td align="center"><i class="fa fa-newspaper-o" style="cursor:pointer;font-size:18px" *ngIf="post.indict_desc !=null" (click)="onOpenReadText(post.indict_desc)"></i></td>																	
+									<td align="center">{{post.deposit}} <br>(กลุ่มที่ {{post.deposit_level}})</td>									
+									<!-- จ่ายให้คณะที่ -->
+									<!-- <td align="center" *ngIf="userData.userLevel=='A'">
+										<tr style="background-color: transparent!important;height: 28px!important;">
+											<div style="float: left;">
+												<input type="text"  [(ngModel)]="dataSearch[i].party_id" maxlength="5" class="form-control" (change)="changeParty(i)" style="width:50px;height:28px;text-align: center;" onkeypress='return event.charCode >= 48 && event.charCode <= 57' readonly/>
+											</div>
+											
+											<div style="float: left;margin-left:20px;" >
+												<input type="text" [(ngModel)]="dataSearch[i].party_assign_date" class="form-control" style="width:80px;" readonly/>
+											</div>
+											
+										</tr>
+										<tr style="background-color: transparent!important;height: 28px!important;">
+											<div style="float: left;">
+												<textarea  type="text" [(ngModel)]="dataSearch[i].judge_name" value=""  class="form-control" style="width:250px;height:80px;" readonly></textarea>								
+											</div>
+										</tr>
+									</td> -->
+									<!-- ผู้พิพากษาเจ้าของสำนวน -->
+									<td align="center" style="vertical-align: top !important;">
+										<tr style="background-color: transparent!important;height: 28px!important;">
+											<div style="float: left;">
+												<input type="text"  [(ngModel)]="dataSearch[i].case_judge_id" maxlength="5" (change)="tabChangeInputArry(i,'case_judge_id',$event,2)" class="form-control" style="width:50px;height:28px;"/>
+											</div>
+											<div style="float: left;margin-left:2px;margin-top:2px;" >
+												<i class="far fa-list-alt" style="font-size: 18px; margin-left: 2px; cursor:pointer;" (click)="loadTableComponentArry(1,i);"></i>
+											</div>
+											<div style="float: left;margin-left:2px;margin-top:2px;" >
+												<i class="far fa-list-alt" style="font-size: 18px; margin-left: 2px; cursor:pointer;" (click)="loadTableComponentArry(5,i);"></i>
+											</div>		
+											<div  *ngIf="dataSearch[i].party_id" style="float: left;margin-left:12px;margin-top:2px;">
+												<span>(คณะที่ {{dataSearch[i].party_id}})</span>
+											</div>									
+										</tr>
+										<tr style="background-color: transparent!important;height: 28px!important;">
+											<div style="float: left;">
+												<input  type="text" [(ngModel)]="dataSearch[i].case_judge_name" value=""  class="form-control" style="width:180px;height:28px;">
+											</div>
+										</tr>
+									</td>
+									
+									<td align="center" style="vertical-align: top !important;">
+										<tr style="background-color: transparent!important;height: 28px!important;">
+											<div style="float: left;">
+												<input type="text"  [(ngModel)]="dataSearch[i].case_judge_gid" maxlength="5" (change)="tabChangeInputArry(i,'case_judge_gid',$event,3)" class="form-control" style="width:50px;height:28px;"/>
+											</div>
+											<div style="float: left;margin-left:2px;margin-top:2px;" >
+												<i class="far fa-list-alt" style="font-size: 18px; margin-left: 2px; cursor:pointer;" (click)="loadTableComponentArry(6,i);"></i>
+											</div>
+										</tr>
+										<tr style="background-color: transparent!important;height: 28px!important;">
+											<div style="float: left;">
+												<input  type="text" [(ngModel)]="dataSearch[i].case_judge_gname" value=""  class="form-control" style="width:180px;height:28px;">
+											</div>
+										</tr>
+									</td>
+									<td align="center" style="vertical-align: top !important;">
+										<tr style="background-color: transparent!important;height: 28px!important;">
+											<div style="float: left;">
+												<input type="text"  [(ngModel)]="dataSearch[i].case_judge_gid2" maxlength="5" (change)="tabChangeInputArry(i,'case_judge_gid2',$event,4)" class="form-control" style="width:50px;height:28px;"/>
+											</div>
+											<div style="float: left;margin-left:2px;margin-top:2px;" >
+												<i class="far fa-list-alt" style="font-size: 18px; margin-left: 2px; cursor:pointer;" (click)="loadTableComponentArry(7,i);"></i>
+											</div>
+										</tr>
+										<tr style="background-color: transparent!important;height: 28px!important;">
+											<div style="float: left;">
+												<input  type="text" [(ngModel)]="dataSearch[i].case_judge_gname2" value=""  class="form-control" style="width:180px;height:28px;">
+											</div>
+										</tr>									
+									</td>
+									<td align="center" style="vertical-align: top !important;">
+										<tr style="background-color: transparent!important;height: 28px!important;">
+											<div style="float: left;">
+												<input type="text"  [(ngModel)]="dataSearch[i].case_judge_gid3" maxlength="5" (change)="tabChangeInputArry(i,'case_judge_gid3',$event,3)" class="form-control" style="width:50px;height:28px;"/>
+											</div>
+											<div style="float: left;margin-left:2px;margin-top:2px;" >
+												<i class="far fa-list-alt" style="font-size: 18px; margin-left: 2px; cursor:pointer;" (click)="loadTableComponentArry(8,i);"></i>
+											</div>
+										</tr>
+										<tr style="background-color: transparent!important;height: 28px!important;">
+											<div style="float: left;">
+												<input  type="text" [(ngModel)]="dataSearch[i].case_judge_gname3" value=""  class="form-control" style="width:180px;height:28px;">
+											</div>
+										</tr>
+									</td>
+									<td align="center" style="height: 25px;background-color: #FCF7B1; border: 1px outset #808080;" ><span *ngIf="post.black_no"><a href="javascript:void(0)"  (click)="retToPage(2, post.run_id)">{{post.black_no}}</a></span></td>
+									<!-- วันที่ปฏิบัติหน้าที่ -->
+									<td align="center" style="vertical-align: top !important;">
+										<div style="float: left;">
+											<input type="text" [(ngModel)]="dataSearch[i].case_judge_date"  class="form-control jcalendar" #jcalendar (click)="directiveDateObj(i,'case_judge_date')" style="width:80px;">
+										</div>
+										<div style="float: left;margin-left:2px;">
+											<i class="fa fa-calendar" #icalendar style="font-size: 16px;margin-top:2px;" onClick="$(this).closest('td').find('.jcalendar').focus();" (click)="showObj($event)"></i>
+										</div>
+									</td>
+									<td align="center" style="vertical-align: top !important;">
+										<div style="float: left;">
+											<input type="text" [(ngModel)]="dataSearch[i].assign_date" class="form-control jcalendar"  #jcalendar (click)="directiveDateObj(i, 'assign_date')" style="width:80px;" />
+										</div>
+										<div style="float:left;margin-left:8px;margin-top:5px;">
+											<i class="fa fa-calendar" style="font-size: 16px;" #icalendar onClick="$(this).closest('td').find('.jcalendar').focus();" (click)="showObj($event)"></i>
+										</div>
+									</td>									
+									<td align="center">{{post.rpt_pros_desc}}</td>
+									<td align="center">{{post.rpt_accu_desc}}</td>
+									<td align="center">{{post.alle_desc}}</td>
+									<td align="center">
+										<span *ngIf="post.own_new_flag==1">จ่ายชั่วคราว</span>
+										<br>
+										<span *ngIf="post.flag==1">ย้าย</span>
+									</td>	
+								</tr>
+							</tbody>
+							<tbody *ngIf="dataSearch?.length == 0">
+								<tr>
+									<td colspan="17" style="color:red;text-align: center;" class="no-data-available" *ngIf="userData.userLevel=='A'">###### ไม่พบข้อมูล #######</td>
+									<td colspan="16" style="color:red;text-align: center;" class="no-data-available" *ngIf="userData.userLevel!='A'">###### ไม่พบข้อมูล #######</td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<td style="display: none;"></td>
+									<!-- <td style="display: none;"></td> -->
+									<td style="display: none;" *ngIf="userData.userLevel=='A'"></td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>	
+		</div>	
+	
+	<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+		<div class="modal-dialog">
+	  	<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+				<button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+				<button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+			</div>
+			<div class="modal-body" >
+				<input type="hidden" name="table_name" id="table_name">
+				<input type="hidden" name="field_id" id="field_id">
+				<input type="hidden" name="field_name" id="field_name">
+				<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+				<!-- <app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm> -->
+				<app-datalist-return  *ngIf="loadComponent"  [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType [value7]="listFieldCond" (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>			
+				<app-datalist-return-multiple *ngIf="loadMutipleComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value7]=listFieldCond (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return-multiple>
+				<app-modal-judge *ngIf="loadJudgeComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType (onClickList)="receiveFuncJudgeListData($event)" class="modal_app"></app-modal-judge>		
+				<app-modal-attach-file *ngIf="loadModalAttachFileComponent" [run_id]=runId class="modal_app"></app-modal-attach-file>
+				<app-modal-judge-group *ngIf="loadModalJudgeGroupComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType [value6]=listFieldType (onClickList)="receiveJudgeGroupListArry($event)" class="modal_app"></app-modal-judge-group>
+				<app-modal-read-text *ngIf="loadModalReadTextComponent" [value1]=Text class="modal_app"></app-modal-read-text>
+				<app-modal-judge-party *ngIf="loadModalJudgePatyComponent" class="modal_app"  (onClickList)="receiveJudgePartyArry($event)"></app-modal-judge-party>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<!-- <button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button> -->
+			<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+</div>
+<ng-template #pop_appoint>
+	<!-- <table>
+		<tr><td style="padding-left:5px;color: red;background-color: white">* คลิกเพื่อแสดงข้อมูล</td></tr>
+	</table> -->
+	<table border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" >
+		<thead>
+		  <tr >
+			<th width="180"  align="center"  >วันที่นัด</th>
+			<th width="120"  align="center"  >เวลานัด</th>
+			<th width="250"  align="center"  >ประเภทนัด</th>
+		  </tr>
+		</thead>
+		<tbody *ngIf="getAppoint.length != 0">
+			<tr *ngFor="let datas of getAppoint;let i = index;">
+				<td align="center">{{datas.date_appoint}}
+				<td align="center">{{datas.time_appoint}}</td>
+				<td align="center">{{datas.app_name}}</td>
+			</tr>
+		</tbody>
+		<tbody *ngIf="getAppoint.length == 0">
+			<tr>
+				<td colspan="3" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+			</tr>
+		</tbody>
+	</table>
+</ng-template>
+<!-- <div id="sidebar">
+	<div id="sidebar-close" style="z-index: 99;">
+		<span style="font-weight:bold;cursor:pointer;" (click)="closeNav()">
+			<i class='fas fa-times-circle' style='font-size:25px;color:#444444;'></i>
+		</span>
+	</div>
+	
+	<div id="sidebar-open" style="display:none;padding-top:6px;padding-left:3px;" (click)="openNav()">
+		<span style="font-weight:bold;" >
+			<i class='fas fa-caret-left' style='font-size:36px;color: #ffffff;'></i>
+		</span>
+	</div>
+</div> -->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>

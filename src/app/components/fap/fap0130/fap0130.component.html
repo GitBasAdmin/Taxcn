@@ -1,0 +1,759 @@
+<style>
+	
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName" [runId]="runId"></app-case-header>
+			</div>				
+		</div>
+		<div class="card card-info" style="box-shadow: none !important;margin-top:-4px;border:0px;">
+			<app-case-head *ngIf="defaultCaseType" (sendCaseData)="fnDataHead($event)" [runId]="runId"></app-case-head>
+		</div>
+		
+		<div class="card card-info" style="box-shadow: none !important;margin-top:-4px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">   
+				<tr style="height: 40px !important;">
+					<td align="center" colspan="2">
+						<div style="margin:0 auto;height:1px;border-top:1px solid black;width:96%;">&nbsp;</div>
+					</td>
+				</tr>   
+				<tr>
+					<td align="center" valign="top"  width="100">
+						<div style="float:left;margin-left:8px;"><i class="fa fa-angle-right" style="font-size:15px"></i></div>
+						<div style="float:left;margin-left:10px;"> รายการนัด</div>
+					</td>
+					<td align="center" colspan="2">
+						<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table"> 
+							<tr>
+								<td width="8%"  align="right">นัดที่ :&nbsp;</td>
+								<td width="20%">
+									<div style="float: left;">
+										<input  type="text" [(ngModel)]="result.app_seq" class="form-control" readonly style="width:60px;"/>
+									</div>
+									<div style="float: left;margin-left:2px;margin-top:2px;" >
+										<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(1);"></i>
+									</div>
+								</td>
+								<td width="7%" align="right">วันที่นัด :&nbsp;</td>
+								<td width="17%">
+									<div style="float:left;"><input  type="text" [(ngModel)]="result.date_appoint" style="width:120px;" class="form-control jcalendar date_appoint" #date_appoint (click)="directiveDate(date_appoint.value,'date_appoint')"></div>
+									<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.date_appoint').focus();"></i></div>
+								</td>
+								<td width="12%" align="right">เวลานัด :&nbsp;</td>
+								<td width="35%" >
+									<div style="float: left;">
+										<input  type="text" [(ngModel)]="result.time_appoint" class="form-control"  style="width:80px;"/>
+									</div>
+									<div style="float: left;margin-left:4px;margin-top:2px;">สถานะ :&nbsp;</div>
+									<div style="float:left;margin-left:5px;">
+										<ng-select [(ngModel)]="result.status_id"  style="width:180px;" [clearable]="false" >
+											<ng-option *ngFor="let getData of getStatus" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+										</ng-select>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td   align="right">ประเภทนัด :&nbsp;</td>
+								<td >
+									<ng-select [(ngModel)]="result.table_id" class="AppointTable" style="width:300px;" [clearable]="false"   >
+										<ng-option *ngFor="let getData of getAppointTable" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+									</ng-select>
+								</td>
+								<td  align="right">&nbsp;</td>
+								<td >&nbsp;</td>
+								<td  align="right">&nbsp;</td>
+								<td  >&nbsp;</td>
+							</tr>
+							<tr>
+								<td   align="right">พิจารณาโดย :&nbsp;</td>
+								<td colspan="3">
+									<div style="float: left;">
+										<ng-select [(ngModel)]="result.judge_by" class="AppointTable" style="width:220px;" [clearable]="false"   >
+											<ng-option *ngFor="let getData of getAppointBy" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+										</ng-select>
+									</div>
+									<div style="float: left;margin-left:8px;margin-top:3px;" *ngIf="result.judge_by==2 || result.judge_by==3 || result.judge_by==4">ไปยังศาล :&nbsp;</div>
+									<div style="float: left;" *ngIf="result.judge_by==2 || result.judge_by==3 || result.judge_by==4">
+										<div style="float: left;">
+											<input  type="text" [(ngModel)]="result.to_court_id"   class="form-control" style="width:60px;"/>
+										</div>
+										<div style="float: left;margin-left:0px;">
+											<input   type="text" [(ngModel)]="result.to_court_name"   class="form-control" style="width:280px;"/>
+										</div>
+										<div style="float: left;margin-left:2px;margin-top:2px;" >
+											<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(3)"></i>
+										</div>
+									</div>
+								</td>
+								<td  align="right">
+									<span *ngIf="result.judge_by!=2">ห้องพิจารณาคดี :&nbsp;</span>
+								</td>
+								<td  >
+									<div *ngIf="result.judge_by!=2">
+										<div style="float: left;">
+											<input  type="text" [(ngModel)]="result.room_id" (change)="tabChangeInput('room_id',$event)"  class="form-control" style="width:60px;"/>
+										</div>
+										<div style="float: left;margin-left:0px;">
+											<input   type="text" [(ngModel)]="result.room_desc"   class="form-control" style="width:280px;"/>
+										</div>
+										<div style="float: left;margin-left:2px;margin-top:2px;" >
+											<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(2)"></i>
+										</div>
+									</div>
+									
+								</td>
+							</tr>
+							<tr>
+								<td   align="right">นัดเพื่อ :&nbsp;</td>
+								<td colspan="3">
+									<div style="float: left;">
+										<input  type="text" [(ngModel)]="result.app_id" (change)="tabChangeInput('app_id',$event)"  class="form-control" style="width:60px;"/>
+									</div>
+									<div style="float: left;margin-left:0px;">
+										<input   type="text" [(ngModel)]="result.app_name"   class="form-control" style="width:210px;"/>
+									</div>
+									<div style="float: left;margin-left:2px;margin-top:2px;" >
+										<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(4)"></i>
+									</div>
+								</td>
+
+								<td   align="right">ขอล่ามภาษา :&nbsp;</td>
+								<td  >
+									<div style="float: left;margin-left:0px;">
+										<input   type="text" [(ngModel)]="result.tran_lang"   class="form-control" style="width:200px;"/>
+									</div>
+								</td>
+							</tr>
+							<!--
+							<tr>
+								<td   align="right">นัดโดย :&nbsp;</td>
+								<td colspan="3">
+									<select [(ngModel)]="result.app_by" style="height:24px !important;border-radius: 4px !important;border: 1px solid #ced4da;">
+										<option value="">&nbsp;</option>
+										<option value="1" >1 ศูนย์นัดความ</option>
+										<option value="2" >2 ผู้พิพากษา</option>
+										<option value="2" >3 ศูนย์ไกล่เกลี่ย</option>
+									</select>
+								</td>
+								<td align="right">&nbsp;</td>
+								<td >&nbsp;</td>
+							</tr>-->
+						</table>
+					</td>
+				</tr> 
+				
+				<tr style="height: 40px !important;">
+					<td align="center" colspan="2">
+						<div style="margin:0 auto;height:1px;border-top:1px solid black;width:96%;">&nbsp;</div>
+					</td>
+				</tr>
+				<tr >
+					<td align="right" width="10%">ผู้พิพากษาที่ขึ้นบัลลังก์<span style="color:red">*</span> :&nbsp;</td>
+					<td align="center" width="90%">
+						<div style="float: left;">
+							<input  type="text" [(ngModel)]="result.judge_id" (change)="tabChangeInput('judge_id',$event)"  class="form-control" style="width:60px;"/>
+						</div>
+						<div style="float: left;margin-left:0px;">
+							<input   type="text" [(ngModel)]="result.judge_name" readonly  class="form-control" style="width:210px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(5)"></i>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(6)"></i>
+						</div>
+					</td>
+				</tr> 
+				<tr >
+					<td align="right" >องค์คณะคนที่1 :&nbsp;</td>
+					<td align="center" >
+						<div style="float: left;">
+							<input  type="text" [(ngModel)]="result.judge_gid" (change)="tabChangeInput('judge_gid',$event)"  class="form-control" style="width:60px;"/>
+						</div>
+						<div style="float: left;margin-left:0px;">
+							<input   type="text" [(ngModel)]="result.judge_gname" readonly  class="form-control" style="width:210px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(7)"></i>
+						</div>
+						<div style="float: left;margin-left:10px;margin-top:2px;">องค์คณะคนที่2 :&nbsp;</div>
+						<div style="float: left;">
+							<input  type="text" [(ngModel)]="result.judge_gid2" (change)="tabChangeInput('judge_gid2',$event)"  class="form-control" style="width:60px;"/>
+						</div>
+						<div style="float: left;margin-left:0px;">
+							<input   type="text" [(ngModel)]="result.judge_gname2" readonly  class="form-control" style="width:210px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(8)"></i>
+						</div>
+						<div style="float: left;margin-left:10px;margin-top:2px;">องค์คณะคนที่3 :&nbsp;</div>
+						<div style="float: left;">
+							<input  type="text" [(ngModel)]="result.judge_gid3" (change)="tabChangeInput('judge_gid3',$event)"  class="form-control" style="width:60px;"/>
+						</div>
+						<div style="float: left;margin-left:0px;">
+							<input   type="text" [(ngModel)]="result.judge_gname3" readonly  class="form-control" style="width:210px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(23)"></i>
+						</div>
+						<!---
+						<div style="float: left;margin-left:10px;margin-top:2px;">ผู้พิพากษาสมทบ :&nbsp;</div>
+						<div style="float: left;">
+							<input  type="text" [(ngModel)]="result.judge_aid" (change)="tabChangeInput('judge_aid',$event)"  class="form-control" style="width:60px;"/>
+						</div>
+						<div style="float: left;margin-left:0px;">
+							<input   type="text" [(ngModel)]="result.judge_aname"  readonly class="form-control" style="width:210px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(9)"></i>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(10)"></i>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(11)"></i>
+						</div>
+						-->
+					</td>
+				</tr> 
+				<tr >
+					<td align="right" >สืบโจทก์<span style="color:red">*</span> :&nbsp;</td>
+					<td align="center" >
+						<div style="float: left;">
+							<input  type="text" [(ngModel)]="result.pros_wit"   class="form-control" style="width:60px;"/>
+						</div>
+						<div style="float: left;margin-left:4px;margin-top:2px;">ปาก</div>
+						<div style="float: left;margin-left:114px;margin-top:2px;">สืบจำเลย<span style="color:red">*</span> :&nbsp;</div>
+						<div style="float: left;">
+							<input  type="text" [(ngModel)]="result.accu_wit"   class="form-control" style="width:60px;"/>
+						</div>
+						<div style="float: left;margin-left:4px;margin-top:2px;">ปาก</div>
+						<div style="float: left;margin-left:127px;margin-top:2px;">สืบอื่น<span style="color:red">*</span> :&nbsp;</div>
+						<div style="float: left;">
+							<input  type="text" [(ngModel)]="result.other_wit"   class="form-control" style="width:60px;"/>
+						</div>
+						<div style="float: left;margin-left:4px;margin-top:2px;">ปาก</div>
+						<div style="float: left;margin-left:92px;margin-top:2px;">บันทึก<span style="color:red">*</span> :&nbsp;</div>
+						<div style="float: left;">
+							<select [(ngModel)]="result.appoint_other" style="height:24px !important;border-radius: 4px !important;border: 1px solid #ced4da;">
+								<option value="">เลือก </option>
+								 <option value="1">เทป</option>
+								 <option value="2">จดเอง</option>
+								 <option value="3">ใช้บันทึก</option>
+							</select>
+						</div>
+					</td>
+				</tr> 
+				<tr >
+					<td align="right" >จำนวนหน้า (สืบ จ.)<span style="color:red">*</span> :&nbsp;</td>
+					<td align="center" >
+						<div style="float: left;">
+							<input  type="text" [(ngModel)]="result.page_qty"   class="form-control" style="width:60px;"/>
+						</div>
+						<div style="float: left;margin-left:84px;margin-top:2px;">จำนวนหน้า (สืบ จล.) :&nbsp;</div>
+						<div style="float: left;">
+							<input  type="text" [(ngModel)]="result.page_qty2"   class="form-control" style="width:60px;"/>
+						</div>
+						<div style="float: left;margin-left:84px;margin-top:2px;">จำนวนหน้า (สืบอื่น) :&nbsp;</div>
+						<div style="float: left;">
+							<input  type="text" [(ngModel)]="result.page_qty3"   class="form-control" style="width:60px;"/>
+						</div>
+						<div style="float: left;margin-left:80px;margin-top:2px;">	ซองที่อ่านแล้ว :&nbsp;</div>
+						<div style="float: left;">
+							<input  type="text" [(ngModel)]="result.map_case" readonly  class="form-control" style="width:200px;"/>
+						</div>
+						<div style="float: left;margin-left:3px;">
+							<button type="button" class="btn btn-primary" style="margin-left:5px;" (click)="clickOpenMyModalComponent(14)">คลิกเลือกซองที่อ่าน</button>
+						</div>
+					</td>
+				</tr> 
+				<tr >
+					<td align="right" >&nbsp;</td>
+					<td align="center" >
+						<div style="float: left;">
+							<input type="checkbox"  [(ngModel)]="result.cancel_flag" style="height:15px;width:15px;margin-top:2px;cursor:pointer;" >
+						</div>
+						<div style="float: left;margin-left:4px;margin-top:1px;color:red;"> ยกเลิกนัด(ไม่แสดงในใบลอย)</div>
+					</td>
+				</tr> 
+				<tr >
+					<td align="right" >เหตุที่เลือน	:&nbsp;</td>
+					<td align="center" >
+						<div style="float: left;">
+							<input  type="text" [(ngModel)]="result.delay_id"  (change)="tabChangeInput('delay_id',$event)" class="form-control" style="width:60px;"/>
+						</div>
+						<div style="float: left;margin-left:0px;">
+							<input   type="text" [(ngModel)]="result.delay_name"   class="form-control" style="width:450px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(12)"></i>
+						</div>
+					</td>
+				</tr> 
+				<tr >
+					<td align="right" >ผลการพิจารณา<span style="color:red">*</span>	:&nbsp;</td>
+					<td align="center" >
+						<div style="float: left;">
+							<input  type="text" [(ngModel)]="result.result_id"  (change)="tabChangeInput('result_id',$event)" class="form-control" style="width:60px;"/>
+						</div>
+						<div style="float: left;margin-left:0px;">
+							<input   type="text" [(ngModel)]="result.result_name"   class="form-control" style="width:450px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" >
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(13)"></i>
+						</div>
+					</td>
+				</tr> 
+				<tr >
+					<td align="right" >หมายเหตุ	:&nbsp;</td>
+					<td align="center" >
+						<div style="float: left;margin-left:0px;">
+							<input   type="text" [(ngModel)]="result.remark"   class="form-control" style="width:510px;"/>
+						</div>
+					</td>
+				</tr> 
+				<tr >
+					<td align="right" valign="top" style="padding-top:4px;">รายงานกระบวน(คำสั่งศาล) :&nbsp;</td>
+					<td align="center" >
+						<div style="float: left;margin-left: 2px;">
+							<textarea [(ngModel)]="result.appoint_result" name="appoint_result" #appoint_result='ngModel' class="form-control" style="width: 731px; height: 89px; line-height: 18px;overflow-wrap: break-word;"></textarea>
+						</div>
+					</td>
+				</tr> 
+				<tr style="height: 40px !important;">
+					<td align="right">&nbsp;</td>
+					<td align="center" >
+						<div style="float: left;margin-left: 0px;">
+							<button type="button" class="btn btn-success" style="margin-left:0px;" (click)="saveData()">จัดเก็บ</button>
+							<button type="button" class="btn btn-warning" style="margin-left:3px;" >ยกเลิก</button>
+							<button type="button" class="btn btn-danger" style="margin-left:3px;" (click)="closeWin()">ปิดหน้าจอ</button>
+						</div>
+					</td>
+				</tr> 
+				<tr >
+					<td align="right" valign="top" style="padding-top:4px;">รายงานกระบวน :&nbsp;</td>
+					<td align="center" >
+						<div style="float: left;margin-left:0px;" *ngIf="!result.attach_1">
+							<input   type="text" [(ngModel)]="result.form_desc"   class="form-control" style="width:180px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" *ngIf="!result.attach_1">
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(20)"></i>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" *ngIf="!result.attach_1">
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(21)"></i>
+						</div>
+						<div style="float: left;margin-left: 2px;" *ngIf="result.attach_1">
+							<i class="fa fa-file-word-o" style="font-size:22px;color:#446db8;" (click)="printAppWord(1,1)"></i>
+						</div>
+						<div style="float: left;margin-left: 5px;">
+							<button type="button" class="btn btn-primary" style="margin-left:0px;" *ngIf="result.attach_1">นำรายงานกระบวนจาก word ลงสู่ระบบ</button>
+							<button type="button" class="btn btn-primary" style="margin-left:0px;" (click)="printAppWord(1,2)" *ngIf="!result.attach_1">พิมพ์รายงานกระบวนพิจารณา</button>
+							<button type="button" class="btn btn-danger" style="margin-left:3px;" (click)="delAppWord(1)" *ngIf="result.attach_1">ลบ WORD</button>
+						</div>
+						<div class="custom-file" style="float:left;width:310px;margin-left:5px;" *ngIf="!result.attach_1">
+                            <input type="file" class="custom-file-input" id="importFiles" (change)="onFileChange($event,1)" style="width:300px;height:24px;" #file1>
+                            <label class="custom-file-label" #labelImport for="importFile" style="width:300px;height:24px;text-align:left;"></label>
+                        </div>
+					</td>
+				</tr> 
+				<tr >
+					<td align="right" valign="top" style="padding-top:4px;">คำให้การ :&nbsp;</td>
+					<td align="center" >
+						<div style="float: left;margin-left:0px;" *ngIf="!result.attach_2">
+							<input   type="text" [(ngModel)]="result.form_desc2"   class="form-control" style="width:180px;"/>
+						</div>
+						<div style="float: left;margin-left:2px;margin-top:2px;" *ngIf="!result.attach_2">
+							<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(22)"></i>
+						</div>
+						<div style="float: left;margin-left: 2px;" *ngIf="result.attach_2">
+							<i class="fa fa-file-word-o" style="font-size:22px;color:#446db8;" (click)="printAppWord(2,1)"></i>
+						</div>
+						<div style="float: left;margin-left: 5px;" >
+							<button type="button" class="btn btn-primary" style="margin-left:0px;" (click)="printAppWord(2,2)" *ngIf="!result.attach_2">พิมพ์คำให้การ</button>
+							<button type="button" class="btn btn-danger" style="margin-left:0px;" (click)="delAppWord(2)" *ngIf="result.attach_2">ลบ WORD</button>
+						</div>
+						<div class="custom-file" style="float:left;width:310px;margin-left:5px;" *ngIf="!result.attach_2">
+                            <input type="file" class="custom-file-input" id="importFiles2" (change)="onFileChange($event,2)" style="width:300px;height:24px;" #file1>
+                            <label class="custom-file-label" #labelImport for="importFile2" style="width:300px;height:24px;text-align:left;"></label>
+                        </div>
+						
+					</td>
+				</tr> 
+				<tr >
+					<td align="center" colspan="2">
+						<fieldset style="width:99%;border-radius:4px;border:1px solid #333333;padding:1px;padding:5px;margin-top:6px;">
+							<legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;cursor:pointer;margin-bottom: 6px;" class="lClick">รายงานกระบวน/คำให้การพยาน</legend>
+							<div style="width:100%;margin:0 atuo;background-color: #94b4b9;color:red;text-align: center;height:30px;border-radius: 6px;"><div style="position:absolute;margin-top:5px;left:40%;">*ป้อนจำนวนหน้าแล้วกด tab ระบบจะทำการบันทึกให้อัตโนมัติและสามารถทำการแนบไฟล์</div></div>
+							<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-striped table-bordered table-sm row-border hover" style="display:table;margin-top:1px;">
+								<thead>
+									<tr  align="center" >
+										<th width="4%" align="center" class="no-sort"></th>
+										<th width="6%" align="center" class="no-sort"></th>
+										<th width="36%" align="center" class="no-sort">คู่ความ</th>
+										<th width="26%" height="20" align="center" class="no-sort">รายงานกระบวน</th>
+										<th width="26%" align="center" class="no-sort">คำให้การพยาน</th>
+										<th width="12%" align="center" class="no-sort">จำนวนหน้า</th>
+									  </tr>
+								</thead>
+								<tbody >
+									<tr *ngFor="let datas of dataWitness;let i = index;" >
+										<td align="center"><i class="fa fa-close" style="font-size:18px;color:#d50000d1;cursor: pointer;" *ngIf="datas.report_running" (click)="clickRowWit(i,1,'');clickOpenMyModalComponent(100);"></i></td>
+										<td align="center"><button type="button" class="btn btn-success" style="margin-left:0px;" (click)="saveWitnessData(i,1)">จัดเก็บ</button></td>
+										<td align="center">
+											<div style="display: table;margin:0 auto;">
+												<div style="float: left;margin-left: 0px;">
+													<ng-select [(ngModel)]="dataWitness[i].rlit_type" style="width:200px;" >
+														<ng-option *ngFor="let getData of getLitType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+													</ng-select>
+												</div>
+												<div style="float: left;margin-left:5px;margin-top:2px;">ที่ :&nbsp;</div>
+												<div style="float: left;margin-left:10px;">
+													<input  type="text" [(ngModel)]="dataWitness[i].rseq" class="form-control" (change)="tabChangeLitIndex($event,i,dataWitness[i].rlit_type)" style="width:60px;"/>
+												</div>
+												<div style="float: left;margin-left:2px;">
+													<input  type="text"  [(ngModel)]="dataWitness[i].rlit_name"  class="form-control" style="width:240px;"/>
+												</div>
+												<div style="float: left;margin-left:2px;margin-top:2px;" >
+													<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickRowWit(i,1,'');clickOpenMyModalComponent(15);"></i>
+												</div>
+											</div>
+										</td>
+										<td align="center">
+											<div style="display: table;margin:0 auto;">
+												<div style="float: left;margin-left:2px;">
+													<input  type="text"  [(ngModel)]="dataWitness[i].rform_name1"  class="form-control" style="width:240px;"/>
+													<input  type="hidden"  [(ngModel)]="dataWitness[i].rform_id1"  class="form-control" style="width:240px;"/>
+												</div>
+												<div style="float: left;margin-left:2px;margin-top:2px;" >
+													<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickRowWit(i,1,'');clickOpenMyModalComponent(16)"></i>
+												</div>
+												<div style="float: left;margin-left:2px;" *ngIf="dataWitness[i].report_running && !dataWitness[i].file1">
+													<button type="button" class="btn btn-primary" style="margin-left:0px;" (click)="printWord(i,1)">พิมพ์</button>
+												</div>
+												<div style="float: left;margin-left:2px;" >
+													<button type="button" class="btn btn-primary" style="margin-left:0px;" (click)="clickRowWit(i,1,1);clickOpenMyModalComponent(18)" *ngIf="dataWitness[i].report_running && !dataWitness[i].file1">แนบไฟล์</button>
+												</div>
+												<div style="float: left;margin-left:2px;" *ngIf="dataWitness[i].report_running && dataWitness[i].file1">
+													<i class="fa fa-file-word-o" style="font-size:22px;color:#446db8;cursor: pointer;" (click)="printWord(i,1)"></i>
+												</div>
+												<div style="float: left;margin-left:2px;" >
+													<button type="button" class="btn btn-danger" style="margin-left:0px;" (click)="delWord(i,1)" *ngIf="dataWitness[i].report_running && dataWitness[i].file1">ลบ WORD</button>
+												</div>
+											</div>
+										</td>
+										<td align="center">
+											<div style="display: table;margin:0 auto;">
+												<div style="float: left;margin-left:2px;">
+													<input  type="text"  [(ngModel)]="dataWitness[i].rform_name2"  class="form-control" style="width:240px;"/>
+													<input  type="hidden"  [(ngModel)]="dataWitness[i].rform_id2"  class="form-control" style="width:240px;"/>
+												</div>
+												<div style="float: left;margin-left:2px;margin-top:2px;">
+													<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickRowWit(i,1,'');clickOpenMyModalComponent(17)"></i>
+												</div>
+												<div style="float: left;margin-left:2px;" *ngIf="dataWitness[i].report_running && !dataWitness[i].file2">
+													<button type="button" class="btn btn-primary" style="margin-left:0px;" (click)="printWord(i,2)">พิมพ์</button>
+												</div>
+												<div style="float: left;margin-left:2px;" >
+													<button type="button" class="btn btn-primary" style="margin-left:0px;" (click)="clickRowWit(i,1,2);clickOpenMyModalComponent(18)" *ngIf="dataWitness[i].report_running && !dataWitness[i].file2">แนบไฟล์</button>
+												</div>
+												<div style="float: left;margin-left:2px;" *ngIf="dataWitness[i].report_running && dataWitness[i].file2">
+													<i class="fa fa-file-word-o" style="font-size:22px;color:#446db8;cursor: pointer;" (click)="printWord(i,2)"></i>
+												</div>
+												<div style="float: left;margin-left:2px;" >
+													<button type="button" class="btn btn-danger" style="margin-left:0px;" (click)="delWord(i,2)" *ngIf="dataWitness[i].report_running && dataWitness[i].file2">ลบ WORD</button>
+												</div>
+											</div>
+										</td>
+										<td align="center">
+											<div style="display: table;margin:0 auto;">
+												<div style="float: left;margin-left:2px;">
+													<input  type="text"  [(ngModel)]="dataWitness[i].rnum_page"  class="form-control" style="width:73px;"/>
+												</div>
+											</div>
+										</td>
+									</tr>
+									<tr >
+										<td align="center">&nbsp;</td>
+										<td align="center"><button type="button" class="btn btn-success" style="margin-left:0px;" (click)="saveWitnessData('',2)">จัดเก็บ</button></td>
+										<td align="center">
+											<div style="display: table;margin:0 auto;">
+												<div style="float: left;margin-left: 0px;">
+													<ng-select [(ngModel)]="rawWitness.rlit_type" style="width:200px;" [clearable]="false">
+														<ng-option *ngFor="let getData of getLitType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+													</ng-select>
+												</div>
+												<div style="float: left;margin-left:5px;margin-top:2px;">ที่ :&nbsp;</div>
+												<div style="float: left;margin-left:10px;">
+													<input  type="text" [(ngModel)]="rawWitness.rseq" class="form-control" (change)="tabChangeLitIndex($event,'',rawWitness.rlit_type)" style="width:60px;"/>
+												</div>
+												<div style="float: left;margin-left:2px;">
+													<input  type="text"  [(ngModel)]="rawWitness.rlit_name"  class="form-control" style="width:240px;"/>
+												</div>
+												<div style="float: left;margin-left:2px;margin-top:2px;" >
+													<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickRowWit('',2,'');this.clickOpenMyModalComponent(15);"></i>
+												</div>
+											</div>
+										</td>
+										<td align="center">
+											<div style="display: table;margin:0 auto;">
+												<div style="float: left;margin-left:2px;">
+													<input  type="text"  [(ngModel)]="rawWitness.rform_name1"  class="form-control" style="width:240px;"/>
+													<input  type="hidden"  [(ngModel)]="rawWitness.rform_id1"  class="form-control" style="width:240px;"/>
+												</div>
+												<div style="float: left;margin-left:2px;margin-top:2px;" >
+													<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickRowWit('',2,'');clickOpenMyModalComponent(16)"></i>
+												</div>
+											</div>
+										</td>
+										<td align="center">
+											<div style="display: table;margin:0 auto;">
+												<div style="float: left;margin-left:2px;">
+													<input  type="text"  [(ngModel)]="rawWitness.rform_name2"  class="form-control" style="width:240px;"/>
+													<input  type="hidden"  [(ngModel)]="rawWitness.rform_id2"  class="form-control" style="width:240px;"/>
+												</div>
+												<div style="float: left;margin-left:2px;margin-top:2px;" >
+													<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickRowWit('',2,'');clickOpenMyModalComponent(17)"></i>
+												</div>
+											</div>
+										</td>
+										<td align="center">
+											<div style="display: table;margin:0 auto;">
+												<div style="float: left;margin-left:2px;">
+													<input  type="text"  [(ngModel)]="rawWitness.rnum_page"  class="form-control" style="width:73px;"/>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+								
+							</table>
+						</fieldset>
+					</td>
+				</tr> 
+
+
+				<tr >
+					<td align="center" colspan="2">
+						<fieldset style="width:99%;border-radius:4px;border:1px solid #333333;padding:1px;padding:5px;margin-top:6px;">
+							<legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;cursor:pointer;margin-bottom: 6px;" class="lClick">ล่าม/นักจิตวิทยา/พยาน</legend>
+							<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-striped table-bordered table-sm row-border hover" style="display:table;margin-top:1px;">
+								<thead>
+									<tr  align="center" >
+										<th width="3%" align="center" class="no-sort">&nbsp;</th>
+										<th width="5%" align="center" class="no-sort">&nbsp;</th>
+										<th width="8%" align="center" >ประเภท</th>
+										<th width="15%" align="center" >ชื่อ</th>
+										<th width="5%" align="center" >รายการ</th>
+										<th width="5%" align="center" >ภาษา</th>
+										<th width="9%" align="center" >เวลา</th>
+										<th width="6%" align="center" >มา</th>
+										<th width="5%" align="center" >สืบ</th>
+										<th width="8%" align="center" >วันที่ตั้งเบิก</th>
+										<th width="8%" align="center" >วันที่จ่าย</th>
+										<th width="6%" align="center" >จำนวนเงิน</th>
+										<th width="6%" align="center" >เงินพาหนะ</th>
+										<th width="6%" align="center" >จ่ายโดยวิธี</th>
+										<th width="5%" align="center" >หมายเหตุ</th>
+									  </tr>
+								</thead>
+								<tbody *ngIf="dataWitdraw?.length != 0">
+									<tr *ngFor="let datas of dataWitdraw;let i = index;">
+										<td align="center" ><i class="fa fa-close" style="font-size:18px;color:#d50000d1;cursor: pointer;" *ngIf="datas.comp_running" (click)="clickRowWit2(i);clickOpenMyModalComponent(101);"></i></td>
+										<td align="center"><i class="fa fa-pencil" style="font-size:18px;cursor: pointer;" *ngIf="datas.comp_running" (click)="editWitdraw(i)"></i></td>
+										<td  align="center">{{datas.compens_type_name}}</td>
+										<td align="center" >{{datas.comp_name}}</td>
+										<td align="center" >{{datas.description}}</td>
+										<td align="center" >{{datas.tran_lang}}</td>
+										<td align="center" >{{datas.tran_from}}<span *ngIf="datas.tran_to">-{{datas.tran_to}}</span></td>
+										<td align="center" >{{datas.show_flag_desc}}</td>
+										<td align="center" >{{datas.investigate_flag_desc}}</td>
+										<td align="center" >{{datas.withdraw_date}}</td>
+										<td align="center" >{{datas.pay_date}}</td>
+										<td align="center" >{{datas.pay_amt}}</td>
+										<td align="center" >{{datas.veh_amt}}</td>
+										<td align="center" >{{datas.pay_by_desc}}</td>
+										<td align="center" >{{datas.remark}}</td>
+									</tr>
+								</tbody>
+								<tbody *ngIf="dataWitdraw?.length == 0">
+									<tr>
+										<td colspan="15" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+										<td style="display:none;"></td>
+										<td style="display:none;"></td>
+										<td style="display:none;"></td>
+										<td style="display:none;"></td>
+
+										<td style="display:none;"></td>
+										<td style="display:none;"></td>
+										<td style="display:none;"></td>
+										<td style="display:none;"></td>
+										<td style="display:none;"></td>
+
+										<td style="display:none;"></td>
+										<td style="display:none;"></td>
+										<td style="display:none;"></td>
+										<td style="display:none;"></td>
+										<td style="display:none;"></td>
+									</tr>
+								</tbody>
+								<tfoot >
+									<tr>
+										<td align="center" colspan="2" style="padding: 2px 0px 2px 0px !important;"><button type="button" class="btn btn-success" style="margin-left:0px;" (click)="saveWitdrawData()">จัดเก็บ</button></td>
+										<td align="center" style="padding: 2px 0px 2px 0px !important;">
+											<select [(ngModel)]="rawWitdraw.wtype" (change)="changeWtype()" style="height:24px !important;border-radius: 4px !important;border: 1px solid #ced4da;">
+												<option value="1">ล่าม</option>
+												<option value="2">นักจิตวิทยา</option>
+												<option value="3.1">พยานโจทก์</option>
+												<option value="3.2">พยานจำเลย</option>
+												<option value="4">ผู้ประนอม</option>
+											 	<option value="5">สักขีพยาน</option>
+										  </select>
+										</td>
+										<td style="padding: 2px 0px 2px 0px !important;">
+											<div style="display: table;margin:0 auto;">
+												<div style="float: left;">
+													<input  type="text" [(ngModel)]="rawWitdraw.comp_id" *ngIf="rawWitdraw.wtype==3.1 || rawWitdraw.wtype==3.2 || rawWitdraw.wtype==4"  class="form-control" (change)="tabChangeInput('comp_id',$event)" style="width:40px;"/>
+												</div>
+												<div style="float: left;margin-left:2px;">
+													<input   type="text" [(ngModel)]="rawWitdraw.comp_name"   class="form-control" style="width:171px;"/>
+												</div>
+												<div style="float: left;margin-left:2px;margin-top:2px;" *ngIf="rawWitdraw.wtype==3.1 || rawWitdraw.wtype==3.2 || rawWitdraw.wtype==4">
+													<i  class="far fa-list-alt" style="font-size: 20px; margin-left: 2px;cursor: pointer;" (click)="clickOpenMyModalComponent(19)"></i>
+												</div>
+											</div>
+										</td>
+										<td align="center" style="padding: 2px 0px 2px 0px !important;">
+											<input [(ngModel)]="rawWitdraw.description" type="text" class="form-control" style="width:101px;">
+										</td>
+										<td align="center" style="padding: 2px 0px 2px 0px !important;">
+											<input [(ngModel)]="rawWitdraw.tran_lang" [readonly]="rawWitdraw.wtype!=1" type="text" class="form-control" style="width:59px;">
+										</td>
+										<td align="center" style="padding: 2px 0px 2px 0px !important;">
+											<div style="display: table;margin:0 auto;">
+												<div style="float: left;">
+													<input [(ngModel)]="rawWitdraw.tran_from" type="text" class="form-control" style="width:45px;">
+												</div>
+												<div style="float: left;margin-left:2px;margin-top:2px;">-</div>
+												<div style="float: left;">
+													<input [(ngModel)]="rawWitdraw.tran_to" type="text" class="form-control" style="width:45px;">
+												</div>
+											</div>
+										</td>
+										<td align="center" style="padding: 2px 0px 2px 0px !important;">
+											<select [(ngModel)]="rawWitdraw.show_flag" style="height:24px !important;border-radius: 4px !important;border: 1px solid #ced4da;">
+												<option value="1">มา</option>
+												<option value="2">ไม่มา</option>
+										  </select>
+										</td>
+										<td align="center" style="padding: 2px 0px 2px 0px !important;">
+											<select [(ngModel)]="rawWitdraw.investigate_flag" style="height:24px !important;border-radius: 4px !important;border: 1px solid #ced4da;">
+												<option value="1">สืบ</option>
+												<option value="2">ไม่สืบ</option>
+										  </select>
+										</td>
+										<td align="center" style="padding: 2px 0px 2px 0px !important;">
+											<div style="display: table;margin:0 auto;">
+												<div style="float:left;"><input  type="text" [(ngModel)]="rawWitdraw.withdraw_date" style="width:90px;" class="form-control jcalendar withdraw_date" #withdraw_date (click)="directiveDate2(withdraw_date.value,'withdraw_date')"></div>
+												<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.withdraw_date').focus();"></i></div>
+											</div>
+										</td>
+										<td align="center" style="padding: 2px 0px 2px 0px !important;">
+											<div style="display: table;margin:0 auto;">
+												<div style="float:left;"><input  type="text" [(ngModel)]="rawWitdraw.pay_date" style="width:100px;" class="form-control jcalendar pay_date" #pay_date (click)="directiveDate2(pay_date.value,'pay_date')"></div>
+												<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.pay_date').focus();"></i></div>
+											</div>
+										</td>
+										<td align="center" style="padding: 2px 0px 2px 0px !important;">
+											<input [(ngModel)]="rawWitdraw.pay_amt" type="text" class="form-control" style="width:52px;">
+										</td>
+										<td align="center" style="padding: 2px 0px 2px 0px !important;">
+											<input [(ngModel)]="rawWitdraw.veh_amt" type="text" class="form-control" style="width:52px;">
+										</td>
+										<td align="center" style="padding: 2px 0px 2px 0px !important;">
+											<select [(ngModel)]="rawWitdraw.pay_by" style="height:24px !important;border-radius: 4px !important;border: 1px solid #ced4da;">
+												<option value="3">โอนเงิน</option>
+												<option value="1">เงินสด</option>
+												<option value="2">เงินเช็คสด</option>
+										  </select>
+										</td>
+										<td align="center" style="padding: 2px 0px 2px 0px !important;">
+											<input [(ngModel)]="rawWitdraw.remark" type="text" class="form-control" style="width:129px;">
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+
+							<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">   
+								<tr style="height: 40px !important;">
+									<td align="left" colspan="2">
+										<button type="button" class="btn btn-primary" style="margin-left:0px;" (click)="openNewLink()">พิมพ์ใบคำขอ ใบสั่งจ่าย ใบรับเงิน</button>
+									</td>
+								</tr>  
+							</table>
+
+						</fieldset>
+					</td>
+				</tr> 
+
+				
+			</table>
+			<table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">   
+				<tr style="height: 40px !important;">
+					<td align="left" colspan="2">
+						<div style="margin-left:200px;color:red;width:50%;">* เป็นข้อมูลเก็บสถิติ โปรดบันทึกให้ถูกต้อง ครบถ้วน  </div>
+					</td>
+				</tr>  
+			</table>
+		</div>
+
+		
+		
+	</div>
+
+	
+	<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+			  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+			  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+			</div>
+			<div class="modal-body" >
+	
+					<input type="hidden" name="table_name" id="table_name">
+					<input type="hidden" name="field_id" id="field_id">
+					<input type="hidden" name="field_name" id="field_name">
+					<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+						<app-modal-judge *ngIf="loadModalJudgeComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType (onClickList)="receiveJudgeListData($event)" class="modal_app"></app-modal-judge>
+						<app-datalist-return *ngIf="loadModalComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value7]=listFieldCond (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+						<app-modal-confirm *ngIf="loadModalConfComponent" class="modal_app"></app-modal-confirm>
+						<!--<app-modal-envelope *ngIf="loadModalEnvolopeComponent"  [run_id]=dataHead.run_id (onClickList)="receiveFuncEnvelopeData($event)" class="modal_app"></app-modal-envelope>-->
+						<app-modal-appointment *ngIf="loadModalAppComponent" [run_id]=this.result.run_id?this.result.run_id:this.dataHead.run_id [split_type]=1 (onClickList)="receiveFuncAppData($event)" class="modal_app"></app-modal-appointment>
+						<app-modal-judge-group *ngIf="loadModalJudgeGroupComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType (onClickList)="receiveJudgeGroupListData($event)" class="modal_app"></app-modal-judge-group>
+						<app-modal-judge-group-sigle *ngIf="loadModalJudgeGroupSigleComponent"  (onClickList)="receiveJudgeGroupSigleListData($event)" class="modal_app"></app-modal-judge-group-sigle>
+						<app-modal-judge-associate *ngIf="loadModalJudgeAssociateComponent" [value5]=listFieldType (onClickList)="receiveJudgeAssociateData($event)" class="modal_app"></app-modal-judge-associate>
+						<app-modal-envelope-read *ngIf="loadModalEnvolopeReadComponent"  [run_id]=result.run_id?result.run_id:dataHead.run_id [app_seq]=result.app_seq (onClickList)="receiveFuncEnvelopeReadData($event)" class="modal_app"></app-modal-envelope-read>
+						<app-modal-case-litigant *ngIf="loadModalLitComponent" [run_id]=result.run_id?result.run_id:dataHead.run_id [lit_type]=lit_witness [type]=1  (onClickList)="receiveFuncLitData($event)"  class="modal_app"></app-modal-case-litigant>
+						<app-modal-attach-witness *ngIf="loadModalAttWitnessComponent" ></app-modal-attach-witness>
+						<app-datalist-conciliate *ngIf="loadModalConcComponent" [items]=list  (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-conciliate>
+					</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalConfComponent">ตกลง</button>
+				<button type="button"  class="btn btn btn-primary" (click)="submitModalFormEnvelope()" *ngIf="loadModalEnvolopeReadComponent">จัดเก็บข้อมูลที่เลือก</button>
+				<button type="button"  class="btn btn btn-primary" (click)="submitModalAttWitness()" *ngIf="loadModalAttWitnessComponent">แนบไฟล์</button>
+				<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+			</div>
+		  </div>
+		</div>
+	</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner>
+

@@ -1,0 +1,200 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<!-- <div class="" style="height:40px;border-radius: 4px;border:1px solid #17a2b8 !important;background-color: #e1f6f9;">
+				<app-case-header *ngIf="programName"></app-case-header>
+			</div> -->
+      <div class="programName" style="float:left;margin-top:6px;"><i class="fa fa-folder-open-o" style="font-size:24px;margin-left:8px;"></i><span style="font-size: 16px;margin-left:5px;">{{programName}}</span></div>
+		</div>
+
+
+		<div class="card " style="box-shadow: none !important;padding:5px;">
+			<table width="100%"  border="0" cellspacing="2" cellpadding="2" class="form_table">
+				<tr>
+					<td colspan="2" align="left" style="height:40px;">
+						<div style="float:left;margin-left:8px;margin-top:5px;">ต้องการค้นหาข้อมูลตาม ....&nbsp;</div>
+					</td>
+				</tr>
+
+        <tr>
+					<td  align="right">ความ :&nbsp;</td>
+					<td  align="left">
+            <!-- <div style="float: left;margin-left:10px;margin-top:4px;">ความ :&nbsp;</div> -->
+						<div style="float: left;">
+              <ng-select [(ngModel)]="result.case_type" style="width:100px;"  [ngModelOptions]="{standalone: true}"  #sCaseType>
+								<ng-option *ngFor="let getData of getCaseType" [value]=getData.fieldIdValue >{{getData.fieldNameValue}}</ng-option>
+							</ng-select>
+						</div>
+					</td>
+				</tr>
+        <tr>
+					<td  width="260" align="right" ><div style="float: right;">
+            <ng-select [(ngModel)]="result.stype" style="width:200px;"  [ngModelOptions]="{standalone: true}"  #sType>
+              <ng-option *ngFor="let getData of getDateType" [value]=getData.id >{{getData.text}}</ng-option>
+            </ng-select>
+          </div></td>
+					<td  align="left">
+						<div style="float:left;"><input   type="text" [(ngModel)]="result.judging_sdate" class="form-control jcalendar judging_sdate" #judging_sdate (click)="directiveDate(judging_sdate.value,'judging_sdate')" style="width:120px;height:28px;"></div>
+                    	<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.judging_sdate').focus();"></i></div>
+						<div style="float:left;margin-left:8px;margin-top:5px;color:blue;">&nbsp;ถึง&nbsp;</div>
+						<div style="float:left;"><input   type="text" [(ngModel)]="result.judging_edate" class="form-control jcalendar judging_edate"  #judging_edate (click)="directiveDate(judging_edate.value,'judging_edate')" style="width:120px;height:28px;"></div>
+           	<div style="float:left;margin-left:8px;margin-top:5px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.judging_edate').focus();"></i></div>
+            <div style="float:left;margin-left:8px;margin-top:5px;color:red;" *ngIf="result.stype==2">&nbsp;<b>*สำหรับคดีรับฟ้องต่างจังหวัด</b>&nbsp;</div>
+
+          </td>
+				</tr>
+        <tr>
+          <td align="right" >ผู้พิพากษาที่ตัดสิน :&nbsp;</td>
+      <td align="left">
+        <div style="float: left;">
+          <input  name="judge_id" type="text" id="judge_id" [(ngModel)]="result.judge_id" maxlength="5" (change)="tabChangeInput('judge_id',$event)"  class="form-control" style="width:80px;height:28px;"/>
+        </div>
+        <div style="float: left;margin-left:2px;">
+            <input  name="judge_name" type="text"  id="judge_name"  [(ngModel)]="result.judge_name" value=""  class="form-control" style="width:220px;height:28px;" readonly>
+        </div>
+        <div style="float: left;margin-left:2px;margin-top:4px;">
+          <i class='far fa-list-alt iDep' style="font-size: 20px;cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadTableComponent(1);"></i>
+        </div>
+      </td>
+        </tr>
+        <tr>
+              <td  align="right">&nbsp;</td>
+              <td  align="left">
+                <div style="float: left;">
+                  <input type="checkbox" name="cond1" [(ngModel)]="result.cond1" style="width:15px;height:15px;margin-top:5px;"/>
+                </div>
+                <div style="float: left;margin-left:5px;margin-top:4px;">เฉพาะคดีไกล่เกลี่ย</div>
+                <div style="float: left;margin-left:8px;">
+                  <input type="checkbox" name="cond2" [(ngModel)]="result.cond2"  style="width:15px;height:15px;margin-top:5px;"/>
+                </div>
+                <div style="float: left;margin-left:5px;margin-top:4px;">ไม่รวมคดีไกล่เกลี่ย</div>
+                <!-- <div style="float: left;margin-left:8px;">
+                  <input type="checkbox" name="cond3" [(ngModel)]="result.cond3" style="width:15px;height:15px;margin-top:5px;"/>
+                </div>
+                <div style="float: left;margin-left:5px;margin-top:4px;">ไม่รวมคดีสมานฉันท์</div> -->
+               </td>
+            </tr>
+
+
+			</table>
+      <div class="card-footer" >
+				<button type="button" class="btn btn-primary" style="margin-left:250px;"  (click)="searchData()">ค้นหา</button>
+				<button type="reset" class="btn btn-warning" style="margin-left:5px;color:white;" onclick="location.reload()">ล้างหน้าจอ</button>
+				<!-- <button type="button" class="btn btn-primary" style="margin-left:5px;"  >พิมพ์รายงานแนวตั้ง</button>
+				<button type="button" class="btn btn-primary" style="margin-left:5px;"  >พิมพ์รายงานแนวนอน</button> -->
+		    <button type="button" class="btn btn-success" style="margin-left:5px;" (click)="exportAsXLSX()" >ส่งออกเป็น Excel</button>
+			</div>
+		</div>
+
+<div class="card " style="box-shadow: none !important;padding:5px;width:100%;">
+  <table width="100%"  border="0" cellspacing="2" cellpadding="0" class="form_table">
+    <!-- <tr>
+      <td width="40%" align="left" style="height:40px;">
+        <div style="float:left;margin-left:8px;margin-top:5px;">รวม &nbsp;</div>
+        <div style="float: left;">
+          <input  type="text" id="" [(ngModel)]="numCase"    class="form-control" style="text-align:center;width:60px;border:1px solid red;color:red;height:25px;"/>
+        </div>
+        <div style="float: left;margin-left:5px;margin-top:5px;">คดี </div>
+        <div style="float: left;margin-left:4px;">
+          <input  type="text" id=""  [(ngModel)]="numLit"   class="form-control" style="text-align:center;width:60px;border:1px solid blue;color:blue;height:25px;"/>
+        </div>
+        <div style="float: left;margin-left:5px;margin-top:5px;">คน </div>
+      </td>
+    </tr> -->
+    <tr>
+      <td width="40%" align="left">
+        <table datatable  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover" style="width:100%;">
+          <thead>
+            <tr>
+
+                  <th width="5%" >หมายเลขคดีแดง</th>
+									<th width="5%" >หมายเลขคดีดำ</th>
+									<th width="7%" >วันที่รับฟ้อง</th>
+									<th width="7%" >วันที่ออกแดง</th>
+									<th width="10%" >ผลคำพิพากษา</th>
+                  <th width="10%" >ผู้พิพากษาที่ตัดสิน</th>
+									<th width="5%" >จบโดย</th>
+
+            </tr>
+          </thead>
+          <tbody *ngIf="dataSearch?.length != 0">
+            <tr *ngFor="let post of dataSearch;let i = index;">
+              <td align="center"><a href="javascript:void(0)" (click)="goToPage(post.run_id)" style="color: red;">{{post.red_no}}</a></td>
+              <td align="center">{{post.case_no}}</td>
+              <td align="center">{{post.case_date}}</td>
+              <td align="center">{{post.judging_date}}</td>
+              <td align="center">{{post.result_desc}}</td>
+              <td align="center">{{post.judge_name}}</td>
+              <td align="center">{{post.judge_order_type}}</td>
+              <!-- <td align="center"><span *ngIf="post.file_name"><a href=""><i class='fas fa-file-alt' style='font-size:16px;color: #0099cc;'></i></a></span></td> -->
+              <!-- <td style="padding-left:8px;">{{post.name}}</td> -->
+
+
+            </tr>
+          </tbody>
+          <tbody *ngIf="dataSearch?.length == 0">
+            <tr>
+              <td colspan="7" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+
+              <td style="display:none;"></td>
+              <td style="display:none;"></td>
+              <!-- <td style="display:none;"></td>
+              <td style="display:none;"></td> -->
+
+
+
+            </tr>
+          </tbody>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+<!-- Modal -->
+
+<div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+		  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+		</div>
+		<div class="modal-body" >
+
+				<input type="hidden" name="table_name" id="table_name">
+				<input type="hidden" name="field_id" id="field_id">
+				<input type="hidden" name="field_name" id="field_name">
+				<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+				<!-- <app-datalist-return *ngIf="loadComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName  (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return> -->
+				<app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+        <app-modal-judge *ngIf="loadModalJudgeComponent" [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldType (onClickList)="receiveJudgeListData($event)" class="modal_app"></app-modal-judge>
+			</div>
+
+		</div>
+		<div class="modal-footer">
+			<!-- <button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button> -->
+     	<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

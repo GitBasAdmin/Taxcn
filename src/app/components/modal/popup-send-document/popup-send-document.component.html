@@ -1,0 +1,26 @@
+<div style="margin:0 auto;margin:0 auto;display:table;padding:10px;width: 98%;" class="card" >
+  <table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+    <tr>
+      <td align="right" width="25%">เลขที่ส่งหนังสือ :&nbsp;</td>
+      <td colspan="3"  width="75%">
+        <div style="float:left;">
+          <ng-select [(ngModel)]="result.real_doc_title" style="width:80px;" [ngModelOptions]="{standalone: true}" [clearable]="false" >
+            <ng-option *ngFor="let getData of getRealDocTitle" [value]=getData.fieldNameValue >{{getData.fieldNameValue}}</ng-option>
+          </ng-select>
+        </div>
+        <div style="float: left; margin-left:4px;">
+          <input  type="text" [(ngModel)]="result.real_doc_id" maxlength="5" class="form-control" style="width:80px;height:18px;"/>
+        </div>
+        <div style="float: left;">&nbsp;/&nbsp;</div>
+        <div style="float: left; margin-left:4px;">
+          <input  type="text" [(ngModel)]="result.real_doc_yy"  maxlength="4" class="form-control" style="width:80px;height:18px;"/>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <div class="card-footer" style="margin-top: 5px;text-align:center;">
+    <button type="button" class="btn btn-success" (click)="onClickSaveData()">เลือกหนังสือส่ง</button>
+    <button type="button" class="btn btn-warning" style="margin-left:5px;" (click)="ClearAll()" >ยกเลิก</button>
+  </div>
+</div>

@@ -1,0 +1,394 @@
+<style>
+
+</style>
+<app-menu></app-menu>
+<div style="width:100%;height:100%;" id="div-wraper" >
+	<div class="content" style="padding:10px;" >
+		<div class="card card-info" style="box-shadow: none !important;">
+			<app-case-header *ngIf="programName" [runId]="runId"></app-case-header>
+		</div>
+		<div class="card card-info" style="box-shadow: none !important;margin-top:-4px;">
+			<app-case-head *ngIf="defaultCaseType" (sendCaseData)="fnDataHead($event)" [runId]="runId" ></app-case-head>
+		</div>	
+		<div class="card-body" style="box-shadow: none !important;padding:5px;">
+			<fieldset style="width:99%;border-radius:4px;border:1px solid #333333;padding:1px;margin-top:8px;">
+				<legend style="line-height: 10px;float:none;margin-left:18px;font-weight:bold;color:#333333;padding:0 6px 0 6px;font-size:16px;border-bottom:none;width:auto;margin-bottom: 6px;">
+					<div style="float: left;margin-left:4px;margin-top:2px;">ข้อมูลทนายขอแรง</div>
+				</legend>
+				<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+					<tr>
+						<td width="128px;" align="right">ประเภท :&nbsp;</td>
+						<td width="308px;" align="left">
+							<div style="float:left;">
+								<ng-select [(ngModel)]="result.attorney_type" style="width:150px;" name="attorney_type" [ngModelOptions]="{standalone: true}" [clearable]="false">
+									<ng-option *ngFor="let getData of getAttorneyType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+								</ng-select>
+							</div>
+						</td>
+						<td  width="128px;" align="right">&nbsp;</td>
+						<td  width="420px;" align="left">
+					</tr>
+					<tr>
+						<td  align="right">ชื่อทนายขอแรง :&nbsp;</td>
+						<td  align="left">
+							<div style="float:left;">
+								<input style="width:300px;height:28px;" [(ngModel)]="result.lawyer_name" name="lawyer_name" type="text"  class="form-control">
+								<input type="hidden" [(ngModel)]="result.lawyer_id" name="lawyer_id">
+							</div>
+							<div style="float: left; margin-left:2px; margin-top: 1px;" [ngStyle]="result.rcv_flag == 2 ?  {'display': 'none'} : {'display': ''}">
+								<i class='far fa-list-alt iDep' style="font-size: 20px;cursor:pointer;" (click)="clickOpenMyModalComponent(1);"></i>
+							</div>
+							<div style="float: left; margin-left:2px; margin-top: 1px;">
+								<i class='far fa-list-alt iDep' style="font-size: 20px;cursor:pointer;" (click)="clickOpenMyModalComponent(2);"></i>
+							</div>
+						</td>
+						<td  align="right">วันที่รับคำร้อง :&nbsp;</td>
+						<td  align="left">
+							<div style="float:left;">
+								<input style="width:120px;height:28px;" [(ngModel)]="result.req_date" #reqDate type="text" class="form-control jcalendar req_date" (click)="directiveDate(reqDate.value,'req_date')">
+							</div>
+							<div style="float:left;margin-left:8px;margin-top:5px;">
+								<i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.req_date').focus();"></i>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">เลขทะเบียน :&nbsp;</td>
+						<td  align="left">
+							<div style="float:left;">
+								<input [(ngModel)]="result.license_no" name="license_no" type="text"  class="form-control" style="width:300px;height:28px;">
+							</div>
+						</td>
+						<td  align="right">วันที่หมดอายุ :&nbsp;</td>
+						<td  align="left">
+							<div style="float:left;">
+								<input style="width:120px;height:28px;" [(ngModel)]="result.exp_date" #expDate type="text" class="form-control jcalendar exp_date" (click)="directiveDate(expDate.value,'exp_date')">
+							</div>
+							<div style="float:left;margin-left:8px;margin-top:4px;">
+								<i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.exp_date').focus();"></i>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">ประเภทคดี<span style="color: red;">*</span> :&nbsp;</td>
+						<td  align="left" colspan="3">
+							<div style="float:left;">
+								<ng-select [(ngModel)]="result.type_id" style="width:280px;" name="off_name" [ngModelOptions]="{standalone: true}" [clearable]="false">
+									<ng-option *ngFor="let getData of getTypeId" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+								</ng-select>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">คำสั่งศาล :&nbsp;</td>
+						<td  align="left">
+							<div style="float:left;">
+								<ng-select [(ngModel)]="result.permit_flag" style="width:120px;" name="permit_flag" [ngModelOptions]="{standalone: true}" [clearable]="false" >
+									<ng-option *ngFor="let getData of getPermitFlag" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+								</ng-select>
+							</div>
+						</td>
+						<td  align="right">วันที่ศาลมีคำสั่ง :&nbsp;</td>
+						<td  align="left">
+							<div style="float:left;">
+								<input style="width:120px;height:28px;" [(ngModel)]="result.order_date" #orderDate type="text" class="form-control jcalendar order_date" (click)="directiveDate(orderDate.value,'order_date')">
+							</div>
+							<div style="float:left;margin-left:8px;margin-top:4px;">
+								<i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.order_date').focus();"></i>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">ประเภทการจ่ายเงิน :&nbsp;</td>
+						<td  align="left" colspan="3">
+							<div style="float:left;">
+								<ng-select [(ngModel)]="result.receive_type" style="width:200px;" name="receive_type" [ngModelOptions]="{standalone: true}" [clearable]="false" >
+									<ng-option *ngFor="let getData of getReceiveType" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+								</ng-select>
+							</div>
+						</td>
+					</tr>
+					<tr [ngStyle]="result.receive_type == 1 ?  {'display': ''} : {'display': 'none'}">
+						<td colspan="4" align="center">
+							<fieldset style="width:97%;border-radius:4px;border:1px solid #333333;padding:1px;margin-top:8px; margin-bottom: 4px">
+								<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+									<tr>
+										<td width="188px;" align="right">วันที่สั่งจ่ายเช็ค/จ่ายเงิน/โอนเงิน<span style="color: red;">*</span> :&nbsp;</td>
+										<td width="248px;" align="left">
+											<div style="float:left;">
+												<input style="width:120px;height:28px;" [(ngModel)]="checkObj.check_date" value="" #checkDate type="text" class="form-control jcalendar check_date" (click)="directiveDateCheck(checkDate.value,'check_date')">
+											</div>
+											<div style="float:left;margin-left:8px;margin-top:4px;">
+												<i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.check_date').focus();"></i>
+											</div>
+										</td>
+										<td  width="188px;" align="right">จำนวนเงิน :&nbsp;</td>
+										<td  width="360px;" align="left">
+											<div style="float:left;">
+												<input [(ngModel)]="result.attorney_amt" name="attorney_amt" type="text"  value="" class="form-control" style="width:100px;height:28px;">
+											</div>
+											<div style="float: left;margin-left:5px;margin-top:4px;">  &nbsp;บาท </div>
+										</td>
+									</tr>
+									<tr>
+										<td  align="right">เลขที่บัญชีธนาคาร :&nbsp;</td>
+										<td  align="left">
+											<div style="float:left;">
+												<input [(ngModel)]="checkObj.book_account" name="book_account" type="text"  value="" class="form-control" style="width:200px;height:28px;">
+											</div>
+										</td>
+										<td  align="right">สาขา :&nbsp;</td>
+										<td  align="left">
+											<div style="float:left;">
+												<input [(ngModel)]="checkObj.bankbranch" name="bankbranch" type="text" value=""  class="form-control" style="width:300px;height:28px;">
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td  align="right">ธนาคาร :&nbsp;</td>
+										<td  align="left">
+											<div style="float:left;">
+												<ng-select [(ngModel)]="checkObj.bank_id" style="width:370px;" value="" name="bank_id"  >
+													<ng-option *ngFor="let getData of getBankId" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+												</ng-select>
+											</div>
+										</td>
+										<td  align="right">วันที่รับเช็ค :&nbsp;</td>
+										<td  align="left">
+											<div style="float:left;">
+												<input style="width:120px;height:28px;" [(ngModel)]="checkObj.checkrcv_date" value="" #checkrcvDate type="text" class="form-control jcalendar checkrcv_date" (click)="directiveDateCheck(checkrcvDate.value,'checkrcv_date')">
+											</div>
+											<div style="float:left;margin-left:8px;margin-top:4px;">
+												<i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.checkrcv_date').focus();"></i>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td  align="right">เลขที่เช็ค :&nbsp;</td>
+										<td  align="left" colspan="3">
+											<div style="float:left;">
+												<input [(ngModel)]="checkObj.check_no" name="check_no" type="text" value="" class="form-control" style="width:200px;height:28px;">
+											</div>
+											<div style="float: left;margin-left:5px;margin-top:4px;">  &nbsp;เล่มที่ &nbsp;</div>
+											<div style="float:left;">
+												<input [(ngModel)]="checkObj.book_no" name="book_no" type="text" value="" class="form-control" style="width:200px;height:28px;">
+											</div>
+										</td>
+									</tr>
+								</table>
+							</fieldset>
+						</td>
+					</tr>
+					<tr [ngStyle]="result.receive_type == 2 ?  {'display': ''} : {'display': 'none'}">
+						<td colspan="4" align="center">
+							<fieldset style="width:97%;border-radius:4px;border:1px solid #333333;padding:1px;margin-top:8px; margin-bottom: 4px;">
+								<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+									<tr >
+										<td colspan="4">
+											<table width="100%"  border="0" cellspacing="2" cellpadding="0" >
+												<tr>
+													<td  width="118px;" align="right">วันที่โอนเงิน<span style="color: red;">*</span> :&nbsp;</td>
+													<td  width="316px;" align="left">
+														<div style="float:left;">
+															<input style="width:120px;height:28px;" [(ngModel)]="paybackObj.rcv_date" value="" #rcvDate type="text" class="form-control jcalendar rcv_date" (click)="directiveDatePayback(rcvDate.value,'rcv_date')">
+														</div>
+														<div style="float:left;margin-left:8px;margin-top:5px;">
+															<i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.rcv_date').focus();"></i>
+														</div>
+													</td>
+													<td  width="128px;" align="right">จำนวนเงิน :&nbsp;</td>
+													<td  width="420px;" align="left">
+														<div style="float:left;">
+															<input [(ngModel)]="paybackObj.payback_rcv_amt" name="payback_rcv_amt" value=""type="text"  class="form-control" style="width:100px;height:28px;">
+														</div>
+														<div style="float: left;margin-left:5px;margin-top:4px;">  &nbsp;บาท </div>
+													</td>
+												</tr>
+												<tr>
+													<td  align="right">เลขที่บัญชีธนาคาร :&nbsp;</td>
+													<td  align="left" colspan="3">
+														<div style="float:left;">
+															<input [(ngModel)]="paybackObj.book_account" name="book_account2" value="" type="text"  class="form-control" style="width:300px;height:28px;">
+														</div>
+														<div style="float: left;margin-left:5px;margin-top:4px;">  &nbsp;ธนาคาร&nbsp; </div>
+														<div style="float:left;">
+															<ng-select [(ngModel)]="paybackObj.bank_id" style="width:370px;" name="bank_id"  >
+																<ng-option *ngFor="let getData of getBankId2" [value]=getData.fieldIdValue>{{getData.fieldNameValue}}</ng-option>
+															</ng-select>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td  align="right">สาขา :&nbsp;</td>
+													<td  align="left" colspan="3">
+														<div style="float:left;">
+															<input [(ngModel)]="paybackObj.bankbranch" name="bankbranch2" value="" type="text"  class="form-control" style="width:300px;height:28px;">
+														</div>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</fieldset>
+						</td>
+					</tr>
+					<tr>
+						<td  align="right">หมายเหตุ :&nbsp;</td>
+						<td  align="left" colspan="3">
+							<div style="float: left;">
+								<input [(ngModel)]="result.remark" name="remark" type="text"   value=""  class="form-control" style="width:300px;height:28px;">
+							</div>
+						</td>
+					</tr>
+				</table>
+			<!-- /.card-body -->
+			<div class="card-footer" align="center">
+				<button type="button" class="btn btn-success"  (click)="checkForm()">จัดเก็บข้อมูล</button>
+				<button type="button" class="btn btn-info" style="margin-left:5px;" (click)="buttonNew()">เพิ่ม</button>
+				<button type="button" class="btn btn-warning"  style="margin-left:5px;"(click)="buttonCancle()">ยกเลิก</button>
+				<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="popupAppointNext()">ตรวจสอบวันนัด</button>
+				<button type="button" class="btn btn-info" style="margin-left:5px;" 	*ngIf="result.rcv_running != 0" (click)="openPwordForm()">ใบรับเงิน</button>
+				<button type="button" class="btn btn-danger" style="margin-left:5px;" 	*ngIf="result.fileWord != 0" (click)="deleteWord()">ลบใบรับเงิน</button>
+				<button type="button" class="btn btn-info" style="margin-left:5px;" 	*ngIf="result.rcv_running != 0" (click)="popupPrintCheque()">พิมพ์เช็ค</button>
+				<button type="button" class="btn btn-info" style="margin-left:5px;"  (click)="printReport()">พิมพ์ใบรับเช็ค</button>
+				<input type="hidden" name="delValue" id="delValue">
+			</div>
+		</fieldset>
+			<!-- /.card-footer -->
+		</div>
+
+	  <div class="content">
+		<section class="content" style="width: 160%;">
+		<div class="card card-info">
+			<div class="card-header" style="display:none;"></div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-sm row-border hover myTable1">
+					<thead>
+						<tr>
+							<th width="1%" height="20" class="no-sort">ลบ</th>
+							<th width="1%" class="no-sort">แกไข</th>
+							<th width="6%" >ทนายขอแรง</th>
+							<th width="4%" >วันที่รับคำร้อง</th>
+							<th width="5%" >ประเภทคดี</th>
+							<th width="5%" >วันที่ศาลมีคำสั่ง</th>
+							<th width="4%" >จำนวนเงิน</th>
+							<th width="4%" >วันที่สั่งจ่าย</th>
+							<th width="6%" >เลขที่เช็ค</th>
+							<th width="5%" >วันที่รับเช็ค</th>
+							<th width="7%" >ธนาคาร</th>
+							<th width="6%" >เลขที่บัญชี</th>
+							<th width="7%" >สาขา</th>
+							<th width="7%" >หมายเหตุ</th>
+							<th width="6%" >หน่วยงานที่บันทึก</th>
+							<th width="5%" >ผู้บันทึก</th>
+							<th width="5%" >วัน/เวลาที่บันทึก</th>
+							<th width="6%" >หน่วยงานที่แก้ไข</th>
+							<th width="5%" >ผู้แก้ไข</th>
+							<th width="5%" >วัน/เวลาที่แก้ไข</th>
+						</tr>
+					</thead>
+					<tbody *ngIf="posts?.length != 0">
+					<tr *ngFor="let post of posts;let i = index;" [ngClass]="{'red': post.cancel_flag == 1}">	
+						<td align="center"><i class='fas fa-times' style='font-size:18px;color:rgba(255, 0, 0, 0.7);cursor: pointer;' (click)="deleteData(i)"></i></td>						
+						<td align="center"><i class='fas fa-pencil-alt' style='cursor:pointer;font-size:20px' (click)="editData(i)"></i></td>
+						<td align="center">{{post.lawyer_name}}</td>
+						<td align="center">{{post.req_date}}</td>
+						<td align="center">{{post.type_name}}</td>
+						<td align="center">{{post.order_date}}</td>
+						<!--  -->
+						<td *ngIf="post.receive_type == 1 || post.receive_type == ''" align="center">{{post.checkObj[0].check_amt}}</td><!--จำนวนเงิน-->
+						<td *ngIf="post.receive_type == 1 || post.receive_type == ''" align="center">{{post.checkObj[0].check_date}}</td><!--วันที่สั่งจ่าย-->
+						<td *ngIf="post.receive_type == 2" align="center">{{post.paybackObj[0].payback_rcv_amt}}</td>
+						<td *ngIf="post.receive_type == 2" align="center">{{post.paybackObj[0].rcv_date}}</td>
+						<!--  -->
+						<td align="center">{{post.check_no}}</td>
+						<td align="center">{{post.checkrcv_date}}</td>
+						<!--  -->
+						<td *ngIf="post.receive_type == 1 || post.receive_type == ''" align="center">{{post.checkObj[0].bank_name}}</td><!--ธนาคาร-->
+						<td *ngIf="post.receive_type == 1 || post.receive_type == ''" align="center">{{post.checkObj[0].book_account}}</td><!--เลขที่บัญชี-->
+						<td *ngIf="post.receive_type == 1 || post.receive_type == ''" align="center">{{post.checkObj[0].bankbranch}}</td><!--สาขา-->
+						<td *ngIf="post.receive_type == 2" align="center">{{post.paybackObj[0].bank_name_rcv}}</td>
+						<td *ngIf="post.receive_type == 2" align="center">{{post.paybackObj[0].book_account_rcv}}</td>
+						<td *ngIf="post.receive_type == 2" align="center">{{post.paybackObj[0].bankbranch_rcv}}</td>
+						<!--  -->
+						<td align="center">{{post.remark}}</td>
+						<td align="center">{{post.create_dep_name}}</td>
+						<td align="center">{{post.create_user}}</td>
+						<td align="center">{{post.create_date}}</td>
+						<td align="center">{{post.update_dep_name}}</td>
+						<td align="center">{{post.update_user}}</td>
+						<td align="center">{{post.update_date}}</td>
+					</tr>
+					</tbody>
+					<tbody *ngIf="posts?.length == 0">
+						<tr>
+							<td colspan="20" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+							<td style="display:none;"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+		</section>
+	</div>
+ <!-- Modal -->
+
+ <div class="modal fade" data-refresh="true"  role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;height:100%;">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title text-danger" id="exampleModalLabel"></h5>
+		  <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+		  <button type="button" class="btn btn-warning" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="loadMyModalComponent();" #openbutton></button>
+		</div>
+		<div class="modal-body" >
+			<input type="hidden" name="table_name" id="table_name">
+			<input type="hidden" name="field_id" id="field_id">
+			<input type="hidden" name="field_name" id="field_name">
+			<div style="min-height: 100px;max-height: 480px;overflow: auto;">
+				<app-modal-confirm *ngIf="loadModalComponent" class="modal_app"></app-modal-confirm>
+				<app-datalist-return  *ngIf="loadComponent"  [items]=list [value1]=listTable [value2]=listFieldId [value3]=listFieldName [value4]=listFieldNull [value5]=listFieldName2 [value7]="listFieldCond" (onClickList)="receiveFuncListData($event)" class="modal_app"></app-datalist-return>
+				<app-datalist-req-lawyer *ngIf="loadReqLawyerComponent" [items]=list  (onClickList)="receiveFuncLitReqData($event)" class="modal_app"></app-datalist-req-lawyer>
+				<app-modal-appointment-next *ngIf="loadModalAppNextComponent" [run_id]=dataHead.run_id [split_app]=1  [next_app]=1 class="modal_app"></app-modal-appointment-next>
+				<app-popup-print-cheque *ngIf="loadPopupPrintChequeComponent"  class="modal_app" (onClickList)="receiveFuncPrintCheque($event)"></app-popup-print-cheque> 
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button"  class="btn btn btn-primary" (click)="submitModalForm()" *ngIf="loadModalComponent">ตกลง</button>
+		  	<button type="button"  class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">ปิดหน้าจอ</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+
+<!--<script src="case-type.component.js"></script>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+	<p style="color: gray">Please Wait. </p>
+</ngx-spinner>
+

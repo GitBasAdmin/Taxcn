@@ -1,0 +1,43 @@
+
+<table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+  <tr>
+    <td height="30" align="center" class="blackb">
+      <div style="float: left;margin-top:2px;">ค้นหา :&nbsp;</div>
+      <div style="float: left;margin-left:2px;"><input  [(ngModel)]="result.word_id"  type="text" class="form-control" style="width:70px;height:28px;" ></div>
+      <div style="float: left;margin-left:2px;"><input  [(ngModel)]="result.word_desc"  type="text" class="form-control" style="width:250px;height:28px;" >    </div>
+      <div style="float: left;margin-left:4px;"><input name="Submit" type="submit" class="btn btn-success" value="ค้นหา" (click)="searchDataList()"></div>
+      <div style="float: left;margin-left:4px;"><input name="showAll" type="submit" class="btn btn-success" id="showAll" value="แสดงทั้งหมด" (click)="showDataList()"></div>
+    </td>
+  </tr>
+</table>
+
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="bordered" style="margin-top:4px;">
+  <thead>
+   
+    <tr align="center">
+      <th width="150" height="25" ><strong>เลขที่สัญญา</strong></th>
+      <th width="240" height="25" ><strong>ประกันระหว่าง</strong></th>
+      <th width="240" height="25" ><strong>ชื่อ/ชื่อสกุลนายประกัน</strong></th>
+      <th width="240" height="25" ><strong>ชื่อ/ชื่อสกุลจำเลย</strong></th>
+    </tr>
+    
+  </thead>
+  <tbody *ngIf="items?.length != 0" >
+
+    <tr *ngFor="let datas of items;let i = index;" >
+      <td align="center" (click)="onClickListData(i)">{{datas.guar_title}}{{datas.guar_no}}/{{datas.guar_yy}}</td>
+      <td align="center" (click)="onClickListData(i)">{{datas.guar_title_desc}}</td>
+      <td align="center" (click)="onClickListData(i)">{{datas.guarantor_name}}{{datas.guar_permit}}</td>
+      <td align="center" (click)="onClickListData(i)">{{datas.pname}}</td>
+    </tr>
+    
+   </tbody>
+   <tbody *ngIf="items?.length == 0">
+    <tr ><td colspan="4" style="color:red;text-align: center;" class="no-data-available">###### ไม่พบข้อมูล #######</td></tr>
+  </tbody>
+
+</table>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+	<p style="color: gray">Please Wait. </p>  
+</ngx-spinner> 

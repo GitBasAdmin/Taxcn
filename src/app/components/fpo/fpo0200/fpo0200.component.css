@@ -1,0 +1,13 @@
+.modal-content {
+    padding: 12px !important;
+}
+.fpo0100-class .modal-dialog {
+    max-width:1000px !important;
+}
+.fpo0100-conf .modal-dialog {
+    max-width:650px !important;
+}
+
+.my-class .modal-dialog {
+    max-width:800px !important;
+}
