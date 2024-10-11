@@ -169,7 +169,7 @@ export class Prsn2100Component implements AfterViewInit, OnInit, OnDestroy {
     let promise = new Promise((resolve, reject) => {
       //let apiURL = `${this.apiRoot}?term=${term}&media=music&limit=20`;
       //this.http.get(apiURL)
-      this.http.post('/crimApi/API/authen', authen , {headers:headers})
+      this.http.post('/taxcApi/API/authen', authen , {headers:headers})
         .toPromise()
         .then(
           res => { // Success
@@ -358,7 +358,7 @@ export class Prsn2100Component implements AfterViewInit, OnInit, OnDestroy {
       let headers = new HttpHeaders();
       headers = headers.set('Content-Type','application/json');
       let promise = new Promise((resolve, reject) => {
-      this.http.post('/crimApiUTIL/API/getData', student , {headers:headers}).subscribe(
+      this.http.post('/taxcApiUTIL/API/getData', student , {headers:headers}).subscribe(
         (response) =>{
           let getDataOptions : any = JSON.parse(JSON.stringify(response));
           this.getTitle = getDataOptions;

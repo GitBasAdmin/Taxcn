@@ -87,7 +87,7 @@ export class CaseService {
           "getJudgement" : parem['getJudgement'],
           "userToken" : userData.userToken
         });
-        var apiUrl = '/crimApiCA/API/CASE/dataFromTitle';
+        var apiUrl = '/taxcApiCA/API/CASE/dataFromTitle';
         console.log(student)
       }
     }else if(parem['type']==2){//เลขคดีแดง
@@ -145,7 +145,7 @@ export class CaseService {
           "getJudgement" : parem['getJudgement'],
           "userToken" : userData.userToken
         });
-        var apiUrl = '/crimApiCA/API/CASE/dataFromRedTitle';
+        var apiUrl = '/taxcApiCA/API/CASE/dataFromRedTitle';
         console.log(student)
       }
     }else if(parem['type']==3){
@@ -155,7 +155,7 @@ export class CaseService {
         "getJudgement" : parem['getJudgement'],
         "userToken" : userData.userToken
       });
-      var apiUrl = '/crimApiCA/API/CASE/dataFromRunId';
+      var apiUrl = '/taxcApiCA/API/CASE/dataFromRunId';
       console.log(student)
     }else if(parem['type']==4){
       var student = JSON.stringify({
@@ -169,7 +169,7 @@ export class CaseService {
         "getJudgement" : parem['getJudgement'],
         "userToken" : userData.userToken
       });
-      var apiUrl = '/crimApiCA/API/CASE/dataFromTitle';
+      var apiUrl = '/taxcApiCA/API/CASE/dataFromTitle';
       console.log(student)
     }
 

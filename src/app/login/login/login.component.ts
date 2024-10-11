@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
       'Access-Control-Allow-Origin': '*',
       'Authorization': 'Bearer szdp79a2kz4wh4frjzuqu4sz6qeth8m3',
     });
-    let apiURL = '/crimApi/API/getCourt';
+    let apiURL = '/taxcApi/API/getCourt';
     this.http.post(apiURL,'',{headers:headers}).subscribe(
       (response) =>{
         let res : any = JSON.parse(JSON.stringify(response));
@@ -101,7 +101,7 @@ export class LoginComponent implements OnInit {
       "password" : this.loginFrom.nativeElement["passwd"].value,
     });
     //console.log(student)
-    this.http.post('/crimApi/API/login', student , {headers:headers}).subscribe(
+    this.http.post('/taxcApi/API/login', student , {headers:headers}).subscribe(
         (response) =>{
           //console.log(response)
           let res : any = JSON.parse(JSON.stringify(response));
@@ -166,7 +166,7 @@ export class LoginComponent implements OnInit {
                   });
                 
                 console.log(student)
-                this.http.post('/crimApi/API/getMenu', student ).subscribe(
+                this.http.post('/taxcApi/API/getMenu', student ).subscribe(
                   (response) =>{
                     let res : any = JSON.parse(JSON.stringify(response));
                     localStorage.setItem(this.authService.menuJson, JSON.stringify(res));

@@ -81,7 +81,7 @@ export class SendDocComponent implements OnInit {
       "userToken": this.userData.userToken
     });
     //console.log(student)
-    this.http.post('/crimApiUTIL/API/getData', student).subscribe(
+    this.http.post('/taxcApiUTIL/API/getData', student).subscribe(
       (response) =>{
         let getDataOptions : any = JSON.parse(JSON.stringify(response));
         this.getDepId = getDataOptions;
@@ -96,7 +96,7 @@ export class SendDocComponent implements OnInit {
       "userToken": this.userData.userToken
     });
     //console.log(student)
-    this.http.post('/crimApiUTIL/API/getData', student).subscribe(
+    this.http.post('/taxcApiUTIL/API/getData', student).subscribe(
       (response) =>{
         let getDataOptions : any = JSON.parse(JSON.stringify(response));
         this.getRcvUserId = getDataOptions;
@@ -112,7 +112,7 @@ export class SendDocComponent implements OnInit {
       "field_name": "rea_desc",
       "userToken": this.userData.userToken
     });
-    this.http.post('/crimApiUTIL/API/getData', student).subscribe(
+    this.http.post('/taxcApiUTIL/API/getData', student).subscribe(
       (response) => {
         let getDataOptions: any = JSON.parse(JSON.stringify(response));
         //===================================
@@ -154,7 +154,7 @@ export class SendDocComponent implements OnInit {
         "userToken": this.userData.userToken
       });
       //console.log(student)
-      this.http.post('/crimApiCO/API/CORRESP/fco0300/getDocData', student).subscribe(
+      this.http.post('/taxcApiCO/API/CORRESP/fco0300/getDocData', student).subscribe(
         (response) =>{
           let productsJson : any = JSON.parse(JSON.stringify(response));
           // console.log(productsJson.data[0]);
@@ -264,7 +264,7 @@ export class SendDocComponent implements OnInit {
         "userToken": this.userData.userToken
       });
     }
-    this.http.post('/crimApiUTIL/API/getData', student).subscribe(
+    this.http.post('/taxcApiUTIL/API/getData', student).subscribe(
       (response) => {
         let getDataOptions: any = JSON.parse(JSON.stringify(response));
         // console.log(getDataOptions)
@@ -293,7 +293,7 @@ export class SendDocComponent implements OnInit {
       "userToken": this.userData.userToken
     });
 
-    this.http.post('/crimApiUTIL/API/getData', student).subscribe(
+    this.http.post('/taxcApiUTIL/API/getData', student).subscribe(
       (response) => {
         let getDataOptions : any = JSON.parse(JSON.stringify(response));
         this.getRcvUserId = getDataOptions;

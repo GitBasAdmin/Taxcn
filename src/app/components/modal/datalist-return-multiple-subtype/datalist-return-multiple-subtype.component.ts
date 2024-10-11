@@ -94,7 +94,7 @@ export class DatalistReturnMultipleSubtypeComponent implements AfterViewInit,OnI
       });
 
       console.log(student)
-      this.http.post('/crimApiUTIL/API/popup', student , {headers:headers}).subscribe(
+      this.http.post('/taxcApiUTIL/API/popup', student , {headers:headers}).subscribe(
         datalist => {
           this.items = datalist;
         },
@@ -117,7 +117,7 @@ export class DatalistReturnMultipleSubtypeComponent implements AfterViewInit,OnI
         "condition":this.value7
       });
       console.log(student)
-      this.http.post('/crimApiUTIL/API/popup', student , {headers:headers}).subscribe(
+      this.http.post('/taxcApiUTIL/API/popup', student , {headers:headers}).subscribe(
         datalist => {
           this.items = datalist;
           console.log(datalist)

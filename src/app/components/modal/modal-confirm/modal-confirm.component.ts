@@ -62,7 +62,7 @@ export class ModalConfirmComponent implements OnInit {
     if(this.types==1){
       //console.log(this.modalForm)
       let dataUser = this.getDataUser()
-      this.http.post('/crimApi/API/checkPassword', {
+      this.http.post('/taxcApi/API/checkPassword', {
         user_running : dataUser.userRunning,
         password : this.result.password,
         log_remark : this.result.log_remark,

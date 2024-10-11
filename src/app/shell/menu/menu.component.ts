@@ -143,7 +143,7 @@ export class MenuComponent implements AfterViewInit, AfterContentInit, OnInit {
       //location.href=window.location.protocol + "//" + window.location.host+'/'+path+'/#/program';
       //}else if(url=="main"){
       //this.router.navigate(['/main']);
-      //location.href=window.location.protocol + "//" + window.location.host+'/crimF/#/main';
+      //location.href=window.location.protocol + "//" + window.location.host+'/taxcF/#/main';
     } else {
       //console.log(window.location.protocol + "//" + window.location.host+'/'+path+'/#/'+url)
       //location.href=window.location.host+'/#/'+path+'/'+url;

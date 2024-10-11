@@ -660,7 +660,7 @@ export class Fca0200HeadComponent implements AfterViewInit, OnInit, OnDestroy {
           "url_name": 'fca0200',
           "userToken": this.userData.userToken
         });
-        var apiUrl = '/crimApiCA/API/CASE/dataFromTitle';
+        var apiUrl = '/taxcApiCA/API/CASE/dataFromTitle';
         console.log(student)
       }
     } else if (type == 2) {//เลขคดีแดง
@@ -712,7 +712,7 @@ export class Fca0200HeadComponent implements AfterViewInit, OnInit, OnDestroy {
           "url_name": 'fca0200',
           "userToken": this.userData.userToken
         });
-        var apiUrl = '/crimApiCA/API/CASE/dataFromRedTitle';
+        var apiUrl = '/taxcApiCA/API/CASE/dataFromRedTitle';
         console.log(student)
       }
     } else {
@@ -722,7 +722,7 @@ export class Fca0200HeadComponent implements AfterViewInit, OnInit, OnDestroy {
         "url_name": 'fca0200',
         "userToken": this.userData.userToken
       });
-      var apiUrl = '/crimApiCA/API/CASE/dataFromRunId';
+      var apiUrl = '/taxcApiCA/API/CASE/dataFromRunId';
       console.log(student)
     }
 

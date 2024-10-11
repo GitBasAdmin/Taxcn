@@ -92,7 +92,7 @@ export class DatalistReturnMultipleDepComponent implements AfterViewInit,OnInit 
       });
 
       console.log(student)
-      this.http.post('/crimApiUTIL/API/popup', student , {headers:headers}).subscribe(
+      this.http.post('/taxcApiUTIL/API/popup', student , {headers:headers}).subscribe(
         datalist => {
           this.items = datalist;
         },
@@ -115,7 +115,7 @@ export class DatalistReturnMultipleDepComponent implements AfterViewInit,OnInit 
         "condition":this.value7
       });
       console.log(student)
-      this.http.post('/crimApiUTIL/API/popup', student , {headers:headers}).subscribe(
+      this.http.post('/taxcApiUTIL/API/popup', student , {headers:headers}).subscribe(
         datalist => {
           this.items = datalist;
           console.log(datalist)

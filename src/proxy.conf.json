@@ -1,20 +1,20 @@
 {
-  "/crimApiUTIL/*": {
+  "/taxcApiUTIL/*": {
     "target": "http://bizascorp.thddns.net:8853",
     "secure": false,
     "logLevel": "debug"
   },
-  "/crimApiCT/*": {
+  "/taxcApiCT/*": {
     "target": "http://bizascorp.thddns.net:8853",
     "secure": false,
     "logLevel": "debug"
   },
-  "/crimApiCA/*": {
+  "/taxcApiCA/*": {
     "target": "http://bizascorp.thddns.net:8853",
     "secure": false,
     "logLevel": "debug"
   },
-  "/crimApi/*": {
+  "/taxcApi/*": {
     "target": "http://bizascorp.thddns.net:8853",
     "secure": false,
     "logLevel": "debug"

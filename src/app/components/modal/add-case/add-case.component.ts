@@ -60,7 +60,7 @@ export class AddCaseComponent implements OnInit {
       "userToken" : this.userData.userToken
     });
     //console.log(student)
-    this.http.post('/crimApiUTIL/API/getData', student).subscribe(
+    this.http.post('/taxcApiUTIL/API/getData', student).subscribe(
       (response) =>{
         let getDataOptions : any = JSON.parse(JSON.stringify(response));
         this.getCaseType = getDataOptions;
@@ -88,7 +88,7 @@ export class AddCaseComponent implements OnInit {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type','application/json');
     let promise = new Promise((resolve, reject) => {
-      this.http.post('/crimApiUTIL/API/getData', student , {headers:headers}).subscribe(
+      this.http.post('/taxcApiUTIL/API/getData', student , {headers:headers}).subscribe(
         (response) =>{
           let getDataOptions : any = JSON.parse(JSON.stringify(response));
           if(index == ''){
@@ -113,7 +113,7 @@ export class AddCaseComponent implements OnInit {
         "userToken" : this.userData.userToken
       });
   
-      this.http.post('/crimApiUTIL/API/getData', student2 , {headers:headers}).subscribe(
+      this.http.post('/taxcApiUTIL/API/getData', student2 , {headers:headers}).subscribe(
         (response) =>{
           let getDataOptions : any = JSON.parse(JSON.stringify(response));
           if(index == ''){
@@ -149,7 +149,7 @@ export class AddCaseComponent implements OnInit {
           "onlyCase" : 1,
           "userToken" : this.userData.userToken
         });
-      this.http.post('/crimApiCA/API/CASE/dataFromTitle', student1).subscribe(
+      this.http.post('/taxcApiCA/API/CASE/dataFromTitle', student1).subscribe(
         (response) =>{
           let getDataOptions : any = JSON.parse(JSON.stringify(response));
           console.log("เลขคดีดำ", getDataOptions)
@@ -199,7 +199,7 @@ export class AddCaseComponent implements OnInit {
           "onlyCase" : 1,
           "userToken" : this.userData.userToken
         });
-      this.http.post('/crimApiCA/API/CASE/dataFromRedTitle', student2).subscribe(
+      this.http.post('/taxcApiCA/API/CASE/dataFromRedTitle', student2).subscribe(
         (response) =>{
           let getDataOptions : any = JSON.parse(JSON.stringify(response));
           console.log("เลขคดีแดง",getDataOptions)

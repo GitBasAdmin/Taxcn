@@ -110,7 +110,7 @@ public loadModalListComponent: boolean = false;
       "order_by" : "case_type ASC",
       "userToken" : this.userData.userToken
     });
-    this.http.post('/crimApiUTIL/API/getData', student , {headers:headers}).subscribe(
+    this.http.post('/taxcApiUTIL/API/getData', student , {headers:headers}).subscribe(
       (response) =>{
         let getDataOptions : any = JSON.parse(JSON.stringify(response));
         this.getCaseType = getDataOptions;
@@ -466,7 +466,7 @@ public loadModalListComponent: boolean = false;
     let promise = new Promise((resolve, reject) => {
       //let apiURL = `${this.apiRoot}?term=${term}&media=music&limit=20`;
       //this.http.get(apiURL)
-      this.http.post('/crimApi/API/authen', authen , {headers:headers})
+      this.http.post('/taxcApi/API/authen', authen , {headers:headers})
         .toPromise()
         .then(
           res => { // Success

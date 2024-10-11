@@ -50,7 +50,7 @@ export class PopupCourtRemarkComponent implements OnInit {
         "userToken" : this.userData.userToken
       });
       // console.log("PopupCourtRemarkstudent=>", student);
-      this.http.post('/crimApiUTIL/API/getData', student).subscribe(
+      this.http.post('/taxcApiUTIL/API/getData', student).subscribe(
         (response) =>{
           let getDataOptions : any = JSON.parse(JSON.stringify(response));
           this.getCourt = getDataOptions;
