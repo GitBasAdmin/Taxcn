@@ -20,7 +20,7 @@
                 <td height="25" width="120" height="34" align="right" >คดีฝากขังที่ :&nbsp;</td>
                 <td >
                     <div style="float:left;">
-                        <ng-select [(ngModel)]="dataHead.ptitle" id="ptitle" [clearable]="false" style="width:100px;" [ngModelOptions]="{standalone: true}" (change)="runCaseNo()"   #pTitle>
+                        <ng-select [(ngModel)]="dataHead.ptitle" id="ptitle" [clearable]="false" style="width:100px;" [ngModelOptions]="{standalone: true}" (change)="runCaseNo();getPostDay();"   #pTitle>
                             <ng-option *ngFor="let getData of getTitle" [value]=getData.fieldIdValue>{{getData.fieldIdValue}}</ng-option>
                          </ng-select>
                     </div>
@@ -190,7 +190,7 @@
                     <div style="float:left;margin-left:3px;margin-top:3px;"><i class="fa fa-calendar" style="font-size: 16px;" onClick="$('.case_date').focus();"></i></div>
                     <div style="float:left;margin-left:5px;margin-top:4px;">ฝากขังได้ :&nbsp;</div>
                     <div style="float:left;margin-left:3px;">
-                        <input type="text" [(ngModel)]="dataHead.post_day" class="form-control" style="width:45px;"  (click)="getPostDay()">
+                        <input type="text" [(ngModel)]="dataHead.post_day" class="form-control" style="width:45px;" >
                     </div>
                     <div style="float:left;margin-left:5px;margin-top:4px;">วัน &nbsp;&nbsp;&nbsp;ฝากขังแล้ว :&nbsp;</div>
                     <div style="float:left;margin-left:3px;">

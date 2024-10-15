@@ -294,6 +294,7 @@ export class CasepHeadComponent implements AfterViewInit, OnInit, OnDestroy, Aft
             if (!this.dataHead.pyy)
               this.dataHead.pyy = myExtObject.curYear();
             this.runCaseNo();
+            this.getPostDay();
           }
 
         },
