@@ -252,6 +252,26 @@ export class CasepHeadComponent implements AfterViewInit, OnInit, OnDestroy, Aft
     this.sendCaseData.emit(this.dataHead); */
   }
 
+  getPostDay(){
+    var student = JSON.stringify({
+      "table_name": "ptitle",
+      "field_id": "title",
+      "field_name": "max_imprison_days",
+      "condition": " AND special_case>0 AND title='"+this.dataHead.ptitle+"' ",
+      "userToken": this.userData.userToken
+    });
+    this.http.post('/' + this.userData.appName + 'ApiUTIL/API/getData', student).subscribe({
+      complete: () => { }, // completeHandler
+      error: (e) => { console.error(e) },    // errorHandler 
+      next: (v) => { 
+        let getDataOptions: any = JSON.parse(JSON.stringify(v));
+        console.log(getDataOptions)
+        this.dataHead.post_day = getDataOptions[0].fieldNameValue;
+
+      },     // nextHandler
+    });
+  }
+
   fCaseTitle() {
     //========================== ptitle ====================================
     var student = JSON.stringify({
