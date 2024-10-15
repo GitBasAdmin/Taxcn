@@ -116,7 +116,11 @@ export class Fpo0100Component implements AfterViewInit,AfterContentInit, OnInit,
         this.runId = {'run_id' : params['run_id'],'counter' : Math.ceil(Math.random()*10000)}
       }
     }); */
-
+    this.activatedRoute.queryParams.subscribe(params => {
+      if(params['run_id']){
+        this.runId = params['run_id'];
+      }
+    });
     //======================== passign_stat_condition ======================================
     var student = JSON.stringify({
       "table_name" : "passign_stat_condition",
@@ -206,37 +210,37 @@ export class Fpo0100Component implements AfterViewInit,AfterContentInit, OnInit,
     return of(value).pipe(delay(3000));
   }*/
 
-  successHttp() {
-    let headers = new HttpHeaders();
-    headers = headers.set('Content-Type','application/json');
-    var authen = JSON.stringify({
-      "userToken" : this.userData.userToken,
-      "url_name" : "fpo0100"
-    });
-    let promise = new Promise((resolve, reject) => {
-      //let apiURL = `${this.apiRoot}?term=${term}&media=music&limit=20`;
-      //this.http.get(apiURL)
-      this.http.post('/'+this.userData.appName+'Api/API/authen', authen , {headers:headers})
-        .toPromise()
-        .then(
-          res => { // Success
-          //this.results = res.json().results;
-          let getDataAuthen : any = JSON.parse(JSON.stringify(res));
-          console.log(getDataAuthen)
-          this.programName = getDataAuthen.programName;
-          this.defaultCaseType = getDataAuthen.defaultCaseType;
-          this.defaultCaseTypeText = getDataAuthen.defaultCaseTypeText;
-          this.defaultTitle = getDataAuthen.defaultTitle;
-          this.defaultRedTitle = getDataAuthen.defaultRedTitle;
-            resolve(res);
-          },
-          msg => { // Error
-            reject(msg);
-          }
-        );
-    });
-    return promise;
-  } 
+  // successHttp() {
+  //   let headers = new HttpHeaders();
+  //   headers = headers.set('Content-Type','application/json');
+  //   var authen = JSON.stringify({
+  //     "userToken" : this.userData.userToken,
+  //     "url_name" : "fpo0100"
+  //   });
+  //   let promise = new Promise((resolve, reject) => {
+  //     //let apiURL = `${this.apiRoot}?term=${term}&media=music&limit=20`;
+  //     //this.http.get(apiURL)
+  //     this.http.post('/'+this.userData.appName+'Api/API/authen', authen , {headers:headers})
+  //       .toPromise()
+  //       .then(
+  //         res => { // Success
+  //         //this.results = res.json().results;
+  //         let getDataAuthen : any = JSON.parse(JSON.stringify(res));
+  //         console.log(getDataAuthen)
+  //         this.programName = getDataAuthen.programName;
+  //         this.defaultCaseType = getDataAuthen.defaultCaseType;
+  //         this.defaultCaseTypeText = getDataAuthen.defaultCaseTypeText;
+  //         this.defaultTitle = getDataAuthen.defaultTitle;
+  //         this.defaultRedTitle = getDataAuthen.defaultRedTitle;
+  //           resolve(res);
+  //         },
+  //         msg => { // Error
+  //           reject(msg);
+  //         }
+  //       );
+  //   });
+  //   return promise;
+  // } 
 
   rerender(): void {
       this.dtElements.forEach((dtElement: DataTableDirective) => {
