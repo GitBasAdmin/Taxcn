@@ -10,7 +10,7 @@ import { ModalModule } from '../modal/modal.module'; // นำเข้า modal
 
 import { CaseHeaderComponent } from './case-header/case-header.component';
 import { CaseHeadComponent } from './case-head/case-head.component';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,8 @@ import { CaseHeadComponent } from './case-head/case-head.component';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,MatAutocompleteModule,MatTabsModule,
-    ModalModule
+    ModalModule,
+    MatTooltipModule
   ],
   exports: [
     CaseHeaderComponent,

@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ShellComponent } from './shell.component';
 import { SharedModule } from '@app/@shared/shared.module';
 import { MenuComponent } from '@app/shell/menu/menu.component';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -16,6 +16,7 @@ import { MenuComponent } from '@app/shell/menu/menu.component';
     CommonModule,
     RouterModule,
     SharedModule,
+    MatTooltipModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

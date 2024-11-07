@@ -8,6 +8,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 import { ModalModule } from '../modal/modal.module'; // นำเข้า modal
 import { CaseModule } from '../case/case.module'; // 
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { Fca0130Component } from './fca0130/fca0130.component';
 import { Fca0150Component } from './fca0150/fca0150.component';
@@ -77,7 +78,8 @@ import { Prca2400Component } from './prca2400/prca2400.component';
     ReactiveFormsModule,
     SharedModule,MatAutocompleteModule,MatTabsModule,
     ModalModule,
-    CaseModule
+    CaseModule,
+    MatTooltipModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [Fca0200Component,Fca0200Tab1Component,Fca0200MainComponent,Fca0200HeadComponent],

@@ -60,8 +60,36 @@ export class ModalConfirmComponent implements OnInit {
 
   ChildTestCmp(){
     if(this.types==1){
-      //console.log(this.modalForm)
-      let dataUser = this.getDataUser()
+      const confirmBox = new ConfirmBoxInitializer();
+      confirmBox.setTitle('ข้อความแจ้งเตือน');
+  
+      if(!this.result.password){
+        confirmBox.setMessage('กรุณาป้อนรหัสผ่าน');
+        confirmBox.setButtonLabels('ตกลง');
+        confirmBox.setConfig({
+            layoutType: DialogLayoutDisplay.WARNING // SUCCESS | INFO | NONE | DANGER | WARNING
+        });
+        const subscription = confirmBox.openConfirmBox$().subscribe(resp => {
+          if (resp.success==true){
+            //this.SpinnerService.hide();
+          }
+          subscription.unsubscribe();
+        });
+        
+      }else if(!this.result.log_remark){
+        confirmBox.setMessage('กรุณาป้อนเหตุผล');
+        confirmBox.setButtonLabels('ตกลง');
+        confirmBox.setConfig({
+            layoutType: DialogLayoutDisplay.WARNING // SUCCESS | INFO | NONE | DANGER | WARNING
+        });
+        const subscription = confirmBox.openConfirmBox$().subscribe(resp => {
+          if (resp.success==true){
+            //this.SpinnerService.hide();
+          }
+          subscription.unsubscribe();
+        });
+      }else{
+        let dataUser = this.getDataUser()
       this.http.post('/taxcApi/API/checkPassword', {
         user_running : dataUser.userRunning,
         password : this.result.password,
@@ -84,6 +112,7 @@ export class ModalConfirmComponent implements OnInit {
             });
           }
         })
+      }
     }else{
       var student = JSON.stringify({
         "password" : this.result.password,//this.modalForm.nativeElement["password"].value,
