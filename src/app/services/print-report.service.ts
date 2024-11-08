@@ -21,7 +21,8 @@ export class PrintReportService {
     if (winHost == 'http://localhost:4200') {
         var winURL= 'http://bizascorp.thddns.net:8853/'+jObj.appName+'RPT/' + rptName+'.jsp';
     }else{
-        var winURL= `${winHost}/${jObj.appName}RPT/${rptName}.jsp`;
+      var winURL= `${winHost}/rpt/${rptName}.jsp`;
+        //var winURL= `${winHost}/${jObj.appName}RPT/${rptName}.jsp`;
     }
  
     // var windowoption='resizable=yes,height=600,width=800,location=0,menubar=0,scrollbars=1';
