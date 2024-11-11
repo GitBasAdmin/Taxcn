@@ -306,6 +306,11 @@
 </ng-template>
  -->
 <form [formGroup]="formInfomation">
+  <div style="box-shadow: none !important;margin-top:20px;">
+    <div class="card card-info" style="box-shadow: none !important;border:0px !important;">
+      <app-case-header  *ngIf="programName" [runId]="this.run_id"></app-case-header>			
+    </div>
+  </div>
   <div class="card card-info" style="box-shadow: none !important;margin-top:-4px;border:0px;">
     <app-case-head *ngIf="defaultCaseType" (sendCaseData)="onSearch($event)" [runId]="run_id"></app-case-head >
   </div>

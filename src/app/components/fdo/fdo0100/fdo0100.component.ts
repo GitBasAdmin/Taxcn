@@ -16,6 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class Fdo0100Component implements OnInit {
   defaultCaseType:any;
+  programName:any;
   widthSet:any;
   dtOptions2: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -39,6 +40,7 @@ export class Fdo0100Component implements OnInit {
       this._fdo.getAuthen({"url_name" : "fca0200"})
       .subscribe((responose: any) => {
         this.defaultCaseType = responose.defaultCaseType;
+        this.programName = responose.programName;
       })
     }
     this.route.queryParams.subscribe((item: any) => {

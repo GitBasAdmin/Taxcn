@@ -36,6 +36,7 @@ export class Fdo0200Component implements OnInit, AfterViewInit {
   @ViewChildren(DataTableDirective) dtElements: QueryList<DataTableDirective>;
   myExtObject: any;
   public defaultCaseType:any;
+  programName:any;
   public dtOptions2: DataTables.Settings = {
     pagingType: 'full_numbers',
     pageLength: 99999,
@@ -160,6 +161,7 @@ export class Fdo0200Component implements OnInit, AfterViewInit {
       this._fdo.getAuthen({"url_name" : "fca0200"})
       .subscribe((responose: any) => {
         this.defaultCaseType = responose.defaultCaseType;
+        this.programName = responose.programName;
         this.route.queryParams.subscribe((item) => {
           if(item.run_id) {
             this.run_id = item.run_id
