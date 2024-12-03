@@ -604,7 +604,9 @@ export class Fst0110Component implements AfterViewInit, OnInit, OnDestroy {
             if(this.edit_case_type_stat &&! this.result.case_type_stat && type==""){              
               this.result.case_type_stat = this.edit_case_type_stat;
             }else if(type == 2){
-              this.result.case_type_stat = this.userData.defaultCaseType;
+              // this.result.case_type_stat = this.userData.defaultCaseType;
+              if(this.getCaseTypeStat.length)
+                this.result.case_type_stat = this.getCaseTypeStat[0].fieldIdValue;
             } 
           }, 100);
         },
