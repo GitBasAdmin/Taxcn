@@ -30,6 +30,7 @@ import { Fst1400Tab4Component } from './fst1400-tab4/fst1400-tab4.component';
 import { Fst1410Component } from './fst1410/fst1410.component';
 import { Fst2410Component } from './fst2410/fst2410.component';
 import { Fst2420Component } from './fst2420/fst2420.component';
+import { Fst2421Component } from './fst2421/fst2421.component';
 import { Fst1430Component } from './fst1430/fst1430.component';
 import { Fst2430Component } from './fst2430/fst2430.component';
 import { Fst2500Component } from './fst2500/fst2500.component';
@@ -61,6 +62,7 @@ import { Fst0310Component } from './fst0310/fst0310.component';
     Fst1410Component,
     Fst2410Component,
     Fst2420Component,
+    Fst2421Component,
     Fst1430Component,
     Fst2430Component,
     Fst2500Component,
