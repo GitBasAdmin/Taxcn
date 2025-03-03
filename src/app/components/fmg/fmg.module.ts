@@ -9,6 +9,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ModalModule } from '../modal/modal.module'; // นำเข้า modal
 import { CaseModule } from '../case/case.module'; // นำเข้า ข้อมูลเลขคดี
 
+import * as CanvasJSAngularChart from 'src/assets/javascripts/canvasjs.angular.component';
+var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart;
+
 import { Fmg0300Component } from './fmg0300/fmg0300.component';
 import { Fmg0200Component } from './fmg0200/fmg0200.component';
 import { Fmg0100Component } from './fmg0100/fmg0100.component';
@@ -28,9 +31,9 @@ import { Fmg1204Component } from './fmg1204/fmg1204.component';
 import { Fmg2301Component } from './fmg2301/fmg2301.component';
 
 
-
 @NgModule({
   declarations: [
+    CanvasJSChart,
     Fmg0300Component,
     Fmg0200Component,
     Fmg0100Component,

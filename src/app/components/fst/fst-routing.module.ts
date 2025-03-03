@@ -12,6 +12,7 @@ import { Fst1400Component } from './fst1400/fst1400.component';
 import { Fst1410Component } from './fst1410/fst1410.component';
 import { Fst2410Component } from './fst2410/fst2410.component';
 import { Fst2420Component } from './fst2420/fst2420.component';
+import { Fst2421Component } from './fst2421/fst2421.component';
 import { Fst1430Component } from './fst1430/fst1430.component';
 import { Fst2430Component } from './fst2430/fst2430.component';
 import { Fst2500Component } from './fst2500/fst2500.component';
@@ -42,6 +43,7 @@ const routes: Routes = [
     { path: 'fst1410', component: Fst1410Component ,canActivate: [AuthGuardService]},
     { path: 'fst2410', component: Fst2410Component ,canActivate: [AuthGuardService]},
     { path: 'fst2420', component: Fst2420Component ,canActivate: [AuthGuardService]},
+    { path: 'fst2421', component: Fst2421Component ,canActivate: [AuthGuardService]},
     { path: 'fst1430', component: Fst1430Component ,canActivate: [AuthGuardService]},
     { path: 'fst2430', component: Fst2430Component ,canActivate: [AuthGuardService]},
     { path: 'fst2500', component: Fst2500Component ,canActivate: [AuthGuardService]},

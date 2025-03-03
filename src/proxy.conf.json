@@ -1,21 +1,21 @@
 {
   "/taxcApiUTIL/*": {
-    "target": "http://bizascorp.thddns.net:8853",
+    "target": "http://bizascorp.thddns.net:8848",
     "secure": false,
     "logLevel": "debug"
   },
   "/taxcApiCT/*": {
-    "target": "http://bizascorp.thddns.net:8853",
+    "target": "http://bizascorp.thddns.net:8848",
     "secure": false,
     "logLevel": "debug"
   },
   "/taxcApiCA/*": {
-    "target": "http://bizascorp.thddns.net:8853",
+    "target": "http://bizascorp.thddns.net:8848",
     "secure": false,
     "logLevel": "debug"
   },
   "/taxcApi/*": {
-    "target": "http://bizascorp.thddns.net:8853",
+    "target": "http://bizascorp.thddns.net:8848",
     "secure": false,
     "logLevel": "debug"
   }

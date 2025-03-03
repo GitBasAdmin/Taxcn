@@ -19,7 +19,7 @@ export class PrintReportService {
     var winHost = `${window.location.protocol}//${window.location.host}`;
     var winName='MyWindow';
     if (winHost == 'http://localhost:4200') {
-        var winURL= 'http://bizascorp.thddns.net:8853/'+jObj.appName+'RPT/' + rptName+'.jsp';
+        var winURL= 'http://bizascorp.thddns.net:8848/'+jObj.appName+'RPT/' + rptName+'.jsp';
     }else{
       var winURL= `${winHost}/rpt/${rptName}.jsp`;
         //var winURL= `${winHost}/${jObj.appName}RPT/${rptName}.jsp`;
