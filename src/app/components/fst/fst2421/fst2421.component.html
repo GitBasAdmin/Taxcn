@@ -103,7 +103,7 @@
 										<tr *ngFor="let post1 of posts.data;let i = index;">
 											<td align="center">{{post1.court_part_name}}</td>
 											<td align="center" *ngFor="let post of post1.stat_data;let j = index;">
-												<input  type="text" [(ngModel)]="post.case_new2" (change)="changeData($event,i,j)" triggers="click" [autoClose]="'outside'" ngbTooltip={{post.case_new2_txt}}  title={{post.case_new2_txt}} class="form-control" style="width:70px;height:28px;text-align: center;">
+												<input  type="text" [(ngModel)]="post.case_new2" (change)="changeData($event,i,j)" triggers="click" [autoClose]="'outside'" ngbTooltip={{post.case_new2_txt}}  title={{post.case_new2_txt}} (dblclick)="showCaseAll(post.case_new2_txt)" class="form-control" style="width:70px;height:28px;text-align: center;">
 											</td>
 										</tr>
 										<tr >

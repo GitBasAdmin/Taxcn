@@ -15,6 +15,8 @@ import * as $ from 'jquery';
 declare var myExtObject: any;
 import { ModalConfirmComponent } from '../../modal/modal-confirm/modal-confirm.component';
 import { PrintReportService } from 'src/app/services/print-report.service';
+import { PopupStatComponent } from '@app/components/modal/popup-stat/popup-stat.component';
+import { NgbModal, NgbModalRef   } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-fst2421,ngbd-popover-basic,ngbd-popover-tplcontent',
@@ -79,7 +81,8 @@ export class Fst2421Component implements AfterViewInit, OnInit, OnDestroy {
     private SpinnerService: NgxSpinnerService,
     private authService: AuthService,
     private printReportService: PrintReportService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private ngbModal: NgbModal
   ){
     this.masterSelected = false
     // this.masterSelected2 = false
@@ -540,6 +543,7 @@ export class Fst2421Component implements AfterViewInit, OnInit, OnDestroy {
               if (resp.success==true){
                 this.result.stat_mon = alertMessage.stat_mon;
                 this.result.stat_year = alertMessage.stat_year;
+                this.searchData();
               }
               subscription.unsubscribe();
             });
@@ -810,4 +814,11 @@ export class Fst2421Component implements AfterViewInit, OnInit, OnDestroy {
       });
     }
   }
+
+  showCaseAll(item:any){
+      if(item){
+        const modalRef: NgbModalRef = this.ngbModal.open(PopupStatComponent,{ windowClass: 'my-class'})
+        modalRef.componentInstance.items = item
+      }
+    }
 }
